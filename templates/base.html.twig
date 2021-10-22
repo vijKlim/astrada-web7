@@ -5,10 +5,24 @@
     {{ sonata_seo_link_canonical() }}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#000000" />
-    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" href="/img/favicon.png">
     {{ sonata_seo_metadatas() }}
+
+    <!-- Google fonts - Playfair Display-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700">
+    <!-- Google fonts - Poppins-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,400i,700">
+    <!-- swiper-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.min.css">
+
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
     {{ encore_entry_link_tags('frontend-common') }}
-    {{ encore_entry_link_tags('widgets') }}
+
     {% if app.user %}
         {{ encore_entry_link_tags('notifications') }}
     {% endif %}
@@ -48,8 +62,9 @@
 <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 
+
 {{ encore_entry_script_tags('frontend-common') }}
-{{ encore_entry_script_tags('widgets') }}
+
 
 {#<script src="{{ asset('bundles/tetranzselect2entity/js/select2entity.js') }}"></script>#}
 {% if app.user %}
@@ -73,5 +88,7 @@
 {% endif %}
 
 {% include "_partials/analytics.html.twig" %}
+
+{{ encore_entry_script_tags('frontend-search-address') }}
 </body>
 </html>

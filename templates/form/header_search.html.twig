@@ -1,50 +1,16 @@
-
-
-<!-- header-search_container -->
-<div class="header-search_container header-search vis-search" data-search="address"
+<div data-search="address"
      data-addresses="{{ addresses_normalized|json_encode()|e('html') }}"
      data-tracking-category="Homepage"
      data-restaurants="{{ astrada_businesses_suggestions()|json_encode()|e('html') }}">
-    <div class="container small-container">
-        <div class="header-search-input-wrap fl-wrap">
+    <span data-element>
+        <!-- This will be replaced by React -->
+        <input class="autocomplete-input form-control form-control-sm border-0 shadow-0 bg-gray-200" id="search_search" placeholder="Search" aria-label="Search">
+    </span>
+    {{ form_start(form, {'attr': {'class': 'form-inline d-none d-sm-flex', 'id':'search','data-form':null}}) }}
 
-            <!-- header-search-input -->
-            <div class="header-search-input">
-                <label><i class="fal fa-keyboard"></i></label>
-                <input type="text" placeholder="What are you looking for ?"   value=""/>
-            </div>
-            <!-- header-search-input end -->
-            <!-- header-search-input -->
-            <div class="header-search-input location autocomplete-container" data-element>
-                <label><i class="fal fa-map-marker"></i></label>
-                <!-- This will be replaced by React -->
-                <div class="form-group">
-                    <input class="form-control autocomplete-input" />
-                </div>
-            </div>
-            {{ form_start(form, {'attr': {'class': 'form-category','data-form':null}}) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form.geohash) }}
 
-            {{ form_errors(form) }}
-            {{ form_widget(form.geohash) }}
-            <!-- header-search-input end -->
-            <!-- header-search-input -->
-            <div class="header-search-input header-search_selectinpt ">
-                {#                {{ form_widget(form.categories, {#}
-                {#                    'id': 'location_header',#}
-                {#                    'attr': {#}
-                {#                        'data-placeholder': 'All Categories',#}
-                {#                        'class': 'chosen-select no-radius'#}
-                {#                    }#}
-                {#                }) }}#}
-            </div>
-            <!-- header-search-input end -->
-            <button class="header-search-button green-bg" type="submit" value="{{ 'listing.search'|trans }}"><i class="far fa-search"></i> Search </button>
-
-            {{ form_end(form) }}
-
-        </div>
-        <div class="header-search_close color-bg"><i class="fal fa-long-arrow-up"></i></div>
-    </div>
+    {{ form_end(form) }}
 </div>
-<!-- header-search_container  end -->
 

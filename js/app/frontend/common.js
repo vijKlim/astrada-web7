@@ -17,12 +17,49 @@ import 'bootstrap';
 import '../i18n'
 import { setTimezone, getCurrencySymbol } from '../i18n'
 
-import AddressAutosuggest from '../widgets/AddressAutosuggest'
+import AddressAutosuggest from './components/AddressAutosuggest'
 
 import 'select2';
 
+function initTheme()
+{
+    // ------------------------------------------------------- //
+    // Adding fade effect to dropdowns
+    // ------------------------------------------------------ //
+
+    $.fn.slideDropdownUp = function () {
+        $(this).fadeIn().css('transform', 'translateY(0)');
+        return this;
+    };
+    $.fn.slideDropdownDown = function (movementAnimation) {
+
+        if (movementAnimation) {
+            $(this).fadeOut().css('transform', 'translateY(30px)');
+        } else {
+            $(this).hide().css('transform', 'translateY(30px)');
+        }
+        return this;
+    };
+
+    $('.navbar .dropdown').on('show.bs.dropdown', function (e) {
+        $(this).find('.dropdown-menu').first().slideDropdownUp();
+    });
+    $('.navbar .dropdown').on('hide.bs.dropdown', function (e) {
+
+        var movementAnimation = true;
+
+        // if on mobile or navigation to another page
+        if ($(window).width() < 992 || (e.clickEvent && e.clickEvent.target.tagName.toLowerCase() === 'a')) {
+            movementAnimation = false;
+        }
+
+        $(this).find('.dropdown-menu').first().slideDropdownDown(movementAnimation);
+    });
+}
 
 document.addEventListener('DOMContentLoaded', function() {
+
+    initTheme();
 
     // Set global timezone used in Moment.js
     const timezone = document.querySelector('body').dataset.timezone

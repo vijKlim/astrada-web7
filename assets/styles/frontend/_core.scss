@@ -4,13 +4,17 @@
  * Copyright 2020, Bootstrapious - https://bootstrapious.com
  */
 
-@import '~bootstrap/scss/bootstrap';
+// functions.scss - Bootstrap functions
+@import "bootstrap/functions";
 
-// your variables + overrides of Bootstrap variables 
-@import "user/user-variables"; 
+// your variables + overrides of Bootstrap variables
+@import "user/user-variables";
 
 // custom variables + overrides of Bootstrap variables for this theme
 @import "custom/variables";
+
+// bootstrap main
+@import "bootstrap/bootstrap";
 
 // 3rd party plugin variables
 @import "custom/variables-3rd-party.scss";
