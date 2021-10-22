@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd" xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+  <entity name="App\Entity\LocalBusiness" table="business" repository-class="App\Entity\LocalBusinessRepository">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <indexes>
+      <index name="business_enabled_index" columns="id,enabled"/>
+      <index columns="type"/>
+    </indexes>
+    <field name="type" type="string" column="type"/>
+    <field name="name" type="string" column="name" nullable="true"/>
+    <field name="description" type="text" column="description" nullable="true"/>
+    <field name="enabled" type="boolean" column="enabled" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+      <field name="imageName" type="string" column="image_name" length="255" nullable="true"/>
+    <field name="website" type="string" column="website" nullable="true"/>
+    <field name="telephone" type="phone_number" column="telephone" nullable="true"/>
+    <field name="createdAt" type="datetime" column="created_at">
+      <gedmo:timestampable on="create"/>
+    </field>
+    <field name="updatedAt" type="datetime" column="updated_at">
+      <gedmo:timestampable on="update"/>
+    </field>
+    <field name="legalName" type="string" column="legal_name" nullable="true"/>
+      <field name="transportationPerimeterExpression" type="string" column="transportation_perimeter_expression" nullable="false">
+          <options>
+              <option name="default">distance &lt; 300</option>
+          </options>
+      </field>
+    <field name="vatID" type="string" column="vat_id" nullable="true"/>
+    <field name="additionalProperties" type="json_array" column="additional_properties" nullable="true"/>
+    <field name="state" type="string" column="state"/>
+      <field name="featured" type="boolean" column="featured"/>
+    <field name="deletedAt" type="datetime" column="deleted_at" nullable="true"/>
+    <field name="quotesAllowed" type="boolean" column="quotes_allowed">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <gedmo:soft-deleteable field-name="deletedAt" time-aware="false" hard-delete="false" />
+      <many-to-many field="fulfillmentMethods" target-entity="App\Entity\LocalBusiness\FulfillmentMethod">
+          <join-table name="business_fulfillment_methods">
+              <join-columns>
+                  <join-column name="business_id" referenced-column-name="id" />
+              </join-columns>
+              <inverse-join-columns>
+                  <join-column name="method_id" referenced-column-name="id" unique="true" />
+              </inverse-join-columns>
+          </join-table>
+          <cascade>
+              <cascade-all/>
+          </cascade>
+      </many-to-many>
+    <many-to-many field="closingRules" target-entity="App\Entity\ClosingRule">
+      <join-table name="business_closing_rule">
+        <join-columns>
+          <join-column name="business_id" referenced-column-name="id" />
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="rule_id" referenced-column-name="id" unique="true" />
+        </inverse-join-columns>
+      </join-table>
+      <cascade>
+        <cascade-all/>
+      </cascade>
+    </many-to-many>
+    <many-to-one field="address" target-entity="App\Entity\Address" fetch="EAGER">
+      <cascade>
+        <cascade-all/>
+      </cascade>
+      <join-columns>
+        <join-column name="address_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="businessAddress" target-entity="App\Entity\Address">
+      <cascade>
+        <cascade-all/>
+      </cascade>
+      <join-columns>
+        <join-column name="business_address_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="owners" target-entity="App\Entity\User" mapped-by="businesses"/>
+      <one-to-many field="products" target-entity="App\Entity\Sylius\Product" mapped-by="business">
+          <cascade>
+              <cascade-persist/>
+          </cascade>
+      </one-to-many>
+      <one-to-many field="productOptions" target-entity="App\Entity\Sylius\ProductOption" mapped-by="business">
+          <cascade>
+              <cascade-persist/>
+          </cascade>
+      </one-to-many>
+      <one-to-many field="listings" target-entity="App\Entity\Listing" mapped-by="business">
+          <cascade>
+              <cascade-persist/>
+          </cascade>
+      </one-to-many>
+
+      <many-to-many field="taxons" target-entity="App\Entity\Sylius\Taxon">
+          <cascade>
+              <cascade-persist/>
+          </cascade>
+          <join-table name="business_taxon">
+              <join-columns>
+                  <join-column name="business_id" referenced-column-name="id"/>
+              </join-columns>
+              <inverse-join-columns>
+                  <join-column name="taxon_id" referenced-column-name="id"/>
+              </inverse-join-columns>
+          </join-table>
+      </many-to-many>
+  </entity>
+</doctrine-mapping>

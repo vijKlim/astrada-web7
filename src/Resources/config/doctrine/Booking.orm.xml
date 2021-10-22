@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd" xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+    <entity name="App\Entity\Booking" table="booking" repository-class="App\Repository\BookingRepository">
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+
+        <field name="status" type="smallint" column="status"/>
+
+        <field name="createdAt" type="datetime" column="created_at">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="updatedAt" type="datetime" column="updated_at">
+            <gedmo:timestampable on="update"/>
+        </field>
+        <field name="deletedAt" type="datetime" column="deleted_at" nullable="true"/>
+        <gedmo:soft-deleteable field-name="deletedAt" time-aware="false" hard-delete="false" />
+
+        <many-to-one field="user" target-entity="App\Entity\User">
+            <join-columns>
+                <join-column name="user_id" referenced-column-name="id" on-delete="SET NULL"/>
+            </join-columns>
+            <cascade>
+                <cascade-persist />
+            </cascade>
+        </many-to-one>
+        <many-to-one field="listing" target-entity="App\Entity\Listing" inversed-by="bookings">
+            <join-columns>
+                <join-column name="listing_id" referenced-column-name="id"/>
+            </join-columns>
+            <cascade>
+                <cascade-persist />
+            </cascade>
+        </many-to-one>
+        <one-to-one field="topic" target-entity="App\Entity\Topic" inversed-by="booking">
+            <join-columns>
+                <join-column name="topic_id" referenced-column-name="id" on-delete="SET NULL"/>
+            </join-columns>
+            <cascade>
+                <cascade-remove/>
+            </cascade>
+        </one-to-one>
+        <field name="start" type="datetime" column="start" />
+        <field name="end" type="datetime" column="end"/>
+        <field name="startTime" type="datetime" column="start_time" nullable="true"/>
+        <field name="endTime" type="datetime" column="end_time" nullable="true"/>
+        <field name="validated" type="boolean" column="validated">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+        <field name="newBookingAt" type="datetime" column="new_booking_at" nullable="true"/>
+        <field name="canceledAskerBookingAt" type="datetime" column="canceled_asker_booking_at" nullable="true"/>
+        <field name="alertedExpiring" type="boolean" column="alerted_expiring">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+        <field name="message" type="text" length="65535" column="message" nullable="false"/>
+    </entity>
+</doctrine-mapping>

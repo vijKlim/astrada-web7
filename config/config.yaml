@@ -1,0 +1,224 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+imports:
+  - { resource: services.yaml }
+  - { resource: resources.yaml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+  env(ASTRADA_PUBLIC_KEY_FILE): "%kernel.project_dir%/var/jwt/public.pem"
+  env(ASTRADA_PRIVATE_KEY_FILE): "%kernel.project_dir%/var/jwt/private.pem"
+  env(APP_PUBLIC_DIR): "%kernel.project_dir%/public"
+  env(APP_LOG_DIR): "%kernel.logs_dir%"
+  env(APP_VERSION): dev-master
+  secret: "%env(APP_SECRET)%"
+  country_iso:    "%env(ASTRADA_COUNTRY)%"
+  region_iso:     "%env(ASTRADA_REGION)%"
+  astrada.locale: "%env(ASTRADA_LOCALE)%"
+  database_driver:   pdo_pgsql
+  database_host:     "%env(ASTRADA_DB_HOST)%"
+  database_port:     "%env(ASTRADA_DB_PORT)%"
+  database_name:     "%env(ASTRADA_DB_NAME)%"
+  database_user:     "%env(ASTRADA_DB_USER)%"
+  database_password: "%env(ASTRADA_DB_PASSWORD)%"
+  locale: "%astrada.locale%"
+  locale_regex: ua|ru|en
+  centrifugo_namespace: '%database_name%'
+  cors_allow_origin: http://localhost
+  jwt_public_key_path: "%env(ASTRADA_PUBLIC_KEY_FILE)%"
+  jwt_private_key_path: "%env(ASTRADA_PRIVATE_KEY_FILE)%"
+  transactional_address: "%env(ASTRADA_MAIL_SENDER_ADDRESS)%"
+  transactional_sender_name: "%env(ASTRADA_MAIL_SENDER_NAME)%"
+  nucleos_profile.registration.confirmation.enabled: true
+  craue_config.cache_adapter.class: Craue\ConfigBundle\CacheAdapter\SymfonyCacheComponentAdapter
+  is_demo: "%env(bool:ASTRADA_DEMO)%"
+  avatar_dir: '%env(APP_PUBLIC_DIR)%/images/avatars/'
+  osrm_host: "%env(ASTRADA_OSRM_HOST)%"
+  business_service_cache_annotation: 'business_service_v0.5'
+  business_caption_cache_annotation: 'business_caption_v0.1'
+
+  astrada.site_name: Aquastrada
+  astrada.phone: +38(000) 000 00 00
+  astrada.address: 02232, Kiev
+  astrada.short_description: 'Aquastrada is collaborative consumption platform'
+  astrada.contact_mail: contact@aquastrada.com
+  #To obfuscate see http://wbwip.com/wbw/emailencoder.html
+  astrada.contact_mail_obfuscated: "&#099;&#111;&#110;&#116;&#097;&#099;&#116;&#064;&#097;&#113;&#117;&#097;&#115;&#116;&#114;&#097;&#100;&#097;&#046;&#099;&#111;&#109;"
+  astrada.from_email: no-reply@aquastrada.com
+  astrada.webmaster_email: webmaster@aquastrada.com
+
+  #Listing result per page
+  astrada.listing_search_max_per_page: 10
+
+  #Fees in %
+  astrada.fee_as_asker: 0.1
+  astrada.fee_as_offerer: 0.05
+
+  #Time unit in minute (1440 or 60)
+  astrada.time_unit: 1440
+  #Is there a day flexibility for search. 0 For no else max days flexibility
+  astrada.time_unit_flexibility: 0
+  #Days display mode. (range or duration)
+  astrada.days_display_mode: duration
+
+  #Max search, booking time unit number.
+  #Min 1. Max value of times max depends on time unit: 24 if time unit is hour. Not needed if time unit is day.
+  astrada.times_max: 8 #ex: for 8 hours with time_unit equal to 60
+
+  #Max search and booking days number.
+  #Min 1. If set to 1 and days_display_mode = duration then only start date is displayed
+  astrada.days_max: 180
+
+  #Times display mode. (range or duration).
+  #No effect if time unit is day
+  astrada.times_display_mode: duration
+
+  #Available hours for listing availabilities hours edition and booking hours request
+  #Hours must be consecutive
+  astrada.time_hours_available: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+
+  #Does a booking request can be made with a start equal to end.
+  #Does a single day is allowed in search
+  #If set to true end_day_included must be set to true
+  astrada.booking.allow_single_day: true
+
+  #Does a booking request include the end day in the booking duration
+  #Does the end day is included in search.
+  astrada.booking.end_day_included: true
+
+  #Booking expiration delay in minutes. MUST be greater than cocorico.booking.alert_expiration_delay
+  astrada.booking.expiration_delay: 2880 #2880
+
+  #Minimum minutes between booking acceptation and booking starting time
+  #Ex : 240 -> the booking can be accepted at least four hours before it start.
+  astrada.booking.acceptation_delay: 240 #240 #MUST be < cocorico.booking.min_start_time_delay - 60
+
+  #Minimum minutes between booking request and booking starting time
+  #Or Number of minutes to add to the current time to consider start time as valid
+  #Ex : 720 -> the booking can be requested at least 12 hours before it start.
+  #To use in not day mode
+  #Ex: expiration_delay = 240 (4h) and acceptation_delay = 120 (2h) and min_start_time_delay = 720 (12h)
+  astrada.booking.min_start_time_delay: 720 #MUST be >= (cocorico.booking.acceptation_delay) + 60
+
+  #Min booking price in euro cents
+  astrada.booking_price_min: 0
+
+  #Invoice initial number
+  astrada.booking.invoice_begin: 754128
+
+  #Listing price precision. true or false for now
+  astrada.listing_price_precision: 2
+
+  #Default listing availability status.
+  #See ListingAvailability $status for allowed values (available : 1 or unavailable : 2).
+  astrada.listing_availability_status: 1
+
+  #Default max items per page on dashboard list pages
+  astrada.dashboard_max_per_page: 5 #default
+  astrada.message_max_per_page: 10
+  astrada.review_max_per_page: 10
+
+  #Does VAT is included in prices fixing
+  astrada.include_vat: false
+  #Does the include/exclude tax is displayed
+  astrada.display_vat: false
+  #VAT in percent
+  astrada.vat: 0.2
+
+services:
+
+  craue_config_cache_provider:
+    class: Symfony\Component\Cache\Adapter\ChainAdapter
+    arguments:
+      - [ '@cache.adapter.array', '@cache.app' ]
+    tags:
+      - { name: cache.pool, namespace: craue_config }
+
+
+sylius_customer:
+  resources:
+    customer:
+      classes:
+        model: App\Entity\Sylius\Customer
+
+
+
+sylius_locale:
+  locale: "%locale%"
+
+sylius_currency:
+  driver: doctrine/orm
+
+sylius_taxonomy:
+  resources:
+    taxon:
+      classes:
+        model: App\Entity\Sylius\Taxon
+        repository: App\Entity\Sylius\TaxonRepository
+
+sylius_product:
+  resources:
+    product:
+      classes:
+        model: App\Entity\Sylius\Product
+        repository: App\Entity\Sylius\ProductRepository
+    product_variant:
+      classes:
+        model: App\Entity\Sylius\ProductVariant
+    product_option:
+      classes:
+        model: App\Entity\Sylius\ProductOption
+    product_option_value:
+      classes:
+        model: App\Entity\Sylius\ProductOptionValue
+
+fos_js_routing:
+  cache_control:
+    public: true
+    maxage: 600
+    smaxage: 600
+    expires: '10 minutes'
+    vary:
+      - Accept-Encoding
+  routes_to_expose:
+    - ^business$
+    - ^businesses$
+    - business_remove_from_cart
+    - business_cart_address
+    - business_cart_clear_time
+    - business_modify_cart_item_quantity
+    - admin_delivery
+    - admin_dashboard_fullscreen
+    - dashboard_fullscreen
+    - admin_foodtech_dashboard
+    - admin_foodtech_settings
+    - admin_metrics
+    - admin_order_accept
+    - admin_order_refuse
+    - admin_order_cancel
+    - admin_order_delay
+    - admin_order_fulfill
+    - admin_business
+    - admin_business_dashboard
+    - admin_business_stats
+    - admin_tags
+    - admin_listing_image_download
+    - admin_listing_list_create
+    - admin_listing_list_modify
+    - admin_listing_receipt
+    - admin_users_search
+    - order_continue
+    - profile_jwt
+    - profile_notifications
+    - profile_notifications_mark_as_read
+    - dashboard_order_accept
+    - dashboard_order_refuse
+    - dashboard_order_cancel
+    - dashboard_order_delay
+    - dashboard_order_fulfill
+    - dashboard_business_dashboard
+    - dashboard_business_stats
+    - routing_route
+    - user_avatar

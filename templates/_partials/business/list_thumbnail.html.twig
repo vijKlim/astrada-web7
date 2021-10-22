@@ -1,0 +1,41 @@
+{% set business_image = astrada_asset(business, 'imageFile', 'restaurant_thumbnail') %}
+{% if business_image is empty %}
+  {% set business_image = '//via.placeholder.com/512.jpg' %}
+{% endif %}
+
+{% set business_path_params = {} %}
+{% if address is defined and address is not empty %}
+  {% set business_path_params = business_path_params|merge({ address: address }) %}
+{% endif %}
+
+<div class="business-item {% if not business.enabled %}restaurant-item--disabled{% endif %}">
+  <a href="{{ local_business_path(business, business_path_params) }}">
+    <img class="business-image" src="{{ business_image }}" alt="{{ business.name }}">
+    <h4 class="business-item__title">{{ business.name|u.truncate(48, '…', false) }}</h4>
+  </a>
+  <div>
+    {% set cache_key = business|cache_key(business_caption_cache_annotation) %}
+    {% cache cache_key ttl(300) %}
+    {% if business.description is not empty %}
+      <p class="text-muted">{{ business.description|u.truncate(42, '…', false) }}</p>
+    {% else %}
+      <p class="text-muted">{{ business.address.streetAddress }}</p>
+    {% endif %}
+    {% endcache %}
+    <div data-fulfillment="{{ path('business_fulfillment_timing', { id: business.id }) }}">
+      {# Managed with React #}
+      <span class="business-item__time-range">
+        <i class="fa fa-clock-o"></i>
+      </span>
+    </div>
+  </div>
+
+  {% if not business.enabled and (is_granted('ROLE_ADMIN') or is_granted('ROLE_BUSINESS')) %}
+    <div class="business-item__top-left">
+      <span class="btn btn-sm btn-warning">
+        <i class="fa fa-eye"></i>  {{ 'restaurants.visible_by_you_only'|trans }}
+      </span>
+    </div>
+  {% endif %}
+
+</div>

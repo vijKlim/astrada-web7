@@ -1,0 +1,14 @@
+services:
+  astrada.subscription.strategy.product.abstract:
+    class: Astrada\SubscriptionBundle\Strategy\AbstractProductStrategy
+    abstract: true
+    arguments:
+      - "@astrada.subscription.repository.product"
+      - "@astrada.subscription.repository.subscription"
+      - "@logger"
+
+  astrada.subscription.strategy.product.default:
+    class: Astrada\SubscriptionBundle\Strategy\ProductDefaultStrategy
+    parent: astrada.subscription.strategy.product.abstract
+    tags:
+      - { name: subscription.strategy, type: product, strategy: default }

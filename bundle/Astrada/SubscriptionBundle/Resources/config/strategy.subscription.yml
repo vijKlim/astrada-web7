@@ -1,0 +1,9 @@
+services:
+
+  astrada.subscription.strategy.end_last:
+    class: Astrada\SubscriptionBundle\Strategy\SubscriptionEndLastStrategy
+    arguments:
+      - "%astrada_subscription.config.subscription.class%"
+      - "@astrada.subscription.strategy.product.default"
+    tags:
+      - { name: subscription.strategy, type: subscription, strategy: end_last }

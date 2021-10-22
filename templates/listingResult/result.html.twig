@@ -1,0 +1,328 @@
+{% extends "base.html.twig" %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        #map-canvas {
+            width: {{ listing_search_map_w }}px;
+            height: {{ listing_search_map_h }}px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block layout %}
+    {% embed 'map-layout.html.twig'%}
+
+{#        {% block breadcrumbs %}#}
+{#            <!-- breadcrumbs -->#}
+{#            {{ render(controller('CocoricoBreadcrumbBundle:Breadcrumbs:index',{#}
+{#                request: app.request#}
+{#            })) }}#}
+{#        {% endblock %}#}
+
+        {% block main %}
+
+            <!-- Map -->
+            <div class="map-container column-map right-pos-map no-fix-scroll-map hid-mob-map">
+                <div id="map-main"></div>
+                <ul class="mapnavigation no-list-style">
+                    <li><a href="#" class="prevmap-nav mapnavbtn"><span><i class="fas fa-caret-left"></i></span></a></li>
+                    <li><a href="#" class="nextmap-nav mapnavbtn"><span><i class="fas fa-caret-right"></i></span></a></li>
+                </ul>
+                <div class="scrollContorl mapnavbtn tolt"   data-microtip-position="top-left" data-tooltip="Enable Scrolling"><span><i class="fal fa-unlock"></i></span></div>
+                <div class="location-btn geoLocation tolt" data-microtip-position="top-left" data-tooltip="Your location"><span><i class="fal fa-location"></i></span></div>
+                <div class="map-overlay"></div>
+                <div class="map-close"><i class="fas fa-times"></i></div>
+                {% include 'listingResult/_marker.html.twig'  with {
+                    'markers': markers,
+                } only %}
+            </div>
+            <!-- Map end -->
+
+            {#search form with filters#}
+            {% include '_partials/flash_messages.html.twig' %}
+
+            {{ form_start(form, {}) }}
+
+                <!-- hidden-search-column-->
+                <div class="hidden-search-column">
+                    <div class="hidden-search-column-container fl-wrap full-height tabs-act">
+                        <div class="filter-sidebar-header fl-wrap">
+                            <ul class="tabs-menu fl-wrap no-list-style">
+                                <li class="current"><a href="#filters-search"> <i class="fal fa-sliders-h"></i> Filters </a></li>
+                                <li><a href="#category-search"> <i class="fal fa-image"></i>Categories </a></li>
+                            </ul>
+                        </div>
+                        <div class="scrl-content filter-sidebar  full-height">
+                            <!--tabs -->
+                            <div class="tabs-container fl-wrap">
+                                <!--tab -->
+                                <div class="tab">
+                                    <div id="filters-search" class="tab-content  first-tab ">
+
+                                        {% include 'common/form/form_search_fields.html.twig' with {
+                                            'form': form,
+                                            'addresses_normalized': addresses_normalized
+                                        } only %}
+
+                                        {% include 'listingResult/form_search_filters.html.twig' with {
+                                            'form': form
+                                        } only %}
+
+
+
+                                        <!-- listsearch-input-item-->
+                                        <div class="listsearch-input-item">
+                                            <button type="submit" value="Search" class="header-search-button color-bg" >
+                                                <i class="far fa-search"></i><span>{{ 'listing.search'|trans }}</span></button>
+                                        </div>
+
+                                        <!-- listsearch-input-item end-->
+                                        <div class="clear-filter-btn"><i class="far fa-redo"></i> Reset Filters</div>
+                                    </div>
+                                </div>
+                                <!--tab end-->
+                                <!--tab -->
+                                <div class="tab">
+                                    <div id="category-search" class="tab-content">
+                                        <div class="fl-wrap hc-item">
+                                            <a class="category-carousel-item fl-wrap full-height checket-cat" href="#">
+                                                <img src="/images/all/1.jpg" alt="">
+                                                <div class="category-carousel-item-icon red-bg"><i class="fal fa-cheeseburger"></i></div>
+                                                <div class="category-carousel-item-container">
+                                                    <div class="category-carousel-item-title">Restaurants / Cafe</div>
+                                                    <div class="category-carousel-item-counter">6 listings</div>
+                                                </div>
+                                            </a>
+                                            <a class="category-carousel-item fl-wrap full-height" href="#">
+                                                <img src="/images/all/1.jpg" alt="">
+                                                <div class="category-carousel-item-icon yellow-bg"><i class="fal fa-bed"></i></div>
+                                                <div class="category-carousel-item-container">
+                                                    <div class="category-carousel-item-title">Hotel / Hostel</div>
+                                                    <div class="category-carousel-item-counter">14 listings</div>
+                                                </div>
+                                            </a>
+                                            <a class="category-carousel-item fl-wrap full-height" href="#">
+                                                <img src="/images/all/1.jpg" alt="">
+                                                <div class="category-carousel-item-icon purp-bg"><i class="fal fa-cocktail"></i></div>
+                                                <div class="category-carousel-item-container">
+                                                    <div class="category-carousel-item-title">Events / Nightlife</div>
+                                                    <div class="category-carousel-item-counter">6 listings</div>
+                                                </div>
+                                            </a>
+                                            <a class="category-carousel-item fl-wrap full-height" href="#">
+                                                <img src="/images/all/1.jpg" alt="">
+                                                <div class="category-carousel-item-icon blue-bg"><i class="fal fa-dumbbell"></i></div>
+                                                <div class="category-carousel-item-container">
+                                                    <div class="category-carousel-item-title">Fitness / Gym</div>
+                                                    <div class="category-carousel-item-counter">18 listings</div>
+                                                </div>
+                                            </a>
+                                            <a class="category-carousel-item fl-wrap full-height" href="#">
+                                                <img src="/images/all/1.jpg" alt="">
+                                                <div class="category-carousel-item-icon green-bg"><i class="fal fa-cart-arrow-down"></i></div>
+                                                <div class="category-carousel-item-container">
+                                                    <div class="category-carousel-item-title">Shopping</div>
+                                                    <div class="category-carousel-item-counter">19 listings</div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--tab end-->
+                            </div>
+                            <!--tabs end-->
+                        </div>
+                    </div>
+                    <div class="close_sbfilters"><i class="fal fa-long-arrow-right"></i></div>
+                </div>
+                <!-- hidden-search-column end-->
+                <div class="col-list-wrap anim_clw  ">
+                    <!-- list-main-wrap-header-->
+                    <div class="list-main-wrap-header fl-wrap anim_clw  ">
+                        <div class="container">
+                            <!-- list-main-wrap-title-->
+                            <div class="list-main-wrap-title">
+                                <h2><span>{{ sonata_seo_title() }} </span></h2>
+                            </div>
+                            <!-- list-main-wrap-title end-->
+                            <!-- list-main-wrap-opt-->
+                            <div class="list-main-wrap-opt">
+                                <!-- price-opt-->
+                                <div class="price-opt">
+                                    <div class="listsearch-input-item">
+                                        <div class="select-holder">
+                                            {{ form_widget(form.sort_by, {
+                                                'attr': {
+                                                    'class': "form-control no-arrow chosen-select no-search-select"
+                                                }
+                                            }) }}
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <!-- price-opt end-->
+                                <!-- price-opt-->
+                                <div class="grid-opt">
+                                    <ul class="no-list-style">
+                                        <li class="grid-opt_act"><span class="two-col-grid act-grid-opt tolt" data-microtip-position="bottom" data-tooltip="Grid View"><i class="fal fa-th"></i></span></li>
+                                        <li class="grid-opt_act"><span class="one-col-grid tolt" data-microtip-position="bottom" data-tooltip="List View"><i class="fal fa-list"></i></span></li>
+                                    </ul>
+                                </div>
+                                <!-- price-opt end-->
+                                <div class="show-hidden-sb shsb_btn shsb_btn_act"><i class="fal fa-sliders-h"></i> <span>Show Filters</span></div>
+                            </div>
+                            <!-- list-main-wrap-opt end-->
+                        </div>
+                        <a class="custom-scroll-link back-to-filters clbtg" href="#lisfw"><i class="fas fa-caret-up"></i></a>
+                    </div>
+                    <!-- list-main-wrap-header end-->
+                    <div class="clearfix"></div>
+                    <div class="container">
+                        <div class="mob-nav-content-btn mncb_half color2-bg shsb_btn shsb_btn_act fl-wrap"><i class="fal fa-filter"></i>  Filters</div>
+                        <div class="mob-nav-content-btn mncb_half color2-bg schm  fl-wrap"><i class="fal fa-map-marker-alt"></i>  View on map</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- listing-item-container -->
+                    <div class="listing-item-container init-grid-items fl-wrap" id="lisfw">
+                        <div class="container">
+                            <!-- listing-items  -->
+                            {% include 'listingResult/_result_listings.html.twig'  with {
+                                'listings': listings,
+                                'nb_listings': nb_listings
+                            } only %}
+                            <!-- listing-items end -->
+
+                            {% include 'common/_pagination.html.twig' with {
+                                'pagination': pagination
+                            } only %}
+                        </div>
+                    </div>
+                    <!-- listing-item-container end -->
+                    <!--sub-footer-->
+                    <div class="sub-footer  fl-wrap">
+                        <div class="container">
+                            <div class="copyright"> &#169; Aquastrada 2021 .  All rights reserved.</div>
+                            {% include '_partials/language_switch.html.twig' %}
+
+                            <div class="subfooter-nav">
+                                <ul class="no-list-style">
+                                    <li><a href="#">Terms of use</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Blog</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--sub-footer end -->
+                </div>
+                <div class="limit-box fl-wrap"></div>
+
+            {{ form_end(form) }}
+            {#end search form with filters#}
+
+
+
+        {% endblock %}
+
+
+
+        {#{% block footer %}#}
+        {#{{ parent() }}#}
+        {#{% endblock %}#}
+
+    {% endembed %}
+
+{% endblock layout %}
+
+
+{% block javascripts %}
+{{ parent() }}
+
+    {#Extend search area if not enough results and if location search type is not done by distance #}
+    {% set extendSearch = nb_listings < listingSearchMinResult and listingSearchLocationType|default('viewport') != 'distance' %}
+
+{#    Geocoding#}
+{#    {% include '@CocoricoCore/Frontend/ListingResult/js/_geocoding_js.html.twig' with {#}
+{#        'map_elt': '#map-main',#}
+{#        'auto_complete_elt': '#location',#}
+{#        'default_lat': location.lat,#}
+{#        'default_lng': location.lng,#}
+{#        'extend_search': extendSearch#}
+{#    } only %}#}
+
+    {#Extend search call#}
+    {% set parentLocation, modalMessage = '', '' %}
+    {% if extendSearch %}
+        {% set parentLocation = location.getParentLocation() %}
+        {% set modalMessage = 'cocorico.search.extended.warning %location%'|trans({'%location%': parentLocation.address  }, 'cocorico') %}
+        <script>
+            $(function () {
+                var parentLocation = '{{ parentLocation|json_encode( constant('JSON_UNESCAPED_UNICODE') b-or constant('JSON_HEX_APOS') )|e('js') }}';
+                parentLocation = $.parseJSON(parentLocation);
+                extendSearchLocationFunc(parentLocation.address, parentLocation.type, '#modal', '{{ modalMessage }}');
+            });
+        </script>
+    {% endif %}
+
+<script>
+    $(function () {
+        $('.map-item').on("click", function (e) {
+            e.preventDefault();
+            map.setZoom(15);
+            var marker_index = $(this).data('cpt-marker');
+            google.maps.event.trigger(markers[marker_index], "click");
+            if ($(window).width() > 1064) {
+                if ($(".map-container").hasClass("fw-map")) {
+                    $('html, body').animate({
+                        scrollTop: $(".map-container").offset().top + "-110px"
+                    }, 1000)
+                    return false;
+                }
+            }
+        });
+        //Refresh map on load
+        refreshMapFunc('{{location.viewport }}', '{{ location.lat }}', '{{ location.lng }}');
+
+        //Set listings markers on load
+        //Set listings markers on load through data-markers attribute
+        setMarkersFunc($("span#data-markers").data("markers"));
+
+
+
+        // Set default favourites in the listing
+        setDefaultFavourites();
+
+        // Categories
+        initMultiSelect(
+            '#categories',
+            '{{ "multiselect.all_selected"|trans({}, "cocorico")|e('js') }}',
+            '{{ "multiselect.none_selected"|trans({}, "cocorico")|e('js') }}',
+            '{{ "multiselect.num_selected"|trans({}, "cocorico")|e('js') }}'
+        );
+
+        $(".datepicker").datepicker({
+            dateFormat: "dd/mm/yy"
+        });
+
+        //Listing alert (See form_search.html.twig, common.js)
+        var $dialog = $("div[data-id=listing-alert-dialog]").initDialogForm(400);
+
+        $("a[data-id=listing-alert]").on('click', function (e) {
+            e.preventDefault();
+            $dialog.openDialog($(this).attr("href"), "");
+            return false;
+        });
+
+        //Move seo desc to bottom
+        $("[data-id=seo-desc]").appendTo("[data-id=seo-desc-moved]");
+
+
+
+    });
+</script>
+{% endblock %}

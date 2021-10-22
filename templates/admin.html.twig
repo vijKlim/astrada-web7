@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+<head>
+
+    {{ encore_entry_link_tags('common') }}
+    {{ encore_entry_link_tags('widgets') }}
+    {% if app.user %}
+        {{ encore_entry_link_tags('notifications') }}
+    {% endif %}
+    {% block styles_common %}
+        {{ encore_entry_link_tags('widgets-admin') }}
+        {% block styles %}{% endblock %}
+    {% endblock %}
+
+    <link rel="preconnect" href="{{ cdn_root_url }}" />
+</head>
+<body data-country="{{ country_iso }}" data-currency-symbol="{{ currency_context.currencyCode|sylius_currency_symbol }}" data-timezone="{{ astrada_setting('timezone') }}">
+
+{% block menu %}
+    {% include "admin/nav.html.twig" %}
+{% endblock %}
+
+{% block banner %}
+    {% include '_partials/maintenance.html.twig' %}
+    {% if not settings_manager.fullyConfigured %}
+        <div class="alert alert-danger">
+            {% trans with { '%settings_url%': path('admin_settings') } %}
+                admin.settings.missing_mandatory_settings
+            {% endtrans %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+<div class="content">
+    {% block body %}
+        <div class="container-fluid container--full-height">
+            <ol class="breadcrumb">
+                <li><a href="{{ path('admin_index') }}">{% trans %}adminDashboard.title{% endtrans %}</a></li>
+                {% block breadcrumb %}{% endblock %}
+            </ol>
+            {% block subnav %}{% endblock %}
+            <div class="mb-4">{% block content %}{% endblock %}</div>
+        </div>
+    {% endblock %}
+</div>
+
+
+{% block footer %}
+{% endblock %}
+
+<div id="cpccl_settings"
+     data-latlng="{{ astrada_setting('latlng')|json_encode|e('html_attr') }}"></div>
+
+<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+{{ encore_entry_script_tags('common') }}
+{{ encore_entry_script_tags('widgets') }}
+
+{% if app.user %}
+    {{ encore_entry_script_tags('notifications') }}
+{% endif %}
+
+
+{% include '_partials/autocomplete_adapter.html.twig' %}
+
+{# We load Google Maps *SYNCHRONOUSLY*, so this must be added *BEFORE* scripts, so that Google is loaded #}
+{# https://developers.google.com/maps/documentation/javascript/examples/map-sync #}
+{% include '_partials/google_maps.html.twig' %}
+
+{% block scripts_common %}
+    {{ encore_entry_script_tags('widgets-admin') }}
+    <script>
+        new Astrada.Changelog(document.getElementById('changelog'));
+    </script>
+    {% block scripts %}{% endblock %}
+{% endblock %}
+</body>
+</html>

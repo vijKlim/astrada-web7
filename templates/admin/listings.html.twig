@@ -1,0 +1,57 @@
+{% extends "admin.html.twig" %}
+
+{% block breadcrumb %}
+    <li>{% trans %}adminDashboard.listings.title{% endtrans %}</li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center flex-fill">
+            <div id="search-listings" class="w-25 mr-4">
+                <input type="text" class="form-control">
+            </div>
+
+        </div>
+
+    </div>
+    {% include "admin/pagination.html.twig" %}
+
+    {% if listings|length > 0 %}
+        <table class="table">
+            <tbody>
+            {% for listing in listings %}
+                <tr>
+                    <td width="1%">
+                        <i class="fa fa-circle {% if listing.certified %}text-success{% else %}text-danger{% endif %}"></i>
+                    </td>
+
+                    <td width="5%"><a href="{{ path(listing_route, { businessId: listing.business.id, listingId: listing.id }) }}">#{{ listing.id }}</a></td>
+                    <td width="20%">
+                        <span>{{ listing.title }}</span>
+                    </td>
+                    <td width="25%">{{ listing.address.streetAddress }}</td>
+                    <td class="text-right">
+                        <a href="{{ path(listing_route, { businessId: listing.business.id, listingId: listing.id }) }}"
+                           class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> {{ 'basics.edit'|trans }}</a>
+
+                    </td>
+                    <td class="text-right" width="5%">
+                        <a target="_blank" href="{{ path('listing', { id: listing.id, 'slug': listing.title|slugify }) }}">
+                            <i class="fa fa-external-link" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+
+    {% include "admin/pagination.html.twig" %}
+
+{% endblock %}
+
+{% block scripts %}
+    {{ encore_entry_script_tags('admin-listings') }}
+{% endblock %}

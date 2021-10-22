@@ -1,0 +1,277 @@
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss";
+@import "../../../assets/styles/admin/vars.scss";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_mixins.scss";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_forms.scss";
+
+// $panel-heading-padding is 10px 15px !default;
+// nth() allows to extract individual values
+$panel-heading-padding-vertical: nth($panel-heading-padding, 1);
+$panel-heading-padding-horizontal: nth($panel-heading-padding, 2);
+
+$cart-heading-line-height: ($navbar-height - ($panel-heading-padding-vertical * 2));
+
+
+.business-header {
+
+  display: flex;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 15px;
+
+  @media (max-width: $screen-xs-max) {
+    flex-direction: column;
+  }
+
+  img.business-image {
+    width: 120px;
+    height: 120px;
+    margin-right: 15px;
+    @media (max-width: $screen-xs-max) {
+      display: none;
+    }
+  }
+
+  &-body {
+    flex: 1;
+  }
+  &-right {
+    flex: 1;
+    text-align: right;
+    @media (max-width: $screen-xs-max) {
+      display: none;
+    }
+  }
+
+  .table-opening-hours {
+    width: auto;
+    font-size: $font-size-small;
+    thead > tr > th {
+      text-align: right;
+    }
+    tbody > tr > td,
+    tbody > tr > th {
+      border-top: none;
+    }
+    tbody > tr:not(.active) {
+      color: $text-muted;
+    }
+    tbody > tr.active > td,
+    tbody > tr.active > th {
+      background-color: transparent;
+    }
+  }
+
+}
+
+.product-option-item {
+  &:hover {
+    background-color: $main-blue-light;
+  }
+  .radio,
+  .checkbox {
+    width: 100%;
+    label {
+      width: 100%;
+    }
+  }
+}
+
+.product-option-item-range {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  input[type="number"] {
+    @extend .form-control;
+    min-width: 10%;
+    width: 10%;
+    @media (max-width: $screen-xs-max) {
+      min-width: 20%;
+      width: 20%;
+    }
+    padding: 3px 6px;
+    margin-right: 8px;
+  }
+  label {
+    flex-grow: 1;
+    margin: 0;
+    font-weight: 400;
+    padding: 6px 0;
+    hyphens: auto;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &-buttons {
+    display: flex;
+    flex-direction: row;
+    @media (max-width: $screen-xs-max) {
+      flex-direction: column;
+    }
+  }
+}
+
+.quantity-input-group {
+  display: flex;
+  justify-content: space-between;
+  input[type="number"] {
+    text-align: center;
+    border: none;
+  }
+  &__decrement,
+  &__increment {
+    border: none;
+    background-color: transparent;
+  }
+}
+
+.button-icon--decrement,
+.button-icon--increment {
+  border: none;
+  background-color: transparent;
+  &[disabled] {
+    cursor: $cursor-disabled;
+    @include opacity(.65);
+  }
+}
+
+.business-banner {
+  margin-top: -20px;
+}
+
+#cart {
+  margin-top: ($base-margin + 20px);
+}
+
+.sticky-outer-wrapper.active {
+  .sticky-inner-wrapper {
+    overflow: auto;
+    max-height: 100%;
+    padding: 20px 0;
+  }
+}
+
+// @see https://github.com/yahoo/react-stickynode/issues/9#issuecomment-173039715
+@media (max-width: $screen-xs-max){
+  .sticky-inner-wrapper {
+    position: static !important;
+    transform: none !important;
+    width: auto !important;
+  }
+}
+
+
+// Custom class to allow scrolling inside modal
+// @see https://github.com/reactjs/react-modal/issues/283
+.ReactModal__Overlay--cart {
+  @media (max-width: $screen-xs-max) {
+    // height: 100vh;
+    // Dot *NOT* use 100vh on mobile
+    // https://developers.google.com/web/updates/2016/12/url-bar-resizing
+    height: 100%;
+    .ReactModal__Content {
+      overflow-y: auto;
+    }
+  }
+}
+
+.ReactModal__Content--enter-address {
+  overflow: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @media (min-width: $screen-lg-min) {
+    width: 33%;
+  }
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    width: 50%;
+  }
+  @media (max-width: $screen-xs-max) {
+    width: calc(100% - 30px);
+    height: calc(100vh - 30px);
+  }
+}
+
+.ReactModal__Content--business {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  @media (min-width: $screen-lg-min) {
+    width: 50%;
+  }
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    width: 66%;
+  }
+  @media (max-width: $screen-xs-max) {
+    width: calc(100% - 30px);
+    height: 80%;
+  }
+  .ReactModal__Business__button {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    > button {
+      margin-bottom: 15px;
+    }
+  }
+}
+
+.ReactModal__Content--date {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  // @see https://github.com/reactjs/react-modal/issues/177
+  overflow: visible;
+  @media (min-width: $screen-lg-min) {
+    width: 50%;
+  }
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    width: 66%;
+  }
+  @media (max-width: $screen-xs-max) {
+    width: calc(100% - 30px);
+    height: 80%;
+  }
+  .ReactModal__Date__asap {
+    display: block;
+    padding: 15px 0;
+    margin: 15px 0;
+  }
+}
+
+.ReactModal__Content--product-options {
+
+  overflow: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 0;
+  max-height: calc(100% - 30px);
+
+  @media (min-width: $screen-lg-min) {
+    width: 40%;
+  }
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    width: 50%;
+  }
+  @media (max-width: $screen-xs-max) {
+    width: calc(100% - 30px);
+    height: calc(100% - 30px);
+  }
+
+  .product-modal-container {
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+
+    main {
+      flex: 1;
+      overflow: auto;
+    }
+  }
+}

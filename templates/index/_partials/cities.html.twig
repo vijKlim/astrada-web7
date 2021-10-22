@@ -1,0 +1,55 @@
+<!--section -->
+<section   class="gray-bg hidden-section particles-wrapper">
+    <div class="container">
+        <div class="section-title">
+            <h2>Explore Best Cities</h2>
+            <div class="section-subtitle">Catalog of Categories</div>
+            <span class="section-separator"></span>
+            <p>In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus.</p>
+        </div>
+        <div class="listing-item-grid_container fl-wrap">
+            <div class="row">
+                {% for key,city_loc in city_locations_stats %}
+
+                    {% if key < 4 %}
+                        <!--  listing-item-grid  -->
+                        <div class="col-sm-4">
+                            <div class="listing-item-grid">
+                                <div class="bg"  data-bg="images/all/1.jpg"></div>
+                                <div class="d-gr-sec"></div>
+                                <div class="listing-counter color2-bg"><span>{{ city_loc.cnt }} </span> Locations</div>
+                                <div class="listing-item-grid_title">
+                                    <h3><a href="listing.html">{{ city_loc.city }}</a></h3>
+                                    <p>Constant care and attention to the patients makes good record</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  listing-item-grid end  -->
+                    {% else %}
+                        <!--  listing-item-grid  -->
+                        <div class="col-sm-8">
+                            <div class="listing-item-grid">
+                                <div class="bg"  data-bg="images/all/1.jpg"></div>
+                                <div class="d-gr-sec"></div>
+                                <div class="listing-counter color2-bg"><span>{{ city_loc.cnt }} </span> Locations</div>
+                                <div class="listing-item-grid_title">
+                                    <h3><a href="listing.html">{{ city_loc.city }}</a></h3>
+                                    <p>Constant care and attention to the patients makes good record</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  listing-item-grid end  -->
+                    {% endif %}
+                {% endfor %}
+
+
+
+
+
+            </div>
+        </div>
+        <a href="{{ path('listing_search_result') }}" class="btn dec_btn   color2-bg">View All Cities<i class="fal fa-arrow-alt-right"></i></a>
+    </div>
+</section>
+<!--  section  -->
+<!--section end-->

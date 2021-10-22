@@ -1,0 +1,73 @@
+security:
+    encoders:
+      Symfony\Component\Security\Core\User\User: plaintext
+      Nucleos\UserBundle\Model\UserInterface: sha512
+
+    role_hierarchy:
+      ROLE_CUSTOMER: ROLE_USER
+      ROLE_BUSINESS: ROLE_USER
+      ROLE_ADMIN: ROLE_CUSTOMER
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        fos_userbundle:
+          id: nucleos_user.user_provider.username_email
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        business_fulfillment_timing:
+          pattern: ^/business/[0-9]+/timing$
+          methods: [ GET ]
+          security: false
+
+        web:
+            pattern:            ^/
+            form_login:
+                provider:       fos_userbundle
+                success_handler: astrada.web_success_handler
+            oauth:
+                resource_owners:
+                    facebook:             "/login/check-facebook"
+                login_path:        /login
+                use_forward:       false
+                failure_path:      /login
+                oauth_user_provider:
+                    service: astrada.user_provider
+            logout: true
+            anonymous: ~
+            remember_me:
+                secret: '%secret%'
+
+        main:
+            anonymous: ~
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/order/public, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/dashboard, roles: [ ROLE_ADMIN, ROLE_BUSINESS ] }
+        - { path: ^/profile/jwt, roles: IS_AUTHENTICATED_REMEMBERED }
+        - { path: ^/profile/notifications, roles: IS_AUTHENTICATED_REMEMBERED }
+        - { path: ^/profile, roles: IS_AUTHENTICATED_REMEMBERED }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/_uploader/business, roles: [ ROLE_ADMIN, ROLE_BUSINESS ] }
+        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/routing, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/settings, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }

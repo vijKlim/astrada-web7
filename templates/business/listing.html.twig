@@ -1,0 +1,126 @@
+{% extends 'business/layout.html.twig' %}
+
+{% form_theme form 'form/listing.html.twig' %}
+
+
+{% block breadcrumb %}
+    <li><a href="{{ path(businesses_route) }}">{% trans %}adminDashboard.businesses.title{% endtrans %}</a></li>
+    <li>{% if listing.id is not empty %}{{ listing.title }}{% else %}{% trans %}business.form.createListing{% endtrans %}{% endif %}</li>
+{% endblock %}
+
+{% block content %}
+
+{#    {% if formErrors is not empty %}#}
+{#        <div class="alert alert-danger">#}
+{#            <ul class="list-unstyled">#}
+{#                {% for field, errors in formErrors %}#}
+{#                    {% if field != 'enabled' and field != 'data.enabled' %}#}
+{#                        <li>#}
+{#                            {{ errors|first }}#}
+{#                        </li>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+{#            </ul>#}
+{#        </div>#}
+{#    {% endif %}#}
+
+
+    {{ form_start(form) }}
+
+    <div class="alert alert-warning">
+        <nav class="d-flex align-items-center justify-content-between">
+    <span class="text-muted">
+      <i class="fa fa-info-circle"></i>&nbsp;{{ "listing.form.status.tooltip" | trans | raw }}
+    </span>
+            <div class="switch-wrapper">
+                {{ form_widget(form.status) }}
+            </div>
+        </nav>
+    </div>
+
+
+    <hr>
+
+    <div class="row">
+        <div class="col-sm-3">
+            {% if form.imageFile is defined %}
+                {{ form_row(form.imageFile) }}
+            {% endif %}
+            <ul class="nav nav-pills nav-stacked">
+
+                <li role="presentation" class="active">
+                    <a role="tab" data-toggle="tab" href="#address" aria-controls="address">
+                        {{ 'business.form.section.address'|trans }}
+                    </a>
+                </li>
+                <li role="presentation" >
+                    <a role="tab" data-toggle="tab" href="#general" aria-controls="general">
+                        {{ 'listing.form.section.general'|trans }}
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a role="tab" data-toggle="tab" href="#services" aria-controls="services">
+                        {{ 'business.form.section.services'|trans }}
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a role="tab" data-toggle="tab" href="#calendar" aria-controls="calendar">
+                        {{ 'business.form.section.calendar'|trans }}
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="col-sm-9">
+            <div class="tab-content">
+
+                <div role="tabpanel" class="tab-pane active" id="address">
+                    {% include "business/form/_partials/listing/address.html.twig" %}
+                </div>
+                <div role="tabpanel" class="tab-pane" id="general">
+                    {% include "business/form/_partials/listing/general.html.twig" %}
+                </div>
+                <div role="tabpanel" class="tab-pane" id="services">
+                    {% include "business/form/_partials/listing/services.html.twig" %}
+                </div>
+                <div role="tabpanel" class="tab-pane" id="calendar">
+                    {% include "business/form/_partials/listing/calendar.html.twig" %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+
+    <div class="d-flex">
+        {#
+        Make sure the "save" button is *BEFORE* the "delete" button in the DOM
+        to avoid deleting when hitting "enter"
+        #}
+        <div class="flex-fill">
+            <button type="submit" class="btn btn-block btn-lg btn-primary">{{ 'basics.save'|trans }}</button>
+        </div>
+        {% if form.delete is defined %}
+            <div class="flex-shrink-1 ml-2">
+                {{ form_widget(form.delete, { attr: { class: 'btn-block btn-lg btn-danger' } }) }}
+            </div>
+        {% endif %}
+    </div>
+
+    {{ form_end(form) }}
+
+    <div id="listing-form-data"
+         data-action-url="{{ oneup_uploader_endpoint('listing') }}"
+         data-listing-id="{{ listing.id }}"
+         data-listing-image="{{ astrada_asset(listing, 'imageFile', 'listing_thumbnail') }}"></div>
+
+{% endblock %}
+
+{% block styles %}
+    {{ encore_entry_link_tags('listing-form') }}
+{% endblock %}
+
+{% block scripts %}
+    {{ encore_entry_script_tags('listing-form') }}
+{% endblock %}

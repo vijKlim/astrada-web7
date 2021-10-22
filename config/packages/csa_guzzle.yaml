@@ -1,0 +1,31 @@
+# Full configuration reference: https://github.com/csarrazi/CsaGuzzleBundle/blob/2.x/src/Resources/doc/configuration_reference.md#configuration-reference
+# Available client config options: http://docs.guzzlephp.org/en/latest/quickstart.html#creating-a-client
+# and http://docs.guzzlephp.org/en/latest/request-options.html
+csa_guzzle:
+  profiler: '%kernel.debug%'
+  logger: true
+  clients:
+    osrm:
+      config:
+        base_uri: "http://%osrm_host%"
+        lazy: true
+    google_maps:
+      config:
+        base_uri: "https://maps.googleapis.com"
+        lazy: true
+    browserless:
+      config:
+        base_uri: "%env(ASTRADA_BROWSERLESS_HOST)%"
+        lazy: true
+    mjml_server:
+      config:
+        base_uri: "%env(ASTRADA_MJML_HOST)%"
+        lazy: true
+    api:
+      config:
+        base_uri: "%router.request_context.scheme%://%router.request_context.host%"
+        lazy: true
+    vroom:
+      config:
+        base_uri: "%env(VROOM_HOST)%"
+        lazy: true

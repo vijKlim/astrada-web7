@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    {{ encore_entry_link_tags('businesses-map') }}
+  </head>
+  <body>
+    <div id="wrap">
+        <div class="map">
+          <div id="map"></div>
+        </div>
+    </div>
+    <div id="cpccl_settings"
+      data-latlng="{{ astrada_setting('latlng')|json_encode|e('html_attr') }}"></div>
+    <script>
+    window.__businesses = {{ businesses|raw }};
+    </script>
+    {{ encore_entry_script_tags('businesses-map') }}
+  </body>
+</html>
+

@@ -1,0 +1,11 @@
+<section class="list-subheader">
+  <div class="container">
+    <div class="d-flex align-items-center mb-4">
+
+      <a href="{{ path('businesses', { mode: to_mode|default('map') }) }}" class="btn btn-lg btn-default">
+        <i class="fa fa-{{ to_mode|default('map') }} mr-2"></i>
+        <span class="d-none d-sm-inline">{{ ('restaurants.mode.' ~ to_mode|default('map'))|trans }}</span>
+      </a>
+    </div>
+  </div>
+</section>

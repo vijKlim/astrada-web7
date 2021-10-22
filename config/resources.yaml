@@ -1,0 +1,28 @@
+sylius_resource:
+  drivers:
+    - doctrine/orm
+  resources:
+    app.listing:
+      classes:
+        model: App\Entity\Listing
+        factory: App\Factory\ListingFactory
+      translation:
+        classes:
+          model: App\Entity\ListingTranslation
+          form: App\Form\ListingTranslationType
+
+    app.topic:
+      classes:
+        model: App\Entity\Topic
+        factory: App\Factory\TopicFactory
+        controller: App\Controller\TopicController
+        repository: App\Repository\TopicRepository
+        form:  App\Form\TopicType
+
+    app.post:
+      classes:
+        model: App\Entity\Post
+        factory: App\Factory\PostFactory
+        repository: App\Repository\PostRepository
+        controller: App\Controller\PostController
+        form: App\Form\PostType

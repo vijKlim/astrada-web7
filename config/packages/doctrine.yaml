@@ -1,0 +1,54 @@
+doctrine:
+    dbal:
+        driver:   pdo_pgsql
+        host:     "%env(ASTRADA_DB_HOST)%"
+        port:     "%env(ASTRADA_DB_PORT)%"
+        dbname:   "%env(ASTRADA_DB_NAME)%"
+        user:     "%env(ASTRADA_DB_USER)%"
+        password: "%env(ASTRADA_DB_PASSWORD)%"
+        sslmode: "%env(ASTRADA_POSTGRES_SSLMODE)%"
+        charset:  UTF8
+        server_version: 9.4
+        types:
+            geography: Jsor\Doctrine\PostGIS\Types\GeographyType
+            geometry: Jsor\Doctrine\PostGIS\Types\GeometryType
+            raster: Jsor\Doctrine\PostGIS\Types\RasterType
+            phone_number: Misd\PhoneNumberBundle\Doctrine\DBAL\Types\PhoneNumberType
+            numrange: App\Doctrine\DBAL\Types\NumRangeType
+        mapping_types:
+            _text: string
+            numrange: string
+            tsrange: string
+
+        # Add a schema filter to avoid having PostGIS tables tiger.* & topology.* in migrations diff
+        # https://symfony.com/doc/master/bundles/DoctrineMigrationsBundle/index.html#manual-tables
+        schema_filter: ~^(?!((tiger|topology)\.)|view_)~
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            App:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Resources/config/doctrine'
+                prefix: App\Entity
+                alias: App
+        dql:
+            string_functions:
+                ST_DWithin: Jsor\Doctrine\PostGIS\Functions\ST_DWithin
+                ST_GeomFromText: Jsor\Doctrine\PostGIS\Functions\ST_GeomFromText
+                ST_Distance: Jsor\Doctrine\PostGIS\Functions\ST_Distance
+                ST_GeomFromGeoJSON: Jsor\Doctrine\PostGIS\Functions\ST_GeomFromGeoJSON
+                ST_AsText: Jsor\Doctrine\PostGIS\Functions\ST_AsText
+                similarity: App\Doctrine\Functions\Similarity
+                TSRANGE: App\Doctrine\Functions\TsRange
+                OVERLAPS: MartinGeorgiev\Doctrine\ORM\Query\AST\Functions\Overlaps
+                CAST: DoctrineExtensions\Query\Mysql\Cast
+                JSON_GET_FIELD_AS_TEXT: MartinGeorgiev\Doctrine\ORM\Query\AST\Functions\JsonGetFieldAsText
+            datetime_functions:
+                date: DoctrineExtensions\Query\Mysql\Date
+        filters:
+            soft_deleteable:
+                class:   Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                enabled: false

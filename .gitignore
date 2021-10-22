@@ -1,0 +1,48 @@
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/*
+!/var/cache
+/var/cache/*
+!var/cache/.gitkeep
+!/var/logs
+/var/logs/*
+!var/logs/.gitkeep
+!var/SymfonyRequirements.php
+!var/sql
+/vendor/
+/vendor-shared/
+/.phpunit.result.cache
+###< symfony/framework-bundle ###
+
+# Build with webpack
+/public/build/
+/public/build-cypress/
+
+# Files stored on disk
+/public/media/*
+!public/media/.gitkeep
+/public/media/cache/*
+!public/media/cache/.gitkeep
+
+###> symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+.DS_Store
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###

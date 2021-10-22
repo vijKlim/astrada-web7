@@ -1,0 +1,9 @@
+astrada_subscription:
+  # Where is the subscription model located in your application
+  # Remember that your model must implement the interface
+  subscription_class: App\Entity\ListingSubscription # Interface: App\Entity\Model\SubscriptionInterface
+
+  # Repository services name
+  # Remember that repositories must be implement the interfaces
+  subscription_repository: astrada.repository.subscription # Interface: Astrada\SubscriptionBundle\Repository\SubscriptionRepositoryInterface
+  product_repository: astrada.repository.listing           # Interface: Astrada\SubscriptionBundle\Repository\ProductRepositoryInterface

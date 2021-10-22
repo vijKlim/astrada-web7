@@ -1,0 +1,16 @@
+{% block layout %}
+    {% block header %}
+        {% include '_partials/header.html.twig' with { pinned: true }  %}
+    {% endblock %}
+
+    <!-- wrapper-->
+    <div id="wrapper">
+
+        <div class="content">
+            {% block main %}{% endblock %}
+        </div>
+
+    </div>
+
+
+{% endblock %}

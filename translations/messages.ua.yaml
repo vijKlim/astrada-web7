@@ -1,0 +1,1225 @@
+global.howItWorks: Як це працює
+global.findAndComparePrices: Здійснюйте пошук
+global.createRequest:  Порівнюйте ціни і робіть заявку
+global.makeListing: Додайте свій сервіс
+global.changesSaved: Ваші зміни збережено.
+global.all: Всі
+global.services: Послуги
+home.header.title: Всі бурові компанії під рукою
+home.header.description: Знайдіть найкращі пропозиції з усієї України від наших партнерів.
+navbar.login: Вхід
+navbar.myAccount: Мій рахунок
+basics.powered_by: Powered by <a href="https://aquastrada.com">Aquastrada</a>
+base.footer.contactUs: Зв’яжіться з нами
+base.footer.companyRegister: Стати партнером
+base.footer.RegisterMyRestaurant: Зареєструйте мій ресторан
+base.footer.help: Довідка
+base.footer.legal: Юридичне повідомлення
+base.footer.suggest: Запропонуйте компанію
+base.footer.privacy: Конфіденційність
+base.footer.terms: Умови обслуговування
+adminDashboard.title: Інформаційна панель адміністратора
+adminDashboard.configuration: конфігурація
+adminDashboard.tooltip.orders: Керуйте замовленнями ресторанів
+adminDashboard.tooltip.deliveries: Керування доставками
+adminDashboard.tooltip.stores: Керування магазинами
+adminDashboard.tooltip.restaurants: Керування ресторанами
+adminDashboard.tooltip.users: керування обліковими записами користувачів
+adminDashboard.dashboard.title: Інформаційна панель
+adminDashboard.dashboard.import: Імпорт
+adminDashboard.dashboard.export: Експорт
+adminDashboard.dashboard.importTasks: Імпорт завдань
+adminDashboard.dashboard.exportTasks: Експорт завдань
+adminDashboard.dashboard.deleteTaskGroup: Видалити групу завдань
+adminDashboard.dashboard.displayByGroups: Відображення за групами
+adminDashboard.dashboard.displayAll: Показати все
+adminDashboard.deliveries.title: Доставки
+adminDashboard.deliveries.type: Тип
+adminDashboard.deliveries.dueDate: Термін виконання
+adminDashboard.deliveries.courier: Кур'єр
+adminDashboard.deliveries.address: Адреса
+adminDashboard.deliveries.delivery: Доставка
+adminDashboard.deliveries.originAddress: адреса походження
+adminDashboard.deliveries.deliveryAddress: Адреса доставки
+adminDashboard.embed.title: Зовнішній дисплей
+adminDashboard.package_sets.title: Пакети
+adminDashboard.customize.title: Налаштування
+embed.delivery.title: Форма створення доставки
+embed.delivery.configure_pricing_rule_set: Спочатку потрібно налаштувати правило ціноутворення
+  застосовувати
+embed.delivery.iframe_code: використовуйте HTML-код нижче, щоб вставити форму на свій веб-сайт
+listing.breadcrumb.home: Головна
+embed.breadcrumb.start: Інформація
+embed.breadcrumb.summary: Підсумок
+embed.breadcrumb.confirm: Підтвердження
+embed.delivery.summary.title: Підсумок замовлення
+embed.delivery.use_form_below: Використовуйте форму нижче, щоб оплатити своє замовлення кредитом
+  картки
+embed.delivery.paid_at: Оплата здійснена %date%
+embed.payment.heading: Оплатіть моє замовлення
+embed.delivery.contact_heading: Контакт
+embed.delivery.specify_billing_address: Вкажіть адресу виставлення рахунку
+embed.delivery.billing_address: Адреса виставлення рахунку
+adminDashboard.menuCategories.menu: Меню
+adminDashboard.menuCategories.categories: Категорії
+adminDashboard.menuCategories.addCategory: Додати категорію
+adminDashboard.stores.title: Магазини
+adminDashboard.stores.createNew: Створіть новий магазин
+adminDashboard.stores.form.uploadImage: Завантажте зображення
+adminDashboard.orders.title: Замовлення
+adminDashboard.orders.previousOrders: Попередні замовлення
+adminDashboard.orders.showCanceled: Показати скасовані замовлення
+adminDashboard.businesses.title: Фірми
+adminDashboard.businesses.createNew: Створіть новий бізнес
+adminDashboard.listings.title: Точки
+adminDashboard.listings.createNew: Створіть нову точку
+adminDashboard.businesses.exclusive: Ексклюзивно
+adminDashboard.users.title: Користувачі
+adminDashboard.users.roles: Ролі
+adminDashboard.users.editUser: Редагувати користувача
+adminDashboard.users.edit.addStore: Додати магазин
+adminDashboard.users.edit.addРесторан: Додати ресторан
+adminDashboard.users.createNew: Додати користувача
+adminDashboard.users.invite: Запросити користувача
+adminDashboard.users.orders_count: Кількість замовлень
+adminDashboard.users.registered_at: Зареєстровано
+adminDashboard.users.last_order: Останнє замовлення
+form.user.quotes_allowed.label: Дозволити цьому користувачеві запитувати ціну
+adminDashboard.settings.title: Налаштування
+adminDashboard.pricing.title: Ціноутворення
+adminDashboard.pricing.manage: Керувати
+adminDashboard.pricing.settings: Налаштування
+adminDashboard.pricing.noPricings: Цін ще немає
+adminDashboard.pricing.createNew: Створіть нову ціну
+adminDashboard.pricing.noRuleFound: Правила ціноутворення не знайдено. Правила ціноутворення визначають, як
+  розраховується вартість доставки.
+adminDashboard.pricing.addRule: Додати правило
+adminDashboard.tags.title: Теги
+adminDashboard.tags.createNew: Створити новий тег
+adminDashboard.tags.name: Ім'я
+adminDashboard.tags.color: Колір
+adminDashboard.tags.confirm_delete: "Ви впевнені, що хочете видалити цей тег? \n\
+  Тег буде видалено з відповідних елементів, використовуючи його, і не буде згруповано \
+  \ за тегом більше. "
+adminDashboard.taxation.title: Оподаткування
+adminDashboard.taxation.button: Додати оподаткування
+adminDashboard.zones.title: Зоні
+adminDashboard.zones.uploadGeoJSON: Завантажити файл GeoJSON
+adminDashboard.zones.send: Надіслати
+adminDashboard.back.title: Назад до веб-сайту
+adminDashboard.promotions.title: Акції
+adminDashboard.pledges.title: Пропозиції
+adminDashboard.time_slots.title: Часові інтервалі
+deliveryForm.noPriceWarning: Неможливо розрахувати ціну. Будь ласка, введіть його.
+deliveryForm.noPriceFromPricingWarning: Неможливо розрахувати ціну з ціни.
+  Введіть його вручну або відредагуйте ціну.
+delivery.createNew: Створіть нову доставку
+delivery.tracking_link: посилання для відстеження
+delivery.with_id: 'Доставка #% id%'
+help.title: Довідка
+help.home: Головна
+business.no_results: Ми не знайшли жодного ресторану, що відповідає вашому пошуку ☹ <br> Спробуйте
+  з іншою адресою
+business.visible_by_you_only: Ви бачите лише ви
+business.placeholder.title: Трохи терпіння ...
+business.placeholder.text: Незабаром з’являться нові ресторани!
+localBusiness.form.orderingDelayMinutes: Додаткова затримка перед замовленням
+localBusiness.form.orderingDelayMinutes.help: Використовуйте це поле, щоб додати деякий час до цього
+  замовник може замовити. Цей параметр не змінює час, необхідний для приготування їжі
+  та їзда на велосипеді.
+localBusiness.form.enabled: Увімкнено
+localBusiness.form.orderingDelayDays: День (и)
+localBusiness.form.orderingDelayHours: Hour (s)
+localBusiness.form.name: Ім'я
+localBusiness.form.description: Опис
+localBusiness.form.legalName: Юридична назва
+localBusiness.form.website: Веб-сайт
+localBusiness.form.telephone: телефон
+localBusiness.form.openingHours: Години роботи
+localBusiness.form.transportationPerimeterExpression: зона або максимальна відстань виконання робіт
+localBusiness.form.shippingOptionsDays: Кількість варіантів доставки (у днях)
+localBusiness.form.openingHoursBehaviour: Поведінка години роботи
+localBusiness.form.openingHoursBehavior.asap: якомога швидше
+localBusiness.form.openingHoursBehavior.time_slot: часовий інтервал
+localBusiness.form.use_different_business_address.label: Використовуйте інший бізнес
+  адресу
+localBusiness.form.business_address.label: Адреса бізнесу
+form.business.name.label: Назва бізнесу
+form.business.contact_referent.label: Контактна особа з питань бізнесу (email)
+business.disabledWarning: "Цей ресторан відключений, тому відвідувачі сайту не можуть \
+\ див. цю сторінку. Якщо ви хочете, ви можете <target =\"_blank\" href =\"%restaurantEditUrl%\" \
+                             > активуйте його в адміністраторі </a>.\n"
+business.closedWarningWithDelay: Замовляйте зараз на потім. Замовити принаймні% затримки% в
+  авансом.
+business.temporaryClosedWarning: Цей ресторан буде зачинений до <strong>% date% </strong>.
+  Ви все ще можете замовити пізніше!
+business.noMenuWarning: "Цей ресторан поки що не має меню \n"
+business.quotes_disclaimer.authenticated: Цей ресторан також приймає замовлення на
+  котирування. Щоб створювати котирування, ви повинні бути клієнтом, на який посилаються. <a href="%contact_us%"> Контакт
+  нам </a> для отримання додаткової інформації.
+business.quotes_disclaimer.not_authenticated: Цей ресторан також приймає замовлення
+  на котируванні. Якщо ви є зареєстрованим клієнтом, <a href="%login%"> увійдіть </a>, щоб створити
+  Цитата. <a href="%contact_us%"> Зв’яжіться з нами </a>, щоб отримати додаткову інформацію.
+business.form.noPricingRule: Правила ціноутворення не впроваджені, <a href="%editPricingRule%"> натисніть
+  тут створити </a>.
+business.form.enabled.tooltip: "У разі відключення бізнес не відображається на \
+  \ веб-сайт. Він не відображається в результатах пошуку, а сторінка бізнесу недоступна \
+  \ відвідувачами.\n"
+business.form.allow_stripe_connect.label: Дозволити ресторану керувати Stripe
+  рахунок самостійно
+business.form.temporaryClosingRule: натисніть тут, щоб тимчасово відключити замовлення
+  ваш ресторан.
+business.form.deposit_refund_enabled.label: Увімкнути систему повернення депозиту
+business.form.accessPlanning: Планування доступу
+business.form.createBusiness: Створіть Фірму
+business.form.createListing: Створіть Лістинг
+business.form.exclusive.label: Цей ресторан ексклюзивний
+business.form.quotes_allowed.label: 'Цей бізнес також приймає цитати (наприклад: скважина)'
+business.form.loopeat_enabled.label: Увімкнути систему повернення депозиту LoopEat
+business.form.loopeat_disconnect.label: Від'єднати LoopEat
+business.form.featured.label: Цей бізнес розміщений на домашній сторінці
+business.form.giropay_enabled.label: Увімкнути Giropay
+business.form.fulfillment_methods.label: Методи виконання
+ресторан.форма.секція.загальне: Загальне
+business.form.section.options: Параметри
+business.form.section.fulfillment: Виконання
+business.form.section.payment: Оплата
+ресторан.форма.секція.селення: поселення
+business.form.section.taxonomy: Таксономія
+business.form.section.loopeat: LoopEat
+ресторан.форма.кухні.марка: Кухні
+business.contract.title: Контракт
+business.deliveryPerimeterExpression.title: Периметр доставки
+business.deliveryPerimeterExpression.help: Визначте прийнятий периметр для доставки.
+  Ви можете вибрати радіус (в км) або зону
+business.contract.minimumCartAmount.label: Мінімальна кількість кошика
+business.contract.flatDeliveryPrice.label: Сума, що стягується платформою
+business.contract.flatDeliveryPrice.help: Ця сума не відображатиметься в
+  кошик і не збільшить загальну суму
+business.contract.variableDeliveryPrice.label: Сума, що стягується платформою (змінна)
+business.contract.variableDeliveryPrice.help: Розрахована сума буде розрахована
+  використовуючи вибраний набір правил ціноутворення
+business.contract.variableDeliveryPrice.placeholder: Виберіть правило ціноутворення
+  встановити
+business.contract.variableDeliveryPriceEnabled.label: Увімкнути змінну суму, що стягується
+  біля платформи
+business.contract.variableDeliveryPriceEnabled.disclaimer: Обчислюється сума
+  динамічно
+business.contract.customerAmount.label: Сума, сплачена замовником
+business.contract.customerAmount.help: Ця сума буде відображена в кошику
+  і збільшить загальну суму
+business.contract.feeRate.label: Плата за платформу за доставку
+business.contract.feeRate.help: Цей відсоток збереже платформа
+  на загальну кількість продуктів
+business.contract.restaurantPaysStripeFee.label: відповідає за вартість
+  Смугасті збори, відшкодування та повернення платежів
+business.contract.restaurantPaysStripeFee.help: Виберіть, за кого відповідатиме
+  вартість зборів Stripe та управління відшкодуваннями та поверненнями платежів
+business.contract.restaurantPaysStripeFee.restaurant: Ресторан
+business.contract.restaurantPaysStripeFee.cooperative: Cooperative
+business.contract.onlyAdmin: Лише адміністратор може редагувати деталі контракту.
+business.contract.noContract: Немає деталей контракту. Зверніться до адміністратора.
+business.contract.showAdvanced: Показати розширені налаштування
+business.contract.variableCustomerAmount.label: Сума, сплачена замовником (змінна)
+business.contract.variableCustomerAmount.help: Оплачена ціна буде розрахована
+  використовуючи вибраний набір правил ціноутворення
+business.contract.variableCustomerAmount.placeholder: Виберіть правило ціноутворення
+  встановити
+business.contract.variableCustomerAmountEnabled.label: Увімкнути змінну суму сплати
+  замовником
+business.contract.variableCustomerAmountEnabled.disclaimer: Сума розраховується
+  динамічно
+business.contract.calculation_info: Ви можете взяти з ресторану іншу суму
+  від суми, сплаченої замовником. <br> Наприклад, ви можете запропонувати доставку до
+  клієнт під час стягнення фіксованої суми в ресторані. <br> Ви також можете
+  налаштуйте динамічну величину (наприклад, на основі відстані).
+business.contract.takeAwayFeeRate.label: Плата за платформу за винос
+business.contract.takeAwayFeeRate.help: Цей відсоток зберігатиме
+  платформа на загальну кількість продуктів
+business.menus.noMenus: На даний момент ви не створили жодного меню.
+business.menus.activate: Активувати
+business.menus.activated: Меню «%menu_name%» активоване. Це буде зараз
+  відображатись на сторінці ресторану
+business.closingForm.title: додайте тимчасове закриття
+business.closingForm.reason.label: Причина
+business.closingForm.dates.label: Закриття з / до
+business.list.manage: Керувати
+business.list.orders: Замовлення
+business.list.refunds: Відшкодування
+business.list.products: Продукція
+business.list.welldesigns: Конструкції свердловин
+business.list.product_options: Параметри
+business.list.menus: Меню
+business.list.activeMenu: Активне меню
+business.list.planning: Планування
+business.list.settings: Налаштування
+business.list.nobusiness: Ще немає фірм
+business.list.createNewRestaurant: Створіть новий ресторан
+business.list.preparationTime: Підготовка
+business.list.stats: Статистика
+business.list.depositRefund: Повернення депозиту
+business.list.promotions: Акції
+business.product_options.help: "Цей розділ дозволяє налаштувати додаткові елементи\
+\ для ваших <strong> продуктів </strong>. \n <br> \nВони дозволяють, наприклад, додавати добавки,\
+\ або вибрати елементи меню (акомпанемент, напій…) \n <br> \nДля кожного варіанту,\
+\ Ви можете визначити список значень \n "
+business.product_options.list.values: Цінності
+business.form.uploadImage: Завантажте зображення
+business.stats.order_number: Номер замовлення
+business.stats.delivered_on: Доставлено
+business.stats.total_products_including_all_taxes: Загальна кількість продуктів, включаючи всі
+  податки
+business.stats.total_products_excluding_taxes: Загальна кількість товарів без податків
+business.stats.delivery: Доставка
+profile.addresses.breadcrumb: Адреси
+profile.addresses.empty: Адресу ще не збережено!
+profile.orders.empty: Ще немає замовлення!
+profile.myDeliveries: Мої доставки
+profile.myStores: Мої магазини
+profile.myAccount: Мій рахунок
+profile.myTracking: Моє відстеження
+profile.myOrders: Мої замовлення
+profile.myAddresses: Мої адреси
+profile.myPersonalInfo: Моя особиста інформація
+profile.payment: Оплата
+profile.task.noTasks: завдання не заплановані
+profile.task.dueDate: Термін виконання
+profile.task.address: Адреса
+profile.task.complete: Повне
+profile.task.date: Дата
+profile.addresses.newAddress: Нова адреса
+profile.addresses.add: Додати
+profile.editProfile: Редагувати профіль
+profile.payment.title: Оплата
+profile.payment.stripeConnected: Ваш обліковий запис Stripe підключений
+profile.username: Ім'я користувача
+profile.email: Електронна пошта
+profile.telephone: телефон
+profile.familyName: Прізвище
+profile.givenName: Ім'я
+profile.fullName: Повне ім’я
+profile.managedStores: магазини, якими керує користувач
+profile.managedRestaurants: Ресторани, якими керує користувач
+profile.accountType: тип рахунку
+order.cart.title: Кошик
+order.items.products_with_count: Товари (%count%)
+order.summary.heading: Замовлення% number% (#%id%)
+order.total_excluding_tax: Всього (без ПДВ)
+order.total_including_tax: Усього (з ПДВ)
+order.items_total: Усього товарів
+order.total_tax: ПДВ
+order.total_tax_by_rate: Загальний% name%
+order.preparation_expected_at: Підготовка очікується% date%
+order.shipping_date.title: Ваша дата доставки
+order.payer.title: Інформація про покупця
+order.payer.email: E-mail
+order.payer.identificationType: тип ідентифікатора
+order.payer.identificationNumber: ідентифікаційний номер
+order.payment.title: Ваша платіжна інформація
+order.payment.expiration.label: Термін дії
+order.payment.month.label: місяць
+order.payment.year.label: Рік
+order.payment.card_number.label: Номер картки
+order.payment.total: Сплатити% загальний%
+order.payment.cvc: CVC
+  order.delivery_time:% часу доставки%
+order.payment.card_number.help: Смужка <a href = "https://stripe.com/docs/testing#cards"
+  target = "_ blank" tabindex = "- 1"> номер тестової картки </a> попередньо заповнений. Жоден рахунок не буде
+  бути списаним.
+order.payment.waiting_for_confirmation: Чекає підтвердження вашого банку ...
+order.payment.do_not_close: Не закривайте цю сторінку
+order.payment.waiting_success: Ваш банк підтвердив платіж
+order.payment.waiting_failure: Ваш банк відхилив платіж
+order.state.cart: Кошик
+order.state.accepted: Прийнято
+order.state.refused: Відмовлено
+order.state.new: Нове
+order.state.fulfilled: Виконано
+order.state.cancelled: Скасовано
+order.reusable_packaging.alert: Це замовлення повинно бути упаковано в багаторазову упаковку
+order.public_link: Посилання для спільного використання
+order.payments: Платежі
+note.notes: Примітки клієнта
+payment.state.cart: Кошик
+payment.state.new: Нове
+payment.state.authorized: Уповноважений
+Payment.state. Завершено: Завершено
+payment.state. Failed: Не вдалося
+платеж. держава. скасовано: скасовано
+payment.state.refunded: повернено
+payment.state.refunded_partial: Частково повернено
+order.adjustment_type.delivery: Доставка
+order.adjustment_type.platform_fees: Плата за CoopCycle
+order.adjustment_type.reusable_packaging: Упаковка
+order.adjustment_type.tip: Порада
+order_item.adjustment_type.reusable_packaging: '%quantity% × упаковка(и)'
+order.list.total: Total
+order.list.shippedAt: Час доставки
+order.list.type: Тип
+order.list.customer: Клієнт
+order.list.state: Держава
+order.list.summary: Підсумок
+order.list.summary.business.text: Доставка в ресторані <a href="%restaurant_url%">%restaurant_name%</a>
+order.list.summary.deleted_business.text: Доставка в ресторані %restaurant_name%
+order.list.summary.delivery.text: Доставка %distance%, %vehicle%
+order.list.receipt: квитанція
+order.list.generate_receipt: Створити
+vehicle.bike: Велосипед
+vehicle.cargo_bike: Вантажний велосипед
+task.form.create: Створити завдання
+task.form.timeWindow: Часове вікно
+task.form.showHistory: Показати історію
+task.form.modal.moreOptions: Додаткові параметри
+task.form.edit: Змінити завдання %id%
+task.form.dateRange: діапазон дат
+task.form.finish: Завершити завдання
+task.form.details: Деталі завдання
+task.form.finish.DONE.info: Завдання успішно виконано
+task.form.finish.FAIL.info: Завдання неможливо виконати
+task.status.done: Успіх
+task.status. Failed: Помилка
+task.status.todo: Зробити
+form.task.address.label: Адреса
+form.task.courier.label: Кур'єр
+form.task.comments.label: Коментарі
+form.task.comments.placeholder: Вкажіть будь-які корисні деталі для завершення завдання
+form.task.status.label: Статус
+form.task.telephone.label: Телефон
+form.task.recipient.label: Контакт
+form.task.recipient.help: Вкажіть ім’я контактної особи
+form.task.dropoff.doorstep.label: Дверний спуск
+form.task_event.notes.placeholder: 'Наприклад: адресу не знайдено, немає проблем ...'
+form.task_event.notes.help: Ви можете редагувати коментар
+form.task_complete.done.label: Повне
+form.task_complete.fail.label: Повідомити про проблему
+task.type.PICKUP: Пікап
+task.type.DROPOFF: скидання
+task.previous_task_not_completed_yet: Попереднє завдання ще не виконане
+demo.disclaimer: <i class ="fa fa-bullhorn"></i>Ласкаво просимо до демонстрації <a target="_blank"
+  href="https://aquastrada.com"> платформа Astrada </a>
+demo.disclaimer.subtitle: <a target="_blank" href="https://aquastrada.com"> <i
+  class = "fa fa-info-circle"> </i> Як користуватися цією платформою? </a>
+maintenance.disclaimer: Режим обслуговування ввімкнено
+cart.widget.title: Ваші дані про доставку
+button.widget.button: Замовлення
+checkout.breadcrumb.address: Адреса
+checkout.breadcrumb.payment: Оплата
+checkout.breadcrumb.confirm: Підтвердження
+form.geojson_upload.file: Файл
+form.store_type.pricing_rule_set.label: Ціноутворення
+form.store_type.prefill_pickup_address.label: Попередньо заповніть адресу автоматичного отримання
+form.store_type.create_orders.label: Створення замовлень
+form.delivery.vehicle.VEHICLE_BIKE: Велосипед
+form.delivery.vehicle.VEHICLE_CARGO_BIKE: Вантажний велосипед
+form.store_type.pricing_rule_set.placeholder: Виберіть ціну
+form.store_type.setAsDefault.label: Встановити як адресу за замовчуванням
+form.store_type.defaultAddress.label: Адреса за замовчуванням
+form.store_type.time_slot.label: часовий інтервал
+form.store_type.time_slot.placeholder: Виберіть часовий інтервал
+form.store_type.package_set.label: Набір пакетів
+form.store_type.package_set.placeholder: Виберіть набір пакетів
+form.store_type.weight_required.label: Потрібно ввести вагу
+form.store_type.packages_required.label: Потрібне введення пакетів
+form.delivery.vehicle.placeholder: Виберіть тип транспортного засобу
+form.delivery.pickup.label: Адреса колекції
+form.delivery.pickup.address_placeholder: Номер будинку та назва вулиці, район, поштовий індекс,
+  місто
+form.delivery.dropoff.label: Адреса доставки
+form.delivery.dropoff.address_placeholder: Номер будинку та назва вулиці, район, поштовий індекс,
+  місто
+form.delivery.weight.label: Вага
+form.delivery.weight.help: Будь ласка, вкажіть вагу в грамах (1 кг = 1000 г)
+form.delivery.vehicle.label: Велосипед чи вантажний велосипед?
+form.delivery.pickup.doneBefore.label: Дата та час збору
+form.delivery.dropoff.doneBefore.label: Дата та час доставки
+form.delivery.distance.label: Відстань
+form.delivery.duration.label: Тривалість
+form.delivery.store.label: Store
+form.delivery.store.placeholder: Шукати в магазині…
+form.delivery.price.label: Ціна
+form.delivery.to_be_confirmed.warning: Ви повинні підтвердити замовлення
+form.delivery.has_order.info: Ця доставка пов’язана із замовленням
+form.delivery.package.label: Пакет
+form.delivery.packages.label: Пакети
+form.delivery.time_slot.label: часовий інтервал
+form.delivery.view_order: Перегляд замовлення
+form.order.accept.label: Прийняти
+form.order.accept.help: Після того, як ви прийняли замовлення, клієнт отримає повідомлення
+  електронною поштою.
+form.order.refuse.label: Відмова
+form.order.fulfill.label: Виконати
+form.order.payment_complete.label: Повне
+form.order.payment_refund.label: Відшкодування
+form.order.refund_modal.title: Відшкодування
+form.order.refuse.refund.alert: Це замовлення було оплачено способом оплати, який робить це
+  не керувати попередніми дозволами. Якщо ви відмовитесь, платіж буде повернено. Є
+  ти впевнений?
+form.payment.state.label: Держава
+form.payment.amount.label: Сума
+form.payment.refund_amount.label: Сума відшкодування
+form.payment.last_update.label: Останнє оновлення
+form.payment.refund_amount.help: Вказана вами сума буде повернена клієнту
+form.payment.refund_liable.label: Відповідальна сторона
+form.payment.refund_liable.help: Яка сторона несе відповідальність за інцидент?
+form.payment.refund_comment.label: Коментарі
+form.payment.refund_comment.help: Опишіть, що сталося
+form.payment.refund_application_fee.help: "Якщо встановити цей прапорець, комісія стягується \
+  \ платформою партнеру пропорційне повернення коштів буде повернено пропорційно \n <br> \n <a href = \"\
+                                            https://stripe.com/docs/connect/direct-charges#issuing-refunds\">Докладніше</a> \n "
+form.address.addressLocality.label: Місто
+form.address.postalCode.label: Поштовий індекс
+form.address.description.label: Інструкції
+form.address.description.placeholder: 2-і двері зліва ...
+form.address.streetAddress.label: Адреса
+form.address.streetAddress.error.noLatLng: Будь ласка, виберіть адресу у спадному меню
+form.address.name.label: Назва
+form.address.name.placeholder: Дім, робота ...
+form.address.company.label: Компанія
+form.address.comname_name.label: Назва компанії
+form.address.company.business_reference.label: Контактна особа компанії
+form.address.company.function.label: Посада контактної особи
+form.address.company.collaborator_number.label: Кількість працівників
+form.address.company.meal_estimate.label: Приблизна кількість прийомів їжі (на день)
+form.company.make_the_request.label: Надіслати запит
+form.pricing_rule_set.name.label: Ім'я
+form.pricing_rule_set.rules.label: Правила
+form.pricing_rule_set.strategy.label: Метод розрахунку
+form.pricing_rule_set.strategy.help: Правила оцінюються зверху вниз. Залежно
+  щодо вибраного методу обчислення, буде відповідати перше правило, яке відповідає
+  визначте ціну, інакше ціна буде розрахована шляхом складання всього відповідного
+  правила.
+form.pricing_rule_set.strategy.find.label: Перше правило, яке відповідає
+form.pricing_rule_set.strategy.map.label: Усі правила відповідності
+form.pricing_rule.price.label: Ціна
+form.preparation_time_rule.expression.label: Вираз
+form.preparation_time_rule.time.label: Час
+form.preparation_time.defaults_warning: "У цьому ресторані немає спеціальних \
+  \ час підготовки поки. Правила за замовчуванням скопійовані нижче, ви можете змінити \
+  \ них. \n "
+form.settings.date_time: Дата та час
+form.settings.brand_name.label: Назва бренду
+form.settings.stripe.title: Обліковий запис у смузі
+form.settings.stripe.help: 'Stripe - це платіжна послуга, яку ми використовуємо для обробки кредитів
+  картки. Для використання частини платформи електронної комерції необхідно це налаштувати
+  розділу, а також Stripe Connect. Stripe бере плату в розмірі 0,25 к. С. + 1,4% за платіж
+  (актуальні ціни <a href="https://stripe.com/fr/pricing"> тут </a>), що оплачуються
+  власником магазину. '
+form.settings.stripe_testmode.help: 'У режимі «тест» вам доведеться використовувати <a href="https://stripe.com/docs/testing"> test
+  номери кредитних карток </a> для оплати на платформі. <strong> Гроші обмінюватися не будуть. </strong> '
+form.settings.stripe_enable_livemode.help: Щоб увімкнути «живий» режим, вам потрібно налаштувати
+  Спочатку «живі» клавіші.
+form.settings.stripe_publishable_key.label: Смугастий публікуваний ключ
+form.settings.stripe_publishable_key.help: "Створіть обліковий запис Stripe, щоб отримати \
+  \ <a href=\"https://stripe.com/docs/dashboard#api-keys\"> публікуваний ключ </a> \ n "
+form.settings.stripe_secret_key.label: Смугастий секретний ключ
+form.settings.stripe_secret_key.help: "Створити обліковий запис Stripe, щоб отримати <a href = \" \
+  https://stripe.com/docs/dashboard#api-keys\">опублікований ключ </a> \n "
+form.settings.stripe_connect_client_id.label: Ідентифікатор Stripe Connect
+form.settings.stripe_connect_client_id.help: "Отримати ідентифікатор на <a href = \" \
+  https://dashboard.stripe.com/account/applications/settings\"> сторінка параметрів </a> \n "
+form.settings.latlng.label: Географічні координати
+form.settings.latlng.help: "Вкажіть широту та довготу за замовчуванням. Ви можете отримати \
+  \ це на <a href=\"https://www.latlong.net/\"> latlong.net </a> \n "
+form.settings.administrator_email.label: Адреса електронної пошти адміністратора
+form.settings.administrator_email.help: Сповіщення будуть надіслані на цей електронний лист
+form.settings.phone_number.label: Номер телефону
+form.settings.phone_number.help: цей номер відображатиметься клієнтам
+form.settings.enable_restaurant_pledges.label: Дозволити клієнтам пропонувати ресторани
+form.settings.company_logo.label: Логотип компанії
+form.settings.company_logo.help: Для цього логотипу будуть використовуватися рахунки-фактури та підтвердження доставки
+form.settings.subject_to_vat.label: Обкладається ПДВ
+form.settings.sms_enabled.label: Увімкнути надсилання SMS
+form.settings.sms.title: SMS
+form.settings.sms_gateway.label: Шлюз SMS
+form.settings.sms_gateway_config.mailjet.api_token.label: Маркер API Mailjet
+form.settings.sms_gateway_config.twilio.sid.label: Twilio SID
+form.settings.sms_gateway_config.twilio.auth_token.label: маркер авторизації Twilio
+form.settings.sms_gateway_config.twilio.from.label: Номер телефону Twilio
+form.suggest.name.label: Назва
+form.suggest.name.help: Будь ласка, вкажіть точну назву, щоб ми могли її знайти
+form.suggest.submit.label: Запропонуйте зараз
+form.suggest.message: "Не можете знайти улюблений ресторан чи магазин? \ n <br> \ nРозкажіть нам \
+  \ його назва та адреса. \ n <br> \ nЦе дозволить нам краще визначити бізнес \
+  \ щоб звернутися до них та надати їм підтвердження реального попиту. \ n "
+form.suggest.thank_you_message: Дякуємо, що запропонували цей ресторан!
+business.suggest.message: "Допоможіть нам переконати %business.name% працювати з %brand_name%! \ n \
+  <br> \ nЩоб побачити це на платформі, нам потрібні ви та ваш голос, щоб підтримати наше майбутнє \
+  \ запит на співпрацю з цим брендом. \ n "
+business.suggest.vote: Проголосуйте за %name%
+pledge.suggested_by:: Запропоновано @%username%
+business.suggest.has_voted: Ви вже проголосували за цей ресторан!
+business.suggest.banner_disclaimer: Цей ресторан наразі недоступний.
+  Голосуйте за% business.name%!
+pledge.vote_count_equals_two: '%first_user% і %second_user% проголосували за це
+  ресторан '
+pledge.vote_count_equals_one: '%username% проголосувало за цей ресторан'
+pledge.accept: Прийняти
+pledge.reject: відхилити
+form.maintenance.enable.label: Увімкнути технічне обслуговування
+form.maintenance.disable.label: Вимкнути технічне обслуговування
+form.maintenance.enable.alert: Ви збираєтеся ввімкнути режим обслуговування. <br> Тільки адміністратори
+  матиме доступ до сайту.
+form.maintenance.disable.alert: Ви збираєтесь вимкнути режим обслуговування
+form.maintenance.message.label: Повідомлення
+mardown_formatting.help: Ви можете форматувати текст, використовуючи синтаксис Markdown
+form.banner.enable.label: Увімкнути банер
+form.banner.disable.label: Вимкнути банер
+form.banner.enable.alert: Ви збираєтеся ввімкнути банер
+form.banner.disable.alert: Ви збираєтеся вимкнути банер
+form.banner.message.label: Повідомлення для відображення в банері
+form.stripe_livemode.enable.label: Використовуйте смужку в режимі «живого»
+form.stripe_livemode.enable.alert: У режимі «в прямому ефірі» з кредитних карток стягуватиметься плата.
+form.stripe_livemode.disable.label: Використовуйте смужку в режимі «тест»
+form.stripe_livemode.disable.alert: У режимі «тесту» з кредитних карток стягуватися не буде.
+form.stripe_livemode.disable_and_enable_maintenance.label: Переключитися в режим «тестування»
+  і включити обслуговування
+form.stripe_livemode.disable_and_enable_maintenance.alert: Ви перебуваєте в режимі «живого». <br> Якщо
+  якщо ви перейдете в режим «тесту», обслуговування буде ввімкнено автоматично.
+form.settings.currency_code.label: Валюта
+form.delivery_embed.name.label: Ім'я
+form.delivery_embed.name.help: Ваше ім'я або назва компанії
+form.delivery_embed.telephone.label: Номер телефону
+form.delivery_embed.vehicle.disclaimer: Ми доставляємо на вантажі велосипедні предмети розміром більше
+  50x40x20 см та / або більше 6 кг.
+form.registration.username.help: "Ваше ім'я користувача не може містити більше 15 символів. \
+  \ Ім'я користувача може містити лише буквено-цифрові символи (літери A-Z, цифри 0-9) \
+  \ за винятком підкреслення. \ n "
+form.registration.legal.label: Я погоджуюсь із Загальними положеннями та умовами та Політикою конфіденційності
+form.registration.legal.help: Поставивши цей прапорець, ви погоджуєтесь з нашими <a href="%terms_url%"> Умовами
+  та умови </a> та <a href="%privacy_url%"> Політика конфіденційності </a>.
+form.local_business.stripe_account.title: Обліковий запис у смузі
+form.local_business.stripe_account.help: підключіть рахунок Stripe для переказу грошей
+  на інший банківський рахунок
+form.local_business.stripe_account.connect_button.text: Підключитися до Stripe
+form.local_business.stripe_account.not_configured: Ви ще не можете підключити обліковий запис
+form.local_business.stripe_account.success: Обліковий запис Stripe успішно підключено
+form.local_business.stripe_account.need_stripe_account: "Ви не створили смужку \
+  \ обліковий запис цього ресторану ще немає. Stripe - це платіжна платформа, яка дозволяє нам \
+  \ для надійної обробки платежів і переказів карткою на ваш банківський рахунок. <br> \ nСтворити \
+  \ a Обліковий запис Stripe для цього ресторану, будь ласка, <a href=\"%stripeAuthorizeURL%\"> натисніть \
+  \ тут </a>. \ n "
+form.local_business.stripe_account.link_ok: "Цей ресторан пов'язаний із смугою \
+  \ акаунт і може отримувати платежі з платформи. <br> \ nДля управління вашим Stripe \
+  \ акаунт і перекази на ваш рахунок, використовуйте <a href = \"https://dashboard.stripe.com/\" \
+  \target = \"_blank\">Інформаційна панель у смужку</a>. \n"
+form.settings.mercadopago.title: Mercado Pago
+form.local_business.mercadopago_account.title: Обліковий запис MercadoPago
+form.local_business.mercadopago_account.success: обліковий запис MercadoPago успішно
+  підключений
+form.local_business.mercadopago.connect_button.text: Підключитися до Mercado Pago
+form.mercadopago_livemode.enable.label: Використовуйте Mercadopago у «живому» режимі
+form.mercadopago_livemode.enable.alert: У режимі «в прямому ефірі» з кредитних карток стягуватиметься плата.
+form.mercadopago_livemode.disable.label: Використовуйте Mercadopago в «тестовому» режимі
+form.mercadopago_livemode.disable.alert: У режимі «тесту» кредитні картки не будуть
+  стягується плата.
+form.mercadopago_livemode.disable_and_enable_maintenance.label: Переключитися на «тест»
+  режимі та увімкнути обслуговування
+form.mercadopago_livemode.disable_and_enable_maintenance.alert: Ви знаходитесь в «live
+  »Режим. <br> Якщо ви перейдете в режим« тест », технічне обслуговування буде ввімкнено автоматично.
+form.settings.mercadopago_testmode.help: 'У «тестовому» режимі вам доведеться використовувати <a
+  href = "https://www.mercadopago.com.ar/developers/en/guides/online-payments/checkout-api/testing#bookmark_how_to_test_your_integration"> тест
+  номери кредитних карток </a> для оплати на платформі. <strong> Гроші обмінюватися не будуть. </strong> '
+form.settings.mercadopago_enable_livemode.help: Щоб увімкнути «живий» режим, вам потрібно
+  спочатку налаштувати «живі» клавіші.
+form.settings.mercadopago.publishable_key.label: Ключ для публікації
+form.settings.mercadopago.publishable_key.help: "Отримати <a href = \"https://www.mercadopago.com.%country%/developers/panel/credentials\"\
+                                                  \target = \"_blank\">публікуваний ключ</a>"
+form.settings.mercadopago.access_token.label: маркер доступу
+form.settings.mercadopago.access_token.help: "Отримати <a href = \"https://www.mercadopago.com.%country%/developers/panel/credentials \"\
+                                               \target =\"_blank\"> маркер доступу </a> "
+form.settings.mercadopago.app_id.label: Ідентифікатор програми
+form.settings.mercadopago.app_id.help: Вам потрібно <a href=\"https://www.mercadopago.com.br/developers/es/guides/marketplace/api/create-marketplace/\"> створити
+  заявку </a> для отримання ідентифікатора вашої програми.
+form.settings.mercadopago.redirect_uri.help: "Під час налаштування програми використовуйте наступне \
+  \ redirect URI: <code>% redirect_uri% </code> "
+form.menu_item.name.label: Назва
+form.menu_item.price.label: Ціна
+form.menu_item_modifier.name.label: Ім'я
+form.menu_item_modifier.price.label: Ціна
+form.menu_item_modifier.calculusStrategy.label: Розрахунок ціни
+form.menu_taxon.name.label: Ім'я
+form.menu_taxon.add_child.label: Додати розділ
+form.menu_taxon.child_name.placeholder: "Приклад: основні страви, десерти ... \ n"
+form.menu_editor.products_panel.title: Продукти
+form.menu_editor.save.label: Зберегти зміни
+form.menu_editor.help: "Використовуйте редактор нижче, щоб скласти пункти меню \ n <br> \ nПеретягніть \
+  \ і опустіть товари в розділи зліва \ n <br> \ nЯкщо ви хочете видалити \
+  \ продукт із меню, опустіть його в розділ «Товари» праворуч \ n <br> \ n \
+  Не забудьте натиснути на кнопку «Зберегти зміни» внизу \ n "
+form.menu_editor.products.help: Щоб додати товари до списку праворуч, додайте їх
+  спершу до <a href="%products_url%"> каталогу </a>
+form.menu_editor.taxon_modal.title: Змінення розділу
+form.menu_editor.name.help: Це лише для вас, щоб розрізняти меню. Це не
+  відображається замовнику.
+form.product.name.label: Назва
+form.product.description.label: Опис
+form.product.price.label: Ціна
+form.product.taxCategory.label: Податки
+form.product.enabled.label: Увімкнено
+form.product.allergens.label: Алергени
+form.product.allergens.help: Чи містить цей продукт такі алергени?
+form.product.restricted_diets.label: дієти з обмеженим доступом
+form.product.restricted_diets.help: Чи підходить цей продукт для наступних дієт?
+form.product.confirm.label: Підтвердити зміни
+form.product.confirm.help: "Ви змінили назву товару. Якщо воно <strong> незначне \
+  \ модифікація </strong> (з помилкою, великі регістри…), натисніть «Підтвердити зміни». \ n \
+  <br> \ nЯкщо ні, ви повинні <a href=\"%link%\"> створити новий продукт </a>, щоб ви \
+  \ може розрізнити товари, які ви продаєте, та підтримувати історію. "
+form.product.reusable_packaging_enabled.label: Увімкнути для цього багаторазову упаковку
+  продукту
+form.product.reusable_packaging.label: Тип багаторазової упаковки
+form.product.reusable_packaging_unit.label: Кількість одиниць
+form.product_option.name.label: Назва
+form.product_option.strategy.label: Розрахунок ціни
+form.product_option.add_value.label: Додати значення
+form.product_option.values.title: Значення
+form.product_option.values.help: Ви повинні визначити список значень для цього параметра
+form.product_option.additional.label: Цей параметр є додатковим
+form.product_option.additional.help: Клієнт може вибрати кілька значень без
+  вибирати хоча б одну
+form.product_option.preview_title: попередній перегляд опції
+form.product_option_value.value.label: Значення
+form.product_option_value.price.label: Ціна
+service.WELLDRILLING_1С: Буріння свердловин в одну колону
+service.WELLDRILLING_2С: Буріння свердловин в 2 колони
+service.WELLDRILLING_3С: Буріння свердловин в 3 колони
+vehicleType.BA15: БА/15
+vehicleType.GAZ: ГАЗ
+vehicleType.MBY: Малогабаритна бурова установка
+vehicleType.URB25: УРБ 2,5 на базі ЗІЛ 131, Урал
+vehicleType.URB2A2: УРБ 2А2
+pipeDiameter.D050MM: 50мм
+pipeDiameter.D125MM: 125мм
+pipeDiameter.D160MM: 160мм
+welldesign.pipeDiameter.D050MM: Конструкція свердловини діаметр 50мм
+welldesign.pipeDiameter.D125MM: Конструкція свердловини діаметр 125мм
+welldesign.pipeDiameter.D160MM: Конструкція свердловини діаметр 160мм
+form.welldesign.pipeDiameter.label: Діаметр труби
+form.welldesign.depthWell: Глибина свердловини
+form.welldesign.depthFrom.label: від
+form.welldesign.depthTo.label: до
+form.welldesign.vihicleType.label: Вид транспортного засобу
+form.welldesign.vehicle_type.label: Вид транспортного засобу
+form.welldesign.price: Базова ціна за 1 м.п.
+form.checkout_address.notes.label: Залиште примітку для ресторану
+form.checkout_address.notes.placeholder: "Приклад: без соусу, без помідорів ... \ n"
+form.checkout_address.notes.help: Ваша записка буде перенаправлена ​​в ресторан
+form.checkout_address.promotion_coupon.label: Код купона
+form.checkout_address.telephone.label: Номер телефону
+form.checkout_address.reusable_packaging_enabled.label: Я хочу багаторазову упаковку
+  (% ціна%)
+form.checkout_address.reusable_packaging_loopeat_enabled.label: Я хочу використовувати LoopEat
+  контейнери (% ціна%)
+form.checkout_address.add_promotion.label: Застосувати
+form.checkout_address.tip_amount.label: Порада
+form.checkout_address.tip_amount.help: Дякую ❤
+form.checkout_address.add_tip.label: Застосувати
+form.checkout_address.quote.label: Запит пропозиції
+form.checkout_address.takeaway.disclaimer: Ви вибрали клік і збирання. Ти є
+  відповідальний за збір вашого замовлення у вибраний день та час.
+form.checkout_address.takeaway.contact: Якщо у вас виникли проблеми, зв’яжіться з установою
+  на% телефон%.
+form.checkout_address.takeaway.no_show_disclaimer: Зверніть увагу - Якщо ви не збираєте,
+  з вас буде стягнуто повну суму за замовлення.
+form.checkout_payment.method.label: Виберіть варіант оплати
+form.checkout_address.reusable_packaging.loopeat.learn_more: Дізнайтеся більше про LoopEat
+form.task_export.start.label: Пуск
+form.task_export.end.label: Кінець
+form.api_app.name.label: Назва програми
+form.api_app.store.label: Зберігати
+form.api_app.client_id.label: Ідентифікатор
+form.api_app.client_secret.label: Секретний ключ
+form.credit_note.user_search.help: Акція буде доступна лише для цього користувача
+form.credit_note.user_search.label: Користувач
+form.credit_note.type.label: Тип знижки
+form.credit_note.amount.label: Сума
+form.credit_note.percentage.label: Відсоток
+form.credit_note.name.label: Ім'я
+form.credit_note.name.help: Назва рекламної акції, яка відображатиметься в
+  візок
+form.credit_note.business.help: Акція може бути використана лише під час замовлення
+  у цьому ресторані. Залиште порожнім, щоб застосовуватись до всіх ресторанів.
+form.resend_confirmation_email.submit.label: Знову надішліть електронний лист
+form.embed_settings.with_vehicle.label: Додати вибір транспортного засобу
+form.embed_settings.with_weight.label: Запитуйте вагу товару
+form.time_slot.name.label: Ім'я
+form.time_slot.interval.label: Інтервал
+form.time_slot.working_days_only.label: Дозволяє вибирати лише робочі дні
+form.time_slot.choices.label: Вибір
+form.time_slot_choice.start_time.label: Час початку
+form.time_slot_choice.end_time.label: Час завершення
+form.time_slot.prior_notice_hours.label: Попереднє повідомлення (години)
+form.package_set.name.label: Ім'я
+form.package_set.packages.label: Пакети
+form.package.name.label: Назва
+form.package.volume_units.label: Одиниці обсягу
+form.reusable_packaging.name.label: Ім'я
+form.reusable_packaging.is_tracked.label: Відстеження увімкнено
+form.reusable_packaging.price.label: Ціна
+form.reusable_packaging.on_hand.label: Запас
+form.deposit_refund_settings.deposit_refund_optin.label: Система повернення депозиту
+  за бажанням
+form.deposit_refund_settings.deposit_refund_optin.help: Коли система повернення депозиту
+  є необов’язковим, він зможе вибрати, хоче він чи ні упаковки.
+  Коли це є обов’язковим, упаковка буде додана до загальної суми замовлення автоматично.
+form.new_order.variant_name.label: Назва продукту
+form.new_order.variant_name.help: ім'я, яке з'явиться у зведенні замовлення та
+  рахунок-фактура
+form.new_order.variant_price.label: Ціна
+form.customize.about_us_enabled.label: Увімкнути сторінку про нас
+form.customize.about_us.label: Про вміст сторінки про нас
+form.customize.motto.label: Девіз
+form.customize.motto.help: Це буде показано на домашній сторінці
+form.customize.custom_legal_enabled.label: Увімкнути спеціальне юридичне повідомлення
+form.customize.custom_legal.label: Вміст сторінки власного юридичного повідомлення
+form.customize.custom_terms_enabled.label: Увімкніть спеціальні умови та умови
+form.customize.custom_terms.label: Вміст сторінки користувацьких умов
+form.customize.custom_privacy_enabled.label: Увімкніть власну політику конфіденційності
+form.customize.custom_privacy.label: Вміст сторінки користувацької політики конфіденційності
+form.customize.custom_banner.label: Спеціальний банер
+form.customize.custom_banner.help: Переконайтесь, що банер має повторюваний шаблон SVG
+promotion_coupon.used.label: Кількість використання
+product_option.strategy.free: Безкоштовно
+product_option.strategy.option_value: Кожна опція має різну ціну
+roles.ROLE_ADMIN: Адміністратор
+roles.ROLE_COURIER: Кур'єр
+roles.ROLE_BUSINESS: Бізнес
+roles.ROLE_STORE: Зберігати
+roles.ROLE_USER: Користувач
+user.edit.roles.help: Налаштуйте дозволи цього користувача
+user.edit.enabled.label: Увімкнено
+user.edit.enabled.help: Деактивований користувач вийде з системи і не зможе ввійти назад
+  на платформі.
+user.profile.familyName: Прізвище
+user.profile.givenName: Ім'я
+roles.ROLE_ADMIN.help: "Адміністратор: Повний доступ до всіх функцій \n"
+roles.ROLE_COURIER.help: "Кур'єр: перегляд завдань очікування, змінення призначених завдань ... \n"
+roles.ROLE_BUSINESS.help: 'Власник бізнесу: керувати призначеними бізнесами ... '
+roles.ROLE_STORE.help: 'Власник магазину: керувати призначеними магазинами, керувати доставками ...'
+stores.manage: Управління
+stores.settings: Налаштування
+stores.createNewDelivery: Створіть нову доставку
+stores.users: Користувачі
+stores.pricing_rule_set: Ціноутворення
+stores.api_keys: Ключі API
+stores.deliveries: Поставки
+stores.deliveries.heading: 'Доставка #% delivery_id% -% delivery_distance%'
+stores.deliveries.task_unassigned: Без призначення
+магазини.адреси: Адреси
+meta.title: Платформа доставки для підприємств, що належать працівникам
+admin.settings.missing_mandatory_settings: "Обов’язкові налаштування відсутні. \nПерейти до \
+  \ <a href=\"%settings_url%\"> сторінка налаштувань </a>, щоб їх налаштувати. \n "
+index.map.tip: використовуйте карту нижче, щоб знайти ресторани
+index.banner: Смачна їжа, доставлена ​​додому.
+index.our_restaurants: Наші ресторани
+index.view_all_restaurants: переглянути всі ресторани
+index.our_shops: Наші магазини
+index.view_all_shops: Переглянути всі магазини
+notifications.empty: жодних повідомлень
+adminDashboard.statistics: Статистика
+adminDashboard.activity.title: Діяльність
+activity.task.created: "@% owner% створив завдання # завдання /% aggregate_id% \ n"
+activity.task.assigned: "@% owner% призначено завдання # завдання /% aggregate_id% \ n"
+activity.task.unassigned: "@% owner% unassigned task # task /% aggregate_id% \ n"
+activity.task.started: "@% owner% розпочав завдання # task /% aggregate_id% \ n"
+activity.task.done: "@% owner% виконав завдання # завдання /% agregate_id% \ n"
+activity.task.failed: "@% owner% не зміг виконати завдання # task /% aggregate_id% \ n"
+activity.task.cancelled: "@% owner% скасував завдання # task /% aggregate_id% \ n"
+activity.order.created: "Замовлення # замовлення /% aggregate_id% створено @% owner% \ n"
+activity.order.accepted: "Замовлення # замовлення /% aggregate_id% прийнято \ n"
+activity.order.refused: "У замовленні # замовлення /% agregate_id% відмовлено \ n"
+activity.order.picked: "@% owner% вибрав замовлення # order /% aggregate_id% \ n"
+activity.order.dropped: "@% owner% скинув замовлення # order /% aggregate_id% \ n"
+activity.order.fulfilled: "Замовлення # порядок / #% agregate_id% виконано \ n"
+social.sign_in_with_facebook: Увійдіть на Facebook
+embed.delivery.summary: "Ви надіслали запит на доставку <strong>% dropoff_date% </strong> \
+  \ за такою адресою: <strong>% dropoff_address% </strong> <br> Ми розрахували \
+  \ відстань <strong>% відстані% кілометрів </strong>. <br> Ціна доставки \
+  \ дорівнює <strong>% загальний_не враховуючи_податковий% (без ПДВ); </strong>% загальний_включаючи_податковий% \
+  \ (з ПДВ). <br> <br> Якщо будь-яка з наведених деталей невірна, будь ласка, змініть \
+  \ їх, натиснувши кнопку \"Редагувати\". "
+embed.delivery.submit.help: Клацніть, щоб забронювати доставку.
+embed.delivery.confirm_message: Ваше замовлення на доставку розміщено, і ви отримаєте
+  короткий звіт електронною поштою. Ми перевіримо ваше замовлення та надішлемо підтвердження електронною поштою як
+  якомога швидше.
+pagination.previous: Попередній
+pagination.next: Далі
+basics.view: Перегляд
+basics.save: Зберегти
+basics.next: Далі
+basics.continue: Продовжуйте
+basics.add: Додати
+basics.edit: Редагувати
+basics.delete: Видалити
+basics.cancel: Скасувати
+basics.open: Відкрити
+basics.tomorrow: Завтра
+основи.ціна: Ціна
+basics.tax_category: ПДВ
+basics.export: Експорт
+basics.import: Імпорт
+basics.name: Ім'я
+basics.description: Опис
+basics.today: сьогодні
+basics.are_you_sure: Ви впевнені?
+basics.no_entries: Елемента ще немає
+basics.created_at: Створено% date%
+basics.updated_at: Оновлено% date%
+basics.date_range: від% start% до% end%
+basics.total_including_tax: Сума, включаючи всі податки
+basics.stripe_fees: Плата за смужку
+basics.platform_fees: Плата за платформу
+basics.net_income: Чистий прибуток
+basics.send_invitation: Надіслати запрошення
+basics.send_invitation.confirm: Ваше запрошення надіслано! Тепер ви можете редагувати
+  налаштування нового користувача.
+basics.configure: Налаштування
+profile.password.change: Змініть пароль
+authentication.forgot_password: Забули пароль?
+authentication.not_registered_yet: Ще не зареєстровано?
+authentication.create_account: Створіть свій обліковий запис
+authentication.already_registered: Вже зареєстровано?
+authentication.sign_in: Увійти
+authentication.choose_password: Виберіть свій пароль
+maintenance.text: Сайт на технічному обслуговуванні - Ми скоро повернемось
+api_apps.breadcrumb: клієнти API
+api_apps.created.message: Клієнт додано. Використовуйте дані, вказані нижче, для
+  автентифікація.
+promotions.breadcrumb: Акції
+promotions.breadcrumb.new_credit_note: Нова кредитна довідка
+promotions.heading.free_delivery: Безкоштовна доставка
+promotions.heading.free_delivery.help: Створіть промо-купони, щоб запропонувати доставку
+promotions.heading.credit_note: Кредитні записки
+promotions.heading.credit_note.help: Створюйте унікальні кредитні записки для клієнтів
+promotions.promotion_coupon.success: Ваш код купона% code% враховано
+promotions.add_free_delivery_coupon: Додайте купон акції «безкоштовна доставка»
+promotions.create_credit_note_coupon: Додайте кредитну ноту
+delivery.table.heading.summary: Підсумок
+delivery.table.heading.courier: Кур'єр
+delivery.table.heading.order: Замовлення
+delivery.table.heading.owner: Власник
+search.users: Шукати користувача…
+search.orders: пошук замовлення (номер, електронна пошта клієнта…)
+алергени.CEREALS_CONTAINING_GLUTEN: Крупи, що містять глютен
+алергени. РАКИ: ракоподібні
+алергени. ЯЙЦЯ: Яйця
+алергени.РИБА: Риба
+алергени.АРАХІЙ: арахіс
+алергени. СОЯ: Соя
+молоко: молоко
+алергени.ГОРЕХИ: Деревні горіхи
+алергени. КЕЛЕРІЯ: Селера
+АЛЕГЕРЕНИ. ПОРОД: гірчиця
+алергени.SESAME_SEEDS: насіння кунжуту
+алергени.SULPHUR_DIOXIDE_SULPHITES: діоксид сірки та сульфіти
+алергени.ЛЮПИН: Люпин
+МІСЦІ: молюски
+limited_diets.DIABETIC_DIET: Діабетик
+restricted_diets.GLUTEN_FREE_DIET: Без глютену
+limited_diets.HALAL_DIET: Халяль
+limited_diets.HINDU_DIET: індуїстська
+limited_diets.KOSHER_DIET: Кошерний
+limited_diets.LOW_CALORIE_DIET: Низька калорійність
+limited_diets.LOW_FAT_DIET: З низьким вмістом жиру
+limited_diets.LOW_LACTOSE_DIET: З низьким вмістом лактози
+limited_diets.LOW_SALT_DIET: Мало солі
+обмежені_дієти.VEGAN_DIET: Веган
+limited_diets.VEGETARIAN_DIET: Вегетаріанська
+time_slot.human_readable: '% day% між% start% і% end%'
+часовий_діапазон: між% start% і% end%
+time_range.same_day: '[Сьогодні] [% діапазону%]'
+time_range.next_day: '[Завтра] [% діапазону%]'
+time_range.last_day: '[Вчора] [% діапазону%]'
+time_range.same_else: '[On] LL [% range%]'
+resend_confirmation_email.disclaimer: Якщо ви не отримали повідомлення про підтвердження,
+  натисніть на кнопку.
+sylius.ui.code: код
+sylius.form.promotion_coupon.per_customer_usage_limit: За обмеження використання клієнта
+sylius.form.collection.add: Додати сервіс
+sylius.form.collection.delete: Видалити сервіс
+deliveries.sort.newest: Спочатку новіші
+isporuke.sort.oldest: спочатку найстарший
+deliveries.filter.clear: Показати все
+isporuke.section.upcoming: Майбутні
+isporuke.section.past: минуле
+orders.new: Нове замовлення
+basics.copy: Копія
+orders.payment_link.send_by_email: Відправте посилання на оплату електронною поштою
+orders.payment_link.sent: Електронний лист успішно відправлений
+orders.payment_refunded: Платіж повернено успішно
+form.min_max.lower.label: мін. номер
+form.min_max.upper.label: Макс. номер
+form.min_max.infinity.label: Немає максимуму
+form.local_business.iso_code.fr.siret: номер SIRET
+form.local_business.iso_code.fr.vat_number: номер ПДВ
+form.local_business.iso_code.fr.rcs_number: номер RCS
+form.local_business.iso_code.ar.cuit: номер CUIT / CUIL
+receive.title: 'Отримання замовлення #%number%'
+квитанція.лінія_товару.назва: товар
+квитанція.лінія_товару.одиниця_цінка: ціна за одиницю
+квитанція.лінія_пункту. кількість: кількість
+квитанція.лінія_товару.податковий_залік: ПДВ
+квитанція.лінія_товару.усього: Всього
+receive.footer_item.total_products: Усього продуктів
+accept.footer_item.total_excl_tax: Разом (без ПДВ)
+receive.footer_item.total_incl_tax: Разом (з ПДВ)
+квитанція.усього: Всього (з ПДВ)
+receive.billing_details: Замовлення оплачено кредитною карткою% date%
+receive.emitter_details: Замовлення в ресторані <strong>% restaurant_name% </strong>
+delivery.import.success_message: Ваш файл успішно оброблений,% count% доставки
+  були створені
+form.delivery_import.file.label: Файл
+form.delivery_import.store.label: Store
+basics.view_example: Переглянути приклад
+notifications.business.new_order: Прийнято нове замовлення
+profile.loopeat.connect: Підключити мій обліковий запис LoopEat
+profile.loopeat.connected: підключений обліковий запис LoopEat
+profile.loopeat.disconnect: відключити LoopEat
+basics.free: безкоштовно
+task.receipt.greeting: Шановний клієнте,
+task.receipt.message: Цим ми підтверджуємо, що доставили Вашу посилку за адресою <strong>% address% </strong>
+  <strong>% date% </strong>
+task.receipt.received_by: посилку отримав <strong>% name% </strong>
+task.receipt.attached_images: Вкладені зображення
+task.receipt.reference: 'Посилання: <strong>% ref% </strong>'
+basics.hours: '%count% hour |%count% hours'
+basics.days: '%count% day |%count% days'
+basics.weeks: '%count% тиждень |%count% тижнів'
+basics.none: немає
+basics.yes: Так
+basics.no: Ні
+notifications:
+  messenger_approaching: Привіт %customer%! Наш месенджер %messenger% є майже з вами. Готуйся!
+order.export.heading.restaurant_name: Ресторан
+order.export.heading.order_number: Номер замовлення
+order.export.heading.fulfillment_method: Виконання
+order.export.heading.completed_at: Завершено о
+order.export.heading.total_products_excl_tax: Загальна кількість товарів (без ПДВ)
+order.export.heading.total_products_incl_tax: Загальна кількість товарів (з ПДВ)
+order.export.heading.delivery_fee: Плата за доставку
+order.export.heading.packaging_fee: Упаковка
+order.export.heading.tip: Порада
+order.export.heading.total_incl_tax: Усього (з ПДВ)
+order.export.heading.stripe_fee: Плата за смужку
+order.export.heading.platform_fee: Плата за платформу
+order.export.heading.net_revenue: Чистий дохід
+order.export.heading.completed_by: Завершено
+order.export.empty: Немає замовлень на експорт
+form.order_export.messenger.label: Додайте стовпець із месенджером, який виконав замовлення
+basics.show: Показати
+basics.hide: Сховати
+food_establishment.BEKERY: Хлібобулочні
+food_establishment.BAR_OR_PUB: Бар або паб
+food_establishment.BREWERY: Пивоварня
+food_establishment.CAFE_OR_COFFEE_SHOP: Кафе чи кафе
+DISTILLERY: Лікеро-горілчаний завод
+food_establishment.FAST_FOOD_RESTAURANT: Ресторан швидкого харчування
+food_establishment.ICE_CREAM_SHOP: Магазин морозива
+food_establishment.РЕСТОРАН: Ресторан
+Винзавод: Винзавод
+store.AUTO_PARTS_STORE: Магазин автозапчастин
+store.BIKE_STORE: Магазин велосипедів
+store.BOOK_STORE: Книжковий магазин
+store.CLOTHING_STORE: Магазин одягу
+store.COMPUTER_STORE: Комп’ютерний магазин
+store.CONVENIENCE_STORE: Зручний магазин
+store.DEPARTMENT_STORE: універмаг
+store.ELECTRONIC_STORE: Магазин електроніки
+магазин.ФЛОРИСТ: Флорист
+store.FURNITURE_STORE: Меблевий магазин
+store.GARDEN_STORE: Садовий магазин
+store.GROCERY_STORE: Продуктовий магазин
+store.HARDWARE_STORE: Магазин господарських товарів
+store.HOBBY_SHOP: Хобі-магазин
+store.HOME_GOODS_STORE: Магазин товарів для дому
+store.JEWELRY_STORE: Ювелірний магазин
+store.LIQUOR_STORE: Винний магазин
+store.MENS_CLOTHING_STORE: Магазин чоловічого одягу
+store.MOBILE_PHONE_STORE: Магазин мобільних телефонів
+store.MOVIE_RENTAL_STORE: Магазин прокату фільмів
+store.MUSIC_STORE: Музичний магазин
+store.OFFICE_EQUIPMENT_STORE: Магазин офісного обладнання
+store.OUTLET_STORE: Магазин магазинів
+store.PAWN_SHOP: Ломбард
+store.PET_STORE: Зоомагазин
+SHOE_STORE: Магазин взуття
+store.SPORTING_GOODS_STORE: Магазин спортивних товарів
+store.TIRE_SHOP: Магазин шин
+store.TOY_STORE: Магазин іграшок
+store.WHOLESALE_STORE: Оптовий магазин
+form.local_business_type.food_establishment: заклад харчування
+form.local_business_type.store: Store
+form.local_business_type.label: Тип бізнесу
+form.local_business_type.help: типи використовують <a href="https://schema.org/"> schema.org </a>
+  словниковий запас для <a href="https://schema.org/FoodEstablishment"> закладів харчування </a>
+  та <a href="https://schema.org/Store"> магазини </a>
+notifications.tasks_changed: Завдання для% date% змінено!
+restaurant_promotion.offer_delivery: запропонувати плату за доставку
+restaurant_promotion.offer_delivery.help: Це дозволяє запропонувати плату за доставку
+  <strong> на власні гроші </strong>. Ваша націнка буде зменшена на суму
+  збору за доставку. Це <strong> не зменшить </strong> сприйманих зборів
+  біля платформи.
+restaurant_promotion.items_total: На основі загальної кількості елементів
+form.offer_delivery.coupon_code.error.exists: Цей код уже існує
+form.offer_delivery.coupon_code.help: Ви зобов’язані повідомити про це
+  код замовнику, особисто або через соціальні мережі
+users.all: Усі користувачі
+users.business_owners: Власники бізнесу
+users.store_owners: Власники магазину
+users.administrators: Адміністратори
+users.sort.alphabetically: за алфавітом
+users.sort.newest: Зареєстровано нещодавно
+sms.simple: |
+  Здравствуйте,
+  Наш месенджер на шляху до %address%.
+sms.with_tracking: |
+  Здравствуйте,
+  Наш месенджер на шляху до %address%.
+  Відстежуйте це на %link%
+basics.close: Закрити
+fillment_method.delivery: Доставка
+fill_method.collection: Колекція
+basics.allow_edit: Дозволити редагування
+form.price_with_tax.tax_excl.label: Ціна (без податку)
+form.price_with_tax.tax_incl.label: Ціна (з податком)
+verify.deposit_refund_enabled: Система повернення депозиту ввімкнена, тепер ви можете
+  <a href="%url%"> налаштуйте упаковку </a>.
+info.deposit_refund: Кожен запис у списку нижче представляє тип упаковки (невеликий,
+  великий…). Після створення упаковки ви можете налаштувати їх для кожної
+  продукту.
+form.receipt.billing_address.label: Адреса виставлення рахунку
+form.receipt.billing_address.help: Якщо ви хочете використовувати іншу адресу для виставлення рахунків,
+  введіть його сюди
+promotion_rule.is_restaurant: Ресторан - це %restaurant%
+promotion_rule.is_customer: Клієнт %username%
+order.refund.total_amount: Це замовлення було відшкодовано на суму %amount%
+spreadsheet.download_example: Завантажте приклад електронної таблиці
+nav.about_us: Про нас
+basics.tax_incl: з податком
+basics.tax_excl: без податку
+основи.кілос: Кілос
+form.product_tax_category_choice.placeholder: Виберіть податкову категорію
+form.package_with_quantity.package.placeholder: Виберіть тип пакета
+form.time_slot.same_day_cutoff.label: Відсікання того самого дня
+form.time_slot.same_day_cutoff.help: Наприклад, ваш вибір на 11:00, вибір на
+  той самий день не відображатиметься після 11:00
+order.reusable_packaging.pledge_return.disclaimer: замовник вказав це
+  Повернеться %count% пакетів
+refund.list.amount: повернена сума
+refund.list.liable_party: відповідальна сторона
+refund.list.comments: Коментарі
+refund.list.debit_total: Загальна сума, яку платформа сплачує бізнесу
+refund.list.refunded_at: Повернено о
+refund.list.disclaimer.admin: "Коли платформа відповідає за інцидент, \
+  \ це означає, що платформа винна продавцю суму відшкодування, оскільки \
+  \ купець фактично повернув кошти клієнту. "
+form.time_slot.choices.error.empty: Список варіантів не може бути порожнім
+form.attach_to_org.modal.title: Прикріпити до магазину
+loopeat.oauth_connect.success: Обліковий запис LoopEat підключено успішно!
+loopeat.oauth_redirect.warning: Ви будете перенаправлені на веб-сайт LoopEat для входу
+  або створіть свій рахунок
+authentication.register_benefits: Зареєструйтесь для швидшого оформлення замовлення. Ти будеш
+  також зможете знайти історію попередніх замовлень.
+form.checkout_address.telephone.help: Щоб зв’язатися з вами у разі виникнення проблеми
+guest_checkout.user_with_same_email_exists: Обліковий запис з тим самим електронним адресою вже
+  існує. Будь ласка, увійдіть, щоб продовжити, або використовуйте інший електронний лист для замовлення без створення
+  рахунок.
+guest_checkout.use_another_email: Використовуйте інший електронний лист
+business.form.section.embed: Embed
+business.embed.disclaimer: Ви можете вставити замовлення безпосередньо на свій веб-сайт.
+  Дотримуйтесь інструкцій нижче, щоб розпочати.
+business.embed.step_1: 'Додайте скрипт <code> coopcycle.js </code> на свою сторінку'
+business.embed.step_2: 'Додайте <code> data-coopcycle-embed = "%url%" </code> до інтерактивного
+  Елемент HTML '
+business.embed.greeting: Це все! Тепер, коли відвідувачі натискають на кнопку, вона відкривається
+  вікно безпосередньо на вашому веб-сайті.
+form.settings.guest_checkout_enabled.label: Увімкнути гостьове замовлення
+order.list.reorder: Змінити порядок
+homepage.form.title: Вам потрібно щось доставити?
+homepage.form.content: "<strong>%brand_name% </strong> працює локально та не забруднює\
+  \ послуги доставки велосипедів на вимогу. Відправте одну упаковку або виконайте замовлення доставки для вашого бізнесу "
+promotion_action.percentage_discount: '%percentage% знижки'
+promotion_action.delivery_percentage_discount: '%percentage% знижки на доставку
+  збори'
+promotion_action.fixed_discount: '%amount% знижки'
+order.list.summary.hub.text: Замовлення в хабі %name%
+index.view_all_merchants: Перегляд усіх продавців
+form.hub.businesses.label: Список купців
+basics.search: Пошук ...
+basics.enabled: Увімкнено
+form.option_value.value.placeholder: напр. картопля фрі, салат ...
+form.customize.order_confirm_enabled.label: Показати повідомлення про підтвердження замовлення
+form.customize.order_confirm.label: Це повідомлення з’явиться на сторінці підтвердження замовлення
+order.hub.sub_total.disclaimer: це замовлення було розміщено у кількох продавців. У стовпці "%column%" відображається сума, яка відповідає вашим продуктам (%amount%).
+profile.dashboard_suggest: Хочете керувати своїми замовленнями та вашими поставками? <a href="%link%"> Відкрийте для себе нову інформаційну панель </a> ✨
+form.fulfillment_method.pre_ordering_allowed.label: Дозволити попереднє замовлення
+form.fulfillment_method.pre_ordering_allowed.help: Якщо зняти цей прапорець, клієнти зможуть робити замовлення лише в той же день.
+form.fulfillment_method.options.range_duration.label: Тривалість діапазону
+ordering_delay.disclaimer: На даний момент ми отримуємо багато замовлень, терміни доставки збільшуються!
+ordering_delay.admin_reminder: Ви налаштували загальну затримку замовлення
+notifications.delivery_created: Доставка, яку потрібно забрати %date%, створена
+notifications.tasks_changed_today: Ваші сьогоднішні завдання оновлено
+notifications.tap_to_open: торкніться, щоб відкрити
+profile.edenred.connected: підключений обліковий запис Edenred
+profile.edenred.connect: Підключити мій обліковий запис Edenred
+edenred.oauth_connect.success: Обліковий запис Edenred підключено успішно!
+form.payment.method.name.label: Спосіб оплати
+order.export.heading.promotions: Акції
+stores.address_book: Адресна книга
+store.form.section.settings: Налаштування
+adminDashboard.hubs.title: концентратори
+adminDashboard.hubs.createNew: Створіть новий концентратор
+adminDashboard.hubs.help: концентратори дозволяють групувати магазини, що мають однакову адресу прийому, як, наприклад, ринок.
+business.form.edenred_merchant_id.label: Ідентифікатор Edenred Merchant
+business.form.edenred_merchant_id.help: Залиште порожнім, щоб вимкнути Edenred
+business.mode.list: переглянути як список
+business.mode.map: Переглянути як карту
+order.number: 'Ваше замовлення має номер <strong> <span class = "text-monospace">%number% </span> </strong>'
+adminDashboard.stores.help: Створення облікових записів клієнтів
+adminDashboard.pricing.help: Визначте правила для розрахунку ціни доставки
+adminDashboard.embed.help: Створення форм для замовлення доставки
+adminDashboard.time_slots.help: Налаштування часових інтервалів
+adminDashboard.package_sets.help: Налаштування типів товарів для транспортування
+adminDashboard.zones.help: Визначте географічні райони
+adminDashboard.tags.help: Призначення тегів та кольорів завданням
+form.time_slot.preview_title: Попередній перегляд часового інтервалу
+adminDashboard.api.title: API
+adminDashboard.api.help: Дозволяє програмно створювати доставки
+checkout.suggestions.continue_shopping_hub: Ви можете продовжувати покупки в інших магазинах із <strong>%name% </strong>
+hub.disclaimer: Замовляйте в декількох магазинах, і ми доставимо все відразу!
+form.adress_book.remember_address: Запам’ятайте цю адресу
+business.list.tags.zerowaste: Нульові відходи
+homepage.zerowaste: Відкрийте наші безвідходні ресторани!
+business.stats.view_simple: простий вигляд
+business.stats.view_detailed: Детальний вигляд
+form.items_total_promotion.items_total.label: Загалом над елементами
+form.items_total_promotion.fixed_discount_amount.label: Застосувати знижку на
+restaurant_promotion.items_total.help: Це дозволяє застосувати знижку вище певної суми.
+  Ваша націнка буде зменшена на суму
+  знижки. Це <strong> не зменшить </strong> сприйманих зборів
+  біля платформи.
+adminDashboard.metrics.title: Метрики
+entity.listing.status.new: Новий
+entity.listing.status.published: Опубліковано
+entity.listing.status.deleted: Видалено
+listing.form.status.tooltip: Для відображається лістингу на веб-сайт встановіть статус "Опубліковано". Він не відображається в результатах пошуку, а сторінка лістингу недоступна відвідувачами.
+listing.search.sort_by.recommended: Рекомендовані
+listing.search.sort_by.price: Ціна
+listing.search.sort_by.distance: Відстань
+listing_search.form.sort_by.empty_value: Сортувати за
+listing.search.result.no_results: Нічого не знайдено. Будь ласка, змініть свої критерії
+listing.form.services.help: Сконструюйте таблицю цін пропонованих вами послуг
+nav.listing.new.link: Додати сервіс
+entity.listing_availability.status.available: Доступно
+entity.listing_availability.status.unavailable: Недоступний
+entity.listing_availability.status.booked: Заброньовано
+entity.booking.status.draft: Чорновий
+entity.booking.status.new: Новий
+entity.booking.status.accepted: Прийнято
+entity.booking.status.expired: Прострочений
+entity.booking.status.canceled_asker: Скасовано клієнтом
+entity.booking.status.done: Виконано
+nav.home.link: Головна
+nav.home.map: Мапа
+nav.home.news: Новини
+footer.all_right_reserved: all right reserved

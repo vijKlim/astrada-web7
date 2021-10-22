@@ -1,0 +1,100 @@
+{% extends 'business/layout.html.twig' %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path(businesses_route) }}">{% trans %}adminDashboard.shops.title{% endtrans %}</a></li>
+    <li><a href="{{ path(business_route, { id: business.id }) }}">{{ business.name }}</a></li>
+    <li>{% trans %}Services{% endtrans %}</li>
+{% endblock %}
+
+{% block content %}
+    <p class="text-right">
+        <a class="btn btn-success" href="#"
+           data-toggle="modal" data-target="#newTaxonModal">
+            <i class="fa fa-plus"></i> {{ 'basics.add'|trans }}
+        </a>
+    </p>
+    {% if services|length > 0 %}
+        <table class="table">
+            <thead>
+            <th></th>
+            <th>Name</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            </thead>
+            <tbody>
+            {% for service in services %}
+                <tr {% if business.serviceTaxon == service %}class="active"{% endif %}>
+                    <td width="5%">
+                        {% if business.serviceTaxon == service %}
+                            <i class="fa fa-check"></i>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ service.name }}
+                    </td>
+                    <td class="text-right" width="10%">
+                        {% if business.serviceTaxon != service %}
+                            <form method="post" action="{{ path(service_activate_route, { businessId: business.id, serviceId: service.id }) }}">
+                                <button type="submit" class="btn btn-xs btn-success">
+                                    <i class="fa fa-check"></i> {{ 'restaurant.menus.activate'|trans }}
+                                </button>
+                            </form>
+                        {% endif %}
+                    </td>
+                    <td class="text-right" width="10%">
+                        <a class="btn btn-xs btn-default" href="{{ path(service_route, { businessId: business.id, serviceId: service.id }) }}">
+                            <i class="fa fa-pencil"></i> {{ 'basics.edit'|trans }}
+                        </a>
+                    </td>
+                    <td class="text-center" width="5%">
+                        {% if forms[service.id] is defined %}
+                            {% set service_form = forms[service.id] %}
+                            {% if service_form.vars.value != business.serviceTaxon %}
+                                {{ form_start(service_form, { action: path(service_route, { businessId: business.id, serviceId: service.id }) }) }}
+                                {{ form_widget(service_form.delete, { attr: {
+                                    class: 'btn-xs btn-danger btn-confirm-delete',
+                                    'data-confirm': 'delete',
+                                    'data-confirm-message': 'basics.are_you_sure'|trans
+                                } }) }}
+                                {{ form_widget(service_form._token) }}
+                                {{ form_end(service_form, { render_rest: false }) }}
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-warning">{% trans %}restaurant.services.noServices{% endtrans %}</div>
+    {% endif %}
+
+    <div class="modal fade" id="newTaxonModal" tabindex="-1" role="dialog" aria-labelledby="newTaxonModalLabel">
+        <div class="modal-dialog" role="document">
+            {{ form_start(form, { attr: { 'class': 'modal-content' } }) }}
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="newTaxonModalLabel">{{ 'basics.add'|trans }}</h4>
+            </div>
+            <div class="modal-body">
+                {{ form_row(form.name, { help: 'form.service_editor.name.help' }) }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'basics.cancel'|trans }}</button>
+                <button type="submit" class="btn btn-primary">{{ 'basics.save'|trans }}</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        new CoopCycle.ConfirmDelete('[data-confirm="delete"]');
+
+    </script>
+{% endblock %}

@@ -1,0 +1,4 @@
+nucleos_profile:
+    registration:
+        confirmation:
+            enabled: true

@@ -1,0 +1,7 @@
+nucleos_user:
+    db_driver: orm
+    firewall_name: web
+    user_class: 'App\Entity\User'
+    service:
+        user_manager: astrada.user_manager
+    from_email: "%transactional_sender_name% <%transactional_address%>"

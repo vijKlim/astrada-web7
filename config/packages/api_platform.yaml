@@ -1,0 +1,27 @@
+api_platform:
+    version: 1.0.0
+    title: Astrada
+    enable_swagger_ui: true
+    enable_re_doc: false
+    mapping:
+        paths:
+            - '%kernel.project_dir%/src/Api/Dto'
+            - '%kernel.project_dir%/src/Api/Resource'
+            - '%kernel.project_dir%/src/Entity'
+#            - '%kernel.project_dir%/src/Resources/serialization.yaml'
+    patch_formats:
+        json: ['application/merge-patch+json']
+    exception_to_status:
+        Symfony\Component\Serializer\Exception\ExceptionInterface: 400
+        ApiPlatform\Core\Exception\InvalidArgumentException: 400
+        ApiPlatform\Core\Validator\Exception\ValidationException: 400
+        App\Api\Exception\BadRequestHttpException: 400
+    messenger:
+        enabled: false
+    formats:
+        jsonld: ['application/ld+json']
+        json: ['application/json']
+        csv: ['text/csv']
+        html: ['text/html']
+    swagger:
+        versions: [3]

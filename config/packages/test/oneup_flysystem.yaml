@@ -1,0 +1,26 @@
+oneup_flysystem:
+  adapters:
+    assets:
+      local:
+        directory: '/tmp'
+    product_images:
+      local:
+        directory: '/tmp'
+    business_images:
+      local:
+        directory: '/tmp'
+    store_images:
+      local:
+        directory: '/tmp'
+    listing_images:
+      local:
+        directory: '/tmp'
+    receipts:
+      local:
+        directory: '/tmp'
+    listing_imports:
+      local:
+        directory: '/tmp'
+    product_imports:
+      local:
+        directory: '/tmp'

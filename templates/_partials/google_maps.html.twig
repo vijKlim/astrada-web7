@@ -1,0 +1,9 @@
+{% set adapter =
+  astrada_setting('autocomplete_provider')|default(autocomplete_adapter)|default('google') %}
+
+{% set google_api_key = astrada_setting('google_api_key_custom')|default(google_api_key) %}
+
+{% if adapter == 'google' and google_api_key is not empty %}
+<script
+  src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&v=weekly&libraries=places"></script>
+{% endif %}

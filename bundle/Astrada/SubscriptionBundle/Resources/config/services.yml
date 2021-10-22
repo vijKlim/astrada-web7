@@ -1,0 +1,13 @@
+services:
+  astrada.subscription.registry:
+    class: Astrada\SubscriptionBundle\SubscriptionRegistry
+
+
+  astrada.subscription.manager:
+    class: Astrada\SubscriptionBundle\SubscriptionManager
+    public: true
+    arguments:
+      - "@astrada.subscription.registry"
+      - "@astrada.subscription.repository.subscription"
+      - "@event_dispatcher"
+      - "%astrada_subscription.config%"

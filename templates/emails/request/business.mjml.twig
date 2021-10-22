@@ -1,0 +1,16 @@
+{% extends 'emails/layout.mjml.twig' %}
+
+{% block content %}
+  <mj-column>
+    <mj-text align="left" line-height="20px">
+      {{ business.name }}
+      {{ 'form.address.streetAddress.label'|trans }} :
+      {{ business.address.postalCode }}
+      {{ business.address.addressLocality }}
+      {{ business.address.streetAddress }}
+      {{ 'form.business.contact_referent.label'|trans }}
+      {{ business.contact }}
+
+    </mj-text>
+  </mj-column>
+{% endblock %}

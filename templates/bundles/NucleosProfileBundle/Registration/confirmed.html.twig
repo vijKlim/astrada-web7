@@ -1,0 +1,34 @@
+{% extends "base2.html.twig" %}
+
+{% trans_default_domain 'NucleosProfileBundle' %}
+
+{% block body %}
+  <div class="container container--full-height container--center">
+    <div class="row">
+      <div class="col-xs-12">
+      {% block nucleos_user_content %}
+        <p class="text-center">
+          <span class="text-success">
+            <i class="fa fa-check-circle fa-3x" aria-hidden="true"></i>
+          </span>
+          <br>
+          {% trans with { '%username%': user.username } %}registration.confirmed{% endtrans %}
+        </p>
+
+          <div class="text-center">
+            <a href="{{ path('order') }}" class="btn btn-success">
+              {{ 'registration.after_confirmation_continue_order'|trans }} <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        {% elseif targetUrl %}
+          <p class="text-center">
+            <a href="{{ targetUrl }}">
+              {{ 'registration.back'|trans }}
+            </a>
+          </p>
+        {% endif %}
+      {% endblock nucleos_user_content %}
+      </div>
+    </div>
+  </div>
+{% endblock body %}

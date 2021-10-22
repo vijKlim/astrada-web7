@@ -1,0 +1,51 @@
+{% extends 'business/layout.html.twig' %}
+
+{% block breadcrumb %}
+  <li><a href="{{ path(businesses_route) }}">{% trans %}adminDashboard.shops.title{% endtrans %}</a></li>
+  <li><a href="{{ path(business_route, { id: business.id }) }}">{{ business.name }}</a></li>
+  <li>{% trans %}business.list.product_options{% endtrans %}</li>
+{% endblock %}
+
+{% block content %}
+<div class="alert alert-info">
+  <i class="fa fa-info-circle"></i> {% trans %}business.product_options.help{% endtrans %}
+</div>
+<p class="text-right">
+  <a href="{{ path(new_product_option_route, { id: business.id }) }}" class="btn btn-success">
+    <i class="fa fa-plus"></i> {{ 'basics.add'|trans }}
+  </a>
+</p>
+<table class="table">
+  <thead>
+    <th></th>
+    <th>{{ 'form.product_option.name.label'|trans }}</th>
+    <th>{{ 'form.product_option.strategy.label'|trans }}</th>
+    <th>{{ 'form.product_option.additional.label'|trans }}</th>
+    <th class="text-right">{{ 'business.product_options.list.values'|trans }}</th>
+    <th></th>
+  </thead>
+  <tbody>
+    {% for option in options %}
+    <tr>
+      <td width="1%">
+      {% if option.values|length == 0 %}
+        <span title="{{ 'form.product_option.values.help'|trans }}"><i class="fa fa-warning"></i></span>
+      {% endif %}
+      </td>
+      <td>{{ option.name }}</td>
+      <td>{{ ('product_option.strategy.' ~ option.strategy)|trans }}</td>
+      <td>
+      {% if option.additional %}
+        <i class="fa fa-check"></i>
+      {% endif %}
+      </td>
+      <td class="text-right">{{ option.values|length }}</td>
+      <td class="text-right">
+        <a href="{{ path(product_option_route, { businessId: business.id, optionId: option.id }) }}"
+          class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> {{ 'basics.edit'|trans }}</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

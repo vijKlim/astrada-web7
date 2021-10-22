@@ -1,0 +1,119 @@
+{% extends "base2.html.twig" %}
+
+{% set business_edit_route = is_granted('ROLE_ADMIN') ? 'admin_business' : 'dashboard_business' %}
+{% set business_edit_url = path(business_edit_route, { id: business.id }) %}
+
+
+{% block structured_data %}
+<script type="application/ld+json">
+{{ business|business_microdata|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_SLASHES'))|raw }}
+</script>
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+
+  {% block business_nav %}
+    {% if not embed_context.enabled %}
+    <div class="homepage-businesses__show-more text-left mb-4">
+      {% if business.context == 'App\\Enum\\Store' %}
+        <a class="restaurant-show-more" href="{{ path('stores') }}">
+          <i class="fa fa-arrow-left mr-2"></i>
+          <span>{% trans %}index.view_all_shops{% endtrans %}</span>
+        </a>
+      {% else %}
+        <a class="business-show-more" href="{{ path('businesses') }}">
+          <i class="fa fa-arrow-left mr-2"></i>
+          <span>{% trans %}index.view_all_businesses{% endtrans %}</span>
+        </a>
+      {% endif %}
+    </div>
+    {% endif %}
+  {% endblock %}
+
+
+
+  {% if not business.isOpen %}
+    {% set closingRule = business.matchClosingRuleFor %}
+    {% if closingRule is not empty %}
+    <div class="alert alert-danger text-center">
+      {% trans with { '%date%': closingRule.endDate|format_datetime('medium', 'none') } %}
+          business.temporaryClosedWarning
+      {% endtrans %}
+    </div>
+    {% endif %}
+  {% endif %}
+
+  {% if business.quotesAllowed %}
+    {% set trans_params = {
+      '%contact_us%': ('mailto:' ~ astrada_setting('administrator_email')),
+      '%login%': path('nucleos_user_security_login')
+    } %}
+    {% if app.user %}
+      {% if not app.user.quotesAllowed %}
+        <div class="alert alert-info">
+          <i class="fa fa-info-circle"></i> 
+          {% trans with trans_params %}business.quotes_disclaimer.authenticated{% endtrans %}
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="alert alert-info">
+        <i class="fa fa-info-circle"></i> 
+        {% trans with trans_params %}business.quotes_disclaimer.not_authenticated{% endtrans %}
+      </div>
+    {% endif %}
+  {% endif %}
+
+  <header class="business-header">
+    {% set business_image = astrada_asset(business, 'imageFile', 'business_thumbnail') %}
+    {% if business_image is not empty %}
+      <img class="business-image" src="{{ business_image }}">
+    {% endif %}
+    <section class="business-header-body">
+      <h1>{{ business.name }}</h1>
+      <p class="d-none d-lg-block">{{ business.address.streetAddress }}, {{ business.address.postalCode }}, {{ business.address.addressLocality }}</p>
+      {% if business.website is defined and business.website is not empty %}
+      <p>
+        <a href="{{ business.website }}" target="_blank">
+          <i class="fa fa-external-link"></i> {{ 'localBusiness.form.website'|trans }}
+        </a>
+      </p>
+      {% endif %}
+    </section>
+    <section class="business-header-right">
+      <div class="d-flex justify-content-end">
+        {% include 'business/_partials/opening_hours.html.twig' with {
+          delivery:   business.isFulfillmentMethodEnabled('delivery')   ? business.getOpeningHours('delivery')   : [],
+          collection: business.isFulfillmentMethodEnabled('collection') ? business.getOpeningHours('collection') : []
+        } %}
+      </div>
+    </section>
+  </header>
+
+  {% if business.description is defined and business.description is not empty %}
+  <section class="business-description text-muted d-none d-lg-block">
+    {{ business.description|markdown }}
+  </section>
+  {% endif %}
+
+</div>
+
+{% set business_json = { id: business.id } %}
+
+
+<div id="js-business-data"
+  data-restaurant="{{ business_json|json_encode|e('html_attr') }}"></div>
+
+<div id="js-addresses-data"
+  data-addresses="{{ addresses_normalized|json_encode|e('html_attr') }}"></div>
+
+{% endblock %}
+
+{% block styles %}
+{{ encore_entry_link_tags('business') }}
+{% endblock %}
+
+{% block scripts %}
+{{ encore_entry_script_tags('business') }}
+{% endblock %}

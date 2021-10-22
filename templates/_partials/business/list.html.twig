@@ -1,0 +1,57 @@
+{% if businesses|length > 0 %}
+  <table class="table">
+    <tbody>
+    {% for business in businesses %}
+      <tr>
+        <td width="1%">
+          <i class="fa fa-circle {% if business.enabled %}text-success{% else %}text-danger{% endif %}"></i>
+        </td>
+        <td width="1%">{% if business.state == 'rush' %}<i class="fa fa-fire"></i>{% endif %}</td>
+        <td width="5%"><a href="{{ path(business_route, { id: business.id }) }}">#{{ business.id }}</a></td>
+        <td width="20%">
+          <span>{{ business.name }}</span>
+          <br>
+          <small class="text-muted">{{ business|local_business_type }}</small>
+        </td>
+        <td width="25%">{{ business.address.streetAddress }}</td>
+        <td class="text-right">
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {% trans %}business.list.manage{% endtrans %}   <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              {% if is_granted('edit', business) %}
+              <li>
+                <a href="{{ path(dashboard_route, { businessId: business.id }) }}">
+                {% trans %}business.list.orders{% endtrans %}
+                </a>
+              </li>
+              {% endif %}
+              <li>
+                <a href="{{ path(business_route, { id: business.id }) }}">
+                  {% trans %}business.list.settings{% endtrans %}
+                </a>
+              </li>
+{#              <li>#}
+{#                <a href="{{ path(products_route, { id: business.id }) }}">#}
+{#                  {% trans %}business.list.products{% endtrans %}#}
+{#                </a>#}
+{#              </li>#}
+            </ul>
+          </div>
+        </td>
+        <td class="text-right" width="5%">
+          <a target="_blank" href="{{ path('business', { id: business.id, 'slug': business.name|slugify }) }}">
+            <i class="fa fa-external-link" aria-hidden="true"></i>
+          </a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <div class="alert alert-info">
+  {% trans %}business.list.nobusiness{% endtrans %}
+  <a href="{{ path('admin_business_new') }}">{% trans %}business.list.createNewBusiness{% endtrans %}</a>
+  </div>
+{% endif %}

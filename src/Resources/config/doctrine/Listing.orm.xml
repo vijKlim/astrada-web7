@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd" xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+    <entity name="App\Entity\Listing" table="listing" repository-class="App\Entity\ListingRepository">
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <indexes>
+            <index name="status_l_idx" columns="status"/>
+            <index name="average_rating_idx" columns="average_rating"/>
+        </indexes>
+        <field name="status" type="smallint" column="status"/>
+        <field name="certified" type="boolean" column="certified" nullable="true"/>
+        <field name="minDuration" type="smallint" column="min_duration" nullable="true"/>
+        <field name="maxDuration" type="smallint" column="max_duration" nullable="true"/>
+        <field name="averageRating" type="smallint" column="average_rating" nullable="true"/>
+        <field name="commentCount" type="integer" column="comment_count" nullable="true"/>
+        <field name="adminNotation" type="decimal" precision="3" scale="1" column="admin_notation"  nullable="true"/>
+        <field name="availabilitiesUpdatedAt" type="datetime" column="availabilities_updated_at" nullable="true"/>
+        <field name="telephone" type="phone_number" column="telephone" nullable="true"/>
+        <field name="imageName" type="string" column="image_name" length="255" nullable="true"/>
+        <field name="createdAt" type="datetime" column="created_at">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="updatedAt" type="datetime" column="updated_at">
+            <gedmo:timestampable on="update"/>
+        </field>
+        <field name="deletedAt" type="datetime" column="deleted_at" nullable="true"/>
+        <gedmo:soft-deleteable field-name="deletedAt" time-aware="false" hard-delete="false" />
+
+        <many-to-one field="address" target-entity="App\Entity\Address" fetch="EAGER">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+            <join-columns>
+                <join-column name="address_id" referenced-column-name="id"/>
+            </join-columns>
+        </many-to-one>
+        <many-to-one field="business" target-entity="App\Entity\LocalBusiness" inversed-by="listings">
+            <join-column name="business_id" referenced-column-name="id" />
+        </many-to-one>
+        <one-to-many field="welldesigns" target-entity="App\Entity\Welldesign" mapped-by="listing">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+        <one-to-many field="bookings" target-entity="App\Entity\Booking" mapped-by="listing">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+        <many-to-many field="taxons" target-entity="App\Entity\Sylius\Taxon">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <join-table name="listing_taxon">
+                <join-columns>
+                    <join-column name="listing_id" referenced-column-name="id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="taxon_id" referenced-column-name="id"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+        <one-to-one field="nextRenewalProduct" target-entity="App\Entity\Listing">
+            <join-columns>
+                <join-column name="next_renewal_product_id" referenced-column-name="id" nullable="true"/>
+            </join-columns>
+        </one-to-one>
+        <field name="duration" type="integer" column="duration" nullable="true">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+        <field name="quota" type="integer" column="quota" nullable="true">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+        <field name="autoRenewal" column="auto_renewal" type="boolean" nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+        <field name="default" column="is_default" type="boolean" nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+        <field name="expirationDate" type="datetime" column="expiration_date" nullable="true"/>
+        <field name="strategyCodeName" type="string" column="strategy_code_name" length="255" nullable="false">
+            <options>
+                <option name="default">end_last</option>
+            </options>
+        </field>
+    </entity>
+</doctrine-mapping>

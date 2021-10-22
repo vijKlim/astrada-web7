@@ -1,0 +1,41 @@
+adminDashboard.back.title: __adminDashboard.back.title
+adminDashboard.tooltip.users: __adminDashboard.tooltip.users
+adminDashboard.users.title: __adminDashboard.users.title
+adminDashboard.settings.title: __adminDashboard.settings.title
+form.settings.date_time: __form.settings.date_time
+form.settings.company_logo.label: __form.settings.company_logo.label
+form.settings.company_logo.help: __form.settings.company_logo.help
+adminDashboard.customize.title: __adminDashboard.customize.title
+basics.edit: __basics.edit
+form.maintenance.enable.label: __form.maintenance.enable.label
+form.banner.enable.label: __form.banner.enable.label
+form.settings.sms.title: __form.settings.sms.title
+form.settings.sms_enabled.label: __form.settings.sms_enabled.label
+form.settings.sms_gateway_config.mailjet.api_token.label: __form.settings.sms_gateway_config.mailjet.api_token.label
+form.settings.sms_gateway_config.twilio.sid.label: __form.settings.sms_gateway_config.twilio.sid.label
+form.settings.sms_gateway_config.twilio.auth_token.label: __form.settings.sms_gateway_config.twilio.auth_token.label
+form.settings.sms_gateway_config.twilio.from.label: __form.settings.sms_gateway_config.twilio.from.label
+basics.save: __basics.save
+form.maintenance.disable.label: __form.maintenance.disable.label
+form.maintenance.enable.alert: __form.maintenance.enable.alert
+form.maintenance.disable.alert: __form.maintenance.disable.alert
+basics.cancel: __basics.cancel
+form.banner.disable.label: __form.banner.disable.label
+form.banner.enable.alert: __form.banner.enable.alert
+form.banner.disable.alert: __form.banner.disable.alert
+admin.settings.missing_mandatory_settings: __admin.settings.missing_mandatory_settings
+adminDashboard.title: __adminDashboard.title
+navbar.myAccount: __navbar.myAccount
+adminDashboard.dashboard.title: __adminDashboard.dashboard.title
+maintenance.disclaimer: __maintenance.disclaimer
+Hello: __Hello
+listing.search.sort_by.recommended: Рекомендуемые
+listing.search.sort_by.price: Цена
+listing.search.sort_by.distance: Расстояние
+listing_search.form.sort_by.empty_value: Сортировать по
+listing.search.result.no_results: Результаты не найдены. Пожалуйста, измените ваши критерии
+nav.listing.new.link: Добавить сервис
+nav.home.link: Главная
+nav.home.map: Карта
+nav.home.news: Новости
+footer.all_right_reserved: all right reserved

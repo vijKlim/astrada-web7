@@ -1,0 +1,4 @@
+mjml:
+    options:
+        service_id: 'App\Mjml\MjmlServerRenderer'
+        minify: true

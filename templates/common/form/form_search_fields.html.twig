@@ -1,0 +1,41 @@
+<div class="main-search-input-wrap fl-wrap"  data-search="address"
+     data-addresses="{{ addresses_normalized|json_encode()|e('html') }}"
+     data-tracking-category="Homepage"
+     data-restaurants="{{ astrada_businesses_suggestions()|json_encode()|e('html') }}">
+    <div class="main-search-input fl-wrap">
+        <div class="main-search-input-item">
+            <label><i class="fal fa-keyboard"></i></label>
+            <input type="text" placeholder="Что вы ищете?" value=""/>
+        </div>
+        <div class="main-search-input-item location autocomplete-container" data-element>
+            <label><i class="fal fa-map-marker-check"></i></label>
+            {#            {{ form_errors(form.location.address) }}#}
+            {#            {{ form_widget(form.location.address, {#}
+            {#                'id': 'location',#}
+            {#                'attr': {#}
+            {#                    'placeholder': 'listing.search.form.address.placeholder'|trans#}
+            {#                }#}
+            {#            } ) }}#}
+            {#            {{ form_rest(form.location) }}#}
+            <!-- This will be replaced by React -->
+            <div class="form-group">
+                <label><i class="fal fa-map-marker-check"></i></label>
+                <input class="form-control autocomplete-input" />
+            </div>
+
+            {#            <a href="#"><i class="fa fa-dot-circle-o"></i></a>#}
+
+
+        </div>
+
+
+        {{ form_errors(form) }}
+        {{ form_widget(form.geohash) }}
+
+        <button class="main-search-button color2-bg" type="submit" value="{{ 'listing.search'|trans }}">Search <i class="far fa-search"></i></button>
+
+    </div>
+</div>
+
+{#</fieldset>#}
+

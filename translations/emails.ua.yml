@@ -1,0 +1,117 @@
+registration.email.subject: |
+  Підтвердження електронною поштою
+registration.email.message: |
+  <h2> Ласкаво просимо до %brand_name %, %username %</h2>
+  Ви отримали це повідомлення, оскільки нещодавно зареєструвалися в обліковому записі % brand_name %.
+  <br>
+  Підтвердьте свою електронну адресу, натиснувши кнопку нижче.
+registration.email.confirm: Підтвердьте електронну адресу
+registration.email.disclaimer: Це посилання можна використовувати лише один раз для перевірки вашого облікового запису
+registration.email.textПовідомлення: |
+  Ласкаво просимо до %brand_name %, %username %, \ n \ n
+  Ви отримали це повідомлення, оскільки нещодавно зареєструвалися в обліковому записі % brand_name %. \ N
+  Щоб підтвердити свою електронну адресу, перейдіть за таким посиланням: <a href="%confirmationUrl%" rel="notrack">%confirmationUrl%</a>.
+resetting.email.message: <h2> Привіт %username %</h2> Щоб скинути пароль, будь ласка
+  натисніть кнопку нижче.
+resetting.email.reset: скидання пароля
+order.view: Перегляд замовлення
+order.public_url: |
+  Щоб відстежувати стан вашого замовлення, <a href="%order.public_url%"> натисніть тут </a>.
+order.foodtech.accepted.delivery: "Він буде доставлений вам у наступний час:"
+order.foodtech.accepted.delivery.disclaimer: "Ми зв'яжемося з вами у разі проблеми \
+  \ щоб знайти вашу адресу "
+order.foodtech.accepted.collection: "Вам потрібно буде зібрати його за адресою \
+  \ час: "
+order.foodtech.accepted.collection.disclaimer: "Якщо у вас виникли проблеми, зверніться до <strong>%name%</strong> \
+  \ at <strong>%phone_number%</strong> заздалегідь, щоб скасувати ваше замовлення. "
+order.foodtech.canceled: "Ресторан не може підготувати ваше замовлення %order.number %. \ n \
+  <br> \ nВаші гроші будуть автоматично переведені протягом наступних 5 днів. \ n "
+admin.order.created.subject: Нове замовлення буде підтверджено
+admin.order.created.body: |
+  Здравствуйте,
+  <br>
+  Створено нове замовлення.
+admin.order_foodtech.created.body: |
+  Здравствуйте,
+  <br>
+  Для <strong>%restaurant.name%</strong> створено нове замовлення.
+admin.pledge.subject: надіслано нову пропозицію!
+admin.send_invitation.subject: Запрошення до CoopCycle!
+admin.send_invitation.body: |
+  Привіт %username %,
+  <br>
+  Це запрошення до простору CoopCycle, щоб завершити створення свого облікового запису, будь ласка, натисніть на наступне посилання.
+admin.send_invitation.create_password: Створіть мій пароль
+admin.pledge.body: |
+  Здравствуйте,
+  <br>
+  % username% хотів би, щоб% pledge.name% був у CoopCycle!
+user.pledge.subject: Ваша пропозиція зараз на CoopCycle!
+user.pledge.body: |
+  Здравствуйте,
+  <br>
+  завдяки вам, % pledge.name % зараз на CoopCycle!
+owner.order.created.subject: Нове замовлення для підтвердження
+owner.order.created.body: |
+  Привіт,
+  <br>
+  Нове замовлення для <strong>%restaurant.name%</strong>.
+order.created.subject: Замовлення % order.number % отримано
+order.created.body: "Привіт, \n <br> \ nМи отримали ваше замовлення. \n <br> \ nМи перевіримо \
+  \ ваше замовлення якомога швидше і надішле вам електронного листа, коли воно підтвердиться. \n "
+order.accepted.subject: Замовлення % order.number % підтверджено
+order.accepted.body.intro: "Привіт, \n <br> \ nВаше замовлення підтверджено."
+order.cancelled.subject: Ваше замовлення % order.number % скасовано
+order.canceled.body.intro: |
+  Здравствуйте,
+  <br>
+  Нам шкода, але Ваше замовлення скасовано.
+order.delayed.subject: Ваше замовлення % order.number % затримується
+order.delayed.body: |
+  Здравствуйте,
+  <br>
+  На жаль, ваше замовлення буде затримано на % затримки % хвилин.
+  <br>
+  Ми просимо вибачення за незручності.
+task.done.subject: 'Завдання #% task.id% виконано'
+task.done.body: |
+  Здравствуйте,
+  <br>
+  Завдання #% task.id% виконано.
+task.failed.subject: 'Не вдалося виконати завдання #% task.id%'
+task.failed.body: |
+  Здравствуйте,
+  <br>
+  Не вдалося виконати завдання #% task.id%.
+order.payment.subject: Оплата вашого замовлення %order.number %
+order.payment.body: "Привіт, \ n <br> \ nМи завершили доставку, яку ви замовили \
+  \ від нас. \ n <br> \ nВнизу ви знайдете посилання, що дозволяє оплачувати кредитною карткою. \ n "
+covid_19.subject: COVID-19 | Важливі вказівки щодо вашого замовлення
+covid_19.body: "<h1> Вказівки щодо доставки </h1> \ n <p> Враховуючи поточні \
+  \ Пандемія COVID-19 (коронавірус), ви <strong> повинні суворо </strong> дотримуватися \
+  \ такі інструкції: </p> \ n <h2> 1. Поважайте соціальне дистанціювання </h2> \ n <p> Ми \
+  \ відкине ваше замовлення на вашому порозі, тому вам не доведеться підходити до людини \
+  \ хто приходить доставити. Також не потрібно залишати чайові. </p> \ n <h2> 2. Розпакувати \
+  \ ваше замовлення після отримання </h2> \ n <p> Вірус може вижити на картоні та пластику \
+  \ поверхонь протягом декількох днів. Тому упаковка - це шлях ризику передачі \
+  \ вірусу. \ n Тому ми просимо вас <strong> розпакувати замовлення та передати \
+  \ вміст до табличок </strong>. </p> \ n <h2> 3. Утилізуйте упаковку </h2> \ n <p> Одноразово \
+  \ ваше замовлення розпаковано, обов’язково <strong> утилізуйте упаковку у закритому вигляді \
+  \ bin </strong>, щоб уникнути випадкового доторкання до нього пізніше. </p> \ n <h2> 4. Мийте руки! </h2> \ n \
+  <p> Після того, як ви розпакували замовлення та викинули упаковку, <strong> вимийте \
+  \ руки! </strong> </p> \ n "
+
+order.expiring_authorization.subject: Незабаром термін дії дозволу на оплату закінчиться
+order.expiring_authorization.text: Дозвіл на оплату замовлення <strong>%order.number%</strong>
+  скоро закінчиться. <br> Ви повинні завершити замовлення до закінчення терміну дії авторизації
+  щоб не втратити гроші.
+
+order.receipt.subject: Квитанція на ваше замовлення %order.number %
+order.receipt.body: "Вітаю, \ n <br> \ nВи можете знайти додану квитанцію про ваше замовлення."
+
+order.payment_failed.subject: Під час обробки вашого платежу сталася помилка
+order.payment_failed.body: "Привіт, \ n <br> \ nНа жаль, сталася помилка обробки \
+  \ ваш платіж. Повторіть спробу з іншим способом оплати. "
+order.payment_failed.return_to_order: Повернутися до замовлення
+registration.company: Заява про реєстрацію підприємства
+registration.business: Новий запит на додавання підприємства

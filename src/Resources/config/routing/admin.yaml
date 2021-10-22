@@ -1,0 +1,287 @@
+admin_users:
+  path: /admin/users
+  defaults:
+    _controller: App\Controller\AdminController::usersAction
+  methods:  [ GET, POST ]
+
+admin_settings:
+  path: admin/settings
+  defaults:
+    _controller: App\Controller\AdminController::settingsAction
+  methods:  [ GET, POST ]
+
+admin_customize:
+  path: /admin/customize
+  defaults:
+    _controller: App\Controller\AdminController::customizeAction
+    layout: 'admin.html.twig'
+  methods:  [ GET, POST ]
+
+admin_businesses:
+  path: /admin/businesses
+  defaults:
+    _controller: App\Controller\AdminController::businessListAction
+    layout: 'admin.html.twig'
+    template: 'admin/businesses.html.twig'
+    routes:
+      dashboard: admin_business_dashboard
+      service_taxon: admin_business_service_taxon
+      service_taxons: admin_business_service_taxons
+      products: admin_business_products
+      listings: admin_business_listings
+      business: admin_business
+  methods: [ GET, POST ]
+
+admin_business_new:
+  path: /admin/businesses/new
+  defaults:
+    _controller: App\Controller\AdminController::newBusinessAction
+    layout: 'admin.html.twig'
+    template: 'business/form.html.twig'
+    routes:
+      success: admin_business
+      businesses: admin_businesses
+      products: admin_business_products
+      product_options: admin_business_product_options
+      dashboard: admin_business_dashboard
+      planning: admin_business_planning
+  methods: [ GET, POST ]
+
+admin_business_dashboard:
+  path: /admin/businesses/{businessId}/dashboard
+  defaults:
+    _controller: App\Controller\AdminController::businessDashboardAction
+    layout: 'admin.html.twig'
+    template: 'business/dashboard.html.twig'
+    routes:
+      businesses: admin_businesses
+      business: admin_business
+      dashboard: admin_business_dashboard
+      user_details: user
+  methods: [ GET ]
+
+admin_business:
+  path: /admin/businesses/{id}
+  defaults:
+    _controller: App\Controller\AdminController::businessAction
+    layout: 'admin.html.twig'
+    template: 'business/form.html.twig'
+    routes:
+      success: admin_business
+      businesses: admin_businesses
+      product_options: admin_business_product_options
+      dashboard: admin_business_dashboard
+      planning: admin_business_planning
+  methods: [ GET, POST ]
+
+
+admin_business_products:
+  path: /admin/businesses/{id}/products
+  defaults:
+    _controller: App\Controller\AdminController::businessProductsAction
+    layout: 'admin.html.twig'
+    template: 'business/products.html.twig'
+    routes:
+      businesses: admin_businesses
+      business: admin_business
+      product: admin_business_product
+      new_product: admin_business_product_new
+  methods: [ GET ]
+
+
+
+admin_business_product_new:
+  path: /admin/businesses/{id}/products/new
+  defaults:
+    _controller: App\Controller\AdminController::newBusinessProductAction
+    layout: 'admin.html.twig'
+    template: 'business/product.html.twig'
+    routes:
+      businesses: admin_businesses
+      business: admin_business
+      products: admin_business_products
+
+admin_business_product:
+  path: /admin/businesses/{businessId}/products/{productId}
+  defaults:
+    _controller: App\Controller\AdminController::businessProductAction
+    layout: 'admin.html.twig'
+    template: 'business/product.html.twig'
+    routes:
+      businesses: admin_businesses
+      business: admin_business
+      products: admin_business_products
+
+admin_business_product_options:
+  path: /admin/businesses/{id}/product-options
+  defaults:
+    _controller: App\Controller\AdminController::businessProductOptionsAction
+    layout: 'admin.html.twig'
+    template: 'business/product_options.html.twig'
+    routes:
+      businesses: admin_businesses
+      business: admin_business
+      product_option: admin_business_product_option
+      new_product_option: admin_business_product_option_new
+  methods: [ GET ]
+
+admin_business_product_option:
+  path: /admin/businesses/{businessId}/product-options/{optionId}
+  defaults:
+    _controller: App\Controller\AdminController::businessProductOptionAction
+    layout: 'admin.html.twig'
+    template: 'business/product_option.html.twig'
+    routes:
+      businesses: admin_businesses
+      business: admin_business
+      product_options: admin_business_product_options
+  methods: [ GET, POST ]
+
+admin_business_product_option_new:
+  path: /admin/businesses/{id}/product-options/new
+  defaults:
+    _controller: App\Controller\AdminController::newBusinessProductOptionAction
+    layout: 'admin.html.twig'
+    template: 'business/product_option.html.twig'
+    routes:
+      businesses: admin_businesses
+      business: admin_business
+      product_options: admin_business_product_options
+  methods: [ GET, POST ]
+
+admin_business_product_option_preview:
+  path: /admin/businesses/product-options/preview
+  defaults:
+    _controller: App\Controller\AdminController::businessProductOptionPreviewAction
+  methods: [ POST ]
+
+admin_business_service_taxons:
+  path: /admin/business/{id}/services
+  defaults:
+    _controller: App\Controller\AdminController::businessServiceTaxonsAction
+    layout: 'admin.html.twig'
+    template: 'business/service_taxons.html.twig'
+    routes:
+      businesses: admin_businesses
+      business: admin_business
+      service: admin_business_service_taxon
+      service_activate: admin_business_service_taxon_activate
+      service_taxon: admin_business_service_taxon
+  methods: [ GET, POST ]
+
+admin_business_service_taxon:
+  path: /admin/businesses/{businessId}/services/{serviceId}
+  defaults:
+    _controller: App\Controller\AdminController::businessServiceTaxonAction
+    layout: 'admin.html.twig'
+    template: 'business/service_taxon.html.twig'
+    routes:
+      businesses: admin_businesses
+      business: admin_business
+      service_taxons: admin_business_service_taxons
+      products: admin_business_products
+      delete_section: admin_delete_business_service_taxon_child
+      success: admin_business_service_taxons
+  methods: [ GET, POST ]
+
+admin_business_service_taxon_activate:
+  path: /admin/businesses/{businessId}/services/{serviceId}/activate
+  defaults:
+    _controller: App\Controller\AdminController::activateBusinessServiceTaxonAction
+    layout: 'admin.html.twig'
+    routes:
+      service_taxons: admin_business_service_taxons
+  methods: [ POST ]
+
+admin_delete_business_service_taxon_child:
+  path: /admin/businesses/{businessId}/services/{serviceId}/sections/{sectionId}/delete
+  defaults:
+    _controller: App\Controller\AdminController::deleteBusinessServiceTaxonChildAction
+    layout: 'admin.html.twig'
+    routes:
+      menu_taxon: admin_business_service_taxon
+  methods: [ POST ]
+
+admin_business_planning:
+  path: /admin/businesses/{id}/planning
+  defaults:
+    _controller: App\Controller\AdminController::businessPlanningAction
+    layout: 'admin.html.twig'
+    template: 'business/planning.html.twig'
+    routes:
+      restaurants: admin_businesses
+      restaurant: admin_business
+      success: admin_business_planning
+  methods: [ GET, POST ]
+
+admin_business_stats:
+  path: /admin/businesses/{id}/stats
+  defaults:
+    _controller: App\Controller\AdminController::statsAction
+    layout: 'admin.html.twig'
+    routes:
+      restaurants: admin_businesses
+      restaurant: admin_business
+  methods: [ GET, POST ]
+
+admin_business_promotions:
+  path: /admin/businesses/{id}/promotions
+  defaults:
+    _controller: App\Controller\AdminController::businessPromotionsAction
+    layout: 'admin.html.twig'
+  methods: [ GET ]
+
+admin_listings:
+  path: /admin/listings
+  defaults:
+    _controller: App\Controller\AdminController::listingListAction
+    layout: 'admin.html.twig'
+    template: 'admin/listings.html.twig'
+    routes:
+      dashboard: admin_listing_dashboard
+      products: admin_listing_products
+      listing: admin_business_listing
+  methods: [ GET, POST ]
+
+
+
+admin_business_listings:
+  path: /admin/businesses/{id}/listings
+  defaults:
+    _controller: App\Controller\AdminController::businessListingsAction
+    layout: 'admin.html.twig'
+    template: 'business/listings.html.twig'
+    routes:
+      businesses: admin_businesses
+      business: admin_business
+      listing: admin_business_listing
+      new_listing: admin_business_listing_new
+      subscription_buy: subscription_buy
+      subscription_disable: subscription_disable
+      subscription_expire: subscription_expire
+      subscription_renew: subscription_renew
+  methods: [ GET ]
+
+
+
+admin_business_listing_new:
+  path: /admin/businesses/{id}/listings/new
+  defaults:
+    _controller: App\Controller\AdminController::newBusinessListingAction
+    layout: 'admin.html.twig'
+    template: 'business/listing.html.twig'
+    routes:
+      businesses: admin_businesses
+      business: admin_business
+      listings: admin_business_listings
+
+admin_business_listing:
+  path: /admin/businesses/{businessId}/listings/{listingId}
+  defaults:
+    _controller: App\Controller\AdminController::businessListingAction
+    layout: 'admin.html.twig'
+    template: 'business/listing.html.twig'
+    routes:
+      businesses: admin_businesses
+      business: admin_business
+      listings: admin_business_listings

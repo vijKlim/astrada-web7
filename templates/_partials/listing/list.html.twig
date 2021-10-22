@@ -1,0 +1,100 @@
+{% if listings|length > 0 %}
+  <table class="table">
+    <tbody>
+    {% for listing in listings %}
+      <tr>
+        <td width="1%">
+          <i class="fa fa-circle {% if listing.certified %}text-success{% else %}text-danger{% endif %}"></i>
+        </td>
+
+        <td width="5%"><a href="{{ path(listing_route, { businessId: business.id, listingId: listing.id }) }}">#{{ listing.id }}</a></td>
+        <td width="20%">
+          <span>{{ listing.title }}</span>
+        </td>
+        <td width="25%">{{ listing.address.streetAddress }}</td>
+        <td class="text-right">
+          <a href="{{ path(listing_route, { businessId: business.id, listingId: listing.id }) }}"
+             class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> {{ 'basics.edit'|trans }}</a>
+
+        </td>
+          <td>
+              {% if listing.id in listingSubscriptions|keys %}
+                  {% set subscription =  listingSubscriptions[listing.id] %}
+                  <table class="table table-striped">
+                      <thead>
+                      <tr>
+                          <th>Auto-renew</th>
+                          <th>From</th>
+                          <th>To</th>
+                          <th>Active</th>
+                          <th>Reason</th>
+                          <th>Actions</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+
+                          <tr>
+                              <td>
+                                  {% if subscription.autoRenewal %}
+                                      <span class="label label-success">Yes</span>
+                                  {% else %}
+                                      <span class="label label-danger">No</span>
+                                  {% endif %}
+                              </td>
+                              <td>{{ subscription.startDate | date('Y-m-d H:i:s') }}</td>
+                              <td>
+                                  {% if subscription.endDate == null %}
+                                      <span>Permament</span>
+                                  {% else %}
+                                      <span>{{ subscription.endDate | date('Y-m-d H:i:s') }}</span>
+                                  {% endif %}
+                              </td>
+                              <td>
+                                  {% if subscription.active %}
+                                      <span class="label label-success">Yes</span>
+                                  {% else %}
+                                      <span class="label label-danger">No</span>
+                                  {% endif %}
+                              </td>
+                              <td>
+                                  {{ subscription.reason }}
+                              </td>
+                              <td>
+                                  <a class="btn btn-xs btn-primary" href="{{ path('subscription_disable', { id: subscription.id } ) }}">
+                                      Disable (cancel)
+                                  </a>
+
+                                  <a class="btn btn-xs btn-primary" href="{{ path('subscription_expire', { id: subscription.id }) }}">
+                                      Expire
+                                  </a>
+
+                                  <a class="btn btn-xs btn-primary" href="{{ path('subscription_renew', { id: subscription.id }) }}">
+                                      Renew
+                                  </a>
+                              </td>
+                          </tr>
+
+                      </tbody>
+                  </table>
+              {% else %}
+                  <a class="btn btn-sm btn-warning" href="{{ path('subscription_buy', { product: listing.id }) }}">
+                      <i class="glyphicon glyphicon-shopping-cart"></i> Buy
+                  </a>
+              {% endif %}
+
+          </td>
+        <td class="text-right" width="5%">
+          <a target="_blank" href="{{ path('listing', { id: listing.id, 'slug': listing.title|slugify }) }}">
+            <i class="fa fa-external-link" aria-hidden="true"></i>
+          </a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <div class="alert alert-info">
+  {% trans %}listing.list.nolisting{% endtrans %}
+  <a href="{{ path(listing_new_route, { id: business.id }) }}">{% trans %}listing.list.createNewListing{% endtrans %}</a>
+  </div>
+{% endif %}

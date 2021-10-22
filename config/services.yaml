@@ -1,0 +1,711 @@
+imports:
+  - { resource: services/forms.yaml }
+
+
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+#  App\:
+#    resource: '../src/'
+#    exclude:
+#      - '../src/DependencyInjection/'
+#      - '../src/Entity/'
+#      - '../src/Kernel.php'
+#      - '../src/Tests/'
+
+  # controllers are imported separately to make sure services can be injected
+  # as action arguments even if you don't extend any base controller class
+  App\Controller\:
+    resource: '../src/Controller/'
+    tags: ['controller.service_arguments']
+
+  App\Action\:
+    resource: '../src/Action/*'
+    tags: ['controller.service_arguments']
+
+  App\EventSubscriber\:
+    resource: '../src/EventSubscriber/*'
+
+  App\Service\:
+    resource: '../src/Service/*'
+
+  App\Message\:
+    resource: '../src/Message/*'
+
+  App\MessageHandler\:
+    resource: '../src/MessageHandler/*'
+
+  # add more service definitions when explicit configuration is needed
+  # please note that last definitions always *replace* previous ones
+
+  App\EventSubscriber\ApiLogSubscriber:
+    tags:
+      - { name: monolog.logger, channel: api }
+
+  App\EventSubscriber\RegistrationInitializeListener:
+    arguments:
+      $customerRepository: '@sylius.repository.customer'
+      $secret: '%secret%'
+
+  App\EventSubscriber\ClearTwigCacheSubscriber:
+    arguments:
+      $annotation: '%business_service_cache_annotation%'
+
+  astrada.web_success_handler:
+    class: App\EventListener\AuthenticationWebSuccessHandler
+    arguments: ['@security.http_utils', '@router']
+
+
+  App\EventListener\LocaleListener:
+    arguments: ['%env(ASTRADA_LOCALE)%']
+    tags:
+      - { name: kernel.event_subscriber }
+
+  App\EventListener\SyliusIdGeneratorSubscriber:
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+
+  App\Api\EventSubscriber\ProductOptionSubscriber:
+    tags: [ 'kernel.event_subscriber' ]
+
+  App\Api\EventSubscriber\ProductOptionValueSubscriber:
+    tags: [ 'kernel.event_subscriber' ]
+
+  #Booking subscriber
+  App\EventSubscriber\BookingSubscriber:
+    arguments:
+      - "@astrada.booking.manager"
+      - "@event_dispatcher"
+    tags:
+      - { name: kernel.event_subscriber}
+
+  App\EventListener\MaintenanceListener:
+    arguments:
+      $tokenStorage: '@security.token_storage'
+      $redis: '@snc_redis.default'
+      $templating: '@twig'
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+  App\Entity\Listener\AddressListener:
+    tags:
+      - { name: doctrine.orm.entity_listener }
+
+  App\EventListener\SeoListener:
+    arguments:
+      $seoPage: '@sonata.seo.page.default'
+    tags:
+      - { name: kernel.event_listener, event: kernel.request }
+
+  App\EventListener\Upload\UploadListener:
+    arguments:
+      $mappingFactory: '@vich_uploader.property_mapping_factory'
+      $uploadHandler: '@vich_uploader.upload_handler'
+      $secret: '%secret%'
+      $isDemo: '%is_demo%'
+    tags:
+      - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
+
+  App\Api\DataProvider\BusinessCollectionDataProvider:
+    parent: 'api_platform.doctrine.orm.collection_data_provider'
+    arguments:
+      $businessFilter: '@astrada.utils.business_filter'
+    tags:
+      - { name: 'api_platform.collection_data_provider', priority: 2 }
+    autoconfigure: false
+    autowire: false
+    public: false
+
+  # CONTROLLERS
+
+  App\Controller\AdminController:
+    arguments:
+      $browserlessClient: '@csa_guzzle.client.browserless'
+
+  App\Controller\DashboardController:
+    arguments:
+      $businessListingPositionsNormalizer: '@astrada_business_listing_list.serializer.normalizer'
+
+
+  App\Controller\ListingSearchController:
+    arguments:
+      $listingSearchRequest: '@astrada.listing_search_request'
+
+  App\Controller\SubscriptionController:
+    arguments:
+      $subscriptionManager: '@astrada.subscription.manager'
+
+  App\Controller\BookingController:
+    arguments:
+      $bookingManager: '@astrada.booking.manager'
+      $listingSearchRequest: '@astrada.listing_search_request'
+
+  # TWIG
+  App\Twig\:
+    resource: '../src/Twig/*'
+
+  App\Twig\AppearanceRuntime:
+    arguments:
+      $logoFallback: '%kernel.project_dir%/public/img/logo.png'
+      $assetsFilesystem: '@assets_filesystem'
+
+
+  App\Twig\AstradaExtension:
+    arguments:
+      $secret: '%secret%'
+      $parameters:
+        astrada_time_unit: "%astrada.time_unit%"
+
+  App\Twig\AssetsRuntime:
+    arguments:
+      $assetsFilesystem: '@assets_filesystem'
+
+  AppBundle\Twig\CacheExtension\KeyGenerator: ~
+
+  Twig\Extra\Cache\CacheRuntime:
+    arguments:
+      $cache: '@twig.cache'
+    tags:
+      - { name: twig.runtime }
+
+  Twig\Extra\Cache\CacheExtension:
+    tags:
+      - { name: twig.extension }
+
+#  Twig\Extra\Intl\IntlExtension:
+#    tags:
+#      - { name: twig.extension }
+# dont work, need used this:
+  Twig\Extra\Intl\IntlExtension: '@twig.extension.intl'
+
+
+  # FORMS
+
+  App\Form\ApiRegistrationType:
+    arguments: ['%country_iso%']
+    tags:
+      - { name: form.type, alias: app_user_api_registration }
+
+  App\Form\RegistrationType:
+    arguments:
+      $isDemo: '%is_demo%'
+    tags:
+      - { name: form.type }
+
+  App\Form\Type\LegalType:
+    tags: [ form.type ]
+
+  App\Form\SettingsType:
+    arguments:
+      $country: '%country_iso%'
+      $isDemo: '%is_demo%'
+      $debug: '%kernel.debug%'
+    tags: [ form.type ]
+
+  App\Form\MaintenanceType:
+    arguments:
+      - '@snc_redis.default'
+    tags: [ form.type ]
+
+  App\Form\UpdateProfileType:
+    arguments: [ '@security.token_storage', '@translator', '%country_iso%' ]
+    tags:
+      - { name: form.type, alias: app_update_profile }
+
+  App\Form\AddressType:
+    arguments:
+      $country: '%country_iso%'
+    tags:
+      - { name: form.type }
+
+  App\Form\AddressBookType:
+    tags: [ form.type ]
+
+  App\Form\Type\MoneyType:
+    tags: [ form.type ]
+
+  App\Form\Type\PriceType:
+    tags: [ form.type ]
+
+  App\Form\BusinessType:
+    arguments:
+      $country: '%country_iso%'
+      $debug: '%kernel.debug%'
+    tags: [ form.type ]
+
+  App\Form\ListingType:
+    arguments:
+      $productFactory: '@sylius.factory.product'
+      $country: '%country_iso%'
+      $debug: '%kernel.debug%'
+    tags: [ form.type ]
+
+  App\Form\ListingTranslationType:
+    tags:
+      - { name: form.type }
+    arguments: [App\Entity\ListingTranslation, ['sylius']]
+
+  App\Form\ServiceEditor\TaxonProductType:
+    arguments: [ '@sylius.repository.product' ]
+    tags: [ form.type ]
+
+  App\Form\ProductType:
+    arguments:
+      $productAttributeRepository: '@sylius.repository.product_attribute'
+      $productAttributeValueFactory: '@sylius.factory.product_attribute_value'
+    tags: [ form.type ]
+
+  App\Form\WellDesignProductType:
+    tags:
+      - { name: form.type }
+
+  App\Form\Business\FulfillmentMethodType:
+    tags: [ form.type ]
+
+  App\Form\Type\LocalBusinessTypeChoiceType:
+    tags: [ form.type ]
+
+  App\Form\ProductOptionWithPositionType:
+    tags: [ form.type ]
+
+  astrada.form.type.listing_search_result:
+    class: App\Form\ListingSearchResultType
+    arguments:
+      - "@doctrine.orm.entity_manager"
+      - "@request_stack"
+      - "@event_dispatcher"
+      - '@translator'
+      - parameters:
+          astrada_time_unit: "%astrada.time_unit%"
+          astrada_time_unit_flexibility: "%astrada.time_unit_flexibility%"
+          astrada_days_display_mode: "%astrada.days_display_mode%"
+          astrada_times_display_mode: "%astrada.times_display_mode%"
+          astrada_booking_allow_single_day: "%astrada.booking.allow_single_day%"
+          astrada_booking_end_day_included: "%astrada.booking.end_day_included%"
+          astrada_booking_min_start_time_delay: "%astrada.booking.min_start_time_delay%"
+    tags: [ form.type ]
+
+  astrada.form.type.listing_search_home:
+    class: App\Form\ListingSearchHomeType
+    parent:  astrada.form.type.listing_search_result
+    tags:
+      - { name: form.type }
+
+  App\Form\Type\PriceRangeType:
+    tags: [ form.type ]
+
+  App\Form\Type\PriceScaleType:
+    arguments:
+      - '@sylius.context.currency'
+      - "%astrada.listing_price_precision%"
+      - "@sylius.currency_converter"
+    tags: [ form.type ]
+
+  App\Form\BookingType:
+    arguments:
+      - "@event_dispatcher"
+      - "%astrada.booking.allow_single_day%"
+      - "%astrada.booking.end_day_included%"
+      - "%astrada.days_display_mode%"
+      - "%astrada.times_display_mode%"
+      - "%astrada.time_unit%"
+    tags:
+      - { name: form.type }
+
+  App\Form\Type\DateRangeType:
+    arguments:
+      - "%astrada.time_unit%"
+      - "%astrada.days_max%"
+    tags:
+      - { name: form.type, alias: date_range }
+
+  App\Spreadsheet\ProductSpreadsheetParser: ~
+  #ACTIONS
+
+  App\Action\Register:
+    public: true
+    arguments:
+      $confirmationEnabled: '%nucleos_profile.registration.confirmation.enabled%'
+      $mailer: '@nucleos_profile.mailer.default'
+
+  # FILTERS
+  App\Utils\BusinessFilter:
+    arguments:
+      - '@routing_service'
+      - '@astrada.expression_language'
+
+  # COMMANDS
+  App\Command\SetupCommand:
+    arguments:
+      $productRepository: '@sylius.repository.product'
+      $productFactory: '@sylius.factory.product'
+      $productManager: '@sylius.manager.product'
+      $taxonFactory: '@sylius.factory.taxon'
+      $productAttributeRepository: '@sylius.repository.product_attribute'
+      $productAttributeManager: '@sylius.manager.product_attribute'
+      $productAttributeValueFactory: '@sylius.factory.product_attribute_value'
+      $localeRepository: '@sylius.repository.locale'
+      $localeFactory: '@sylius.factory.locale'
+      $currencyRepository: '@sylius.repository.currency'
+      $currencyFactory: '@sylius.factory.currency'
+      $locale: '%env(ASTRADA_LOCALE)%'
+      $country: "%country_iso%"
+    tags:
+      - { name: 'console.command', command: 'astrada:setup' }
+
+  App\Command\InitDemoCommand:
+    arguments:
+      $fixturesLoader: '@fidry_alice_data_fixtures.loader.doctrine'
+      $faker: '@nelmio_alice.faker.generator'
+      $craueConfig: '@craue_config'
+      $configEntityName: '%craue_config.entity_name%'
+      $taxonFactory: '@sylius.factory.taxon'
+      $country: "%country_iso%"
+      $defaultLocale: "%env(ASTRADA_LOCALE)%"
+    tags:
+      - { name: 'console.command', command: 'astrada:demo:init' }
+
+  # VALIDATORS
+  App\Validator\Constraints\IsActivableBusinessValidator:
+    arguments: [ '@astrada.settings_manager' ]
+    tags:
+      - { name: validator.constraint_validator }
+
+
+  # MessageHandlers
+  App\MessageHandler\EmailHandler: ~
+
+  App\Utils\PriceFormatter:
+    arguments:
+      - '@sylius.context.currency'
+
+  App\Utils\LogoNamer:
+    public: true
+
+  astrada.sylius.factory.product_variant:
+    class: App\Sylius\Product\ProductVariantFactory
+    decorates: sylius.factory.product_variant
+    arguments:
+      - "@astrada.sylius.factory.product_variant.inner"
+      - "@sylius.repository.product"
+      - "@sylius.repository.product_variant"
+      - "@astrada.settings_manager"
+      - "@translator"
+    public: false
+
+  astrada.user_manager:
+    decorates: nucleos_user.user_manager.default
+    arguments:
+      - '@astrada.user_manager.inner'
+      - '@nucleos_user.object_manager'
+    class: App\Security\UserManager
+
+  astrada.user_provider:
+    class: App\Security\NucleosUserBundleUserProvider
+    arguments: ['@nucleos_user.user_manager', { facebook: facebookId }]
+
+  # Doctrine Extension listeners to handle behaviors
+  gedmo.listener.tree:
+    class: Gedmo\Tree\TreeListener
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+    calls:
+      - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+  gedmo.listener.sortable:
+    class: Gedmo\Sortable\SortableListener
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+    calls:
+      - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+  gedmo.listener.timestampable:
+    class: Gedmo\Timestampable\TimestampableListener
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+    calls:
+      - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+  gedmo.listener.softdeleteable:
+    class: Gedmo\SoftDeleteable\SoftDeleteableListener
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+    calls:
+      - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+  astrada.settings_manager:
+    alias: App\Service\SettingsManager
+    public: true
+
+  App\Service\ListingAvailabilityManager:
+    arguments:
+      $timeUnit: "%astrada.time_unit%"
+      $defaultListingStatus: "%astrada.listing_availability_status%"
+      $endDayIncluded: "%astrada.booking.end_day_included%"
+
+  astrada.booking.manager: '@App\Service\BookingManager'
+
+  App\Service\BookingManager:
+    arguments:
+      $parameters:
+          astrada_fee_as_asker: "%astrada.fee_as_asker%"
+          astrada_fee_as_offerer: "%astrada.fee_as_offerer%"
+          astrada_time_unit: "%astrada.time_unit%"
+          astrada_time_max: "%astrada.times_max%"
+          astrada_time_hours_available: "%astrada.time_hours_available%"
+          astrada_booking_expiration_delay: "%astrada.booking.expiration_delay%"
+          astrada_booking_acceptation_delay: "%astrada.booking.acceptation_delay%"
+          astrada_booking_allow_single_day: "%astrada.booking.allow_single_day%"
+          astrada_booking_end_day_included: "%astrada.booking.end_day_included%"
+          astrada_booking_min_start_time_delay: "%astrada.booking.min_start_time_delay%"
+          astrada_booking_price_min: "%astrada.booking_price_min%"
+          astrada_dashboard_max_per_page: "%astrada.dashboard_max_per_page%"
+          astrada_listing_availability_status: "%astrada.listing_availability_status%"
+          astrada_vat: "%astrada.vat%"
+          astrada_include_vat: "%astrada.include_vat%"
+          astrada_bundles: "%kernel.bundles%"
+          astrada_booking_invoice_begin: "%astrada.booking.invoice_begin%"
+
+  astrada.utils.business_filter: '@App\Utils\BusinessFilter'
+  astrada.price_formatter: '@App\Utils\PriceFormatter'
+
+  astrada.expression_language:
+    alias: App\ExpressionLanguage\ExpressionLanguage
+    public: true
+
+  astrada.listing_search_request:
+    class: App\Entity\Model\ListingSearchRequest
+    arguments:
+      - "@request_stack"
+      - "%astrada.listing_search_max_per_page%"
+    public: true
+
+  astrada.email_manager: '@App\Service\EmailManager'
+
+  App\ExpressionLanguage\ExpressionLanguage:
+    arguments:
+      $cache: null
+
+  App\Service\RoutingInterface: '@routing_service'
+  Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManagerInterface: '@lexik_jwt_authentication.jwt_manager'
+  Liip\ImagineBundle\Service\FilterService: '@liip_imagine.service.filter'
+  League\Flysystem\MountManager: '@oneup_flysystem.mount_manager'
+
+  League\Flysystem\Filesystem $listingImportsFilesystem: '@listing_imports_filesystem'
+  League\Flysystem\Filesystem $receiptsFilesystem: '@receipts_filesystem'
+  League\Flysystem\Filesystem $assetsFilesystem: '@assets_filesystem'
+  Nucleos\UserBundle\Util\CanonicalizerInterface: '@nucleos_user.util.canonicalizer.default'
+  Nucleos\UserBundle\Util\UserManipulator:
+    alias: 'nucleos_user.util.user_manipulator'
+    public: true
+
+  Doctrine\Persistence\ObjectRepository $productRepository: '@sylius.repository.product'
+  App\Entity\Sylius\TaxonRepository $taxonRepository: '@sylius.repository.taxon'
+  Sylius\Component\Product\Resolver\ProductVariantResolverInterface: '@sylius.product_variant_resolver.default'
+  Sylius\Component\Currency\Context\CurrencyContextInterface: '@sylius.context.currency'
+  Sylius\Component\Product\Repository\ProductOptionRepositoryInterface $productOptionRepository: '@sylius.repository.product_option'
+  Sylius\Component\Resource\Factory\FactoryInterface $taxonFactory: '@sylius.factory.taxon'
+  Sylius\Component\Resource\Factory\FactoryInterface $productFactory: '@sylius.factory.product'
+  Sylius\Component\Resource\Factory\FactoryInterface $productOptionFactory: '@sylius.factory.product_option'
+
+  Spatie\GuzzleRateLimiterMiddleware\Store: '@App\Geocoder\RateLimiterStore'
+
+  Tetranz\Select2EntityBundle\Service\AutocompleteService: '@tetranz_select2entity.autocomplete_service'
+
+  misd_phone_number.serializer.normalizer:
+    class: App\Serializer\PhoneNumberNormalizer
+    arguments:
+      $region: "%country_iso%"
+
+
+  App\Serializer\ListingNormalizer:
+    arguments:
+      $normalizer: "@api_platform.jsonld.normalizer.item"
+      $locale: "%env(ASTRADA_LOCALE)%"
+    tags: [ { name: serializer.normalizer, priority: 128 } ]
+
+  astrada_business_listing_list.serializer.normalizer:
+    class: App\Serializer\BusinessListingListNormalizer
+    arguments:
+      $normalizer: "@api_platform.jsonld.normalizer.item"
+      $locale: "%env(ASTRADA_LOCALE)%"
+    tags: [ { name: serializer.normalizer, priority: 128 } ]
+
+  App\Service\Routing\Osrm:
+    arguments:
+      $client: '@csa_guzzle.client.osrm'
+
+  routing_service:
+    public: true
+    class: App\Service\Routing\OsrmWithFallback
+
+  App\Mjml\MjmlServerRenderer:
+    arguments:
+      $client: '@csa_guzzle.client.mjml_server'
+
+  App\Service\SettingsManager:
+    arguments:
+      $craueConfig: "@craue_config"
+      $craueCache: "@craue_config_cache_adapter"
+      $configEntityName: "%craue_config.entity_name%"
+      $country: "%country_iso%"
+
+  App\Service\EmailManager:
+    arguments:
+      $transactionalAddress: "%transactional_address%"
+
+  App\Service\Geocoder:
+    arguments:
+      $openCageApiKey: "%env(OPENCAGE_API_KEY)%"
+      $yandexApiKey: "%env(YANDEX_API_KEY)%"
+      $country: "%country_iso%"
+      $locale: "%env(ASTRADA_LOCALE)%"
+      $rateLimitPerSecond: 15
+      $autoconfigure: "%env(bool:ASTRADA_GEOCODER_AUTOCONF_ENABLED)%"
+
+  App\Geocoder\RateLimiterStore:
+    arguments:
+      $redis: '@snc_redis.shared'
+      $service: opencage
+
+  App\Action\Settings:
+    public: true
+    arguments:
+      $assetsFilesystem: '@assets_filesystem'
+      $phoneNumberNormalizer: '@misd_phone_number.serializer.normalizer'
+      $country: '%country_iso%'
+      $locale: '%env(ASTRADA_LOCALE)%'
+
+  App\Entity\LocalBusinessRepository:
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - App\Entity\LocalBusiness
+    calls:
+      - method: setBusinessFilter
+        arguments:
+          - '@astrada.utils.business_filter'
+
+  App\Entity\ListingRepository:
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - App\Entity\Listing
+
+  App\Repository\AddressRepository:
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - App\Entity\Address
+
+  astrada.repository.listing: '@App\Entity\ListingRepository'
+
+  astrada.repository.subscription:
+    class: Doctrine\ORM\EntityRepository
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - App\Entity\ListingSubscription
+
+  App\Security\OAuth\ResourceOwner\FacebookResourceOwner:
+    autowire: false
+    autoconfigure: false
+    public: false
+    parent: hwi_oauth.abstract_resource_owner.oauth2
+    arguments:
+      $name: 'facebook'
+      $options:
+        client_id:     '%env(ASTRADA_OAUTH_FACEBOOK_CLIENT_ID)%'
+        client_secret: '%env(ASTRADA_OAUTH_FACEBOOK_CLIENT_SECRET)%'
+        scope:         'email'
+      $proxyUri: '%env(ASTRADA_OAUTH2_PROXY_URI)%'
+      $enabled: '%env(bool:ASTRADA_OAUTH2_PROXY_ENABLED)%'
+
+  App\Security\LocalBusinessVoter:
+    tags: [ 'security.voter' ]
+
+  Redis:
+    alias: 'snc_redis.default'
+    public: true
+
+  Redis $tile38: '@snc_redis.tile38'
+  # https://digitalist.se/blogg/using-open-source-minio-and-flysystem-s3-module-handle-drupal-files
+  # https://github.com/minio/cookbook/blob/master/docs/how-to-use-minio-as-laravel-file-storage.md
+  s3_client:
+    class: Aws\S3\S3Client
+    arguments:
+      - endpoint: '%env(S3_ENDPOINT)%'
+        version: latest
+        region: '%env(S3_REGION)%'
+        credentials:
+          key: '%env(S3_CREDENTIALS_KEY)%'
+          secret: '%env(S3_CREDENTIALS_SECRET)%'
+        use_path_style_endpoint: true
+
+  cdn_s3_client:
+    class: Aws\S3\S3Client
+    arguments:
+      - endpoint: '%env(CDN_S3_ENDPOINT)%'
+        version: latest
+        region: '%env(CDN_S3_REGION)%'
+        credentials:
+          key: '%env(CDN_S3_CREDENTIALS_KEY)%'
+          secret: '%env(CDN_S3_CREDENTIALS_SECRET)%'
+        use_path_style_endpoint: true
+        # https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_configuration.html#config-retries
+        # https://www.digitalocean.com/docs/spaces/#limits
+        # https://www.digitalocean.com/docs/spaces/resources/performance-tips/#50x-errors
+        retries:
+          mode: standard
+          max_attempts: 3
+
+  # https://symfony.com/doc/current/bundles/LiipImagineBundle/cache-resolver/cache.html
+
+  astrada.imagine.cache.resolver.flysystem:
+    class: Liip\ImagineBundle\Imagine\Cache\Resolver\FlysystemResolver
+    arguments:
+      $flysystem: '@oneup_flysystem.cdn_filesystem'
+      $rootUrl: '%env(CDN_ROOT_URL)%'
+      $cachePrefix: '%env(CDN_CACHE_PREFIX)%'
+
+  astrada.imagine.cache.redis:
+    class: Symfony\Component\Cache\DoctrineProvider
+    arguments:
+      - '@s3_flysystem.cache'
+
+  astrada.imagine.cache.resolver.flysystem.cache:
+    class: Liip\ImagineBundle\Imagine\Cache\Resolver\CacheResolver
+    arguments:
+      - "@astrada.imagine.cache.redis"
+      - "@astrada.imagine.cache.resolver.flysystem"
+      - { prefix: "s3_flysystem" }
+    tags:
+      - { name: "liip_imagine.cache.resolver", resolver: "cached_s3_flysystem" }
+
+
+  sylius.context.locale.request_based:
+    class: Sylius\Bundle\LocaleBundle\Context\RequestBasedLocaleContext
+    arguments: ['@request_stack', '@sylius.locale_provider']
+    tags:
+      - { name: sylius.context.locale, priority: 128 }
+
+  sylius.context.locale.immutable:
+    class: Sylius\Component\Locale\Context\ImmutableLocaleContext
+    arguments: ['%sylius_locale.locale%']
+    tags:
+      - { name: sylius.context.locale, priority: 64 }
+
+  sylius.context.currency.settings_aware:
+    class: App\Sylius\Currency\SettingsAwareCurrencyContext
+    arguments: ['@astrada.settings_manager']
+    tags:
+      - { name: sylius.context.currency }
+
+  phpcent\Client:
+    arguments:
+      - '%env(CENTRIFUGO_API_URL)%'
+      - '%env(CENTRIFUGO_API_KEY)%'
+      - '%env(CENTRIFUGO_TOKEN_HMAC_SECRET_KEY)%'
+
+

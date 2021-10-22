@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+<head>
+    {{ sonata_seo_title() }}
+    {{ sonata_seo_link_canonical() }}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000" />
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    {{ sonata_seo_metadatas() }}
+    {{ encore_entry_link_tags('site-common') }}
+    {{ encore_entry_link_tags('widgets') }}
+    {% if app.user %}
+        {{ encore_entry_link_tags('notifications') }}
+    {% endif %}
+    {% block styles_common %}
+        {% block styles %}{% endblock %}
+    {% endblock %}
+    {% block structured_data %}{% endblock %}
+
+    <link rel="preconnect" href="{{ cdn_root_url }}" />
+</head>
+<body data-country="{{ country_iso }}" data-currency-symbol="{{ currency_context.currencyCode|sylius_currency_symbol }}" data-timezone="{{ astrada_setting('timezone') }}">
+<!-- allow a user to go to the main content of the page -->
+<noscript>Javascript must be enabled for the correct page display</noscript>
+
+
+
+{% block flash_messages %}
+    {% include '_partials/flash_messages.html.twig' %}
+{% endblock %}
+<!--loader-->
+<div class="loader-wrap">
+    <div class="loader-inner">
+        <div class="loader-inner-cirle"></div>
+    </div>
+</div>
+<!--loader end-->
+<!-- main start  -->
+<div id="main">
+    {% block layout %}{% endblock %}
+</div>
+
+{% if app.environment == "prod" %}
+    <script
+            src="https://browser.sentry-cdn.com/6.2.4/bundle.min.js"
+            integrity="sha384-b3mYy/x0ZxlqU5OjYvVD7RczftJVOXmpHSmrcqpL4c+kBSXWEnRL2Puv9eMjYmDq"
+            crossorigin="anonymous"
+    ></script>
+    <script>
+        Sentry.init({ dsn: '{{ sentry_public_dsn }}' });
+    </script>
+{% endif %}
+
+<div id="cpccl_settings"
+     data-latlng="{{ astrada_setting('latlng')|json_encode|e('html_attr') }}"></div>
+
+<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+{{ encore_entry_script_tags('site-common') }}
+{{ encore_entry_script_tags('widgets') }}
+
+{#<script src="{{ asset('bundles/tetranzselect2entity/js/select2entity.js') }}"></script>#}
+{% if app.user %}
+    {{ encore_entry_script_tags('notifications') }}
+{% endif %}
+
+{% include '_partials/autocomplete_adapter.html.twig' %}
+
+{# We load Google Maps *SYNCHRONOUSLY*, so this must be added *BEFORE* scripts, so that Google is loaded #}
+{# https://developers.google.com/maps/documentation/javascript/examples/map-sync #}
+{% include '_partials/google_maps.html.twig' %}
+
+{% block scripts_common %}
+    {% block scripts %}{% endblock %}
+{% endblock %}
+
+{% if app.environment == "test" %}
+    <script>
+        {% include '_partials/error_handler.js.twig' %}
+    </script>
+{% endif %}
+
+{% include "_partials/analytics.html.twig" %}
+</body>
+</html>

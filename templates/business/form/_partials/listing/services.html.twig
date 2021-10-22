@@ -1,0 +1,14 @@
+{#{% include 'SyliusUiBundle::_javascripts.html.twig' %}#}
+<h4>
+    {% trans %}global.services{% endtrans %}
+</h4>
+
+<p class="help-block">
+    <i class="fa fa-info-circle"></i> {% trans %}listing.form.services.help{% endtrans %}
+</p>
+
+<hr>
+
+
+<h5>{{ 'listing.service.welldesigns'|trans }}</h5>
+{{ form_row(form.welldesigns) }}

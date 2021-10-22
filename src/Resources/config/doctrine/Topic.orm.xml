@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd" xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+    <entity name="App\Entity\Topic" table="topic" repository-class="App\Repository\TopicRepository">
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+
+        <field name="code" type="string" unique="true" column="code"/>
+        <field name="title" type="string"  column="title"/>
+
+        <many-to-one field="author" target-entity="Sylius\Component\Customer\Model\CustomerInterface">
+            <join-columns>
+                <join-column name="author_id" referenced-column-name="id" on-delete="SET NULL"/>
+            </join-columns>
+            <cascade>
+                <cascade-persist />
+            </cascade>
+        </many-to-one>
+
+        <one-to-one field="mainPost" target-entity="App\Entity\Post" inversed-by="parent">
+            <join-columns>
+                <join-column name="main_post_id" referenced-column-name="id" on-delete="SET NULL" nullable="true"/>
+            </join-columns>
+            <cascade>
+                <cascade-persist />
+                <cascade-remove/>
+            </cascade>
+        </one-to-one>
+        <one-to-many field="posts" target-entity="App\Entity\Post" mapped-by="topic" orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <field name="postCount" type="integer" column="post_count"/>
+        <field name="viewCount" type="integer" column="view_count"/>
+
+        <field name="lastPostCreatedAt" type="datetime" column="last_post_created_at" nullable="true">
+            <gedmo:timestampable on="create"/>
+        </field>
+
+        <one-to-one field="booking" target-entity="App\Entity\Booking" mapped-by="topic">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-one>
+
+
+        <many-to-many field="followers" target-entity="Sylius\Component\Customer\Model\CustomerInterface">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <join-table name="topic_followers">
+                <join-columns>
+                    <join-column name="topic_id" referenced-column-name="id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="customerinterface_id" referenced-column-name="id"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+        <field name="createdAt" type="datetime" column="created_at">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="updatedAt" type="datetime" column="updated_at">
+            <gedmo:timestampable on="update"/>
+        </field>
+    </entity>
+</doctrine-mapping>

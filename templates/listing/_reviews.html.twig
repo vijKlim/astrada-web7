@@ -1,0 +1,177 @@
+{% if listing.reviews|length > 0 %}
+    <div class="list-single-main-item fl-wrap block_box" id="sec5">
+        <div class="list-single-main-item-title">
+            <h3>Item Reviews -  <span> 2 </span></h3>
+        </div>
+        <!--reviews-score-wrap-->
+        <div class="reviews-score-wrap fl-wrap">
+            <div class="review-score-total">
+                                                    <span class="review-score-total-item">
+                                                    4.1
+                                                    </span>
+                <div class="listing-rating card-popup-rainingvis" data-starrating2="5"></div>
+            </div>
+            <div class="review-score-detail">
+                <!-- review-score-detail-list-->
+                <div class="review-score-detail-list">
+                    <!-- rate item-->
+                    <div class="rate-item">
+                        <div class="rate-item-title"><span>Quality</span></div>
+                        <div class="rate-item-bg" data-percent="100%">
+                            <div class="rate-item-line gradient-bg"></div>
+                        </div>
+                        <div class="rate-item-percent">5.0</div>
+                    </div>
+                    <!-- rate item end-->
+                    <!-- rate item-->
+                    <div class="rate-item">
+                        <div class="rate-item-title"><span>Location</span></div>
+                        <div class="rate-item-bg" data-percent="90%">
+                            <div class="rate-item-line gradient-bg"></div>
+                        </div>
+                        <div class="rate-item-percent">4.0</div>
+                    </div>
+                    <!-- rate item end-->
+                    <!-- rate item-->
+                    <div class="rate-item">
+                        <div class="rate-item-title"><span>Price</span></div>
+                        <div class="rate-item-bg" data-percent="60%">
+                            <div class="rate-item-line gradient-bg"></div>
+                        </div>
+                        <div class="rate-item-percent">3.0</div>
+                    </div>
+                    <!-- rate item end-->
+                    <!-- rate item-->
+                    <div class="rate-item">
+                        <div class="rate-item-title"><span>Service</span></div>
+                        <div class="rate-item-bg" data-percent="80%">
+                            <div class="rate-item-line gradient-bg"></div>
+                        </div>
+                        <div class="rate-item-percent">4.0</div>
+                    </div>
+                    <!-- rate item end-->
+                </div>
+                <!-- review-score-detail-list end-->
+            </div>
+        </div>
+        <!-- reviews-score-wrap end -->
+        <div class="list-single-main-item_content fl-wrap">
+            <div class="reviews-comments-wrap">
+
+                {% for review in listing.reviews %}
+
+                    <!-- reviews-comments-item -->
+                    <div class="reviews-comments-item">
+                        <div class="review-comments-avatar">
+                            <img src="{{ path('user_avatar', { username: review.author.user.username }) }}" alt="">
+                        </div>
+                        <div class="reviews-comments-item-text fl-wrap">
+                            <div class="reviews-comments-header fl-wrap">
+                                <h4><a href="#">{{ review.author.user.username }}</a></h4>
+                                <div class="review-score-user">
+{#                                    {{ rating(review.rating) }}#}
+                                    <span class="review-score-user_item">4.2</span>
+                                    <div class="listing-rating card-popup-rainingvis" data-starrating2="4"></div>
+                                </div>
+                            </div>
+                            <p>{{ review.comment|raw }}</p>
+                            <div class="reviews-comments-item-footer fl-wrap">
+                                <div class="reviews-comments-item-date"><span><i class="far fa-calendar-check"></i>12 April 2018</span></div>
+                                <a href="#" class="rate-review"><i class="fal fa-thumbs-up"></i>  Helpful Review  <span>2</span> </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--reviews-comments-item end-->
+                {% endfor %}
+
+
+
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="list-single-main-item fl-wrap block_box" id="sec5">
+        <div class="list-single-main-item-title">
+            <h3>Item Reviews -  <span> 2 </span></h3>
+        </div>
+
+    </div>
+{% endif %}
+
+<div class="list-single-main-item fl-wrap block_box" id="sec6">
+    <div class="list-single-main-item-title fl-wrap">
+        <h3>Add Review</h3>
+        {% if app.user %}
+            <!-- Add Review Box -->
+            <div id="add-review" class="add-review-box">
+                <!-- Review Comment -->
+                <form id="add-comment" class="add-comment  custom-form" name="rangeCalc" >
+                    <fieldset>
+                        <div class="review-score-form fl-wrap">
+                            <div class="review-range-container">
+                                <!-- review-range-item-->
+                                <div class="review-range-item">
+                                    <div class="range-slider-title">Cleanliness</div>
+                                    <div class="range-slider-wrap ">
+                                        <input type="text" class="rate-range" data-min="0" data-max="5"  name="rgcl"  data-step="1" value="4">
+                                    </div>
+                                </div>
+                                <!-- review-range-item end -->
+                                <!-- review-range-item-->
+                                <div class="review-range-item">
+                                    <div class="range-slider-title">Comfort</div>
+                                    <div class="range-slider-wrap ">
+                                        <input type="text" class="rate-range" data-min="0" data-max="5"  name="rgcl"  data-step="1"  value="1">
+                                    </div>
+                                </div>
+                                <!-- review-range-item end -->
+                                <!-- review-range-item-->
+                                <div class="review-range-item">
+                                    <div class="range-slider-title">Staf</div>
+                                    <div class="range-slider-wrap ">
+                                        <input type="text" class="rate-range" data-min="0" data-max="5"  name="rgcl"  data-step="1" value="5" >
+                                    </div>
+                                </div>
+                                <!-- review-range-item end -->
+                                <!-- review-range-item-->
+                                <div class="review-range-item">
+                                    <div class="range-slider-title">Facilities</div>
+                                    <div class="range-slider-wrap">
+                                        <input type="text" class="rate-range" data-min="0" data-max="5"  name="rgcl"  data-step="1" value="3">
+                                    </div>
+                                </div>
+                                <!-- review-range-item end -->
+                            </div>
+                            <div class="review-total">
+                                <span><input type="text" name="rg_total"   data-form="AVG({rgcl})" value="0"></span>
+                                <strong>Your Score</strong>
+                            </div>
+                        </div>
+                        <div class="list-single-main-item_content fl-wrap">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label><i class="fal fa-user"></i></label>
+                                    <input type="text" placeholder="Your Name *" value=""/>
+                                </div>
+                                <div class="col-md-6">
+                                    <label><i class="fal fa-envelope"></i>  </label>
+                                    <input type="text" placeholder="Email Address*" value=""/>
+                                </div>
+                            </div>
+                            <textarea cols="40" rows="3" placeholder="Your Review:"></textarea>
+                            <div class="clearfix"></div>
+
+                            <button class="btn  color2-bg  float-btn">Submit Review <i class="fal fa-paper-plane"></i></button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <!-- Add Review Box / End -->
+        {% else %}
+            <a href="{{ path('nucleos_user_security_login') }}" class="btn color2-bg    float-btn">Add<i class="fal fa-chevron-right"></i></a>
+        {% endif %}
+    </div>
+
+</div>
+
+

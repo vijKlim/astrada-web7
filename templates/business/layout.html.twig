@@ -1,0 +1,91 @@
+{% extends layout %}
+
+{% block subnav %}
+  <nav class="navbar {% if layout == 'dashboard.html.twig' %}mb-0{% else %}navbar-default{% endif %}">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#restaurant-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand">
+          {% if business.id is not empty %}
+            <a href="{{ path(business_route, { id: business.id }) }}">{{ business.name }}</a>
+            &nbsp;&nbsp;
+            <a href="{{ path('business', { id: business.id }) }}" target="_blank">
+              <i class="fa fa-external-link"></i>
+            </a>
+          {% else %}
+            {% trans %}business.form.createBusiness{% endtrans %}
+          {% endif %}
+        </span>
+      </div>
+      <div class="collapse navbar-collapse" id="restaurant-navbar">
+        {% if business.id is not empty %}
+        <div class="nav navbar-nav navbar-right">
+            <li>
+                <a href="{{ path(listings_route, { id: business.id }) }}">
+                    <i class="fa fa-database"></i>  {% trans %}business.list.listings{% endtrans %}
+                </a>
+            </li>
+          <li>
+            <a href="{{ path(products_route, { id: business.id }) }}">
+              <i class="fa fa-database"></i>  {% trans %}business.list.products{% endtrans %}
+            </a>
+          </li>
+          <li>
+            <a href="{{ path(product_options_route, { id: business.id }) }}">
+              <i class="fa fa-sliders"></i>  {% trans %}business.list.product_options{% endtrans %}
+            </a>
+          </li>
+          <li>
+            <a href="{{ path(dashboard_route, { businessId: business.id }) }}">
+              <i class="fa fa-cube"></i>  {% trans %}business.list.orders{% endtrans %}
+            </a>
+          </li>
+
+          <li>
+
+            <a href="{{ path(service_taxons_route, { id: business.id }) }}">
+              <i class="fa fa-list"></i>  {% trans %}business.list.services{% endtrans %}
+            </a>
+          </li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'task.form.modal.moreOptions'|trans }} <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="{{ path(planning_route, { id: business.id }) }}">
+                  <i class="fa fa-clock-o"></i>  {% trans %}business.list.planning{% endtrans %}
+                </a>
+              </li>
+              <li>
+                <a href="{{ path(stats_route, { id: business.id }) }}">
+                  <i class="fa fa-bar-chart"></i>  {% trans %}business.list.stats{% endtrans %}
+                </a>
+              </li>
+              <li>
+                <a href="{{ path(promotions_route, { id: business.id }) }}">
+                  <i class="fa fa-percent"></i>  {% trans %}business.list.promotions{% endtrans %}
+                </a>
+              </li>
+
+              {% if is_granted('ROLE_ADMIN') %}
+              <li>
+                  Preparation_time_route
+{#                <a href="{{ path(preparation_time_route, { id: business.id }) }}">#}
+{#                  <i class="fa fa-clock-o"></i>  {% trans %}business.list.preparationTime{% endtrans %}#}
+{#                </a>#}
+              </li>
+              {% endif %}
+            </ul>
+          </li>
+
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+{% endblock %}

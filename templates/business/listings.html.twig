@@ -1,0 +1,34 @@
+{% extends "business/layout.html.twig" %}
+
+{% block breadcrumb %}
+    <li>{% trans %}adminDashboard.listings.title{% endtrans %}</li>
+{% endblock %}
+
+{% block content %}
+    {% include '_partials/flash_messages.html.twig' %}
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center flex-fill">
+            <div id="search-listings" class="w-25 mr-4">
+                <input type="text" class="form-control">
+            </div>
+
+        </div>
+        <a href="{{ path(listing_new_route, { id: business.id }) }}" class="btn btn-success">
+            <i class="fa fa-plus"></i> {% trans %}adminDashboard.listings.createNew{% endtrans %}
+        </a>
+    </div>
+
+
+    <nav class="text-center">
+        {{ knp_pagination_render(listings) }}
+    </nav>
+    {% include "_partials/listing/list.html.twig" %}
+    <nav class="text-center">
+        {{ knp_pagination_render(listings) }}
+    </nav>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ encore_entry_script_tags('admin-listings') }}
+{% endblock %}

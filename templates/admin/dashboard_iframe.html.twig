@@ -1,0 +1,44 @@
+{% extends "admin.html.twig" %}
+
+{% block banner %}{% endblock %}
+
+{% block menu %}
+  {% if nav %}
+  {% include 'admin/nav.html.twig' with { nav_class: 'navbar--dashboard' } %}
+  {% endif %}
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block body %}
+
+<div class="dashboard {% if nav %}dashboard--nav{% endif %}">
+  <div class="dashboard__wrapper" id="dashboard"
+    data-jwt="{{ jwt }}"
+    data-centrifugo-token="{{ centrifugo_token }}"
+    data-centrifugo-tracking-channel="{{ centrifugo_tracking_channel }}"
+    data-centrifugo-events-channel="{{ centrifugo_events_channel }}"
+    data-date="{{ date|date('Y-m-d') }}"
+    data-my-listings="{{ my_listings|json_encode|e('html_attr') }}"
+    data-listings="{{ all_listings|json_encode|e('html_attr') }}"
+    data-listing-lists="{{ listing_lists|json_encode|e('html_attr') }}"
+    data-uploader-endpoint="{{ oneup_uploader_endpoint('listings') }}"
+    data-nav="{{ nav ? 'on' : 'off' }}"
+    data-example-spreadsheet-url="{{ path('spreadsheet_example_listings') }}"
+    data-pickup-cluster-addresses="{{ pickup_cluster_addresses|json_encode|e('html_attr') }}">
+  </div>
+  <div class="dashboard__loader">
+    <div id="dashboard__loader" style="margin: 0 auto;"></div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block styles %}
+{{ encore_entry_link_tags('widgets-admin') }}
+{{ encore_entry_link_tags('dashboard') }}
+{% endblock %}
+
+{% block scripts %}
+{{ encore_entry_script_tags('dashboard') }}
+{% endblock %}

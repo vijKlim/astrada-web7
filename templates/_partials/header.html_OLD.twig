@@ -1,0 +1,56 @@
+<!-- header -->
+<header class="main-header">
+    <!-- logo-->
+    <a href="{{ path('homepage') }}"  class="logo-holder">
+        <img src="{{ astrada_company_logo() }}"  alt="{{ astrada_setting('brand_name') }}"/>
+    </a>
+    <!-- logo end-->
+    <!-- header-search_btn-->
+    <div class="header-search_btn show-search-button"><i class="fal fa-search"></i><span>Search</span></div>
+    <!-- header-search_btn end-->
+    <!-- header opt -->
+    {#    <a href="{{ path('cocorico_listing_new') }}" class="add-list color-bg">{{ 'nav.listing.new.link'|trans }} <span><i class="fal fa-layer-plus"></i></span></a>#}
+    <a href="#" class="add-list color-bg">{{ 'nav.listing.new.link'|trans }} <span><i class="fal fa-layer-plus"></i></span></a>
+
+    {# User info #}
+    {% if app.user %}
+        {% include '_partials/user/account_dropdown.html.twig' %}
+    {% else %}
+        <a href="{{ path('nucleos_user_security_login') }}" class="show-reg-form avatar-img">{% trans %}navbar.login{% endtrans %}</a>
+    {% endif %}
+
+
+
+    <!-- header opt end-->
+    {% include '_partials/language_switch.html.twig' %}
+    <!-- nav-button-wrap-->
+    <div class="nav-button-wrap color-bg">
+        <div class="nav-button">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+    <!-- nav-button-wrap end-->
+    <!--  navigation -->
+    <div class="nav-holder main-menu">
+        <nav>
+            <ul class="no-list-style">
+                {#                <li>#}
+                {#                    <a href="{{ path('homepage') }}" class="act-link">{{ 'nav.home.link'|trans }}</a>#}
+                {#                </li>#}
+                <li>
+                    <a href="#">{{ 'nav.home.map'|trans }}</a>
+
+                </li>
+                <li>
+                    <a href="#">{{ 'nav.home.news'|trans }}</a>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+    <!-- navigation  end -->
+
+    {{ render(controller('App\\Controller\\ListingSearchController::searchHeaderFormAction')) }}
+
+</header>
+<!-- header end-->

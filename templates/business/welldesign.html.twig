@@ -1,0 +1,139 @@
+{% extends 'business/layout.html.twig' %}
+
+{% form_theme form 'form/product.html.twig' %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path(businesses_route) }}">{% trans %}adminDashboard.businesses.title{% endtrans %}</a></li>
+    <li><a href="{{ path(business_route, { id: business.id }) }}">{{ business.name }}</a></li>
+    <li><a href="{{ path(welldesigns_route, { id: business.id }) }}">{{ 'business.list.welldesigns'|trans }}</a></li>
+    <li>{{ product.name }}</li>
+{% endblock %}
+
+{% block content %}
+    {{ form_start(form) }}
+
+    {% set product = form.vars.value %}
+
+    {% if not form.vars.valid %}
+        {{ form_errors(form) }}
+    {% endif %}
+
+    {% if form.confirm is defined %}
+        <div class="alert alert-warning">
+            <p class="text-center">
+                {% trans with { '%link%': path(product_new_route, { id: business.id }) } %}form.product.confirm.help{% endtrans %}
+            </p>
+            <br>
+            <div class="text-center">
+                {{ form_widget(form.confirm, { attr: { class: 'btn-sm btn-success' } }) }}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-sm-3">
+            {% if product.id is not null %}
+                <a href="#" id="image-editor"
+                   class="d-flex align-items-center justify-content-center border text-decoration-none"
+                   style="padding: 10rem;">
+                    <i class="fa fa-3x fa-camera"></i>
+                </a>
+            {% endif %}
+        </div>
+        <div class="col-sm-9">
+            {{ form_row(form.name) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.enabled) }}
+        </div>
+    </div>
+
+    <hr>
+
+
+
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-7 control-label">{{ form.pipeDiameter.vars.label|trans }}</label>
+            <div class="col-sm-5">
+                {{ form_widget(form.pipeDiameter) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-7 control-label">{{ 'form.welldesign.depthWell'|trans }}</label>
+            <div class="col-sm-5">
+                <div class="d-flex">
+                    <div class="input-group mr-4">
+                        {{ form_widget(form.depthFrom, { attr: { size: 2 } }) }}
+                        <span class="input-group-addon"><small>{{ form.depthFrom.vars.label|trans }}</small></span>
+                    </div>
+                    <div class="input-group">
+                        {{ form_widget(form.depthTo, { attr: { size: 2 } }) }}
+                        <span class="input-group-addon"><small>{{ form.depthTo.vars.label|trans }}</small></span>
+                    </div>
+                </div>
+                <span class="help-block mb-0">
+                {{ 'localBusiness.form.orderingDelayMinutes.help'| trans }}
+            </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-7 control-label">{{ 'form.welldesign.price'|trans }}</label>
+            <div class="col-sm-5">
+                {{ form_row(form.price, {'label':false}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-7 control-label">{{ form.vehicleType.vars.label|trans }}</label>
+            <div class="col-sm-5">
+                {{ form_widget(form.vehicleType) }}
+            </div>
+        </div>
+    </div>
+
+
+
+
+{#    {{ form_row(form.options, { attr: { class: "product__form__options--sortable" } }) }}#}
+
+
+    <hr>
+
+    <div class="row">
+        {#
+        Make sure the "save" button is *BEFORE* the "delete" button in the DOM
+        to avoid deleting when hitting "enter"
+        #}
+        <div class="col-sm-9">
+            <button type="submit" class="btn btn-block btn-primary">{{ 'basics.save'|trans }}</button>
+        </div>
+        <div class="col-sm-3">
+            {{ form_widget(form.delete, { attr: { class: 'btn-block btn-danger' } }) }}
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+
+    {% set product_images = [] %}
+    {% for product_image in product.images %}
+        {% set imagine_filter = ('product_thumbnail_' ~ (product_image.ratio|replace({ ':': 'x' }))) %}
+        {% set product_images = product_images|merge([ {
+            ratio: product_image.ratio,
+            thumbnail: astrada_asset(product_image, 'imageFile', imagine_filter)
+        } ]) %}
+    {% endfor %}
+
+    <div id="product-form-data"
+         data-action-url="{{ oneup_uploader_endpoint('product') }}"
+         data-product-id="{{ product.id }}"
+         data-product-images="{{ product_images|json_encode|e('html_attr') }}"></div>
+
+{% endblock %}
+
+{% block styles %}
+    {{ encore_entry_link_tags('product-form') }}
+{% endblock %}
+
+{% block scripts %}
+    {{ encore_entry_script_tags('product-form') }}
+{% endblock %}

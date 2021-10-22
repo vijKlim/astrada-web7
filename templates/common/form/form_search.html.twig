@@ -1,0 +1,13 @@
+
+{% include '_partials/flash_messages.html.twig' %}
+
+{{ form_start(form, {'attr': {'class': 'form-category','data-form':null}}) }}
+
+{{ form_errors(form) }}
+
+{% include 'common/form/form_search_fields.html.twig' with {
+    'form': form,
+    'addresses_normalized': addresses_normalized
+} only %}
+
+{{ form_end(form) }}

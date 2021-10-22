@@ -1,0 +1,39 @@
+{% if listing.welldesigns|length > 0 %}
+    <!-- list-single-main-item-->
+    <div class="list-single-main-item fl-wrap block_box" id="sec4">
+        <div class="list-single-main-item-title">
+            <h3>{{ 'global.services'|trans }}</h3>
+        </div>
+        <div class="list-single-main-item_content fl-wrap">
+            <div class="menu-filters">
+                <a href="#" class="gallery-filter  menu-filters-active" data-filter="*">{{ 'global.all'|trans }}</a>
+                <a href="#" class="gallery-filter" data-filter=".main">{{ 'service.WELLDRILLING_1С'|trans }}</a>
+                <a href="#" class="gallery-filter" data-filter=".dessert">{{ 'service.WELLDRILLING_2С'|trans }}</a>
+                <a href="#" class="gallery-filter" data-filter=".lunch">{{ 'service.WELLDRILLING_3С'|trans }}</a>
+            </div>
+            <div class="restor-menu-widget fl-wrap">
+                {% for welldesign in listing.welldesigns %}
+                    <!--restmenu-item-->
+                    <div class="restmenu-item main">
+                        <a href="images/all/menu/1.jpg" class="restmenu-item-img image-popup">
+                            <img src="images/all/menu/1.jpg" alt="">
+                        </a>
+                        <div class="restmenu-item-det">
+                            <div class="restmenu-item-det-header fl-wrap">
+                                <h4>{{ welldesign.title }}</h4>
+                                <div class="restmenu-item-det-price">{{ welldesign.price }}</div>
+                            </div>
+                            <p>{{ 'form.welldesign.pipeDiameter.label'|trans }}: {{ welldesign.pipeDiameter }}</p>
+                            <p>{{ 'form.welldesign.depthWell'|trans }}: {{ welldesign.depthFrom }} - {{ welldesign.depthTo }}</p>
+                            <p>{{ 'form.welldesign.vihicleType.label'|trans }}: {{ welldesign.vehicleType }}</p>
+                        </div>
+                    </div>
+                    <!--restmenu-item end-->
+                {% endfor %}
+
+            </div>
+            <a href="#" class="btn color2-bg   float-btn">Download PDF<i class="fal fa-file-pdf"></i></a>
+        </div>
+    </div>
+    <!-- list-single-main-item end -->
+{% endif %}

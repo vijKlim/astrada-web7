@@ -1,0 +1,26 @@
+<!-- lang-wrap-->
+{# Language switcher. #}
+    {% set default_locale = 'en' %}
+    {% set locales = {
+        'ua': 'UA',
+        'ru': 'RU',
+    } %}
+    {% set current_locale = default_locale %}
+    {% if locales[app.request.locale] is defined %}
+        {% set current_locale = locales[app.request.locale] %}
+    {% endif %}
+<div class="lang-wrap">
+    <div class="show-lang"><span><i class="fal fa-globe-europe"></i><strong>{{ current_locale }}</strong></span><i class="fa fa-caret-down arrlan"></i></div>
+    <ul class="lang-tooltip lang-action no-list-style">
+        {% for locale, label in locales %}
+            {% if locale != app.request.locale %}
+                <li>
+                    <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': locale})) }}">{{ label }}</a>
+                </li>
+            {% endif %}
+
+        {% endfor %}
+
+    </ul>
+</div>
+<!-- lang-wrap end-->

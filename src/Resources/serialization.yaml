@@ -1,0 +1,87 @@
+App\Entity\User:
+  attributes:
+    username:
+      groups: ['user', 'order']
+    email:
+      groups: ['user', 'order']
+    addresses:
+      groups: ['user']
+    telephone:
+      groups: ['user', 'order', 'user_update']
+    roles:
+      groups: ['user']
+    givenName:
+      groups: ['order']
+    familyName:
+      groups: ['order']
+
+App\Entity\Sylius\Customer:
+  attributes:
+    username:
+      groups: ['customer', 'order', 'order_minimal']
+    email:
+      groups: ['customer', 'order', 'order_minimal']
+    telephone:
+      groups: ['customer', 'order', 'customer_update']
+    phoneNumber:
+      groups: ['customer', 'order', 'customer_update']
+
+App\Entity\Sylius\Taxon:
+  attributes:
+    code:
+      groups: ['restaurant_menu', 'restaurant_menus']
+    name:
+      groups: ['restaurant_menu', 'restaurant_menus']
+
+
+
+Sylius\Component\Product\Model\Product:
+  attributes:
+    id:
+      groups: ['product']
+    name:
+      groups: ['product']
+    description:
+      groups: ['product']
+    code:
+      groups: ['product']
+    enabled:
+      groups: ['product', 'product_update']
+
+Sylius\Component\Product\Model\ProductOption:
+  attributes:
+    name:
+      groups: ['product_option']
+    code:
+      groups: ['product_option']
+    values:
+      groups: ['product_option']
+    strategy:
+      groups: ['product_option']
+    additional:
+      groups: ['product_option']
+    valuesRange:
+      groups: ['product_option']
+
+Sylius\Component\Product\Model\ProductOptionValue:
+  attributes:
+    value:
+      groups: ['product_option']
+    code:
+      groups: ['product_option']
+    price:
+      groups: ['product_option']
+    enabled:
+      groups: ['product_option', 'product_option_value_update']
+
+
+
+App\Entity\LocalBusiness\FulfillmentMethod:
+  attributes:
+    type:
+      groups: ['restaurant']
+    openingHours:
+      groups: ['restaurant']
+    enabled:
+      groups: ['restaurant']
+

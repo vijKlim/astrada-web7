@@ -1,0 +1,12 @@
+sylius_review:
+    resources:
+        listing:
+            subject: App\Entity\Listing
+            reviewer:
+                classes:
+                    model: App\Entity\Sylius\Customer
+            review:
+                classes:
+                    model: App\Entity\ListingReview
+                    repository: App\Repository\ListingReviewRepository
+                    form: App\Form\ListingReviewType

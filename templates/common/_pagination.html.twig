@@ -1,0 +1,27 @@
+{% set page_count = pagination.pages_count %}
+{% set page = pagination.page %}
+
+{% if page_count > 1 %}
+    <div class="pagination">
+        {% if page > 1 %}
+            <a href="{{ path(pagination.route, pagination.route_params|merge({'page': page - 1})) }}"
+               class="prevposts-link"><i class="fas fa-caret-left"></i><span>Prev</span></a>
+        {% endif %}
+
+        {#display p numbers only from p-4 to p+4 but don't go <1 or >pages_count#}
+        {% for p in range(max(pagination.page-4, 1), min(page + 4, page_count)) %}
+            <a{% if p == page %} class="current-page"{% endif %}
+                    href="{{ path(pagination.route, pagination.route_params|merge({'page': p})) }}">
+                {{ p }}
+            </a>
+        {% endfor %}
+
+        {% if page < page_count %}
+            <a href="{{ path(pagination.route, pagination.route_params|merge({'page': page + 1})) }}"
+               class="nextposts-link"><span>Next</span><i class="fas fa-caret-right"></i></a>
+        {% endif %}
+
+    </div>
+{% endif %}
+
+

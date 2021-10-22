@@ -1,0 +1,173 @@
+liip_imagine:
+  resolvers:
+    default:
+      web_path:
+        web_root: '%env(APP_PUBLIC_DIR)%'
+  cache: ~
+  filter_sets:
+    cache: ~
+    business_thumbnail:
+      data_loader: business_images
+      filters:
+        upscale:
+          min: [ 512, 512 ]
+        thumbnail:
+          size: [ 512, 512 ]
+          mode: outbound
+          allow_upscale: true
+      post_processors:
+        jpegoptim:
+          strip_all: true
+          max: 80
+          progressive: true
+        optipng:
+          strip_all: true
+          level: 4
+    listing_thumbnail:
+      data_loader: listing_images
+      filters:
+        upscale:
+          min: [ 512, 512 ]
+        thumbnail:
+          size: [ 512, 512 ]
+          mode: outbound
+          allow_upscale: true
+      post_processors:
+        jpegoptim:
+          strip_all: true
+          max: 80
+          progressive: true
+        optipng:
+          strip_all: true
+          level: 4
+    listing_image_thumbnail:
+      data_loader: listing_images
+      filters:
+        thumbnail:
+          size: [ 128, 128 ]
+          mode: outbound
+      post_processors:
+        jpegoptim:
+          strip_all: true
+          max: 80
+          progressive: true
+    product_thumbnail:
+      # cache: cached_s3_flysystem
+      data_loader: product_images
+      filters:
+        upscale:
+          min: [ 256, 256 ]
+        thumbnail:
+          size: [ 256, 256 ]
+          mode: outbound
+          allow_upscale: true
+      post_processors:
+        jpegoptim:
+          strip_all: true
+          max: 80
+          progressive: true
+        optipng:
+          strip_all: true
+          level: 4
+    product_thumbnail_1x1:
+      # cache: cached_s3_flysystem
+      data_loader: product_images
+      filters:
+        upscale:
+          min: [ 256, 256 ]
+        thumbnail:
+          size: [ 256, 256 ]
+          mode: outbound
+          allow_upscale: true
+      post_processors:
+        jpegoptim:
+          strip_all: true
+          max: 80
+          progressive: true
+        optipng:
+          strip_all: true
+          level: 4
+    product_thumbnail_16x9:
+      # cache: cached_s3_flysystem
+      data_loader: product_images
+      filters:
+        upscale:
+          min: [ 640, 360 ]
+        thumbnail:
+          size: [ 640, 360 ]
+          mode: outbound
+          allow_upscale: true
+      post_processors:
+        jpegoptim:
+          strip_all: true
+          max: 80
+          progressive: true
+        optipng:
+          strip_all: true
+          level: 4
+    product_thumbnail_4x3:
+      # cache: cached_s3_flysystem
+      data_loader: product_images
+      filters:
+        upscale:
+          min: [ 512, 384 ]
+        thumbnail:
+          size: [ 512, 384 ]
+          mode: outbound
+          allow_upscale: true
+      post_processors:
+        jpegoptim:
+          strip_all: true
+          max: 80
+          progressive: true
+        optipng:
+          strip_all: true
+          level: 4
+    store_thumbnail:
+      data_loader: store_images
+      filters:
+        upscale:
+          min: [ 512, 512 ]
+        thumbnail:
+          size: [ 512, 512 ]
+          mode: outbound
+          allow_upscale: true
+      post_processors:
+        jpegoptim:
+          strip_all: true
+          max: 80
+          progressive: true
+        optipng:
+          strip_all: true
+          level: 4
+    logo_thumbnail:
+      data_loader: assets
+      post_processors:
+        jpegoptim:
+          strip_all: true
+          max: 80
+          progressive: true
+        optipng:
+          strip_all: true
+          level: 4
+  loaders:
+    default:
+      filesystem:
+        # https://github.com/liip/LiipImagineBundle/pull/1094
+        allow_unresolvable_data_roots: true
+        data_root: '%env(APP_PUBLIC_DIR)%'
+    business_images:
+      flysystem:
+        filesystem_service: oneup_flysystem.business_images_filesystem
+    product_images:
+      flysystem:
+        filesystem_service: oneup_flysystem.product_images_filesystem
+    store_images:
+      flysystem:
+        filesystem_service: oneup_flysystem.store_images_filesystem
+    listing_images:
+      flysystem:
+        filesystem_service: oneup_flysystem.listing_images_filesystem
+    assets:
+      flysystem:
+        filesystem_service: oneup_flysystem.assets_filesystem

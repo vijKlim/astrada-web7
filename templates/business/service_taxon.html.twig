@@ -1,0 +1,170 @@
+{% extends 'business/layout.html.twig' %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% form_theme service_editor_form 'form/service_editor.html.twig' %}
+{% form_theme service_editor_form.name 'bootstrap_3_layout.html.twig' %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path(businesses_route) }}">{% trans %}adminDashboard.shops.title{% endtrans %}</a></li>
+    <li><a href="{{ path(business_route, { id: business.id }) }}">{{ business.name }}</a></li>
+    <li><a href="{{ path(service_taxons_route, { id: business.id }) }}">Services</a></li>
+    <li>{% if service.id is not null %}{{ service.name }}{% else %}{{ 'basics.add'|trans }}{% endif %}</li>
+{% endblock %}
+
+{% block content %}
+
+    {% if service.id is not null %}
+
+        {{ form_start(service_editor_form) }}
+
+        <div class="alert alert-info">
+            <i class="fa fa-info-circle"></i> {% trans %}form.service_editor.help{% endtrans %}
+        </div>
+
+        {{ form_row(service_editor_form.name) }}
+
+        <div class="serviceEditor mb-4">
+            <div class="serviceEditor__left">
+                {% for child in service_editor_form.children %}
+                    <div class="serviceEditor__panel mb-4" data-taxon-id="{{ child.vars.value.id }}">
+                        <h4 class="serviceEditor__panel__title">
+                            <i class="fa fa-arrows" aria-hidden="true"></i>  
+                            <a href="#"
+                               data-toggle="modal"
+                               data-target="#editTaxonModal"
+                               data-edit-taxon-id="{{ child.vars.value.id }}">
+                  <span>{{ child.vars.value.name }}<span>  <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+                            {% set delete_section_params = {
+                                businessId: business.id,
+                                serviceId: service.id,
+                                sectionId: child.vars.value.id
+                            } %}
+                            <a class="pull-right"
+                               href="{{ path(delete_section_route, delete_section_params) }}"
+                               data-delete-taxon-id="{{ child.vars.value.id }}">
+                                <i class="fa fa-close"></i>
+                            </a>
+                        </h4>
+                        <div class="serviceEditor__panel__body" data-draggable-target data-taxon-id="{{ child.vars.value.id }}">
+                            {% for product in child.vars.value.products %}
+                                <div class="serviceEditor__product" data-product-id="{{ product.id }}">
+                                    {{ product.name }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="d-flex flex-row align-items-center justify-content-between border p-4">
+                    <strong>{{ 'form.service_taxon.add_child.label'|trans }}</strong>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newChildTaxonModal">
+                        <i class="fa fa-plus mr-2"></i><span>{{ 'basics.add'|trans }}</span>
+                    </button>
+                </div>
+            </div>
+            <div class="serviceEditor__right">
+                <div class="serviceEditor__panel serviceEditor__productList">
+                    <h4 class="serviceEditor__panel__title">
+                        {{ 'form.service_editor.products_panel.title'|trans }}
+                    </h4>
+                    <div class="serviceEditor__panel__body" data-draggable-source>
+                        {% for product in service_editor_form.vars.value.products %}
+                            <div class="serviceEditor__product" data-product-id="{{ product.id }}">
+                                {{ product.name }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="help-block">
+            {% trans with { '%products_url%': path(products_route, { id: business.id }) } %}form.service_editor.products.help{% endtrans %}
+        </p>
+
+        <button type="submit" class="btn btn-block btn-lg btn-primary">
+            {{ 'form.service_editor.save.label'|trans }}
+        </button>
+
+        {# Useful for debugging #}
+        {% set debug_service_editor = false %}
+        <div class="{% if not debug_service_editor %}hidden{% endif %}">
+            {{ form_widget(service_editor_form.children, { label: false }) }}
+        </div>
+
+        {{ form_end(service_editor_form) }}
+
+        <form id="delete_section" method="post" action=""></form>
+
+        <div class="modal fade" id="editTaxonModal" tabindex="-1" role="dialog" aria-labelledby="editTaxonModalLabel">
+            <div class="modal-dialog" role="document">
+                <form class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="editTaxonModalLabel">{{ 'form.service_editor.taxon_modal.title'|trans }}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden">
+                        <div class="form-group">
+                            <label for="taxon-name" class="control-label">{{ 'basics.name'|trans }}</label>
+                            <input type="text" class="form-control" id="taxon-name" data-prop="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="taxon-description" class="control-label">{{ 'basics.description'|trans }}</label>
+                            <textarea class="form-control" id="taxon-description" data-prop="description"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'basics.cancel'|trans }}</button>
+                        <button type="submit" class="btn btn-primary">{{ 'basics.save'|trans }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal fade" id="newChildTaxonModal" tabindex="-1" role="dialog" aria-labelledby="newChildTaxonModalLabel">
+            <div class="modal-dialog" role="document">
+                {{ form_start(form, { attr: { 'class': 'modal-content' } }) }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="newChildTaxonModalLabel">{{ 'form.service_taxon.add_child.label'|trans }}</h4>
+                </div>
+                <div class="modal-body">
+                    {{ form_row(form.name, { attr: { 'placeholder': 'form.service_taxon.child_name.placeholder' } }) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'basics.cancel'|trans }}</button>
+                    <button type="submit" class="btn btn-primary">{{ 'basics.save'|trans }}</button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+    {% endif %}
+
+{% endblock %}
+
+{% block styles %}
+    {{ encore_entry_link_tags('business-service-editor') }}
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $('#service_taxon_save').on('click', function(e) {
+            $('#service_taxon_childName').removeAttr('required')
+        });
+        $('[data-delete-taxon-id]').on('click', function(e) {
+            e.preventDefault();
+            $('#delete_section').attr('action', $(this).attr('href'));
+            $('#delete_section').submit();
+        })
+        setTimeout(function() {
+            $('.flash-messages .alert').fadeOut();
+        }, 1000);
+    </script>
+    {{ encore_entry_script_tags('business-service-editor') }}
+{% endblock %}

@@ -1,0 +1,13 @@
+diff.ago.year: 1 рік тому |%count% років тому
+diff.ago.month: 1 місяць тому |%count% місяців тому
+diff.ago.day: 1 день тому |%count% днів тому
+diff.ago.hour: 1 годину тому |%count% годин тому
+diff.ago.minute: 1 хвилину тому |%count% хвилин тому
+diff.ago.second: 1 секунду тому |%count% секунд тому
+diff.empty: зараз
+diff.in.second: за 1 секунду | через %count% секунд
+diff.in.hour: через 1 годину | у %count% годин
+diff.in.minute: через 1 хвилину | у %count% хвилин
+diff.in.day: через 1 день | у %count% днів
+diff.in.month: через 1 місяць | у %count% місяців
+diff.in.year: через 1 рік | у %count% років

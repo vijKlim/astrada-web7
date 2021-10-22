@@ -1,0 +1,467 @@
+{% extends "base.html.twig" %}
+
+{% block layout %}
+    {% embed 'layout.html.twig'%}
+
+        {% block main %}
+
+{#            {% set listing_image = astrada_asset(listing, 'imageFile', 'listing_thumbnail') %}#}
+{#            {% if listing_image is not empty %}#}
+{#                #}{#                            <img src="{{ listing_image }}" />#}
+{#            {% endif %}#}
+            <section class="listing-hero-section hidden-section"  id="sec1">
+                <div class="bg-parallax-wrap">
+
+                    <div class="bg par-elem ">
+
+
+                        <div id="map-listing" data-listing="{{ listingNormalized|json_encode|e('html_attr') }}" style="height: 100%;"></div>
+                    </div>
+                    <div class="overlay"></div>
+                </div>
+                <div class="container">
+                    <div class="list-single-header-item  fl-wrap">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h1>{{ listing.title }} <span class="verified-badge"><i class="fal fa-check"></i></span></h1>
+                                <div class="geodir-category-location fl-wrap">
+                                    <a href="#"><i class="fas fa-map-marker-alt"></i>  {{ listing.address.streetAddress }}</a>
+                                    {% if listing.telephone is not empty %}
+                                        <a href="#"> <i class="fal fa-phone"></i>{{ listing.telephone }}</a>
+                                    {% endif %}
+
+                                    <a href="#"><i class="fal fa-envelope"></i> yourmail@domain.com</a></div>
+                            </div>
+                            <div class="col-md-3">
+                                <a class="fl-wrap list-single-header-column custom-scroll-link " href="#sec5">
+                                    <div class="listing-rating-count-wrap single-list-count">
+                                        <div class="review-score">4.1</div>
+                                        <div class="listing-rating card-popup-rainingvis" data-starrating2="4"></div>
+                                        <br>
+                                        <div class="reviews-count">2 reviews</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-single-header_bottom fl-wrap">
+                        <a class="listing-item-category-wrap" href="#">
+                            <div class="listing-item-category  red-bg"><i class="fal fa-cheeseburger"></i></div>
+                            <span>Restaurants</span>
+                        </a>
+                        <div class="list-single-author"> <a href="author-single.html"><span class="author_avatar"> <img alt='' src='images/avatar/1.jpg'>  </span>By  Alisa Noory</a></div>
+                        <div class="geodir_status_date gsd_open"><i class="fal fa-lock-open"></i>Open Now</div>
+                        <div class="list-single-stats">
+                            <ul class="no-list-style">
+                                <li><span class="viewed-counter"><i class="fas fa-eye"></i> Viewed -  156 </span></li>
+                                <li><span class="bookmark-counter"><i class="fas fa-heart"></i> Bookmark -  24 </span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- scroll-nav-wrapper-->
+            <div class="scroll-nav-wrapper fl-wrap">
+                <div class="container">
+                    <nav class="scroll-nav scroll-init">
+                        <ul class="no-list-style">
+                            <li><a class="act-scrlink" href="#sec1"><i class="fal fa-images"></i> Top</a></li>
+                            <li><a href="#sec2"><i class="fal fa-info"></i>Details</a></li>
+                            <li><a href="#sec3"><i class="fal fa-image"></i>Gallery</a></li>
+                            <li><a href="#sec4"><i class="fal fa-utensils"></i>Menu</a></li>
+                            <li><a href="#sec5"><i class="fal fa-comments-alt"></i>Reviews</a></li>
+                        </ul>
+                    </nav>
+                    <div class="scroll-nav-wrapper-opt">
+                        <a href="#" class="scroll-nav-wrapper-opt-btn"> <i class="fas fa-heart"></i> Save </a>
+                        <a href="#" class="scroll-nav-wrapper-opt-btn showshare"> <i class="fas fa-share"></i> Share </a>
+                        <div class="share-holder hid-share">
+                            <div class="share-container  isShare"></div>
+                        </div>
+                        <div class="show-more-snopt"><i class="fal fa-ellipsis-h"></i></div>
+                        <div class="show-more-snopt-tooltip">
+                            <a href="#"> <i class="fas fa-comment-alt"></i> Write a review</a>
+                            <a href="#"> <i class="fas fa-flag-alt"></i> Report </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- scroll-nav-wrapper end-->
+            <section class="gray-bg no-top-padding">
+                <div class="container">
+                    <div class="breadcrumbs inline-breadcrumbs fl-wrap">
+                        <a href="/">{{ 'listing.breadcrumb.home'|trans }}</a>
+                        <a href="#">{{ listing.address.streetAddress }}</a>
+                        <span>{{ listing.title }}</span>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <!-- list-single-main-wrapper-col -->
+                        <div class="col-md-8">
+                            <!-- list-single-main-wrapper -->
+                            <div class="list-single-main-wrapper fl-wrap" id="sec2">
+                                <div class="list-single-main-media fl-wrap">
+                                    <img src="images/all/1.jpg" class="respimg" alt="">
+                                    <a href="https://vimeo.com/70851162" class="promo-link   image-popup"><i class="fal fa-video"></i><span>Promo Video</span></a>
+                                </div>
+                                <!-- list-single-main-item -->
+                                <div class="list-single-main-item fl-wrap block_box">
+                                    <div class="list-single-main-item-title">
+                                        <h3>Description</h3>
+                                    </div>
+                                    <div class="list-single-main-item_content fl-wrap">
+                                        <p>{{ listing.description }}</p>
+                                        <a href="#" class="btn color2-bg    float-btn">Visit Website<i class="fal fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                                <!-- list-single-main-item end -->
+                                <!-- list-single-main-item -->
+                                <div class="list-single-main-item fl-wrap block_box">
+                                    <div class="list-single-main-item-title">
+                                        <h3>Listing Features</h3>
+                                    </div>
+                                    <div class="list-single-main-item_content fl-wrap">
+                                        <div class="listing-features fl-wrap">
+                                            <ul class="no-list-style">
+                                                <li><a href="#"><i class="fa fa-rocket"></i> Elevator in building</a></li>
+                                                <li><a href="#"><i class="fa fa-wifi"></i> Free Wi Fi</a></li>
+                                                <li><a href="#"><i class="fa fa-motorcycle"></i> Free Parking</a></li>
+                                                <li><a href="#"><i class="fa fa-cloud"></i> Air Conditioned</a></li>
+                                                <li><a href="#"><i class="fa fa-shopping-cart"></i> Online Ordering</a></li>
+                                                <li><a href="#"><i class="fa fa-paw"></i> Pet Friendly</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- list-single-main-item end -->
+                                <!-- list-single-main-item-->
+                                <div class="list-single-main-item fl-wrap block_box" id="sec3">
+                                    <div class="list-single-main-item-title">
+                                        <h3>Gallery / Photos</h3>
+                                    </div>
+                                    <div class="list-single-main-item_content fl-wrap">
+                                        <div class="single-carousel-wrap fl-wrap lightgallery">
+                                            <div class="sc-next sc-btn color2-bg"><i class="fas fa-caret-right"></i></div>
+                                            <div class="sc-prev sc-btn color2-bg"><i class="fas fa-caret-left"></i></div>
+                                            <div class="single-carousel fl-wrap full-height">
+                                                <div class="swiper-container">
+                                                    <div class="swiper-wrapper">
+                                                        <!-- swiper-slide-->
+                                                        <div class="swiper-slide">
+                                                            <div class="box-item">
+                                                                <img  src="images/all/1.jpg"   alt="">
+                                                                <a href="images/all/1.jpg" class="gal-link popup-image"><i class="fa fa-search"  ></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <!-- swiper-slide end-->
+                                                        <!-- swiper-slide-->
+                                                        <div class="swiper-slide">
+                                                            <div class="box-item">
+                                                                <img  src="images/all/1.jpg"   alt="">
+                                                                <a href="images/all/1.jpg" class="gal-link popup-image"><i class="fa fa-search"  ></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <!-- swiper-slide end-->
+                                                        <!-- swiper-slide-->
+                                                        <div class="swiper-slide">
+                                                            <div class="box-item">
+                                                                <img  src="images/all/1.jpg"   alt="">
+                                                                <a href="images/all/1.jpg" class="gal-link popup-image"><i class="fa fa-search"  ></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <!-- swiper-slide end-->
+                                                        <!-- swiper-slide-->
+                                                        <div class="swiper-slide">
+                                                            <div class="box-item">
+                                                                <img  src="images/all/1.jpg"   alt="">
+                                                                <a href="images/all/1.jpg" class="gal-link popup-image"><i class="fa fa-search"  ></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <!-- swiper-slide end-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- list-single-main-item end -->
+                                <!-- list-single-facts -->
+                                <div class="list-single-facts fl-wrap">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <!-- inline-facts -->
+                                            <div class="inline-facts-wrap gradient-bg ">
+                                                <div class="inline-facts">
+                                                    <i class="fal fa-smile-plus"></i>
+                                                    <div class="milestone-counter">
+                                                        <div class="stats animaper">
+                                                            <div class="num" data-content="0" data-num="245">0</div>
+                                                        </div>
+                                                    </div>
+                                                    <h6>New Visiters Every Week</h6>
+                                                </div>
+                                                <div class="stat-wave">
+                                                    <svg viewbox="0 0 100 25">
+                                                        <path fill="#fff" d="M0 30 V12 Q30 17 55 2 T100 11 V30z" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <!-- inline-facts end -->
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!-- inline-facts  -->
+                                            <div class="inline-facts-wrap gradient-bg ">
+                                                <div class="inline-facts">
+                                                    <i class="fal fa-users"></i>
+                                                    <div class="milestone-counter">
+                                                        <div class="stats animaper">
+                                                            <div class="num" data-content="0" data-num="2557">0</div>
+                                                        </div>
+                                                    </div>
+                                                    <h6>Happy customers every year</h6>
+                                                </div>
+                                                <div class="stat-wave">
+                                                    <svg viewbox="0 0 100 25">
+                                                        <path fill="#fff" d="M0 30 V12 Q30 17 55 12 T100 11 V30z" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <!-- inline-facts end -->
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!-- inline-facts  -->
+                                            <div class="inline-facts-wrap gradient-bg ">
+                                                <div class="inline-facts">
+                                                    <i class="fal fa-award"></i>
+                                                    <div class="milestone-counter">
+                                                        <div class="stats animaper">
+                                                            <div class="num" data-content="0" data-num="25">0</div>
+                                                        </div>
+                                                    </div>
+                                                    <h6>Won Awards</h6>
+                                                </div>
+                                                <div class="stat-wave">
+                                                    <svg viewbox="0 0 100 25">
+                                                        <path fill="#fff" d="M0 30 V12 Q30 12 55 5 T100 11 V30z" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <!-- inline-facts end -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- list-single-facts end -->
+
+                                {% include 'listing/_services.html.twig' %}
+
+                                {% include 'listing/_reviews.html.twig' %}
+                            </div>
+                        </div>
+                        <!-- list-single-main-wrapper-col end -->
+                        <!-- list-single-sidebar -->
+                        <div class="col-md-4">
+                            <!--box-widget-item -->
+                            <div class="box-widget-item fl-wrap block_box">
+                                <div class="box-widget-item-header">
+                                    <h3>Working Hours</h3>
+                                </div>
+                                <div class="box-widget opening-hours fl-wrap">
+                                    <div class="box-widget-content">
+                                        <ul class="no-list-style">
+                                            <li class="mon"><span class="opening-hours-day">Monday </span><span class="opening-hours-time">9 AM - 5 PM</span></li>
+                                            <li class="tue"><span class="opening-hours-day">Tuesday </span><span class="opening-hours-time">9 AM - 5 PM</span></li>
+                                            <li class="wed"><span class="opening-hours-day">Wednesday </span><span class="opening-hours-time">9 AM - 5 PM</span></li>
+                                            <li class="thu"><span class="opening-hours-day">Thursday </span><span class="opening-hours-time">9 AM - 5 PM</span></li>
+                                            <li class="fri"><span class="opening-hours-day">Friday </span><span class="opening-hours-time">9 AM - 5 PM</span></li>
+                                            <li class="sat"><span class="opening-hours-day">Saturday </span><span class="opening-hours-time">9 AM - 3 PM</span></li>
+                                            <li class="sun"><span class="opening-hours-day">Sunday </span><span class="opening-hours-time">Closed</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--box-widget-item end -->
+                            <!--box-widget-item -->
+                            <div class="box-widget-item fl-wrap block_box">
+                                <div class="box-widget-item-header">
+                                    <h3>Book a Table</h3>
+                                </div>
+                                <div class="box-widget">
+                                    <div class="box-widget-content">
+
+
+                                        {{ render(controller('App\\Controller\\BookingController::bookingFormAction', {
+                                            listing: listing
+                                        })) }}
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--box-widget-item end -->
+                            <!--box-widget-item -->
+                            <div class="box-widget-item fl-wrap block_box">
+                                <div class="box-widget-item-header">
+                                    <h3>Location / Contacts  </h3>
+                                </div>
+                                <div class="box-widget">
+                                    <div class="map-container">
+                                        <div id="singleMap" data-latitude="40.7427837" data-longitude="-73.11445617675781" data-mapTitle="Our Location"></div>
+                                    </div>
+                                    <div class="box-widget-content bwc-nopad">
+                                        <div class="list-author-widget-contacts list-item-widget-contacts bwc-padside">
+                                            <ul class="no-list-style">
+                                                <li><span><i class="fal fa-map-marker"></i> Adress :</span> <a href="#">USA 27TH Brooklyn NY</a></li>
+                                                <li><span><i class="fal fa-phone"></i> Phone :</span> <a href="#">+7(123)987654</a></li>
+                                                <li><span><i class="fal fa-envelope"></i> Mail :</span> <a href="#">AlisaNoory@domain.com</a></li>
+                                                <li><span><i class="fal fa-browser"></i> Website :</span> <a href="#">themeforest.net</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="list-widget-social bottom-bcw-box  fl-wrap">
+                                            <ul class="no-list-style">
+                                                <li><a href="#" target="_blank" ><i class="fab fa-facebook-f"></i></a></li>
+                                                <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                                                <li><a href="#" target="_blank" ><i class="fab fa-vk"></i></a></li>
+                                                <li><a href="#" target="_blank" ><i class="fab fa-instagram"></i></a></li>
+                                            </ul>
+                                            <div class="bottom-bcw-box_link"><a href="#" class="show-single-contactform tolt" data-microtip-position="top" data-tooltip="Write Message"><i class="fal fa-envelope"></i></a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--box-widget-item end -->
+                            <!--box-widget-item -->
+                            <div class="box-widget-item fl-wrap block_box">
+                                <div class="box-widget-item-header">
+                                    <h3> Price Range </h3>
+                                </div>
+                                <div class="box-widget">
+                                    <div class="box-widget-content">
+                                        <div class="claim-price-wdget fl-wrap">
+                                            <div class="claim-price-wdget-content fl-wrap">
+                                                <div class="pricerange fl-wrap"><span>Price : </span> 81$ - 320$ </div>
+                                                <div class="claim-widget-link fl-wrap"><span>Own or work here?</span><a href="#">Claim Now!</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--box-widget-item end -->
+                            <!--box-widget-item -->
+                            <div class="box-widget-item fl-wrap block_box">
+                                <div class="box-widget-item-header">
+                                    <h3>Hosted by : </h3>
+                                </div>
+                                <div class="box-widget">
+                                    <div class="box-widget-author fl-wrap">
+                                        <div class="box-widget-author-title">
+                                            <div class="box-widget-author-title-img">
+                                                <img src="images/avatar/1.jpg" alt="">
+                                            </div>
+                                            <div class="box-widget-author-title_content">
+                                                <a href="user-single.html">Alisa Noory</a>
+                                                <span>4 Places Hosted</span>
+                                            </div>
+                                            <div class="box-widget-author-title_opt">
+                                                <a href="user-single.html" class="tolt green-bg" data-microtip-position="top" data-tooltip="View Profile"><i class="fas fa-user"></i></a>
+                                                <a href="#" class="tolt color-bg cwb" data-microtip-position="top" data-tooltip="Chat With Owner"><i class="fas fa-comments-alt"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--box-widget-item end -->
+                            <!--box-widget-item -->
+                            <div class="box-widget-item fl-wrap block_box">
+                                <div class="box-widget-item-header">
+                                    <h3>Similar listings :</h3>
+                                </div>
+                                <div class="box-widget  fl-wrap">
+                                    <div class="box-widget-content">
+                                        <!--widget-posts-->
+                                        <div class="widget-posts  fl-wrap">
+                                            <ul class="no-list-style">
+                                                <li>
+                                                    <div class="widget-posts-img"><a href="listing-single.html"><img src="images/gallery/thumbnail/1.png" alt=""></a>
+                                                    </div>
+                                                    <div class="widget-posts-descr">
+                                                        <h4><a href="listing-single.html">Iconic Cafe</a></h4>
+                                                        <div class="geodir-category-location fl-wrap"><a href="#"><i class="fas fa-map-marker-alt"></i> 40 Journal Square Plaza, NJ, USA</a></div>
+                                                        <div class="widget-posts-descr-link"><a href="listing.html" >Restaurants </a>   <a href="listing.html">Cafe</a></div>
+                                                        <div class="widget-posts-descr-score">4.1</div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="widget-posts-img"><a href="listing-single.html"><img src="images/gallery/thumbnail/1.png" alt=""></a>
+                                                    </div>
+                                                    <div class="widget-posts-descr">
+                                                        <h4><a href="listing-single.html">MontePlaza Hotel</a></h4>
+                                                        <div class="geodir-category-location fl-wrap"><a href="#"><i class="fas fa-map-marker-alt"></i> 70 Bright St New York, USA </a></div>
+                                                        <div class="widget-posts-descr-link"><a href="listing.html" >Hotels </a>  </div>
+                                                        <div class="widget-posts-descr-score">5.0</div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="widget-posts-img"><a href="listing-single.html"><img src="images/gallery/thumbnail/1.png" alt=""></a>
+                                                    </div>
+                                                    <div class="widget-posts-descr">
+                                                        <h4><a href="listing-single.html">Rocko Band in Marquee Club</a></h4>
+                                                        <div class="geodir-category-location fl-wrap"><a href="#"><i class="fas fa-map-marker-alt"></i>75 Prince St, NY, USA</a></div>
+                                                        <div class="widget-posts-descr-link"><a href="listing.html" >Events</a> </div>
+                                                        <div class="widget-posts-descr-score">4.2</div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="widget-posts-img"><a href="listing-single.html"><img src="images/gallery/thumbnail/1.png" alt=""></a>
+                                                    </div>
+                                                    <div class="widget-posts-descr">
+                                                        <h4><a href="listing-single.html">Premium Fitness Gym</a></h4>
+                                                        <div class="geodir-category-location fl-wrap"><a href="#"><i class="fas fa-map-marker-alt"></i> W 85th St, New York, USA</a></div>
+                                                        <div class="widget-posts-descr-link"><a href="listing.html" >Fitness</a> <a href="listing.html" >Gym</a> </div>
+                                                        <div class="widget-posts-descr-score">5.0</div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- widget-posts end-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--box-widget-item end -->
+                            <!--box-widget-item -->
+                            <div class="box-widget-item fl-wrap block_box">
+                                <div class="box-widget-item-header">
+                                    <h3>Tags</h3>
+                                </div>
+                                <div class="box-widget opening-hours fl-wrap">
+                                    <div class="box-widget-content">
+                                        <div class="list-single-tags tags-stylwrap">
+                                            <a href="#">Hotel</a>
+                                            <a href="#">Hostel</a>
+                                            <a href="#">Room</a>
+                                            <a href="#">Spa</a>
+                                            <a href="#">Restourant</a>
+                                            <a href="#">Parking</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--box-widget-item end -->
+                        </div>
+                        <!-- list-single-sidebar end -->
+                    </div>
+                </div>
+            </section>
+            <div class="limit-box fl-wrap"></div>
+        {% endblock %}
+
+    {% endembed %}
+{% endblock %}
+
+{% block styles %}
+    {{ encore_entry_link_tags('listing') }}
+{% endblock %}
+
+{% block scripts %}
+    {{ encore_entry_script_tags('listing') }}
+{% endblock %}

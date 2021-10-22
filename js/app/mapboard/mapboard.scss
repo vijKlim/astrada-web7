@@ -1,0 +1,28 @@
+@import "~beautifymarker/leaflet-beautify-marker-icon.css";
+@import "~leaflet/dist/leaflet.css";
+@import "~leaflet.markercluster/dist/MarkerCluster.css";
+@import "~leaflet.markercluster/dist/MarkerCluster.Default.css";
+
+.map-popup {
+  overflow:inherit!important;
+}
+
+.leaflet-popup-content-wrapper {
+  overflow: hidden;
+}
+.leaflet-container a.leaflet-popup-close-button {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+  top: 0;
+  right: 0;
+  color: #999;
+  border-radius: 0 0 0 8px;
+  z-index: 20;
+  background: #fff;
+  box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+}
+

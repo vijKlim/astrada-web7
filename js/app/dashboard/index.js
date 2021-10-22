@@ -1,0 +1,144 @@
+import React, { createRef } from 'react'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import lottie from 'lottie-web'
+import { I18nextProvider } from 'react-i18next'
+import moment from 'moment'
+import { ConfigProvider } from 'antd'
+import Split from 'react-split'
+
+import i18n, { antdLocale } from '../i18n'
+
+import { createStoreFromPreloadedState } from './redux/store'
+import Navbar from './components/Navbar'
+import Modals from './components/Modals'
+import RightPanel from './components/RightPanel'
+import LeafletMap from './components/LeafletMap'
+import { updateRightPanelSize } from './redux/actions'
+
+import { listingAdapter, listingListAdapter } from './redux/adapters'
+import { listingListUtils } from './redux'
+
+import './dashboard.scss'
+import {replaceListingsWithIds} from "./redux/listingListUtils";
+
+function start() {
+
+    const dashboardEl = document.getElementById('dashboard')
+
+    let date = moment(dashboardEl.dataset.date)
+    let listings = JSON.parse(dashboardEl.dataset.listings)
+    let listingLists = JSON.parse(dashboardEl.dataset.listingLists)
+
+    // normalize data, keep only task ids, instead of the whole objects
+    listingLists = listingLists.map(listingList => listingListUtils.replaceListingsWithIds(listingList))
+
+
+    let preloadedState = {
+        logistics : {
+            date,
+            entities: {
+                listings: listingAdapter.upsertMany(
+                    listingAdapter.getInitialState(),
+                    listings
+                ),
+                listingLists: listingListAdapter.upsertMany(
+                    listingListAdapter.getInitialState(),
+                    listingLists
+                )
+            }
+        },
+        jwt: dashboardEl.dataset.jwt,
+        config: {
+            centrifugoToken: dashboardEl.dataset.centrifugoToken,
+            centrifugoTrackingChannel: dashboardEl.dataset.centrifugoTrackingChannel,
+            centrifugoEventsChannel: dashboardEl.dataset.centrifugoEventsChannel,
+            uploaderEndpoint: dashboardEl.dataset.uploaderEndpoint,
+            exampleSpreadsheetUrl: dashboardEl.dataset.exampleSpreadsheetUrl,
+            nav: dashboardEl.dataset.nav,
+            pickupClusterAddresses: JSON.parse(dashboardEl.dataset.pickupClusterAddresses),
+        }
+    }
+
+    const key = date.format('YYYY-MM-DD')
+    const persistedFilters = window.sessionStorage.getItem(`cpccl__dshbd__fltrs__${key}`)
+    if (persistedFilters) {
+        preloadedState = {
+            ...preloadedState,
+            settings: {
+                filters: JSON.parse(persistedFilters)
+            }
+        }
+    }
+
+
+    const store = createStoreFromPreloadedState(preloadedState)
+
+    const mapRef = createRef()
+
+    render(
+        <Provider store={ store }>
+            <I18nextProvider i18n={ i18n }>
+                <ConfigProvider locale={antdLocale}>
+                    <Split
+                        sizes={[ 75, 25 ]}
+                        style={{ display: 'flex', width: '100%' }}
+                        onDrag={ sizes => store.dispatch(updateRightPanelSize(sizes[1])) }
+                        onDragEnd={ () => mapRef.current.invalidateSize() }>
+                        <div className="dashboard__map">
+                            <div className="dashboard__toolbar-container">
+                                <Navbar />
+                            </div>
+                            <div className="dashboard__map-container">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     className="arrow-container"
+                                     style={{ position: 'absolute', top: '0px', left: '0px', width: '100%', height: '100%', overflow: 'visible', pointerEvents: 'none' }}
+                                >
+                                    <defs>
+                                        <marker id="custom_arrow" markerWidth="4" markerHeight="4" refX="2" refY="2">
+                                            <circle cx="2" cy="2" r="2" stroke="none" fill="#3498DB"/>
+                                        </marker>
+                                    </defs>
+                                </svg>
+                                <LeafletMap onLoad={ (e) => {
+                                    // It seems like a bad way to get a ref to the map,
+                                    // but we can't use the ref prop
+                                    mapRef.current = e.target
+                                }} />
+                            </div>
+                        </div>
+                        <aside className="dashboard__aside">
+                            <RightPanel />
+                        </aside>
+                    </Split>
+                    <Modals />
+                </ConfigProvider>
+            </I18nextProvider>
+        </Provider>,
+        document.getElementById('dashboard'),
+        () => {
+            anim.stop()
+            anim.destroy()
+            document.querySelector('.dashboard__loader').remove()
+
+            // Make sure map is rendered correctly with Split.js
+            // mapRef.current.invalidateSize()
+        }
+    )
+
+    // hide export modal after button click
+    $('#export-modal button').on('click', () => setTimeout(() => $('#export-modal').modal('hide'), 400))
+}
+
+const anim = lottie.loadAnimation({
+    container: document.querySelector('#dashboard__loader'),
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: '/img/loading.json'
+})
+
+anim.addEventListener('DOMLoaded', function() {
+    setTimeout(() => start(), 800)
+})
+

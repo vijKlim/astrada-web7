@@ -1,0 +1,245 @@
+dashboard_business:
+  path: /dashboard/businesses/{id}
+  defaults:
+    _controller: App\Controller\DashboardController::businessAction
+    layout: 'dashboard.html.twig'
+    template: 'business/form.html.twig'
+    routes:
+      success: dashboard_business
+      businesses: dashboard_businesses
+      service_taxons: dashboard_business_service_taxons
+      service_taxon: dashboard_business_service_taxon
+      products: dashboard_business_products
+      product_options: dashboard_business_product_options
+      dashboard: dashboard_business_dashboard
+      planning: dashboard_business_planning
+  methods: [ GET, POST ]
+
+dashboard_businesses:
+  path: /dashboard/businesses
+  defaults:
+    _controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
+    path: /dashboard
+    permanent: false
+  methods: [ GET ]
+
+dashboard_business_dashboard:
+  path: /dashboard/businesses/{businessId}/dashboard
+  defaults:
+    _controller: App\Controller\DashboardController::businessDashboardAction
+    layout: 'dashboard.html.twig'
+    template: 'business/dashboard.html.twig'
+    routes:
+      businesses: dashboard_businesses
+      business: dashboard_business
+      dashboard: dashboard_business_dashboard
+      order_accept: dashboard_order_accept
+      order_refuse: dashboard_order_refuse
+      order_cancel: dashboard_order_cancel
+      order_delay: dashboard_order_delay
+      order_fulfill: dashboard_order_fulfill
+      user_details: user
+  methods: [ GET ]
+
+dashboard_business_service_taxons:
+  path: /dashboard/businesses/{id}/services
+  defaults:
+    _controller: App\Controller\DashboardController::businessServiceTaxonsAction
+    layout: 'dashboard.html.twig'
+    template: 'business/service_taxons.html.twig'
+    routes:
+      businesses: dashboard_businesses
+      business: dashboard_business
+      service: dashboard_business_service_taxon
+      service_activate: dashboard_business_service_taxon_activate
+      service_taxon: dashboard_business_service_taxon
+  methods: [ GET, POST ]
+
+dashboard_business_service_taxon:
+  path: /dashboard/businesses/{businessId}/services/{serviceId}
+  defaults:
+    _controller: App\Controller\DashboardController::businessServiceTaxonAction
+    layout: 'dashboard.html.twig'
+    template: 'business/service_taxon.html.twig'
+    routes:
+      businesses: dashboard_businesses
+      business: dashboard_business
+      service_taxons: dashboard_business_service_taxons
+      products: dashboard_business_products
+      delete_section: dashboard_delete_business_service_taxon_child
+      success: dashboard_business_service_taxons
+  methods: [ GET, POST ]
+
+dashboard_business_service_taxon_activate:
+  path: /dashboard/businesses/{businessId}/services/{serviceId}/activate
+  defaults:
+    _controller: App\Controller\DashboardController::activateBusinessServiceTaxonAction
+    layout: 'dashboard.html.twig'
+    routes:
+      service_taxons: dashboard_business_service_taxons
+  methods: [ POST ]
+
+dashboard_delete_business_service_taxon_child:
+  path: /dashboard/businesses/{businessId}/services/{serviceId}/sections/{sectionId}/delete
+  defaults:
+    _controller: App\Controller\DashboardController::deleteBusinessServiceTaxonChildAction
+    layout: 'dashboard.html.twig'
+    routes:
+      service_taxon: dashboard_business_service_taxon
+  methods: [ POST ]
+
+
+dashboard_business_products:
+  path: /dashboard/businesses/{id}/products
+  defaults:
+    _controller: App\Controller\DashboardController::businessProductsAction
+    layout: 'dashboard.html.twig'
+    template: 'business/products.html.twig'
+    routes:
+      businesses: dashboard_businesses
+      business: dashboard_business
+      product: dashboard_business_product
+      new_product: dashboard_business_product_new
+  methods: [ GET ]
+
+dashboard_business_product_new:
+  path: /dashboard/businesses/{id}/products/new
+  defaults:
+    _controller: App\Controller\DashboardController::newBusinessProductAction
+    layout: 'dashboard.html.twig'
+    template: 'business/product.html.twig'
+    routes:
+      businesses: dashboard_businesses
+      business: dashboard_business
+      products: dashboard_business_products
+
+dashboard_delete_business_product_image:
+  path: /dashboard/businesses/{businessId}/products/{productId}/images/{imageName}
+  defaults:
+    _controller: App\Controller\DashboardController::deleteProductImageAction
+  methods: [ DELETE ]
+
+dashboard_business_product:
+  path: /dashboard/businesses/{businessId}/products/{productId}
+  defaults:
+    _controller: App\Controller\DashboardController::businessProductAction
+    layout: 'dashboard.html.twig'
+    template: 'business/product.html.twig'
+    routes:
+      businesses: dashboard_businesses
+      business: dashboard_business
+      products: dashboard_business_products
+
+dashboard_business_product_options:
+  path: /dashboard/businesses/{id}/product-options
+  defaults:
+    _controller: App\Controller\DashboardController::businessProductOptionsAction
+    layout: 'dashboard.html.twig'
+    template: 'business/product_options.html.twig'
+    routes:
+      businesses: dashboard_businesses
+      business: dashboard_business
+      product_option: dashboard_business_product_option
+      new_product_option: dashboard_business_product_option_new
+  methods: [ GET ]
+
+dashboard_business_product_option_new:
+  path: /dashboard/businesses/{id}/product-options/new
+  defaults:
+    _controller: App\Controller\DashboardController::newBusinessProductOptionAction
+    layout: 'dashboard.html.twig'
+    template: 'business/product_option.html.twig'
+    routes:
+      businesses: dashboard_businesses
+      business: dashboard_business
+      product_options: dashboard_business_product_options
+  methods: [ GET, POST ]
+
+dashboard_business_product_option:
+  path: /dashboard/businesses/{businessId}/product-options/{optionId}
+  defaults:
+    _controller: App\Controller\DashboardController::businessProductOptionAction
+    layout: 'dashboard.html.twig'
+    template: 'business/product_option.html.twig'
+    routes:
+      businesses: dashboard_businesses
+      business: dashboard_business
+      product_options: dashboard_business_product_options
+  methods: [ GET, POST ]
+
+dashboard_business_product_option_preview:
+  path: /dashboard/businesses/product-options/preview
+  defaults:
+    _controller: App\Controller\DashboardController::businessProductOptionPreviewAction
+  methods: [ POST ]
+
+dashboard_business_planning:
+  path: /dashboard/businesses/{id}/planning
+  defaults:
+    _controller: App\Controller\DashboardController::businessPlanningAction
+    layout: 'dashboard.html.twig'
+    template: 'business/planning.html.twig'
+    routes:
+      restaurants: dashboard_businesses
+      restaurant: dashboard_business
+      success: dashboard_business_planning
+  methods: [ GET, POST ]
+
+dashboard_business_stats:
+  path: /dashboard/businesses/{id}/stats
+  defaults:
+    _controller: App\Controller\DashboardController::statsAction
+    layout: 'dashboard.html.twig'
+    routes:
+      restaurants: dashboard_businesses
+      restaurant: dashboard_business
+  methods: [ GET, POST ]
+
+dashboard_business_promotions:
+  path: /dashboard/businesses/{id}/promotions
+  defaults:
+    _controller: AppBundle\Controller\DashboardController::businessPromotionsAction
+    layout: 'dashboard.html.twig'
+  methods: [ GET ]
+
+
+dashboard_business_listings:
+  path: /dashboard/businesses/{id}/listings
+  defaults:
+    _controller: App\Controller\DashboardController::businessListingsAction
+    layout: 'dashboard.html.twig'
+    template: 'business/listings.html.twig'
+    routes:
+      businesses: dashboard_businesses
+      business: dashboard_business
+      listing: dashboard_business_listing
+      new_listing: dashboard_business_listing_new
+      subscription_buy: subscription_buy
+      subscription_disable: subscription_disable
+      subscription_expire: subscription_expire
+      subscription_renew: subscription_renew
+  methods: [ GET ]
+
+
+
+dashboard_business_listing_new:
+  path: /dashboard/businesses/{id}/listings/new
+  defaults:
+    _controller: App\Controller\DashboardController::newBusinessListingAction
+    layout: 'dashboard.html.twig'
+    template: 'business/listing.html.twig'
+    routes:
+      businesses: dashboard_businesses
+      business: dashboard_business
+      listings: dashboard_business_listings
+
+dashboard_business_listing:
+  path: /dashboard/businesses/{businessId}/listings/{listingId}
+  defaults:
+    _controller: App\Controller\DashboardController::businessListingAction
+    layout: 'dashboard.html.twig'
+    template: 'business/listing.html.twig'
+    routes:
+      businesses: dashboard_businesses
+      business: dashboard_business
+      listings: dashboard_business_listings

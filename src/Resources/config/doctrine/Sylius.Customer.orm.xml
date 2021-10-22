@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="App\Entity\Sylius\Customer" table="sylius_customer">
+    <one-to-one field="user" target-entity="App\Entity\User" mapped-by="customer">
+      <cascade>
+        <cascade-all/>
+      </cascade>
+    </one-to-one>Defining Inheritance Mappings
+    <many-to-one field="defaultAddress" target-entity="App\Entity\Address">
+      <join-columns>
+        <join-column name="default_address_id" referenced-column-name="id" on-delete="SET NULL"/>
+      </join-columns>
+      <cascade>
+        <cascade-persist />
+      </cascade>
+    </many-to-one>
+    <many-to-many field="addresses" target-entity="App\Entity\Address">
+      <cascade>
+        <cascade-all/>
+      </cascade>
+      <join-table name="sylius_customer_address">
+        <join-columns>
+          <join-column name="customer_id" referenced-column-name="id" on-delete="CASCADE"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="address_id" referenced-column-name="id" nullable="true"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>

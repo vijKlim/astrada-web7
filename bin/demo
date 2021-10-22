@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+php bin/console astrada:setup "$@"
+php bin/console cache:clear --no-warmup "$@"

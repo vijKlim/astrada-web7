@@ -1,0 +1,56 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+
+
+app:
+  resource: '../src/Action/'
+  type:     'annotation'
+  prefix:   '/api'
+
+web:
+  resource: '../src/Controller/'
+  type:     'annotation'
+
+homepage:
+  path: /{_locale}/
+  defaults:
+    _controller: App\Controller\IndexController::indexAction
+  requirements:
+    _locale: '%locale_regex%'
+
+redirect_to_locale:
+  path: /
+  defaults:
+    _controller: App\Controller\IndexController::redirectToLocaleAction
+
+# Override NucleosProfileBundle route
+nucleos_profile_profile_show:
+  path:     /profile/
+  methods:  [ GET, POST ]
+  defaults:
+    _controller: App\Controller\ProfileController::indexAction
+    layout: 'profile.html.twig'
+
+nucleos_profile_profile_edit:
+  path:     /profile/
+  methods:  [ GET, POST ]
+  defaults:
+    _controller: App\Controller\ProfileController::editProfileAction
+    layout: 'profile.html.twig'
+
+astrada_subscription:
+  resource: '../src/Resources/config/routing/subscription.yaml'
+
+astrada_admin:
+  resource: '../src/Resources/config/routing/admin.yaml'
+
+astrada_dashboard:
+  resource: '../src/Resources/config/routing/dashboard.yaml'
+
+astrada_profile:
+  resource: '../src/Resources/config/routing/profile.yaml'
+
+#astrada_lastmile:
+#  resource: '../src/Resources/config/routing/lastmile.yaml'

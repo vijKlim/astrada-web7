@@ -1,0 +1,34 @@
+snc_redis:
+    clients:
+        default:
+            type: phpredis
+            alias: default
+            dsn: "%env(ASTRADA_REDIS_DSN)%"
+            options:
+                prefix: "%database_name%:"
+        session:
+          type: phpredis
+          alias: session
+          dsn: "%env(ASTRADA_REDIS_DSN)%"
+          options:
+            prefix: "%database_name%:"
+        tile38:
+          type: phpredis
+          alias: tile38
+          dsn: "%env(ASTRADA_TILE38_DSN)%"
+          options:
+            # https://github.com/phpredis/phpredis/issues/70#issuecomment-348997806
+            read_write_timeout: -1
+        shared:
+          type: phpredis
+          alias: shared
+          dsn: "%env(ASTRADA_REDIS_DSN)%"
+    session:
+      client: session
+      prefix: "session:"
+      # Disable session locking for performance (?)
+      # https://github.com/snc/SncRedisBundle/issues/132
+      # https://github.com/snc/SncRedisBundle/issues/182
+      # https://github.com/snc/SncRedisBundle/issues/250
+      # https://github.com/snc/SncRedisBundle/pull/404
+      # locking: false

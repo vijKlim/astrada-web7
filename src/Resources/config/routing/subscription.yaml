@@ -1,0 +1,15 @@
+subscription_buy:
+  path: /buy/{product}
+  controller: App\Controller\SubscriptionController::buyAction
+
+subscription_disable:
+  path: /disable/{id}
+  controller: App\Controller\SubscriptionController::disableAction
+
+subscription_expire:
+  path: /expire/{id}
+  controller: App\Controller\SubscriptionController::expireAction
+
+subscription_renew:
+  path: /renew/{id}
+  controller: App\Controller\SubscriptionController::renewAction

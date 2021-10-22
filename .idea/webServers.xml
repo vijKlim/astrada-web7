@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="86b2bf07-d5ac-4371-be4a-a0cd770ef58d" name="astra">
+        <fileTransfer rootFolder="/var/www/projects/astrada-web" accessType="SFTP" host="159.69.2.71" port="22" sshConfigId="34def31b-5469-4893-804d-4b43c331d12e" sshConfig="main@159.69.2.71:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
