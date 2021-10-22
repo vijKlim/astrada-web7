@@ -3,254 +3,51 @@
 {% block layout %}
     {% embed 'layout.html.twig'%}
         {% block sub_header %}
-            <!--section  -->
-            <section class="hero-section"   data-scrollax-parent="true">
-                <div class="bg-tabs-wrap">
-                    <div class="bg-parallax-wrap" data-scrollax="properties: { translateY: '200px' }">
-                        <img class="bg bg_tabs"  src="/images/header.jpg"></img>
-                        <div class="overlay op7"></div>
-                    </div>
-                </div>
-                <div class="container small-container">
-                    <div class="intro-item fl-wrap">
-                        <span class="section-separator"></span>
-                        <div class="bubbles">
-                            <h1>{{ 'home.header.title'|trans|raw }}</h1>
+            <section class="d-flex align-items-center dark-overlay bg-cover" style="background-image: url(img/photo/photo-1525610553991-2bede1a236e2.jpg);">
+                <div class="container py-6 py-lg-7 text-white overlay-content text-center">
+                    <div class="row">
+                        <div class="col-xl-10 mx-auto">
+                            <h1 class="display-3 font-weight-bold text-shadow">Discover Directory</h1>
+                            <p class="text-lg text-shadow">Uncover the best places to eat, drink, and shop nearest to you.</p>
                         </div>
-                        <h3>{{ 'home.header.description'|trans|raw }}</h3>
                     </div>
-                    <!-- main-search-input-tabs-->
-                    <div class="main-search-input-tabs  tabs-act fl-wrap">
-
-                        <!--tabs -->
-                        <div class="tabs-container fl-wrap  ">
-                            <!--tab -->
-                            <div class="tab">
-                                <div id="tab-inpt1" class="tab-content first-tab">
-                                    {{ render(controller('App\\Controller\\ListingSearchController::searchHomeFormAction')) }}
-                                </div>
-                            </div>
-                            <!--tab end-->
-                        </div>
-                        <!--tabs end-->
-                    </div>
-                </div>
-                <div class="header-sec-link">
-                    <a href="#sec1" class="custom-scroll-link"><i class="fal fa-angle-double-down"></i></a>
                 </div>
             </section>
-            <!--section end-->
         {% endblock %}
 
         {% block main %}
-            <!--section  -->
-            <section      data-scrollax-parent="true">
-                <div class="container">
-                    <div class="section-title">
-                        <h2>{{ 'global.howItWorks'|trans }}</h2>
-                        <div class="section-subtitle">Discover &amp; Connect </div>
-                        <span class="section-separator"></span>
-                        <p>Morbi varius, nulla sit amet rutrum elementum, est elit finibus tellus, ut tristique elit risus at metus.</p>
-                    </div>
-                    <div class="process-wrap fl-wrap">
-                        <ul class="no-list-style">
-                            <li>
-                                <div class="process-item">
-                                    <span class="process-count">01 </span>
-                                    <div class="time-line-icon"><i class="fal fa-map-marker-alt"></i></div>
-                                    <h4> {{ 'global.findAndComparePrices'|trans }}</h4>
+            <div class="container">
+                <div class="search-bar rounded p-3 p-lg-4 position-relative mt-n5 z-index-20">
+                    <form action="#">
+                        <div class="row">
+                            <div class="col-lg-4 d-flex align-items-center form-group">
+                                <input class="form-control border-0 shadow-0" type="search" name="search" placeholder="What are you searching for?">
+                            </div>
+                            <div class="col-md-6 col-lg-3 d-flex align-items-center form-group">
+                                <div class="input-label-absolute input-label-absolute-right w-100">
+                                    <label class="label-absolute" for="location"><i class="fa fa-crosshairs"></i>
+                                        <div class="sr-only">City</div>
+                                    </label>
+                                    <input class="form-control border-0 shadow-0" type="text" name="location" placeholder="Location" id="location">
                                 </div>
-                                <span class="pr-dec"></span>
-                            </li>
-                            <li>
-                                <div class="process-item">
-                                    <span class="process-count">02</span>
-                                    <div class="time-line-icon"><i class="fal fa-mail-bulk"></i></div>
-                                    <h4> {{ 'global.createRequest'|trans }}</h4>
-                                </div>
-                                <span class="pr-dec"></span>
-                            </li>
-                            <li>
-                                <div class="process-item">
-                                    <span class="process-count">03</span>
-                                    <div class="time-line-icon"><i class="fal fa-layer-plus"></i></div>
-                                    <h4> {{ 'global.makeListing'|trans }}</h4>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="process-end"><i class="fal fa-check"></i></div>
-                    </div>
-                </div>
-            </section>
-            <!--section end-->
-
-            <h3>_high_rank.html.twig SECTION</h3>
-            {#            {% include 'CocoricoCoreBundle:Frontend/Home:_high_rank.html.twig'  with {#}
-            {#                'listings': listings#}
-            {#            } only %}#}
-
-            <!--section end-->
-            <section class="parallax-section small-par" data-scrollax-parent="true">
-                <div class="bg par-elem "  data-bg="images/bg/1.jpg" data-scrollax="properties: { translateY: '30%' }"></div>
-                <div class="overlay  op7"></div>
-                <div class="container">
-                    <div class=" single-facts single-facts_2 fl-wrap">
-                        <!-- inline-facts -->
-                        <div class="inline-facts-wrap">
-                            <div class="inline-facts">
-                                <div class="milestone-counter">
-                                    <div class="stats animaper">
-                                        <div class="num" data-content="0" data-num="1254">1254</div>
-                                    </div>
-                                </div>
-                                <h6>New Visiters Every Week</h6>
+                            </div>
+                            <div class="col-md-6 col-lg-3 d-flex align-items-center form-group no-divider">
+                                <select class="selectpicker" title="Categories" data-style="btn-form-control">
+                                    <option value="small">Restaurants</option>
+                                    <option value="medium">Hotels</option>
+                                    <option value="large">Cafes</option>
+                                    <option value="x-large">Garages</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2 form-group mb-0">
+                                <button class="btn btn-primary btn-block h-100" type="submit">Search </button>
                             </div>
                         </div>
-                        <!-- inline-facts end -->
-                        <!-- inline-facts  -->
-                        <div class="inline-facts-wrap">
-                            <div class="inline-facts">
-                                <div class="milestone-counter">
-                                    <div class="stats animaper">
-                                        <div class="num" data-content="0" data-num="12168">12168</div>
-                                    </div>
-                                </div>
-                                <h6>Happy customers every year</h6>
-                            </div>
-                        </div>
-                        <!-- inline-facts end -->
-                        <!-- inline-facts  -->
-                        <div class="inline-facts-wrap">
-                            <div class="inline-facts">
-                                <div class="milestone-counter">
-                                    <div class="stats animaper">
-                                        <div class="num" data-content="0" data-num="2172">2172</div>
-                                    </div>
-                                </div>
-                                <h6>Won Amazing Awards</h6>
-                            </div>
-                        </div>
-                        <!-- inline-facts end -->
-                        <!-- inline-facts  -->
-                        <div class="inline-facts-wrap">
-                            <div class="inline-facts">
-                                <div class="milestone-counter">
-                                    <div class="stats animaper">
-                                        <div class="num" data-content="0" data-num="732">732</div>
-                                    </div>
-                                </div>
-                                <h6>New Listing Every Week</h6>
-                            </div>
-                        </div>
-                        <!-- inline-facts end -->
-                    </div>
+                    </form>
                 </div>
-            </section>
-            <!--section end-->
-
-            {% include 'index/_partials/cities.html.twig' %}
-
-            <!--section  -->
-            <section>
-                <div class="container">
-                    <div class="section-title">
-                        <h2> Testimonilas</h2>
-                        <div class="section-subtitle">Clients Reviews</div>
-                        <span class="section-separator"></span>
-                        <p>Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla.</p>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="testimonilas-carousel-wrap fl-wrap">
-                    <div class="listing-carousel-button listing-carousel-button-next"><i class="fas fa-caret-right"></i></div>
-                    <div class="listing-carousel-button listing-carousel-button-prev"><i class="fas fa-caret-left"></i></div>
-                    <div class="testimonilas-carousel">
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                <!--testi-item-->
-                                <div class="swiper-slide">
-                                    <div class="testi-item fl-wrap">
-                                        <div class="testi-avatar"><img src="images/avatar/1.jpg" alt=""></div>
-                                        <div class="testimonilas-text fl-wrap">
-                                            <div class="listing-rating card-popup-rainingvis" data-starrating2="5"></div>
-                                            <p>"Vestibulum orci felis, ullamcorper non condimentum non, ultrices ac nunc. Mauris non ligula suscipit, vulputate mi accumsan, dapibus felis. Nullam sed sapien dui. Nulla auctor sit amet sem non porta. "</p>
-                                            <a href="#" class="testi-link" target="_blank">Via Facebook</a>
-                                            <div class="testimonilas-avatar fl-wrap">
-                                                <h3>Andy Dimasky</h3>
-                                                <h4>Restaurant Owner</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--testi-item end-->
-                                <!--testi-item-->
-                                <div class="swiper-slide">
-                                    <div class="testi-item fl-wrap">
-                                        <div class="testi-avatar"><img src="images/avatar/1.jpg" alt=""></div>
-                                        <div class="testimonilas-text fl-wrap">
-                                            <div class="listing-rating card-popup-rainingvis" data-starrating2="5"></div>
-                                            <p>"Vestibulum orci felis, ullamcorper non condimentum non, ultrices ac nunc. Mauris non ligula suscipit, vulputate mi accumsan, dapibus felis. Nullam sed sapien dui. Nulla auctor sit amet sem non porta. "</p>
-                                            <a href="#" class="testi-link" target="_blank">Via Twitter</a>
-                                            <div class="testimonilas-avatar fl-wrap">
-                                                <h3>Frank Dellov</h3>
-                                                <h4>Hotel Owner</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--testi-item end-->
-                                <!--testi-item-->
-                                <div class="swiper-slide">
-                                    <div class="testi-item fl-wrap">
-                                        <div class="testi-avatar"><img src="images/avatar/1.jpg" alt=""></div>
-                                        <div class="testimonilas-text fl-wrap">
-                                            <div class="listing-rating card-popup-rainingvis" data-starrating2="5"></div>
-                                            <p>"Vestibulum orci felis, ullamcorper non condimentum non, ultrices ac nunc. Mauris non ligula suscipit, vulputate mi accumsan, dapibus felis. Nullam sed sapien dui. Nulla auctor sit amet sem non porta. "</p>
-                                            <a href="#" class="testi-link" target="_blank">Via Facebook</a>
-                                            <div class="testimonilas-avatar fl-wrap">
-                                                <h3>Centa Simpson</h3>
-                                                <h4>Restaurant Owner</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--testi-item end-->
-                                <!--testi-item-->
-                                <div class="swiper-slide">
-                                    <div class="testi-item fl-wrap">
-                                        <div class="testi-avatar"><img src="images/avatar/1.jpg" alt=""></div>
-                                        <div class="testimonilas-text fl-wrap">
-                                            <div class="listing-rating card-popup-rainingvis" data-starrating2="5"></div>
-                                            <p>"Vestibulum orci felis, ullamcorper non condimentum non, ultrices ac nunc. Mauris non ligula suscipit, vulputate mi accumsan, dapibus felis. Nullam sed sapien dui. Nulla auctor sit amet sem non porta. "</p>
-                                            <a href="#" class="testi-link" target="_blank">Via Instagram</a>
-                                            <div class="testimonilas-avatar fl-wrap">
-                                                <h3>Linda Svensky</h3>
-                                                <h4>Shop Owner</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--testi-item end-->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tc-pagination"></div>
-                </div>
-                <div class="waveWrapper waveAnimation">
-                    <div class="waveWrapperInner bgMiddle">
-                        <div class="wave-bg-anim waveMiddle" style="background-image: url('images/wave-top.png')"></div>
-                    </div>
-                    <div class="waveWrapperInner bgBottom">
-                        <div class="wave-bg-anim waveBottom" style="background-image: url('images/wave-top.png')"></div>
-                    </div>
-                </div>
-            </section>
-            <!--section end-->
+            </div>
         {% endblock %}
 
-        {% block modal %}
-            {% include 'CocoricoCoreBundle:Frontend/Common:_modal.html.twig' only %}
-        {% endblock %}
     {% endembed %}
 {% endblock %}
 

@@ -3,15 +3,9 @@
         {% include '_partials/header.html.twig' with { pinned: false } %}
     {% endblock %}
 
-    <!-- wrapper-->
-    <div id="wrapper">
-        {% block sub_header %}{% endblock %}
-        <!-- content-->
-        <div class="content">
-            {% block main %}{% endblock %}
-        </div>
-        <a class="to-top"><i class="fas fa-caret-up"></i></a>
-    </div>
+    {% block sub_header %}{% endblock %}
+
+    {% block main %}{% endblock %}
 
 
     {% block footer %}

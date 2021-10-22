@@ -26,6 +26,7 @@ Encore
     // .enableStimulusBridge('./assets/controllers.json')
 
     .addEntry('site-common', '/js/app/site/common.js')
+    .addEntry('frontend-common', '/js/app/frontend/common.js')
     .addEntry('profile', '/js/app/profile/index.js')
     .addEntry('common', '/js/app/common.js')
     .addEntry('register', './js/app/register/index.js')

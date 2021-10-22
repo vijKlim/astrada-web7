@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#000000" />
     <link rel="shortcut icon" href="/img/favicon.ico">
     {{ sonata_seo_metadatas() }}
-    {{ encore_entry_link_tags('site-common') }}
+    {{ encore_entry_link_tags('frontend-common') }}
     {{ encore_entry_link_tags('widgets') }}
     {% if app.user %}
         {{ encore_entry_link_tags('notifications') }}
@@ -28,17 +28,8 @@
 {% block flash_messages %}
     {% include '_partials/flash_messages.html.twig' %}
 {% endblock %}
-<!--loader-->
-<div class="loader-wrap">
-    <div class="loader-inner">
-        <div class="loader-inner-cirle"></div>
-    </div>
-</div>
-<!--loader end-->
-<!-- main start  -->
-<div id="main">
-    {% block layout %}{% endblock %}
-</div>
+
+{% block layout %}{% endblock %}
 
 {% if app.environment == "prod" %}
     <script
@@ -57,7 +48,7 @@
 <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 
-{{ encore_entry_script_tags('site-common') }}
+{{ encore_entry_script_tags('frontend-common') }}
 {{ encore_entry_script_tags('widgets') }}
 
 {#<script src="{{ asset('bundles/tetranzselect2entity/js/select2entity.js') }}"></script>#}

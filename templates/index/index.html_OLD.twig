@@ -7,7 +7,7 @@
             <section class="hero-section"   data-scrollax-parent="true">
                 <div class="bg-tabs-wrap">
                     <div class="bg-parallax-wrap" data-scrollax="properties: { translateY: '200px' }">
-                        <div class="bg bg_tabs"  data-bg="images/bg/hero/1.jpg"></div>
+                        <img class="bg bg_tabs"  src="/images/header.jpg"></img>
                         <div class="overlay op7"></div>
                     </div>
                 </div>
@@ -17,7 +17,7 @@
                         <div class="bubbles">
                             <h1>{{ 'home.header.title'|trans|raw }}</h1>
                         </div>
-                        <h3>Find some of the best tips from around the city from our partners and friends.</h3>
+                        <h3>{{ 'home.header.description'|trans|raw }}</h3>
                     </div>
                     <!-- main-search-input-tabs-->
                     <div class="main-search-input-tabs  tabs-act fl-wrap">
@@ -47,7 +47,7 @@
             <section      data-scrollax-parent="true">
                 <div class="container">
                     <div class="section-title">
-                        <h2>How it works</h2>
+                        <h2>{{ 'global.howItWorks'|trans }}</h2>
                         <div class="section-subtitle">Discover &amp; Connect </div>
                         <span class="section-separator"></span>
                         <p>Morbi varius, nulla sit amet rutrum elementum, est elit finibus tellus, ut tristique elit risus at metus.</p>
@@ -58,8 +58,7 @@
                                 <div class="process-item">
                                     <span class="process-count">01 </span>
                                     <div class="time-line-icon"><i class="fal fa-map-marker-alt"></i></div>
-                                    <h4> Find Interesting Place</h4>
-                                    <p>Proin dapibus nisl ornare diam varius tempus. Aenean a quam luctus, finibus tellus ut, convallis eros sollicitudin turpis.</p>
+                                    <h4> {{ 'global.findAndComparePrices'|trans }}</h4>
                                 </div>
                                 <span class="pr-dec"></span>
                             </li>
@@ -67,8 +66,7 @@
                                 <div class="process-item">
                                     <span class="process-count">02</span>
                                     <div class="time-line-icon"><i class="fal fa-mail-bulk"></i></div>
-                                    <h4> Contact a Few Owners</h4>
-                                    <p>Faucibus ante, in porttitor tellus blandit et. Phasellus tincidunt metus lectus sollicitudin feugiat pharetra consectetur.</p>
+                                    <h4> {{ 'global.createRequest'|trans }}</h4>
                                 </div>
                                 <span class="pr-dec"></span>
                             </li>
@@ -76,8 +74,7 @@
                                 <div class="process-item">
                                     <span class="process-count">03</span>
                                     <div class="time-line-icon"><i class="fal fa-layer-plus"></i></div>
-                                    <h4> Make a Listing</h4>
-                                    <p>Maecenas pulvinar, risus in facilisis dignissim, quam nisi hendrerit nulla, id vestibulum metus nullam viverra porta.</p>
+                                    <h4> {{ 'global.makeListing'|trans }}</h4>
                                 </div>
                             </li>
                         </ul>
@@ -150,6 +147,8 @@
                 </div>
             </section>
             <!--section end-->
+
+            {% include 'index/_partials/cities.html.twig' %}
 
             <!--section  -->
             <section>
@@ -254,51 +253,9 @@
         {% endblock %}
     {% endembed %}
 {% endblock %}
-{#{% block body %}#}
 
-{#    <section class="homepage-search" data-search="address"#}
-{#             data-addresses="{{ addresses_normalized|json_encode()|e('html') }}"#}
-{#             data-tracking-category="Homepage"#}
-{#             data-restaurants="{{ astrada_businesses_suggestions()|json_encode()|e('html') }}">#}
-{#        <div class="homepage-search-container">#}
-{#            {% set motto = astrada_setting('motto') %}#}
-{#            <h1 class="banner-title text-center">#}
-{#                {{ motto is not empty ? motto : ('index.banner'|trans) }}#}
-{#            </h1>#}
-{#            <div class="homepage-searchbox-container">#}
-{#                <div class="homepage-searchbox" data-element>#}
-{#                    <!-- This will be replaced by React -->#}
-{#                    <div class="form-group m-0">#}
-{#                        <input class="form-control" />#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#        <!-- Do NOT put the search component inside the form -->#}
-{#        <form method="GET" action="{{ path('businesses') }}" data-form>#}
-{#            <input type="hidden" name="geohash">#}
-{#        </form>#}
-{#    </section>#}
-
-{#    {% if businesses|length > 0 %}#}
-{#        {% include 'index/_partials/section.html.twig' with {#}
-{#            items: businesses,#}
-{#            section_title: 'index.our_restaurants'|trans,#}
-{#            view_all: 'index.view_all_restaurants'|trans,#}
-{#            view_all_path: path('businesses'),#}
-{#            show_more: show_more_businesses#}
-{#        } %}#}
-{#    {% endif %}#}
-
-{#{% endblock %}#}
-
-
-
-{% block styles %}
-    {{ encore_entry_link_tags('business-list') }}
-{% endblock %}
 
 {% block scripts %}
     {{ encore_entry_script_tags('search-address') }}
-    {{ encore_entry_script_tags('business-list') }}
+    {#    {{ encore_entry_script_tags('business-list') }}#}
 {% endblock %}
