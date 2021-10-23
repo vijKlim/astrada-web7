@@ -76,13 +76,7 @@ services:
   App\Api\EventSubscriber\ProductOptionValueSubscriber:
     tags: [ 'kernel.event_subscriber' ]
 
-  #Booking subscriber
-  App\EventSubscriber\BookingSubscriber:
-    arguments:
-      - "@astrada.booking.manager"
-      - "@event_dispatcher"
-    tags:
-      - { name: kernel.event_subscriber}
+
 
   App\EventListener\MaintenanceListener:
     arguments:
@@ -447,6 +441,7 @@ services:
       $timeUnit: "%astrada.time_unit%"
       $defaultListingStatus: "%astrada.listing_availability_status%"
       $endDayIncluded: "%astrada.booking.end_day_included%"
+
 
   astrada.booking.manager: '@App\Service\BookingManager'
 

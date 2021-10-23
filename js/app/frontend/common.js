@@ -2,7 +2,6 @@ import React from 'react'
 import { render } from 'react-dom'
 import numbro from 'numbro'
 
-
 // @see http://symfony.com/doc/3.4/frontend/encore/legacy-apps.html
 const $ = require('jquery')
 global.$ = global.jQuery = $
@@ -17,12 +16,17 @@ import 'bootstrap';
 import '../i18n'
 import { setTimezone, getCurrencySymbol } from '../i18n'
 
+import { usePosition } from '../usePosition';
+
 import AddressAutosuggest from './components/AddressAutosuggest'
+
+import { Input, ClearButton,Typeahead } from 'react-bootstrap-typeahead'; // ES2015
 
 import 'select2';
 
 function initTheme()
 {
+
     // ------------------------------------------------------- //
     // Adding fade effect to dropdowns
     // ------------------------------------------------------ //
@@ -57,6 +61,52 @@ function initTheme()
     });
 }
 
+const WrapUsePosition = (props) => {
+    const watch = true;
+    const {
+        latitude,
+        longitude,
+        speed,
+        timestamp,
+        accuracy,
+        error,
+    } = usePosition(watch);
+
+console.log(latitude,
+    longitude,
+    speed,
+    timestamp,
+    accuracy,
+    error)
+
+    const style = {
+        color: '#868e96'
+    };
+
+    return(
+        <Typeahead
+            id="toggle-example"
+            placeholder="Location"
+            onChange={(selected) => {
+                // Handle selections...
+            }}
+            searchText={'Пошук'}
+            inputProps={{
+                className: 'border-0 shadow-0',
+            }}
+            options={[ 'test', 'test2', 'test3' ]}
+
+        >
+            {({ onClear, selected }) => (
+
+                <div className="rbt-aux">
+                    {!!selected.length && <ClearButton onClick={onClear} />}
+                    {!selected.length && <i className="fa fa-crosshairs" style={style}></i>}
+                </div>
+            )}
+        </Typeahead>
+    )
+}
 document.addEventListener('DOMContentLoaded', function() {
 
     initTheme();
@@ -65,66 +115,73 @@ document.addEventListener('DOMContentLoaded', function() {
     const timezone = document.querySelector('body').dataset.timezone
     setTimezone(timezone)
 
+    const el   = document.querySelector('[data-element2]')
 
 
-    const inputs = document.querySelectorAll('[data-widget="address-input"]')
-    if (inputs.length > 0) {
+    render(
 
-        const addressElements = {
-            latitude: '$1ddress_latitude',
-            longitude: '$1ddress_longitude',
-            postalCode: '$1ddress_postalCode',
-            addressLocality: '$1ddress_addressLocality',
-        }
+        <WrapUsePosition/>
+        , el
+    )
 
-        inputs.forEach(el => {
-
-            // Try to build an address object
-            let address = {
-                streetAddress: el.value
-            }
-            for (const addressProp in addressElements) {
-                const addressEl = document.getElementById(
-                    el.getAttribute('id').replace(/([aA])ddress_streetAddress/, addressElements[addressProp])
-                )
-                if (addressEl) {
-                    address = {
-                        ...address,
-                        [addressProp]: addressEl.value
-                    }
-                }
-            }
-
-            address = {
-                ...address,
-                geo: {
-                    latitude: address.latitude,
-                    longitude: address.longitude,
-                }
-            }
-
-            new AddressAutosuggest(
-                el.closest('.form-group'),
-                {
-                    required: el.required,
-                    address,
-                    inputProps: {
-                        id: el.getAttribute('id'),
-                        name: el.getAttribute('name'),
-                    },
-                    onAddressSelected: (text, address) => {
-                        for (const addressProp in addressElements) {
-                            const addressEl = document.getElementById(
-                                el.getAttribute('id').replace(/([aA])ddress_streetAddress/, addressElements[addressProp])
-                            )
-                            if (addressEl) {
-                                addressEl.value = address[addressProp]
-                            }
-                        }
-                    }
-                }
-            )
-        })
-    }
+    // const inputs = document.querySelectorAll('[data-widget="address-input"]')
+    // if (inputs.length > 0) {
+    //
+    //     const addressElements = {
+    //         latitude: '$1ddress_latitude',
+    //         longitude: '$1ddress_longitude',
+    //         postalCode: '$1ddress_postalCode',
+    //         addressLocality: '$1ddress_addressLocality',
+    //     }
+    //
+    //     inputs.forEach(el => {
+    //
+    //         // Try to build an address object
+    //         let address = {
+    //             streetAddress: el.value
+    //         }
+    //         for (const addressProp in addressElements) {
+    //             const addressEl = document.getElementById(
+    //                 el.getAttribute('id').replace(/([aA])ddress_streetAddress/, addressElements[addressProp])
+    //             )
+    //             if (addressEl) {
+    //                 address = {
+    //                     ...address,
+    //                     [addressProp]: addressEl.value
+    //                 }
+    //             }
+    //         }
+    //
+    //         address = {
+    //             ...address,
+    //             geo: {
+    //                 latitude: address.latitude,
+    //                 longitude: address.longitude,
+    //             }
+    //         }
+    //
+    //         new AddressAutosuggest(
+    //             el.closest('.form-group'),
+    //             {
+    //                 required: el.required,
+    //                 address,
+    //                 inputProps: {
+    //                     id: el.getAttribute('id'),
+    //                     name: el.getAttribute('name'),
+    //                 },
+    //                 onAddressSelected: (text, address) => {
+    //                     for (const addressProp in addressElements) {
+    //                         const addressEl = document.getElementById(
+    //                             el.getAttribute('id').replace(/([aA])ddress_streetAddress/, addressElements[addressProp])
+    //                         )
+    //                         if (addressEl) {
+    //                             addressEl.value = address[addressProp]
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         )
+    //     })
+    // }
 
 })

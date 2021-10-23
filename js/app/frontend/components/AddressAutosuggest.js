@@ -11,8 +11,11 @@ import _ from 'lodash'
 import axios from 'axios'
 import classNames from 'classnames'
 
+import { ClearButton,AsyncTypeahead } from 'react-bootstrap-typeahead'; // ES2015
+
 import '../../i18n'
 import { getCountry, localeDetector } from '../../i18n'
+
 
 import {
   placeholder as placeholderGB,
@@ -21,7 +24,7 @@ import {
   onSuggestionSelected as onSuggestionSelectedGB,
   theme as themeGB,
   poweredBy as poweredByGB,
-  highlightFirstSuggestion as highlightFirstSuggestionGB } from '../../components/AddressAutosuggest/gb'
+  highlightFirstSuggestion as highlightFirstSuggestionGB } from './AddressAutosuggest/gb'
 
 import {
   onSuggestionsFetchRequested as onSuggestionsFetchRequestedAlgolia,
@@ -29,7 +32,7 @@ import {
   transformSuggestion as transformSuggestionAlgolia,
   geocode as geocodeAlgolia,
   configure as configureAlgolia
-  } from '../../components/AddressAutosuggest/algolia'
+  } from './AddressAutosuggest/algolia'
 
 import {
   onSuggestionsFetchRequested as onSuggestionsFetchRequestedLocationIQ,
@@ -37,7 +40,7 @@ import {
   transformSuggestion as transformSuggestionLocationIQ,
   geocode as geocodeLocationIQ,
   configure as configureLocationIQ,
-  } from '../../components/AddressAutosuggest/locationiq'
+  } from './AddressAutosuggest/locationiq'
 
 import {
   onSuggestionsFetchRequested as onSuggestionsFetchRequestedGE,
@@ -45,7 +48,7 @@ import {
   transformSuggestion as transformSuggestionGE,
   geocode as geocodeGE,
   configure as configureGE
-  } from '../../components/AddressAutosuggest/geocode-earth'
+  } from './AddressAutosuggest/geocode-earth'
 
 import {
   onSuggestionsFetchRequested as onSuggestionsFetchRequestedGOOG,
@@ -54,10 +57,10 @@ import {
   geocode as geocodeGOOG,
   configure as configureGOOG,
   onSuggestionSelected as onSuggestionSelectedGOOG,
-} from '../../components/AddressAutosuggest/google'
+} from './AddressAutosuggest/google'
 
-import { storage, getFromCache } from '../../components/AddressAutosuggest/cache'
-import { getAdapter, getAdapterOptions } from '../../components/AddressAutosuggest/config'
+import { storage, getFromCache } from './AddressAutosuggest/cache'
+import { getAdapter, getAdapterOptions } from './AddressAutosuggest/config'
 
 const theme = {
   ...defaultTheme,
@@ -183,8 +186,10 @@ const generic = {
       suggestions: [],
     })
   },
-  onSuggestionSelected: function (event, { suggestion }) {
+  onSuggestionSelected: function ( suggestion ) {
 
+      //typeahead passed array selected? but there one item (selected) - this for multiselected
+      suggestion = suggestion.shift();
     if (suggestion.type === 'prediction') {
 
       let address = this.transformSuggestion(suggestion)
@@ -289,7 +294,7 @@ const localize = (func, adapter, thisArg) => {
 const getSuggestionValue = suggestion => suggestion.value
 
 const renderSuggestion = suggestion => (
-  <div class="pac-item">
+  <div className="pac-item">
       <span className="pac-icon pac-icon-marker"></span>
       <span className="pac-item-query">
 		<span className="pac-matched">RV</span> College of Engineering®</span><span>Mysore Road, RV Vidyaniketan, Post, Бангалор, Карнатака, Индия</span>
@@ -297,34 +302,11 @@ const renderSuggestion = suggestion => (
   </div>
 )
 
-// https://github.com/moroshko/react-autosuggest#should-render-suggestions-prop
-function shouldRenderSuggestions(value) {
 
-  // This allows rendering suggestions for saved adresses
-  // when the user just focuses the input without typing anything
-  if (value.trimStart().length === 0 && this.state.multiSection) {
-    return true
-  }
-
-  return value.trimStart().length > 3 || value.trimStart().endsWith(' ')
-}
-
-const renderSectionTitle = section => (
-  <strong>{ section.title }</strong>
-)
 
 const getSectionSuggestions = section => section.suggestions
 
-const SuggestionsContainer = ({ containerProps, children, poweredBy }) => (
-  <div { ...containerProps }>
-    { children }
-    <div className="address-autosuggest__suggestions-container__footer">
-      <div>
-        { poweredBy }
-      </div>
-    </div>
-  </div>
-)
+
 
 class AddressAutosuggest extends Component {
 
@@ -368,7 +350,7 @@ class AddressAutosuggest extends Component {
       400
     )
 
-    this.onSuggestionsFetchRequested = ({ value }) => {
+    this.onSuggestionsFetchRequested = (value) => {
 
       // We still need to check if text is not empty here,
       // because shouldRenderSuggestions() may return true even when nothing was typed
@@ -424,6 +406,33 @@ class AddressAutosuggest extends Component {
     if (this.props.autofocus) {
       setTimeout(() => this.autosuggest?.input.focus(), 150)
     }
+
+    //https://github.com/chadmuro/medium-geolocation/blob/main/src/App.js
+    //https://www.youtube.com/watch?v=J4PDxTO3oj0
+    //https://www.pluralsight.com/guides/how-to-use-geolocation-call-in-reactjs
+      navigator.geolocation.getCurrentPosition(function(position) {
+          console.log("Latitude is :", position.coords.latitude);
+          console.log("Longitude is :", position.coords.longitude);
+      });
+      // if (navigator.geolocation) {
+      //     navigator.permissions
+      //         .query({ name: "geolocation" })
+      //         .then(function (result) {
+      //             if (result.state === "granted") {
+      //                 console.log(result.state);
+      //                 //If granted then you can directly call your function here
+      //             } else if (result.state === "prompt") {
+      //                 console.log(result.state);
+      //             } else if (result.state === "denied") {
+      //                 //If denied then you have to show instructions to enable location
+      //             }
+      //             result.onchange = function () {
+      //                 console.log(result.state);
+      //             };
+      //         });
+      // } else {
+      //     alert("Sorry Not available!");
+      // }
   }
 
   onClear() {
@@ -434,7 +443,8 @@ class AddressAutosuggest extends Component {
     }
   }
 
-  onChange(event, { newValue }) {
+  onChange(newValue, event) {
+
     this.setState({
       value: newValue
     })
@@ -527,11 +537,12 @@ class AddressAutosuggest extends Component {
     } else {
       suggestions = predictionsAsSuggestions
     }
-
+console.log(suggestions)
     this.setState({
       suggestions,
       multiSection,
     })
+
   }
 
   onSuggestionsClearRequested() {
@@ -546,70 +557,7 @@ class AddressAutosuggest extends Component {
     })
   }
 
-  renderInputComponent(inputProps) {
 
-    return (
-      <div className={ classNames({
-        'address-autosuggest__input-container': true,
-        'has-error': this.props.error
-        })}>
-        <div className="address-autosuggest__input-wrapper">
-          <input { ...inputProps } />
-          { this.state.postcode && (
-            <div className="address-autosuggest__addon">
-              <span>{ this.state.postcode.postcode }</span>
-              <button className="address-autosuggest__close-button" onClick={ () => this.setState({ value: '', postcode: null }) }>
-                  <a href="#"><i className="fa fa-dot-circle-o"></i></a>
-              </button>
-            </div>
-          ) }
-          { this.state.value && (
-            <button className="address-autosuggest__close-button address-autosuggest__clear" onClick={ () => this.onClear() }>
-                <a href="#"><i className="fa fa-dot-circle-o"></i></a>
-            </button>
-          )}
-        </div>
-      </div>
-    )
-  }
-
-  renderSuggestionsContainer({ containerProps , children }) {
-
-    // https://github.com/moroshko/react-autosuggest/issues/699#issuecomment-568798287
-    if (this.props.attachToBody && this.autosuggest) {
-
-      // this.input is the input ref as received from Autosuggest
-      const inputCoords = this.autosuggest.input.getBoundingClientRect()
-      const style = {
-        position: 'absolute',
-        left: inputCoords.left + window.scrollX, // adding scrollX and scrollY to get the coords wrt document instead of viewport
-        top: inputCoords.top + inputCoords.height + window.scrollY,
-        overflow: 'auto',
-        zIndex: 4,
-        backgroundColor: '#ffffff',
-        width: inputCoords.width,
-      }
-
-      return createPortal((
-        <SuggestionsContainer
-          containerProps={{
-            ...containerProps,
-            style
-          }}
-          poweredBy={ this.poweredBy() }>
-          { children }
-        </SuggestionsContainer>
-      ), document.body)
-    }
-
-    return (
-      <SuggestionsContainer
-        containerProps={ containerProps }
-        poweredBy={ this.poweredBy() }>
-        { children }
-      </SuggestionsContainer>
-    )
-  }
 
   render() {
 
@@ -618,7 +566,6 @@ class AddressAutosuggest extends Component {
     const inputProps = {
       placeholder: this.placeholder(),
       value,
-      onChange: this.onChange.bind(this),
       type: "search",
       required: this.props.required,
       disabled: this.props.disabled || this.state.loading,
@@ -638,25 +585,37 @@ class AddressAutosuggest extends Component {
     }
 
     return (
-      <Autosuggest
-        ref={ autosuggest => this.autosuggest = autosuggest }
-        theme={ this.theme(theme) }
-        suggestions={ suggestions }
-        onSuggestionsFetchRequested={ this.onSuggestionsFetchRequested }
-        onSuggestionsClearRequested={ this.onSuggestionsClearRequested.bind(this) }
-        onSuggestionSelected={ this.onSuggestionSelected.bind(this) }
-        getSuggestionValue={ getSuggestionValue }
-        renderInputComponent={ this.renderInputComponent.bind(this) }
-        renderSuggestionsContainer={ this.renderSuggestionsContainer.bind(this) }
-        renderSuggestion={ renderSuggestion }
-        shouldRenderSuggestions={ shouldRenderSuggestions.bind(this) }
-        renderSectionTitle={ renderSectionTitle }
-        highlightFirstSuggestion={ highlightFirstSuggestion }
-        getSectionSuggestions={ getSectionSuggestions }
-        multiSection={ multiSection }
-        inputProps={ inputProps }
-        containerProps={ this.props.containerProps }
-        { ...otherProps } />
+        <AsyncTypeahead
+            id="async-pagination-example"
+            align={'left'}
+            size={'small'}
+            isLoading={false}
+            labelKey="value"
+            maxResults={20}
+            minLength={2}
+            inputProps={ inputProps }
+            options={suggestions}
+            onInputChange={this.onChange.bind(this)}
+            onChange={this.onSuggestionSelected.bind(this)}
+            onSearch={this.onSuggestionsFetchRequested}
+            searchText={'Пошук ...'}
+            renderMenuItemChildren={option => (
+
+                <div key={option.id}>
+
+                    <span>{option.value}</span>
+                </div>
+            )}
+            useCache={false}
+        >
+            {({ onClear, selected }) => (
+
+                <div className="rbt-aux">
+                    {!!selected.length && <ClearButton onClick={onClear} />}
+
+                </div>
+            )}
+        </AsyncTypeahead>
     )
   }
 }
@@ -674,7 +633,7 @@ AddressAutosuggest.defaultProps = {
   containerProps: {},
   attachToBody: false,
   onAddressSelected: () => {},
-  inputProps: {},
+  inputProps: {className: 'form-control-sm border-0 shadow-0 bg-gray-200'},
   autofocus: false,
   error: false,
 }

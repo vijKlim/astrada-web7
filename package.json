@@ -32,6 +32,7 @@
         "beautifymarker": "^1.0.9",
       "bootstrap": "^4.5.2",
       "bootstrap-select": "^1.13.18",
+      "react-bootstrap-typeahead": "^6.0.0-alpha.3",
       "nouislider": "^14.6.1",
       "object-fit-images": "^3.2.4",
       "smooth-scroll": "^16.1.3",

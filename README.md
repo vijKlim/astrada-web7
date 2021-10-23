@@ -112,10 +112,12 @@ docker exec -it 98864dc72e67 redis-cli -h localhost -p 6379
 * deletes the "cache_key" item from the "cache.app" pool
 * php bin/console cache:pool:delete cache.app cache_key
 * docker-compose exec php bin/console cache:clear
+* docker-compose exec php bin/console cache:clear
 
 * docker-compose exec php php bin/console cache:pool:clear cache.app
 * php bin/console cache:pool:clear cache.validation cache.app
-* docker-compose exec php php bin/console cache:pool:prune
+* Если debug tools не работает надо вызвать эту команду чтоб увидеть ошибки которые мешают: 
+* docker-compose exec php php bin/console debug:event
 
 # Tests
 # https://symfony.com/doc/current/testing.html
