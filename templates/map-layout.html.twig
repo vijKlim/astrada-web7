@@ -1,16 +1,12 @@
 {% block layout %}
     {% block header %}
-        {% include '_partials/header.html.twig' with { pinned: true }  %}
+        {% include '_partials/header.html.twig' with { pinned: false } %}
     {% endblock %}
 
-    <!-- wrapper-->
-    <div id="wrapper">
-
-        <div class="content">
-            {% block main %}{% endblock %}
-        </div>
-
-    </div>
+    {% block main %}{% endblock %}
 
 
+    {% block footer %}
+        {% include '_partials/footer.html.twig' only %}
+    {% endblock %}
 {% endblock %}

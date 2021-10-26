@@ -49,6 +49,8 @@ Encore
     .addEntry('user-form', './js/app/user/form.js')
     .addEntry('search-address', './js/app/search/address.js')
     .addEntry('frontend-search-address', './js/app/search/frontend-address.js')
+    .addEntry('frontend-map-category', './js/app/frontend/map/map-category.js')
+    .addEntry('frontend-map-layers', './js/app/frontend/map/map-layers.js')
     .addEntry('user-invite', './js/app/user/invite.js')
     .addEntry('business-list', './js/app/business/list.js')
     .addEntry('dashboard', './js/app/dashboard/index.js')
