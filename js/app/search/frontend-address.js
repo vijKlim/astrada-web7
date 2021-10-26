@@ -25,7 +25,7 @@ document.querySelectorAll('[data-search="address"]').forEach((container) => {
 
     const el   = container.querySelector('[data-element]')
     const form = container.querySelector('[data-form]')
-    console.log('search address:',el);
+    console.log('search address:',el, form);
     if (el) {
 
         const addresses =

@@ -1,13 +1,27 @@
-
 {% include '_partials/flash_messages.html.twig' %}
 
-{{ form_start(form, {'attr': {'class': 'form-category','data-form':null}}) }}
 
-{{ form_errors(form) }}
 
-{% include 'common/form/form_search_fields.html.twig' with {
-    'form': form,
-    'addresses_normalized': addresses_normalized
-} only %}
 
-{{ form_end(form) }}
+    <div  data-search="address"
+         data-addresses="{{ addresses_normalized|json_encode()|e('html') }}"
+         data-tracking-category="Homepage"
+         data-restaurants="{{ astrada_businesses_suggestions()|json_encode()|e('html') }}">
+            {{ form_start(form, {'attr': {'class': 'form-category','data-form':null}}) }}
+
+                <div  class="row" >
+                    {{ form_errors(form) }}
+                    {% include 'common/form/form_search_fields.html.twig' with {
+                        'form': form,
+                        'addresses_normalized': addresses_normalized
+                    } only %}
+                </div>
+
+
+            {{ form_end(form) }}
+    </div>
+
+
+
+
+

@@ -1,6 +1,3 @@
-
-'use strict';
-
 import L from 'leaflet'
 import { tileLayers } from "./map-layers";
 

@@ -31,16 +31,7 @@
 
         {{ form_errors(form) }}
         {{ form_widget(form.geohash) }}
-        <div class="main-search-input-item">
 
-            {#            {{ form_widget(form.categories, {#}
-            {#                'id': 'location',#}
-            {#                'attr': {#}
-            {#                    'data-placeholder': 'All Categories',#}
-            {#                    'class': 'chosen-select'#}
-            {#                }#}
-            {#            }) }}#}
-        </div>
         <button class="main-search-button color2-bg" type="submit" value="{{ 'listing.search'|trans }}">Search <i class="far fa-search"></i></button>
 
     </div>

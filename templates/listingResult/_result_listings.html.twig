@@ -1,111 +1,54 @@
-
-<!-- post -->
-{%- for listing in listings -%}
-    {% set listing_translation = listing.translations[app.request.locale] %}
-    {% set listing_address = listing.address %}
-    {% set business = listing.business %}
-    {% set business_image = astrada_asset(business, 'imageFile', 'business_thumbnail') %}
-    {% if business_image is empty %}
-        {% set business_image = '//via.placeholder.com/512.jpg' %}
-    {% endif %}
-{#    {% set price = (listing.price / 100) |price_format %}#}
-{#    {% set listing_image = astrada_asset(listing, 'imageFile', 'listing_thumbnail') %}#}
-{#    {% if listing_image is empty %}#}
+<div class="row">
+    {%- for listing in listings -%}
+        {% set listing_translation = listing.translations[app.request.locale] %}
+        {% set listing_address = listing.address %}
+        {% set business = listing.business %}
+        {% set business_image = astrada_asset(business, 'imageFile', 'business_thumbnail') %}
+        {% if business_image is empty %}
+            {% set business_image = '//via.placeholder.com/512.jpg' %}
+        {% endif %}
+        {#    {% set price = (listing.price / 100) |price_format %}#}
+            {% set listing_image = astrada_asset(listing, 'imageFile', 'listing_thumbnail') %}
+            {% if listing_image is empty %}
+                {% set listing_image = '//via.placeholder.com/512.jpg' %}
+            {% endif %}
 {#        {% set listing_image = '//via.placeholder.com/512.jpg' %}#}
-{#    {% endif %}#}
-    {% set listing_image = '//via.placeholder.com/512.jpg' %}
-    {% set listing_path_params = {} %}
+        {% set listing_path_params = {} %}
 
 
-    <div class="listing-item">
-        <article class="geodir-category-listing fl-wrap" data-lid="{{ listing.id }}">
-            <div class="geodir-category-img">
-                <div class="geodir-js-favorite_btn" id="favourite-{{ listing.id }}" class="favourit"><i class="fal fa-heart"></i><span>Save</span></div>
-                <a href="{{ listing_path(listing, listing_path_params) }}"
-                   class="geodir-category-img-wrap fl-wrap">
-                    <img src="{{ listing_image }}"
-                         alt="{{ listing_translation.title }}">
-                </a>
-                <div class="listing-avatar">
-                    <a href="author-single.html">
-                        <img src="{{ business_image}}" alt="{{ business.name }}">
-                    </a>
-                    <span class="avatar-tooltip">Added By  <strong>{{ business.name }}</strong></span>
-                </div>
-                <div class="geodir_status_date gsd_open"><i class="fal fa-lock-open"></i>Open Now</div>
-                <div class="geodir-category-opt">
-                    <div class="listing-rating-count-wrap">
-                        {% if listing.averageRating %}
-                            <div class="review-score">{{ listing.averageRating | astrada_star_rating }}</div>
-                            <div class="listing-rating card-popup-rainingvis" data-starrating2="{{ listing.averageRating | astrada_star_rating }}"></div>
-                            <br>
-                            <div class="reviews-count">{{ listing.commentCount }} reviews</div>
-                        {% endif %}
-
+        <div class="col-sm-6 mb-5 hover-animate" data-marker-id="{{ listing.id }}">
+            <div class="card h-100 border-0 shadow">
+                <div class="card-img-top overflow-hidden dark-overlay bg-cover" style="background-image: url({{ listing_image }}); min-height: 200px;">
+                    <a class="tile-link" href="{{ listing_path(listing, listing_path_params) }}"></a>
+                    <div class="card-img-overlay-bottom z-index-20">
+                        <h4 class="text-white text-shadow">{{ listing_translation.title }}</h4>
+                        <p class="mb-2 text-xs"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-gray-300">                    </i>
+                        </p>
                     </div>
+                    <div class="card-img-overlay-top d-flex justify-content-between align-items-center">
+                        <div class="badge badge-transparent badge-pill px-3 py-2">123$</div><a class="card-fav-icon position-relative z-index-40" href="javascript: void();">
+                            <svg class="svg-icon text-white">
+                                <use xlink:href="#heart-1"> </use>
+                            </svg></a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="text-sm text-muted mb-3"> {{ listing_translation.description |u.truncate(125)}}</p>
+                    <p class="text-sm text-muted text-uppercase mb-1">By <a href="#" class="text-dark">{{ business.name }}</a></p>
+                    <p class="text-sm mb-0"><a class="mr-1" href="#">Маршрут,</a><a class="mr-1" href="#">Контакти</a>
+                    </p>
                 </div>
             </div>
-            <div class="geodir-category-content fl-wrap">
-                <div class="geodir-category-content-title fl-wrap">
-                    <div class="geodir-category-content-title-item">
-                        <h3 class="title-sin_map">
-                            <a href="{{ listing_path(listing, listing_path_params) }}">{{ listing_translation.title }}</a><span class="verified-badge"><i class="fal fa-check"></i></span></h3>
-                        <div class="geodir-category-location fl-wrap">
-                            <a href="#1" class="map-item" data-cpt-marker="{{ listing_address.geo.latitude ~ "-" ~ listing_address.geo.longitude  }}"><i class="fas fa-map-marker-alt"></i> {{ listing_address.streetAddress }}</a></div>
-                    </div>
-                </div>
-                <div class="geodir-category-text fl-wrap">
-                    <p class="small-text">{{ listing_translation.description }}</p>
-{#                    <div class="facilities-list fl-wrap">#}
-{#                        <div class="facilities-list-title">Facilities : </div>#}
-{#                        <ul class="no-list-style">#}
-{#                            <li class="tolt"  data-microtip-position="top" data-tooltip="Free WiFi"><i class="fal fa-wifi"></i></li>#}
-{#                            <li class="tolt"  data-microtip-position="top" data-tooltip="Parking"><i class="fal fa-parking"></i></li>#}
-{#                            <li class="tolt"  data-microtip-position="top" data-tooltip="Non-smoking Rooms"><i class="fal fa-smoking-ban"></i></li>#}
-{#                            <li class="tolt"  data-microtip-position="top" data-tooltip="Pets Friendly"><i class="fal fa-dog-leashed"></i></li>#}
-{#                        </ul>#}
-{#                    </div>#}
-                </div>
-                <div class="geodir-category-footer fl-wrap">
-                    <a class="listing-item-category-wrap">
-                        <div class="listing-item-category red-bg"><i class="fal fa-cheeseburger"></i></div>
-                            <span>Here listing categories</span>
-{#                        {%- for listingListingCategory in listing.listingListingCategories -%}#}
-{#                            <span>{{ listingListingCategory.category.translations[app.request.locale].name }}</span>#}
-{#                        {%- endfor -%}#}
-                    </a>
-                    <div class="geodir-opt-list">
-                        <ul class="no-list-style">
-                            <li><a href="#" class="show_gcc"><i class="fal fa-envelope"></i><span class="geodir-opt-tooltip">Contact Info</span></a></li>
-                            <li><a href="#1" class="map-item" data-cpt-marker="{{ listing_address.geo.latitude ~ "-" ~ listing_address.geo.longitude  }}"><i class="fal fa-map-marker-alt"></i><span class="geodir-opt-tooltip">On the map <strong>1</strong></span> </a></li>
-                            <li>
-                                <div class="dynamic-gal gdop-list-link" data-dynamicPath="[{'src': '/images/all/1.jpg'},{'src': '/images/all/1.jpg'}, {'src': '/images/all/1.jpg'}]"><i class="fal fa-search-plus"></i><span class="geodir-opt-tooltip">Gallery</span></div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="price-level geodir-category_price">
-                        <span class="price-level-item">
-{#                            <strong>{{ price }} </strong>#}
-                            <strong>100-listing_price </strong>
-                        </span>
-                        <span class="price-name-tooltip">Pricey</span>
-                    </div>
-                    <div class="geodir-category_contacts">
-                        <div class="close_gcc"><i class="fal fa-times-circle"></i></div>
-                        <ul class="no-list-style">
-                            <li><span><i class="fal fa-phone"></i> Call : </span><a href="#">{{ business.telephone }}</a></li>
-{#                            <li><span><i class="fal fa-envelope"></i> Write : </span><a href="#">{{ business.email }} </a></li>#}
-                            <li><span><i class="fal fa-envelope"></i> Write : </span><a href="#">business.email </a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </article>
-    </div>
+        </div>
 
-{%- else -%}
-    {{ 'listing.search.result.no_results'|trans }}
-{%- endfor -%}
 
-<div data-id="nb-result-map-drag"
-     style="color: transparent">{{ 'listing.search.result.results'|trans({'%nb_results%': nb_listings}) }}</div>
+
+    {%- else -%}
+        {{ 'listing.search.result.no_results'|trans }}
+    {%- endfor -%}
+
+    <div data-id="nb-result-map-drag"
+         style="color: transparent">{{ 'listing.search.result.results'|trans({'%nb_results%': nb_listings}) }}</div>
+
+
+</div>

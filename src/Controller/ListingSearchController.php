@@ -98,18 +98,8 @@ class ListingSearchController extends AbstractController
 
 
 
-            $listingsNormalized = array_map(function (Listing $listing) {
-                return $this->get('serializer')->normalize($listing, 'jsonld', [
-                    'resource_class' => Listing::class,
-                    'operation_type' => 'item',
-                    'item_operation_name' => 'get',
-                    'groups' => ['listing_public']
-                ]);
-            }, $listings->getArrayCopy());
-//            foreach ($listings as $listing){
-//                echo "<pre>";
-//                var_dump($listing->getBusiness()->getId());die();
-//            }die();
+
+
 //            foreach ($listings as &$listing){
 //                $geo = GeoUtils::asGeoCoordinates($listing['address']['geo']);
 //                $listing['location']['coordinate']['lat'] = $geo->getLatitude();
@@ -154,7 +144,7 @@ class ListingSearchController extends AbstractController
             array(
                 'date' => (new \DateTime())->format('Y-m-d'),
                 'form' => $form->createView(),
-                'listings' => $listingsNormalized,
+                'listings' => $listings,
                 'nb_listings' => $nbListings,
 
                 'listing_search_request' => $listingSearchRequest,

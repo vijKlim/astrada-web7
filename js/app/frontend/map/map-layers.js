@@ -1,10 +1,4 @@
-/**
- * Directory – Directory & Listing Bootstrap 4 Theme v. 1.6.0
- * Homepage: https://themes.getbootstrap.com/product/directory-directory-listing-bootstrap-4-theme/
- * Copyright 2020, Bootstrapious - https://bootstrapious.com
- */
 
-'use strict';
 
 const tileLayers = []
 
