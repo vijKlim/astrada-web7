@@ -3,465 +3,397 @@
 {% block layout %}
     {% embed 'layout.html.twig'%}
 
-        {% block main %}
-
-{#            {% set listing_image = astrada_asset(listing, 'imageFile', 'listing_thumbnail') %}#}
-{#            {% if listing_image is not empty %}#}
-{#                #}{#                            <img src="{{ listing_image }}" />#}
-{#            {% endif %}#}
-            <section class="listing-hero-section hidden-section"  id="sec1">
-                <div class="bg-parallax-wrap">
-
-                    <div class="bg par-elem ">
-
-
-                        <div id="map-listing" data-listing="{{ listingNormalized|json_encode|e('html_attr') }}" style="height: 100%;"></div>
+        {% block sub_header %}
+            <section>
+                <!-- Slider main container-->
+                <div class="swiper-container detail-slider slider-gallery">
+                    <!-- Additional required wrapper-->
+                    <div class="swiper-wrapper">
+                        <!-- Slides-->
+                        <div class="swiper-slide"><a href="img/photo/photo-1426122402199-be02db90eb90.jpg" data-toggle="gallery-top" title="Our street"><img class="img-fluid" src="img/photo/photo-1426122402199-be02db90eb90.jpg" alt="Our street"></a></div>
+                        <div class="swiper-slide"><a href="img/photo/photo-1512917774080-9991f1c4c750.jpg" data-toggle="gallery-top" title="Outside"><img class="img-fluid" src="img/photo/photo-1512917774080-9991f1c4c750.jpg" alt="Outside"></a></div>
+                        <div class="swiper-slide"><a href="img/photo/photo-1494526585095-c41746248156.jpg" data-toggle="gallery-top" title="Rear entrance"><img class="img-fluid" src="img/photo/photo-1494526585095-c41746248156.jpg" alt="Rear entrance"></a></div>
+                        <div class="swiper-slide"><a href="img/photo/photo-1484154218962-a197022b5858.jpg" data-toggle="gallery-top" title="Kitchen"><img class="img-fluid" src="img/photo/photo-1484154218962-a197022b5858.jpg" alt="Kitchen"></a></div>
+                        <div class="swiper-slide"><a href="img/photo/photo-1522771739844-6a9f6d5f14af.jpg" data-toggle="gallery-top" title="Bedroom"><img class="img-fluid" src="img/photo/photo-1522771739844-6a9f6d5f14af.jpg" alt="Bedroom"></a></div>
+                        <div class="swiper-slide"><a href="img/photo/photo-1488805990569-3c9e1d76d51c.jpg" data-toggle="gallery-top" title="Bedroom"><img class="img-fluid" src="img/photo/photo-1488805990569-3c9e1d76d51c.jpg" alt="Bedroom"></a></div>
                     </div>
-                    <div class="overlay"></div>
-                </div>
-                <div class="container">
-                    <div class="list-single-header-item  fl-wrap">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <h1>{{ listing.title }} <span class="verified-badge"><i class="fal fa-check"></i></span></h1>
-                                <div class="geodir-category-location fl-wrap">
-                                    <a href="#"><i class="fas fa-map-marker-alt"></i>  {{ listing.address.streetAddress }}</a>
-                                    {% if listing.telephone is not empty %}
-                                        <a href="#"> <i class="fal fa-phone"></i>{{ listing.telephone }}</a>
-                                    {% endif %}
-
-                                    <a href="#"><i class="fal fa-envelope"></i> yourmail@domain.com</a></div>
-                            </div>
-                            <div class="col-md-3">
-                                <a class="fl-wrap list-single-header-column custom-scroll-link " href="#sec5">
-                                    <div class="listing-rating-count-wrap single-list-count">
-                                        <div class="review-score">4.1</div>
-                                        <div class="listing-rating card-popup-rainingvis" data-starrating2="4"></div>
-                                        <br>
-                                        <div class="reviews-count">2 reviews</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-single-header_bottom fl-wrap">
-                        <a class="listing-item-category-wrap" href="#">
-                            <div class="listing-item-category  red-bg"><i class="fal fa-cheeseburger"></i></div>
-                            <span>Restaurants</span>
-                        </a>
-                        <div class="list-single-author"> <a href="author-single.html"><span class="author_avatar"> <img alt='' src='images/avatar/1.jpg'>  </span>By  Alisa Noory</a></div>
-                        <div class="geodir_status_date gsd_open"><i class="fal fa-lock-open"></i>Open Now</div>
-                        <div class="list-single-stats">
-                            <ul class="no-list-style">
-                                <li><span class="viewed-counter"><i class="fas fa-eye"></i> Viewed -  156 </span></li>
-                                <li><span class="bookmark-counter"><i class="fas fa-heart"></i> Bookmark -  24 </span></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <div class="swiper-pagination swiper-pagination-white"></div>
+                    <div class="swiper-button-prev swiper-button-white"></div>
+                    <div class="swiper-button-next swiper-button-white"></div>
                 </div>
             </section>
+        {% endblock %}
 
-            <!-- scroll-nav-wrapper-->
-            <div class="scroll-nav-wrapper fl-wrap">
-                <div class="container">
-                    <nav class="scroll-nav scroll-init">
-                        <ul class="no-list-style">
-                            <li><a class="act-scrlink" href="#sec1"><i class="fal fa-images"></i> Top</a></li>
-                            <li><a href="#sec2"><i class="fal fa-info"></i>Details</a></li>
-                            <li><a href="#sec3"><i class="fal fa-image"></i>Gallery</a></li>
-                            <li><a href="#sec4"><i class="fal fa-utensils"></i>Menu</a></li>
-                            <li><a href="#sec5"><i class="fal fa-comments-alt"></i>Reviews</a></li>
-                        </ul>
-                    </nav>
-                    <div class="scroll-nav-wrapper-opt">
-                        <a href="#" class="scroll-nav-wrapper-opt-btn"> <i class="fas fa-heart"></i> Save </a>
-                        <a href="#" class="scroll-nav-wrapper-opt-btn showshare"> <i class="fas fa-share"></i> Share </a>
-                        <div class="share-holder hid-share">
-                            <div class="share-container  isShare"></div>
+
+        {% block main %}
+
+            {% set listing_translation = listing.translations[app.request.locale] %}
+
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="text-block">
+                            <p class="text-primary"><i class="fa-map-marker-alt fa mr-1"></i> {{ listing.address.streetAddress }}</p>
+                            <h1>{{ listing_translation.title }}</h1>
+                            <p class="text-muted text-uppercase mb-4">{{ listing.business.name }} </p>
+
+                            <p class="text-muted font-weight-light">{{ listing_translation.description }}</p>
                         </div>
-                        <div class="show-more-snopt"><i class="fal fa-ellipsis-h"></i></div>
-                        <div class="show-more-snopt-tooltip">
-                            <a href="#"> <i class="fas fa-comment-alt"></i> Write a review</a>
-                            <a href="#"> <i class="fas fa-flag-alt"></i> Report </a>
+                        <div class="text-block">
+                            <h4 class="mb-4">Amenities</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul class="list-unstyled text-muted">
+                                        <li class="mb-2"> <i class="fa fa-wifi text-secondary w-1rem mr-3 text-center"></i><span class="text-sm">Wifi</span></li>
+                                        <li class="mb-2"> <i class="fa fa-tv text-secondary w-1rem mr-3 text-center"></i><span class="text-sm">Cable TV</span></li>
+                                        <li class="mb-2"> <i class="fa fa-snowflake text-secondary w-1rem mr-3 text-center"></i><span class="text-sm">Air conditioning</span></li>
+                                        <li class="mb-2"> <i class="fa fa-thermometer-three-quarters text-secondary w-1rem mr-3 text-center"></i><span class="text-sm">Heating</span></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="list-unstyled text-muted">
+                                        <li class="mb-2"> <i class="fa fa-bath text-secondary w-1rem mr-3 text-center"></i><span class="text-sm">Toiletteries</span></li>
+                                        <li class="mb-2"> <i class="fa fa-utensils text-secondary w-1rem mr-3 text-center"></i><span class="text-sm">Equipped Kitchen</span></li>
+                                        <li class="mb-2"> <i class="fa fa-laptop text-secondary w-1rem mr-3 text-center"></i><span class="text-sm">Desk for work</span></li>
+                                        <li class="mb-2"> <i class="fa fa-tshirt text-secondary w-1rem mr-3 text-center"></i><span class="text-sm">Washing machine</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-block">
+                            <h4 class="mb-0">Amenities alternative</h4>
+                            <p class="subtitle text-sm text-primary mb-4">Alternative amenities display</p>
+                            <ul class="list-inline">
+                                <li class="list-inline-item mb-2"><span class="badge badge-pill badge-light p-3 text-muted font-weight-normal">Wifi</span></li>
+                                <li class="list-inline-item mb-2"><span class="badge badge-pill badge-light p-3 text-muted font-weight-normal">Cable TV</span></li>
+                                <li class="list-inline-item mb-2"><span class="badge badge-pill badge-light p-3 text-muted font-weight-normal">Air conditioning</span></li>
+                                <li class="list-inline-item mb-2"><span class="badge badge-pill badge-light p-3 text-muted font-weight-normal">Heating</span></li>
+                                <li class="list-inline-item mb-2"><span class="badge badge-pill badge-light p-3 text-muted font-weight-normal">Toiletteries</span></li>
+                                <li class="list-inline-item mb-2"><span class="badge badge-pill badge-light p-3 text-muted font-weight-normal">Equipped Kitchen</span></li>
+                                <li class="list-inline-item mb-2"><span class="badge badge-pill badge-light p-3 text-muted font-weight-normal">Desk for work</span></li>
+                                <li class="list-inline-item mb-2"><span class="badge badge-pill badge-light p-3 text-muted font-weight-normal">Washing machine</span></li>
+                            </ul>
+                        </div>
+                        <div class="text-block">
+                            <div class="media"><img class="avatar avatar-lg mr-4" src="img/avatar/avatar-10.jpg" alt="Jack London">
+                                <div class="media-body">
+                                    <p> <span class="text-muted text-uppercase text-sm">Hosted by </span><br><strong>Jack London</strong></p>
+                                    <p class="text-muted text-sm mb-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
+                                    <p class="text-muted text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                    <p class="text-sm"><a href="user-profile.html">See Jack's 3 other listings <i class="fa fa-long-arrow-alt-right ml-2"></i></a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-block">
+                            <h5 class="mb-4">Listing location</h5>
+                            <div class="map-wrapper-300 mb-3">
+                                <div class="h-100" id="detailMap" data-listing="{{ listingNormalized|json_encode|e('html_attr') }}"></div>
+                            </div>
+                        </div>
+                        <div class="text-block">
+                            <h5 class="mb-4">Gallery</h5>
+                            <div class="row gallery mb-3 ml-n1 mr-n1">
+                                <div class="col-lg-4 col-6 px-1 mb-2"><a href="img/photo/photo-1426122402199-be02db90eb90.jpg" data-fancybox="gallery" title="Our street"><img class="img-fluid" src="img/photo/photo-1426122402199-be02db90eb90.jpg" alt="..."></a></div>
+                                <div class="col-lg-4 col-6 px-1 mb-2"><a href="img/photo/photo-1512917774080-9991f1c4c750.jpg" data-fancybox="gallery" title="Outside"><img class="img-fluid" src="img/photo/photo-1512917774080-9991f1c4c750.jpg" alt="..."></a></div>
+                                <div class="col-lg-4 col-6 px-1 mb-2"><a href="img/photo/photo-1494526585095-c41746248156.jpg" data-fancybox="gallery" title="Rear entrance"><img class="img-fluid" src="img/photo/photo-1494526585095-c41746248156.jpg" alt="..."></a></div>
+                                <div class="col-lg-4 col-6 px-1 mb-2"><a href="img/photo/photo-1484154218962-a197022b5858.jpg" data-fancybox="gallery" title="Kitchen"><img class="img-fluid" src="img/photo/photo-1484154218962-a197022b5858.jpg" alt="..."></a></div>
+                                <div class="col-lg-4 col-6 px-1 mb-2"><a href="img/photo/photo-1522771739844-6a9f6d5f14af.jpg" data-fancybox="gallery" title="Bedroom"><img class="img-fluid" src="img/photo/photo-1522771739844-6a9f6d5f14af.jpg" alt="..."></a></div>
+                                <div class="col-lg-4 col-6 px-1 mb-2"><a href="img/photo/photo-1488805990569-3c9e1d76d51c.jpg" data-fancybox="gallery" title="Bedroom"><img class="img-fluid" src="img/photo/photo-1488805990569-3c9e1d76d51c.jpg" alt="..."></a></div>
+                            </div>
+                        </div>
+                        <div class="text-block">
+                            <p class="subtitle text-sm text-primary">Reviews    </p>
+                            <h5 class="mb-4">Listing Reviews </h5>
+                            <div class="media d-block d-sm-flex review">
+                                <div class="text-md-center mr-4 mr-xl-5"><img class="d-block avatar avatar-xl p-2 mb-2" src="img/avatar/avatar-8.jpg" alt="Padmé Amidala"><span class="text-uppercase text-muted text-sm">Dec 2018</span></div>
+                                <div class="media-body">
+                                    <h6 class="mt-2 mb-1">Padmé Amidala</h6>
+                                    <div class="mb-2"><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i>
+                                    </div>
+                                    <p class="text-muted text-sm">One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections     </p>
+                                </div>
+                            </div>
+                            <div class="media d-block d-sm-flex review">
+                                <div class="text-md-center mr-4 mr-xl-5"><img class="d-block avatar avatar-xl p-2 mb-2" src="img/avatar/avatar-2.jpg" alt="Luke Skywalker"><span class="text-uppercase text-muted text-sm">Dec 2018</span></div>
+                                <div class="media-body">
+                                    <h6 class="mt-2 mb-1">Luke Skywalker</h6>
+                                    <div class="mb-2"><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-gray-200"></i>
+                                    </div>
+                                    <p class="text-muted text-sm">The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. &quot;What's happened to me?&quot; he thought. It wasn't a dream.     </p>
+                                </div>
+                            </div>
+                            <div class="media d-block d-sm-flex review">
+                                <div class="text-md-center mr-4 mr-xl-5"><img class="d-block avatar avatar-xl p-2 mb-2" src="img/avatar/avatar-3.jpg" alt="Princess Leia"><span class="text-uppercase text-muted text-sm">Dec 2018</span></div>
+                                <div class="media-body">
+                                    <h6 class="mt-2 mb-1">Princess Leia</h6>
+                                    <div class="mb-2"><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-gray-200"></i><i class="fa fa-xs fa-star text-gray-200"></i>
+                                    </div>
+                                    <p class="text-muted text-sm">His room, a proper human room although a little too small, lay peacefully between its four familiar walls. A collection of textile samples lay spread out on the table.     </p>
+                                </div>
+                            </div>
+                            <div class="media d-block d-sm-flex review">
+                                <div class="text-md-center mr-4 mr-xl-5"><img class="d-block avatar avatar-xl p-2 mb-2" src="img/avatar/avatar-4.jpg" alt="Jabba Hut"><span class="text-uppercase text-muted text-sm">Dec 2018</span></div>
+                                <div class="media-body">
+                                    <h6 class="mt-2 mb-1">Jabba Hut</h6>
+                                    <div class="mb-2"><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i>
+                                    </div>
+                                    <p class="text-muted text-sm">Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame.     </p>
+                                </div>
+                            </div>
+                            <div class="py-5">
+                                <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#leaveReview" aria-expanded="false" aria-controls="leaveReview">Leave a review</button>
+                                <div class="collapse mt-4" id="leaveReview">
+                                    <h5 class="mb-4">Leave a review</h5>
+                                    <form class="form" id="contact-form" method="get" action="#">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="name">Your name *</label>
+                                                    <input class="form-control" type="text" name="name" id="name" placeholder="Enter your name" required="required">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="rating">Your rating *</label>
+                                                    <select class="custom-select focus-shadow-0" name="rating" id="rating">
+                                                        <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733; (5/5)</option>
+                                                        <option value="4">&#9733;&#9733;&#9733;&#9733;&#9734; (4/5)</option>
+                                                        <option value="3">&#9733;&#9733;&#9733;&#9734;&#9734; (3/5)</option>
+                                                        <option value="2">&#9733;&#9733;&#9734;&#9734;&#9734; (2/5)</option>
+                                                        <option value="1">&#9733;&#9734;&#9734;&#9734;&#9734; (1/5)</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="email">Your email *</label>
+                                            <input class="form-control" type="email" name="email" id="email" placeholder="Enter your  email" required="required">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="review">Review text *</label>
+                                            <textarea class="form-control" rows="4" name="review" id="review" placeholder="Enter your review" required="required"></textarea>
+                                        </div>
+                                        <button class="btn btn-primary" type="submit">Post review</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="p-4 shadow ml-lg-4 rounded sticky-top" style="top: 100px;">
+                            <p class="text-muted"><span class="text-primary h2">$120</span> per night</p>
+                            <hr class="my-4">
+                            {{ render(controller('App\\Controller\\BookingController::bookingFormAction', {
+                                listing: listing
+                            })) }}
+                            <p class="text-muted text-sm text-center">Some additional text can be also placed here.</p>
+                            <hr class="my-4">
+                            <div class="text-center">
+                                <p> <a class="text-secondary text-sm" href="#"> <i class="fa fa-heart"></i> Bookmark This Listing</a></p>
+                                <p class="text-muted text-sm">79 people bookmarked this place </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- scroll-nav-wrapper end-->
-            <section class="gray-bg no-top-padding">
+            <div class="py-6 bg-gray-100">
                 <div class="container">
-                    <div class="breadcrumbs inline-breadcrumbs fl-wrap">
-                        <a href="/">{{ 'listing.breadcrumb.home'|trans }}</a>
-                        <a href="#">{{ listing.address.streetAddress }}</a>
-                        <span>{{ listing.title }}</span>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="row">
-                        <!-- list-single-main-wrapper-col -->
-                        <div class="col-md-8">
-                            <!-- list-single-main-wrapper -->
-                            <div class="list-single-main-wrapper fl-wrap" id="sec2">
-                                <div class="list-single-main-media fl-wrap">
-                                    <img src="images/all/1.jpg" class="respimg" alt="">
-                                    <a href="https://vimeo.com/70851162" class="promo-link   image-popup"><i class="fal fa-video"></i><span>Promo Video</span></a>
-                                </div>
-                                <!-- list-single-main-item -->
-                                <div class="list-single-main-item fl-wrap block_box">
-                                    <div class="list-single-main-item-title">
-                                        <h3>Description</h3>
-                                    </div>
-                                    <div class="list-single-main-item_content fl-wrap">
-                                        <p>{{ listing.description }}</p>
-                                        <a href="#" class="btn color2-bg    float-btn">Visit Website<i class="fal fa-chevron-right"></i></a>
-                                    </div>
-                                </div>
-                                <!-- list-single-main-item end -->
-                                <!-- list-single-main-item -->
-                                <div class="list-single-main-item fl-wrap block_box">
-                                    <div class="list-single-main-item-title">
-                                        <h3>Listing Features</h3>
-                                    </div>
-                                    <div class="list-single-main-item_content fl-wrap">
-                                        <div class="listing-features fl-wrap">
-                                            <ul class="no-list-style">
-                                                <li><a href="#"><i class="fa fa-rocket"></i> Elevator in building</a></li>
-                                                <li><a href="#"><i class="fa fa-wifi"></i> Free Wi Fi</a></li>
-                                                <li><a href="#"><i class="fa fa-motorcycle"></i> Free Parking</a></li>
-                                                <li><a href="#"><i class="fa fa-cloud"></i> Air Conditioned</a></li>
-                                                <li><a href="#"><i class="fa fa-shopping-cart"></i> Online Ordering</a></li>
-                                                <li><a href="#"><i class="fa fa-paw"></i> Pet Friendly</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- list-single-main-item end -->
-                                <!-- list-single-main-item-->
-                                <div class="list-single-main-item fl-wrap block_box" id="sec3">
-                                    <div class="list-single-main-item-title">
-                                        <h3>Gallery / Photos</h3>
-                                    </div>
-                                    <div class="list-single-main-item_content fl-wrap">
-                                        <div class="single-carousel-wrap fl-wrap lightgallery">
-                                            <div class="sc-next sc-btn color2-bg"><i class="fas fa-caret-right"></i></div>
-                                            <div class="sc-prev sc-btn color2-bg"><i class="fas fa-caret-left"></i></div>
-                                            <div class="single-carousel fl-wrap full-height">
-                                                <div class="swiper-container">
-                                                    <div class="swiper-wrapper">
-                                                        <!-- swiper-slide-->
-                                                        <div class="swiper-slide">
-                                                            <div class="box-item">
-                                                                <img  src="images/all/1.jpg"   alt="">
-                                                                <a href="images/all/1.jpg" class="gal-link popup-image"><i class="fa fa-search"  ></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!-- swiper-slide end-->
-                                                        <!-- swiper-slide-->
-                                                        <div class="swiper-slide">
-                                                            <div class="box-item">
-                                                                <img  src="images/all/1.jpg"   alt="">
-                                                                <a href="images/all/1.jpg" class="gal-link popup-image"><i class="fa fa-search"  ></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!-- swiper-slide end-->
-                                                        <!-- swiper-slide-->
-                                                        <div class="swiper-slide">
-                                                            <div class="box-item">
-                                                                <img  src="images/all/1.jpg"   alt="">
-                                                                <a href="images/all/1.jpg" class="gal-link popup-image"><i class="fa fa-search"  ></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!-- swiper-slide end-->
-                                                        <!-- swiper-slide-->
-                                                        <div class="swiper-slide">
-                                                            <div class="box-item">
-                                                                <img  src="images/all/1.jpg"   alt="">
-                                                                <a href="images/all/1.jpg" class="gal-link popup-image"><i class="fa fa-search"  ></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!-- swiper-slide end-->
-                                                    </div>
+                    <h5 class="mb-0">Similar places</h5>
+                    <p class="subtitle text-sm text-primary mb-4">You may also like         </p>
+                    <!-- Slider main container-->
+                    <div class="swiper-container swiper-container-mx-negative swiper-init pt-3" data-swiper="{&quot;slidesPerView&quot;:4,&quot;spaceBetween&quot;:20,&quot;loop&quot;:true,&quot;roundLengths&quot;:true,&quot;breakpoints&quot;:{&quot;1200&quot;:{&quot;slidesPerView&quot;:3},&quot;991&quot;:{&quot;slidesPerView&quot;:2},&quot;565&quot;:{&quot;slidesPerView&quot;:1}},&quot;pagination&quot;:{&quot;el&quot;:&quot;.swiper-pagination&quot;,&quot;clickable&quot;:true,&quot;dynamicBullets&quot;:true}}">
+                        <!-- Additional required wrapper-->
+                        <div class="swiper-wrapper pb-5">
+                            <!-- Slides-->
+                            <div class="swiper-slide h-auto px-2">
+                                <!-- place item-->
+                                <div class="w-100 h-100 hover-animate" data-marker-id="59c0c8e33b1527bfe2abaf92">
+                                    <div class="card h-100 border-0 shadow">
+                                        <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid" src="img/photo/photo-1484154218962-a197022b5858.jpg" alt="Modern, Well-Appointed Room"/><a class="tile-link" href="detail-rooms.html"></a>
+                                            <div class="card-img-overlay-bottom z-index-20">
+                                                <div class="media text-white text-sm align-items-center"><img class="avatar avatar-border-white mr-2" src="img/avatar/avatar-0.jpg" alt="Pamela"/>
+                                                    <div class="media-body">Pamela</div>
                                                 </div>
+                                            </div>
+                                            <div class="card-img-overlay-top text-right"><a class="card-fav-icon position-relative z-index-40" href="javascript: void();">
+                                                    <svg class="svg-icon text-white">
+                                                        <use xlink:href="#heart-1"> </use>
+                                                    </svg></a></div>
+                                        </div>
+                                        <div class="card-body d-flex align-items-center">
+                                            <div class="w-100">
+                                                <h6 class="card-title"><a class="text-decoration-none text-dark" href="detail-rooms.html">Modern, Well-Appointed Room</a></h6>
+                                                <div class="d-flex card-subtitle mb-3">
+                                                    <p class="flex-grow-1 mb-0 text-muted text-sm">Private room</p>
+                                                    <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i>
+                                                    </p>
+                                                </div>
+                                                <p class="card-text text-muted"><span class="h4 text-primary">$80</span> per night</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- list-single-main-item end -->
-                                <!-- list-single-facts -->
-                                <div class="list-single-facts fl-wrap">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <!-- inline-facts -->
-                                            <div class="inline-facts-wrap gradient-bg ">
-                                                <div class="inline-facts">
-                                                    <i class="fal fa-smile-plus"></i>
-                                                    <div class="milestone-counter">
-                                                        <div class="stats animaper">
-                                                            <div class="num" data-content="0" data-num="245">0</div>
-                                                        </div>
-                                                    </div>
-                                                    <h6>New Visiters Every Week</h6>
-                                                </div>
-                                                <div class="stat-wave">
-                                                    <svg viewbox="0 0 100 25">
-                                                        <path fill="#fff" d="M0 30 V12 Q30 17 55 2 T100 11 V30z" />
-                                                    </svg>
+                            </div>
+                            <div class="swiper-slide h-auto px-2">
+                                <!-- place item-->
+                                <div class="w-100 h-100 hover-animate" data-marker-id="59c0c8e322f3375db4d89128">
+                                    <div class="card h-100 border-0 shadow">
+                                        <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid" src="img/photo/photo-1426122402199-be02db90eb90.jpg" alt="Cute Quirky Garden apt, NYC adjacent"/><a class="tile-link" href="detail-rooms.html"></a>
+                                            <div class="card-img-overlay-bottom z-index-20">
+                                                <div class="media text-white text-sm align-items-center"><img class="avatar avatar-border-white mr-2" src="img/avatar/avatar-7.jpg" alt="John"/>
+                                                    <div class="media-body">John</div>
                                                 </div>
                                             </div>
-                                            <!-- inline-facts end -->
+                                            <div class="card-img-overlay-top text-right"><a class="card-fav-icon position-relative z-index-40" href="javascript: void();">
+                                                    <svg class="svg-icon text-white">
+                                                        <use xlink:href="#heart-1"> </use>
+                                                    </svg></a></div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <!-- inline-facts  -->
-                                            <div class="inline-facts-wrap gradient-bg ">
-                                                <div class="inline-facts">
-                                                    <i class="fal fa-users"></i>
-                                                    <div class="milestone-counter">
-                                                        <div class="stats animaper">
-                                                            <div class="num" data-content="0" data-num="2557">0</div>
-                                                        </div>
-                                                    </div>
-                                                    <h6>Happy customers every year</h6>
+                                        <div class="card-body d-flex align-items-center">
+                                            <div class="w-100">
+                                                <h6 class="card-title"><a class="text-decoration-none text-dark" href="detail-rooms.html">Cute Quirky Garden apt, NYC adjacent</a></h6>
+                                                <div class="d-flex card-subtitle mb-3">
+                                                    <p class="flex-grow-1 mb-0 text-muted text-sm">Entire apartment</p>
+                                                    <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-gray-300">                                  </i>
+                                                    </p>
                                                 </div>
-                                                <div class="stat-wave">
-                                                    <svg viewbox="0 0 100 25">
-                                                        <path fill="#fff" d="M0 30 V12 Q30 17 55 12 T100 11 V30z" />
-                                                    </svg>
-                                                </div>
+                                                <p class="card-text text-muted"><span class="h4 text-primary">$121</span> per night</p>
                                             </div>
-                                            <!-- inline-facts end -->
-                                        </div>
-                                        <div class="col-md-4">
-                                            <!-- inline-facts  -->
-                                            <div class="inline-facts-wrap gradient-bg ">
-                                                <div class="inline-facts">
-                                                    <i class="fal fa-award"></i>
-                                                    <div class="milestone-counter">
-                                                        <div class="stats animaper">
-                                                            <div class="num" data-content="0" data-num="25">0</div>
-                                                        </div>
-                                                    </div>
-                                                    <h6>Won Awards</h6>
-                                                </div>
-                                                <div class="stat-wave">
-                                                    <svg viewbox="0 0 100 25">
-                                                        <path fill="#fff" d="M0 30 V12 Q30 12 55 5 T100 11 V30z" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <!-- inline-facts end -->
                                         </div>
                                     </div>
                                 </div>
-                                <!-- list-single-facts end -->
-
-                                {% include 'listing/_services.html.twig' %}
-
-                                {% include 'listing/_reviews.html.twig' %}
+                            </div>
+                            <div class="swiper-slide h-auto px-2">
+                                <!-- place item-->
+                                <div class="w-100 h-100 hover-animate" data-marker-id="59c0c8e3a31e62979bf147c9">
+                                    <div class="card h-100 border-0 shadow">
+                                        <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid" src="img/photo/photo-1512917774080-9991f1c4c750.jpg" alt="Modern Apt - Vibrant Neighborhood!"/><a class="tile-link" href="detail-rooms.html"></a>
+                                            <div class="card-img-overlay-bottom z-index-20">
+                                                <div class="media text-white text-sm align-items-center"><img class="avatar avatar-border-white mr-2" src="img/avatar/avatar-8.jpg" alt="Julie"/>
+                                                    <div class="media-body">Julie</div>
+                                                </div>
+                                            </div>
+                                            <div class="card-img-overlay-top text-right"><a class="card-fav-icon position-relative z-index-40" href="javascript: void();">
+                                                    <svg class="svg-icon text-white">
+                                                        <use xlink:href="#heart-1"> </use>
+                                                    </svg></a></div>
+                                        </div>
+                                        <div class="card-body d-flex align-items-center">
+                                            <div class="w-100">
+                                                <h6 class="card-title"><a class="text-decoration-none text-dark" href="detail-rooms.html">Modern Apt - Vibrant Neighborhood!</a></h6>
+                                                <div class="d-flex card-subtitle mb-3">
+                                                    <p class="flex-grow-1 mb-0 text-muted text-sm">Entire apartment</p>
+                                                    <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-gray-300">                                  </i><i class="fa fa-star text-gray-300">                                  </i>
+                                                    </p>
+                                                </div>
+                                                <p class="card-text text-muted"><span class="h4 text-primary">$75</span> per night</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide h-auto px-2">
+                                <!-- place item-->
+                                <div class="w-100 h-100 hover-animate" data-marker-id="59c0c8e3503eb77d487e8082">
+                                    <div class="card h-100 border-0 shadow">
+                                        <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid" src="img/photo/photo-1494526585095-c41746248156.jpg" alt="Sunny Private Studio-Apartment"/><a class="tile-link" href="detail-rooms.html"></a>
+                                            <div class="card-img-overlay-bottom z-index-20">
+                                                <div class="media text-white text-sm align-items-center"><img class="avatar avatar-border-white mr-2" src="img/avatar/avatar-9.jpg" alt="Barbora"/>
+                                                    <div class="media-body">Barbora</div>
+                                                </div>
+                                            </div>
+                                            <div class="card-img-overlay-top text-right"><a class="card-fav-icon position-relative z-index-40" href="javascript: void();">
+                                                    <svg class="svg-icon text-white">
+                                                        <use xlink:href="#heart-1"> </use>
+                                                    </svg></a></div>
+                                        </div>
+                                        <div class="card-body d-flex align-items-center">
+                                            <div class="w-100">
+                                                <h6 class="card-title"><a class="text-decoration-none text-dark" href="detail-rooms.html">Sunny Private Studio-Apartment</a></h6>
+                                                <div class="d-flex card-subtitle mb-3">
+                                                    <p class="flex-grow-1 mb-0 text-muted text-sm">Shared room</p>
+                                                    <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-gray-300">                                  </i>
+                                                    </p>
+                                                </div>
+                                                <p class="card-text text-muted"><span class="h4 text-primary">$93</span> per night</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide h-auto px-2">
+                                <!-- place item-->
+                                <div class="w-100 h-100 hover-animate" data-marker-id="59c0c8e39aa2eed0626e485d">
+                                    <div class="card h-100 border-0 shadow">
+                                        <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid" src="img/photo/photo-1522771739844-6a9f6d5f14af.jpg" alt="Mid-Century Modern Garden Paradise"/><a class="tile-link" href="detail-rooms.html"></a>
+                                            <div class="card-img-overlay-bottom z-index-20">
+                                                <div class="media text-white text-sm align-items-center"><img class="avatar avatar-border-white mr-2" src="img/avatar/avatar-10.jpg" alt="Jack"/>
+                                                    <div class="media-body">Jack</div>
+                                                </div>
+                                            </div>
+                                            <div class="card-img-overlay-top text-right"><a class="card-fav-icon position-relative z-index-40" href="javascript: void();">
+                                                    <svg class="svg-icon text-white">
+                                                        <use xlink:href="#heart-1"> </use>
+                                                    </svg></a></div>
+                                        </div>
+                                        <div class="card-body d-flex align-items-center">
+                                            <div class="w-100">
+                                                <h6 class="card-title"><a class="text-decoration-none text-dark" href="detail-rooms.html">Mid-Century Modern Garden Paradise</a></h6>
+                                                <div class="d-flex card-subtitle mb-3">
+                                                    <p class="flex-grow-1 mb-0 text-muted text-sm">Entire house</p>
+                                                    <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i>
+                                                    </p>
+                                                </div>
+                                                <p class="card-text text-muted"><span class="h4 text-primary">$115</span> per night</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide h-auto px-2">
+                                <!-- place item-->
+                                <div class="w-100 h-100 hover-animate" data-marker-id="59c0c8e39aa2edasd626e485d">
+                                    <div class="card h-100 border-0 shadow">
+                                        <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid" src="img/photo/photo-1488805990569-3c9e1d76d51c.jpg" alt="Brooklyn Life, Easy to Manhattan"/><a class="tile-link" href="detail-rooms.html"></a>
+                                            <div class="card-img-overlay-bottom z-index-20">
+                                                <div class="media text-white text-sm align-items-center"><img class="avatar avatar-border-white mr-2" src="img/avatar/avatar-11.jpg" alt="Stuart"/>
+                                                    <div class="media-body">Stuart</div>
+                                                </div>
+                                            </div>
+                                            <div class="card-img-overlay-top text-right"><a class="card-fav-icon position-relative z-index-40" href="javascript: void();">
+                                                    <svg class="svg-icon text-white">
+                                                        <use xlink:href="#heart-1"> </use>
+                                                    </svg></a></div>
+                                        </div>
+                                        <div class="card-body d-flex align-items-center">
+                                            <div class="w-100">
+                                                <h6 class="card-title"><a class="text-decoration-none text-dark" href="detail-rooms.html">Brooklyn Life, Easy to Manhattan</a></h6>
+                                                <div class="d-flex card-subtitle mb-3">
+                                                    <p class="flex-grow-1 mb-0 text-muted text-sm">Private room</p>
+                                                    <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-gray-300">                                  </i>
+                                                    </p>
+                                                </div>
+                                                <p class="card-text text-muted"><span class="h4 text-primary">$123</span> per night</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <!-- list-single-main-wrapper-col end -->
-                        <!-- list-single-sidebar -->
-                        <div class="col-md-4">
-                            <!--box-widget-item -->
-                            <div class="box-widget-item fl-wrap block_box">
-                                <div class="box-widget-item-header">
-                                    <h3>Working Hours</h3>
-                                </div>
-                                <div class="box-widget opening-hours fl-wrap">
-                                    <div class="box-widget-content">
-                                        <ul class="no-list-style">
-                                            <li class="mon"><span class="opening-hours-day">Monday </span><span class="opening-hours-time">9 AM - 5 PM</span></li>
-                                            <li class="tue"><span class="opening-hours-day">Tuesday </span><span class="opening-hours-time">9 AM - 5 PM</span></li>
-                                            <li class="wed"><span class="opening-hours-day">Wednesday </span><span class="opening-hours-time">9 AM - 5 PM</span></li>
-                                            <li class="thu"><span class="opening-hours-day">Thursday </span><span class="opening-hours-time">9 AM - 5 PM</span></li>
-                                            <li class="fri"><span class="opening-hours-day">Friday </span><span class="opening-hours-time">9 AM - 5 PM</span></li>
-                                            <li class="sat"><span class="opening-hours-day">Saturday </span><span class="opening-hours-time">9 AM - 3 PM</span></li>
-                                            <li class="sun"><span class="opening-hours-day">Sunday </span><span class="opening-hours-time">Closed</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--box-widget-item end -->
-                            <!--box-widget-item -->
-                            <div class="box-widget-item fl-wrap block_box">
-                                <div class="box-widget-item-header">
-                                    <h3>Book a Table</h3>
-                                </div>
-                                <div class="box-widget">
-                                    <div class="box-widget-content">
-
-
-                                        {{ render(controller('App\\Controller\\BookingController::bookingFormAction', {
-                                            listing: listing
-                                        })) }}
-
-
-                                    </div>
-                                </div>
-                            </div>
-                            <!--box-widget-item end -->
-                            <!--box-widget-item -->
-                            <div class="box-widget-item fl-wrap block_box">
-                                <div class="box-widget-item-header">
-                                    <h3>Location / Contacts  </h3>
-                                </div>
-                                <div class="box-widget">
-                                    <div class="map-container">
-                                        <div id="singleMap" data-latitude="40.7427837" data-longitude="-73.11445617675781" data-mapTitle="Our Location"></div>
-                                    </div>
-                                    <div class="box-widget-content bwc-nopad">
-                                        <div class="list-author-widget-contacts list-item-widget-contacts bwc-padside">
-                                            <ul class="no-list-style">
-                                                <li><span><i class="fal fa-map-marker"></i> Adress :</span> <a href="#">USA 27TH Brooklyn NY</a></li>
-                                                <li><span><i class="fal fa-phone"></i> Phone :</span> <a href="#">+7(123)987654</a></li>
-                                                <li><span><i class="fal fa-envelope"></i> Mail :</span> <a href="#">AlisaNoory@domain.com</a></li>
-                                                <li><span><i class="fal fa-browser"></i> Website :</span> <a href="#">themeforest.net</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="list-widget-social bottom-bcw-box  fl-wrap">
-                                            <ul class="no-list-style">
-                                                <li><a href="#" target="_blank" ><i class="fab fa-facebook-f"></i></a></li>
-                                                <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                                                <li><a href="#" target="_blank" ><i class="fab fa-vk"></i></a></li>
-                                                <li><a href="#" target="_blank" ><i class="fab fa-instagram"></i></a></li>
-                                            </ul>
-                                            <div class="bottom-bcw-box_link"><a href="#" class="show-single-contactform tolt" data-microtip-position="top" data-tooltip="Write Message"><i class="fal fa-envelope"></i></a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--box-widget-item end -->
-                            <!--box-widget-item -->
-                            <div class="box-widget-item fl-wrap block_box">
-                                <div class="box-widget-item-header">
-                                    <h3> Price Range </h3>
-                                </div>
-                                <div class="box-widget">
-                                    <div class="box-widget-content">
-                                        <div class="claim-price-wdget fl-wrap">
-                                            <div class="claim-price-wdget-content fl-wrap">
-                                                <div class="pricerange fl-wrap"><span>Price : </span> 81$ - 320$ </div>
-                                                <div class="claim-widget-link fl-wrap"><span>Own or work here?</span><a href="#">Claim Now!</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--box-widget-item end -->
-                            <!--box-widget-item -->
-                            <div class="box-widget-item fl-wrap block_box">
-                                <div class="box-widget-item-header">
-                                    <h3>Hosted by : </h3>
-                                </div>
-                                <div class="box-widget">
-                                    <div class="box-widget-author fl-wrap">
-                                        <div class="box-widget-author-title">
-                                            <div class="box-widget-author-title-img">
-                                                <img src="images/avatar/1.jpg" alt="">
-                                            </div>
-                                            <div class="box-widget-author-title_content">
-                                                <a href="user-single.html">Alisa Noory</a>
-                                                <span>4 Places Hosted</span>
-                                            </div>
-                                            <div class="box-widget-author-title_opt">
-                                                <a href="user-single.html" class="tolt green-bg" data-microtip-position="top" data-tooltip="View Profile"><i class="fas fa-user"></i></a>
-                                                <a href="#" class="tolt color-bg cwb" data-microtip-position="top" data-tooltip="Chat With Owner"><i class="fas fa-comments-alt"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--box-widget-item end -->
-                            <!--box-widget-item -->
-                            <div class="box-widget-item fl-wrap block_box">
-                                <div class="box-widget-item-header">
-                                    <h3>Similar listings :</h3>
-                                </div>
-                                <div class="box-widget  fl-wrap">
-                                    <div class="box-widget-content">
-                                        <!--widget-posts-->
-                                        <div class="widget-posts  fl-wrap">
-                                            <ul class="no-list-style">
-                                                <li>
-                                                    <div class="widget-posts-img"><a href="listing-single.html"><img src="images/gallery/thumbnail/1.png" alt=""></a>
-                                                    </div>
-                                                    <div class="widget-posts-descr">
-                                                        <h4><a href="listing-single.html">Iconic Cafe</a></h4>
-                                                        <div class="geodir-category-location fl-wrap"><a href="#"><i class="fas fa-map-marker-alt"></i> 40 Journal Square Plaza, NJ, USA</a></div>
-                                                        <div class="widget-posts-descr-link"><a href="listing.html" >Restaurants </a>   <a href="listing.html">Cafe</a></div>
-                                                        <div class="widget-posts-descr-score">4.1</div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="widget-posts-img"><a href="listing-single.html"><img src="images/gallery/thumbnail/1.png" alt=""></a>
-                                                    </div>
-                                                    <div class="widget-posts-descr">
-                                                        <h4><a href="listing-single.html">MontePlaza Hotel</a></h4>
-                                                        <div class="geodir-category-location fl-wrap"><a href="#"><i class="fas fa-map-marker-alt"></i> 70 Bright St New York, USA </a></div>
-                                                        <div class="widget-posts-descr-link"><a href="listing.html" >Hotels </a>  </div>
-                                                        <div class="widget-posts-descr-score">5.0</div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="widget-posts-img"><a href="listing-single.html"><img src="images/gallery/thumbnail/1.png" alt=""></a>
-                                                    </div>
-                                                    <div class="widget-posts-descr">
-                                                        <h4><a href="listing-single.html">Rocko Band in Marquee Club</a></h4>
-                                                        <div class="geodir-category-location fl-wrap"><a href="#"><i class="fas fa-map-marker-alt"></i>75 Prince St, NY, USA</a></div>
-                                                        <div class="widget-posts-descr-link"><a href="listing.html" >Events</a> </div>
-                                                        <div class="widget-posts-descr-score">4.2</div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="widget-posts-img"><a href="listing-single.html"><img src="images/gallery/thumbnail/1.png" alt=""></a>
-                                                    </div>
-                                                    <div class="widget-posts-descr">
-                                                        <h4><a href="listing-single.html">Premium Fitness Gym</a></h4>
-                                                        <div class="geodir-category-location fl-wrap"><a href="#"><i class="fas fa-map-marker-alt"></i> W 85th St, New York, USA</a></div>
-                                                        <div class="widget-posts-descr-link"><a href="listing.html" >Fitness</a> <a href="listing.html" >Gym</a> </div>
-                                                        <div class="widget-posts-descr-score">5.0</div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <!-- widget-posts end-->
-                                    </div>
-                                </div>
-                            </div>
-                            <!--box-widget-item end -->
-                            <!--box-widget-item -->
-                            <div class="box-widget-item fl-wrap block_box">
-                                <div class="box-widget-item-header">
-                                    <h3>Tags</h3>
-                                </div>
-                                <div class="box-widget opening-hours fl-wrap">
-                                    <div class="box-widget-content">
-                                        <div class="list-single-tags tags-stylwrap">
-                                            <a href="#">Hotel</a>
-                                            <a href="#">Hostel</a>
-                                            <a href="#">Room</a>
-                                            <a href="#">Spa</a>
-                                            <a href="#">Restourant</a>
-                                            <a href="#">Parking</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--box-widget-item end -->
-                        </div>
-                        <!-- list-single-sidebar end -->
+                        <!-- If we need pagination-->
+                        <div class="swiper-pagination"></div>
                     </div>
                 </div>
-            </section>
-            <div class="limit-box fl-wrap"></div>
+            </div>
         {% endblock %}
 
     {% endembed %}
 {% endblock %}
 
 {% block styles %}
-    {{ encore_entry_link_tags('listing') }}
+    {{ encore_entry_link_tags('frontend-map-detail') }}
 {% endblock %}
 
 {% block scripts %}
-    {{ encore_entry_script_tags('listing') }}
+    {{ encore_entry_script_tags('frontend-map-detail') }}
 {% endblock %}

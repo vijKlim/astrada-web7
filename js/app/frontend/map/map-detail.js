@@ -1,4 +1,7 @@
+import L from 'leaflet'
+import { tileLayers } from "./map-layers";
 
+import './map-category.scss'
 
 function createDetailMap(options) {
     var defaults = {
@@ -68,3 +71,22 @@ function createDetailMap(options) {
         }).addTo(detailMap);
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const listingEl = document.querySelector('#detailMap')
+    let listing = JSON.parse(listingEl.dataset.listing)
+
+    if (listing.address) {
+
+        createDetailMap({
+            mapId: 'detailMap',
+            mapZoom: 14,
+            mapCenter: [listing.address.geo.latitude, listing.address.geo.longitude],
+            circleShow: true,
+            circlePosition: [listing.address.geo.latitude, listing.address.geo.longitude],
+            tileLayer: tileLayers[5]
+        })
+    }
+
+
+});

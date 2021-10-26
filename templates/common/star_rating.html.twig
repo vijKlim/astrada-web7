@@ -1,17 +1,10 @@
-<ul class="list-inline rating">
+<p class="mb-2 text-xs">
     {% for i in 1..5 %}
         {% if i <= rating %}
-            <li>
-                <span class="icon-star">
-                    <span class="hide">{{ i }}</span>
-                </span>
-            </li>
+            <i class="fa fa-star text-warning"></i>
         {% else %}
-            <li class="inactive">
-                <span class="icon-star">
-                    <span class="hide">{{ i }}</span>
-                </span>
-            </li>
+            <i class="fa fa-star text-gray-300">                    </i>
         {% endif %}
     {% endfor %}
-</ul>
+
+</p>
