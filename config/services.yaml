@@ -311,12 +311,32 @@ services:
     tags:
       - { name: form.type }
 
+  App\Form\BookingNewType:
+    arguments:
+      - "@astrada.booking.manager"
+      - "@event_dispatcher"
+      - parameters:
+          astrada_booking_allow_single_day: "%astrada.booking.allow_single_day%"
+          astrada_booking_end_day_included: "%astrada.booking.end_day_included%"
+          astrada_booking_min_start_time_delay: "%astrada.booking.min_start_time_delay%"
+          astrada_booking_acceptation_delay: "%astrada.booking.acceptation_delay%"
+    tags:
+      - { name: form.type }
+
   App\Form\Type\DateRangeType:
     arguments:
       - "%astrada.time_unit%"
       - "%astrada.days_max%"
     tags:
       - { name: form.type, alias: date_range }
+
+
+  # HANDLERS
+  App\Form\Handler\BookingFormHandler:
+    arguments:
+      - "@request_stack"
+      - "@astrada.booking.manager"
+      - "@event_dispatcher"
 
   App\Spreadsheet\ProductSpreadsheetParser: ~
   #ACTIONS
@@ -402,6 +422,13 @@ services:
   astrada.user_provider:
     class: App\Security\NucleosUserBundleUserProvider
     arguments: ['@nucleos_user.user_manager', { facebook: facebookId }]
+
+  app.context.customer:
+    class: App\Context\CustomerContext
+    arguments:
+      - "@security.token_storage"
+      - "@security.authorization_checker"
+    public: true
 
   # Doctrine Extension listeners to handle behaviors
   gedmo.listener.tree:

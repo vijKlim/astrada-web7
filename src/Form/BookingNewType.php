@@ -30,7 +30,7 @@ class BookingNewType extends AbstractType
     private $endDayIncluded;
     private $minStartTimeDelay;
     private $acceptationDelay;
-    private $addressDelivery;
+
 
     /**
      * @param BookingManager           $bookingManager
@@ -46,11 +46,10 @@ class BookingNewType extends AbstractType
         $this->dispatcher = $dispatcher;
 
         $parameters = $parameters["parameters"];
-        $this->allowSingleDay = $parameters['cocorico_booking_allow_single_day'];
-        $this->endDayIncluded = $parameters['cocorico_booking_end_day_included'];
-        $this->minStartTimeDelay = $parameters['cocorico_booking_min_start_time_delay'];
-        $this->acceptationDelay = $parameters['cocorico_booking_acceptation_delay'];
-        $this->addressDelivery = $parameters['cocorico_user_address_delivery'];
+        $this->allowSingleDay = $parameters['astrada_booking_allow_single_day'];
+        $this->endDayIncluded = $parameters['astrada_booking_end_day_included'];
+        $this->minStartTimeDelay = $parameters['astrada_booking_min_start_time_delay'];
+        $this->acceptationDelay = $parameters['astrada_booking_acceptation_delay'];
     }
 
     /**

@@ -7,8 +7,10 @@ namespace App\Controller;
 use App\Entity\Booking;
 use App\Entity\Listing;
 use App\Entity\Model\ListingSearchRequest;
+use App\Factory\TopicFactory;
 use App\Form\BookingNewType;
 use App\Form\BookingType;
+use App\Form\Handler\BookingFormHandler;
 use App\Service\BookingManager;
 
 use Sylius\Component\Resource\Factory\FactoryInterface;
@@ -150,7 +152,8 @@ class BookingController extends AbstractController
         $start,
         $end,
         Request $request,
-        FactoryInterface $topicFactory
+        TopicFactory $topicFactory,
+        BookingFormHandler $bookingHandler
     ) {
         $listing = $this->getDoctrine()
             ->getRepository(Listing::class)->find($listing_id);
@@ -158,8 +161,8 @@ class BookingController extends AbstractController
         if (!$listing) {
             throw new NotFoundHttpException();
         }
-        $bookingHandler = $this->get('cocorico.form.handler.booking');
-        $booking = $bookingHandler->init($this->getUser(), $listing, $start, $end);
+
+        $booking = $bookingHandler->init($this->getUser(), $listing, new \DateTime($start), new \DateTime($end));
         //Availability is validated through BookingValidator and amounts are setted through Form Event PRE_SET_DATA
         $form = $this->createCreateForm($booking);
 
