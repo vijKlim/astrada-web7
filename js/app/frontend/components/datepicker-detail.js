@@ -1,4 +1,7 @@
+import moment from 'moment'
+
 require('jquery-date-range-picker');
+
 
 $(function () {
     var dateRangeConfig = {
@@ -7,6 +10,8 @@ $(function () {
         selectForward: true,
         applyBtnClass: 'btn btn-primary',
         container: '.datepicker-container',
+        singleMonth: true,
+        singleDate: true,
         inline: true,
         showDateFilter: function (time, date) {
             return '<div style="padding:0 5px;">\
@@ -27,7 +32,7 @@ $(function () {
             $(this).fadeOut(300, cb);
         }
     }
-    $('#bookingDate').dateRangePicker(dateRangeConfig)
+    $('#date_range_start').dateRangePicker(dateRangeConfig)
         .bind('datepicker-opened', function () {
             /* This event will be triggered after date range picker open animation */
             //$('.date-picker-wrapper').css('top', 0);

@@ -7,11 +7,7 @@
    {{ form_widget(form.date_range) }}
 
     <div class="form-group">
-        {% if form.vars.submitted and form.vars.valid %}
-            <button class="btn btn-primary btn-block" type="submit">{{ 'listing.show.book.now.submit'|trans }}</button>
-        {% else %}
-            <button disabled class="btn btn-primary btn-block" type="submit">{{ 'listing.show.book.now.submit'|trans }}</button>
-        {% endif %}
+        <button class="btn btn-primary btn-block" type="submit">{{ 'listing.show.book.now.submit'|trans }}</button>
 
     </div>
 {{ form_end(form) }}
@@ -20,50 +16,50 @@
 
 
     <script>
-        $(function () {
-            var timeUnitIsDay = {{ astrada_is_timeUnitIsDay() ? 'true' : 'false' }};
+        {#$(function () {#}
+        {#    var timeUnitIsDay = {{ astrada_is_timeUnitIsDay() ? 'true' : 'false' }};#}
 
-            initDatePickerAjax(function () {
-                jcf.replaceAll("#booking-form");
-            });
+        {#    initDatePickerAjax(function () {#}
+        {#        jcf.replaceAll("#booking-form");#}
+        {#    });#}
 
-            var $form = $("#booking-form");
+        {#    var $form = $("#booking-form");#}
 
-            $form.submit(function () {
-                //Remove price and submit button
-                //Disable fields and add loading until form is rendered
-                $(this).find("input").attr("readonly", "readonly");
-                $(this).find("select option:not(:selected)").each(function () {
-                    $(this).attr('disabled', 'disabled');
-                });
-                $(".add-info .price, .add-info .loading, a[data-id=submit-booking]").remove();
-                $(".add-info").prepend('<img class="loading" src="{{ asset("images/loading.gif") }}" /><br>');
-            });
+        {#    $form.submit(function () {#}
+        {#        //Remove price and submit button#}
+        {#        //Disable fields and add loading until form is rendered#}
+        {#        $(this).find("input").attr("readonly", "readonly");#}
+        {#        $(this).find("select option:not(:selected)").each(function () {#}
+        {#            $(this).attr('disabled', 'disabled');#}
+        {#        });#}
+        {#        $(".add-info .price, .add-info .loading, a[data-id=submit-booking]").remove();#}
+        {#        $(".add-info").prepend('<img class="loading" src="{{ asset("images/loading.gif") }}" /><br>');#}
+        {#    });#}
 
-            $("a[data-id=submit-booking]").click(function (e) {
-                e.preventDefault();
-                var $errors = $form.find('div.errors');
-                //Submit form if no errors
-                if (!$errors.length || ($errors.length && !$errors.is(":visible"))) {
-                    if ($("#start-date").val() && $("#end-date").val()) {
-                        if (timeUnitIsDay) {
-                            $form.submit();
-                        } else {
-                            var $holderTimes = $form.find(".time-fields");
-                            var $startHour = $holderTimes.find("[id$=_start_hour]").first();
-                            var $endHour = $holderTimes.find("[id$=_start_minute]").first();
-                            var $startMinute = $holderTimes.find("[id$=_end_hour]").first();
-                            var $endMinute = $holderTimes.find("[id$=_end_minute]").first();
+        {#    $("a[data-id=submit-booking]").click(function (e) {#}
+        {#        e.preventDefault();#}
+        {#        var $errors = $form.find('div.errors');#}
+        {#        //Submit form if no errors#}
+        {#        if (!$errors.length || ($errors.length && !$errors.is(":visible"))) {#}
+        {#            if ($("#start-date").val() && $("#end-date").val()) {#}
+        {#                if (timeUnitIsDay) {#}
+        {#                    $form.submit();#}
+        {#                } else {#}
+        {#                    var $holderTimes = $form.find(".time-fields");#}
+        {#                    var $startHour = $holderTimes.find("[id$=_start_hour]").first();#}
+        {#                    var $endHour = $holderTimes.find("[id$=_start_minute]").first();#}
+        {#                    var $startMinute = $holderTimes.find("[id$=_end_hour]").first();#}
+        {#                    var $endMinute = $holderTimes.find("[id$=_end_minute]").first();#}
 
-                            if ($startHour.val() && $endHour.val() && $startMinute.val() && $endMinute.val()) {
-                                $form.submit();
-                            }
-                        }
-                    }
-                }
-            });
+        {#                    if ($startHour.val() && $endHour.val() && $startMinute.val() && $endMinute.val()) {#}
+        {#                        $form.submit();#}
+        {#                    }#}
+        {#                }#}
+        {#            }#}
+        {#        }#}
+        {#    });#}
 
-        });
+        {#});#}
     </script>
 </section>
 

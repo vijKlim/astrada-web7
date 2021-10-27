@@ -87,8 +87,9 @@ class BookingController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $bookingPriceHandler = $this->get('cocorico.form.handler.booking_price');
-        $booking = $bookingPriceHandler->init($this->getUser(), $listing);
+        $booking = $this->bookingManager->initBooking($listing,
+            $this->getUser(),
+            $this->listingSearchRequest->getDateTimeRange());
 
         $form = $this->createBookingForm($booking);
         $form->handleRequest($request);

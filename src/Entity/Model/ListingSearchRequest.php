@@ -201,6 +201,22 @@ class ListingSearchRequest
     }
 
     /**
+     * @param DateRange $dateRange
+     */
+    public function setDateRange(DateRange $dateRange = null)
+    {
+        $this->dateRange = $dateRange;
+    }
+
+    /**
+     * @param TimeRange $timeRange
+     */
+    public function setTimeRange(TimeRange $timeRange = null)
+    {
+        $this->timeRange = $timeRange;
+    }
+
+    /**
      * @return string
      */
     public function getKeywords()

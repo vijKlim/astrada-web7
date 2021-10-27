@@ -61,7 +61,7 @@ parameters:
   #Is there a day flexibility for search. 0 For no else max days flexibility
   astrada.time_unit_flexibility: 0
   #Days display mode. (range or duration)
-  astrada.days_display_mode: duration
+  astrada.days_display_mode: range
 
   #Max search, booking time unit number.
   #Min 1. Max value of times max depends on time unit: 24 if time unit is hour. Not needed if time unit is day.

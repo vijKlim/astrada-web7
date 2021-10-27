@@ -12,8 +12,11 @@
 namespace App\Form;
 
 
+use App\Entity\Model\DateRange;
 use App\Entity\Model\ListingSearchRequest;
+use App\Entity\Model\TimeRange;
 use App\Entity\Sylius\Taxon;
+use App\Form\Type\DateRangeType;
 use App\Form\Type\PriceRangeType;
 use DateInterval;
 use DateTime;
@@ -165,37 +168,37 @@ class ListingSearchResultType extends AbstractType
 //            );
 
         //DATE RANGE
-//        $dateRange = $listingSearchRequest->getDateRange();
-//        $builder
-//            ->add(
-//                'date_range',
-//                DateRangeType::class,
-//                array(
-//                    'start_options' => array(
-//                        'label' => 'listing_search.form.start',
-//                        'data' => $dateRange && $dateRange->getStart() ? $dateRange->getStart() : null
-//                    ),
-//                    'end_options' => array(
-//                        'label' => 'listing_search.form.end',
-//                        'data' => $dateRange && $dateRange->getEnd() ? $dateRange->getEnd() : null
-//                    ),
-//                    'allow_single_day' => $this->allowSingleDay,
-//                    'end_day_included' => $this->endDayIncluded,
-//                    'required' => false,
-//                    /** @Ignore */
-//                    'label' => false,
-//                    'block_name' => 'date_range',
-//                    'display_mode' => $this->daysDisplayMode,
-//                )
-//            )
-//            ->add(
-//                'price_range',
-//                PriceRangeType::class,
-//                array(
-//                    /** @Ignore */
-//                    'label' => false
-//                )
-//            );
+        $dateRange = $listingSearchRequest->getDateRange();
+        $builder
+            ->add(
+                'date_range',
+                DateRangeType::class,
+                array(
+                    'start_options' => array(
+                        'label' => 'listing_search.form.start',
+                        'data' => $dateRange && $dateRange->getStart() ? $dateRange->getStart() : null
+                    ),
+                    'end_options' => array(
+                        'label' => 'listing_search.form.end',
+                        'data' => $dateRange && $dateRange->getEnd() ? $dateRange->getEnd() : null
+                    ),
+                    'allow_single_day' => $this->allowSingleDay,
+                    'end_day_included' => $this->endDayIncluded,
+                    'required' => false,
+                    /** @Ignore */
+                    'label' => false,
+                    'block_name' => 'date_range',
+                    'display_mode' => $this->daysDisplayMode,
+                )
+            )
+            ->add(
+                'price_range',
+                PriceRangeType::class,
+                array(
+                    /** @Ignore */
+                    'label' => false
+                )
+            );
 
         //CHARACTERISTICS
 //        $characteristics = $listingSearchRequest->getCharacteristics();
@@ -262,7 +265,15 @@ class ListingSearchResultType extends AbstractType
                 /** @var ListingSearchRequest $searchRequest */
                 $searchRequest = $event->getData();
                 $form = $event->getForm();
+                /** @var DateRange $dateRange */
+                $dateRange = $form->get('date_range')->getData();
+                $searchRequest->setDateRange($dateRange);
 
+                if (!$this->timeUnitIsDay) {
+                    /** @var TimeRange $timeRange */
+                    $timeRange = $form->get('time_range')->getData();
+                    $searchRequest->setTimeRange($timeRange);
+                }
                 $event->setData($searchRequest);
             }
         );

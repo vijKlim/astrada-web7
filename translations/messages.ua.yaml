@@ -701,6 +701,9 @@ form.welldesign.depthTo.label: до
 form.welldesign.vihicleType.label: Вид транспортного засобу
 form.welldesign.vehicle_type.label: Вид транспортного засобу
 form.welldesign.price: Базова ціна за 1 м.п.
+listing.price.per_1km_delivery: Ціна за 1 км доставки техніки
+listing.price.per_1m_drilling: Базова ціна за 1 м.п. буріння
+
 form.checkout_address.notes.label: Залиште примітку для ресторану
 form.checkout_address.notes.placeholder: "Приклад: без соусу, без помідорів ... \ n"
 form.checkout_address.notes.help: Ваша записка буде перенаправлена ​​в ресторан
@@ -1219,6 +1222,9 @@ entity.booking.status.accepted: Прийнято
 entity.booking.status.expired: Прострочений
 entity.booking.status.canceled_asker: Скасовано клієнтом
 entity.booking.status.done: Виконано
+booking.form.start: Дата початку
+booking.form.end: Дата кінця
+listing.show.book.now.submit: Створити заявку
 nav.home.link: Головна
 nav.home.map: Мапа
 nav.home.news: Новини

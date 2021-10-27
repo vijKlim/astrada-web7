@@ -181,7 +181,8 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="p-4 shadow ml-lg-4 rounded sticky-top" style="top: 100px;">
-                            <p class="text-muted"><span class="text-primary h2">$120</span> per night</p>
+                            <p class="text-muted"><span class="text-primary h2">$5</span> {{ 'listing.price.per_1km_delivery'|trans }}</p>
+                            <p class="text-muted"><span class="text-primary h2">$10</span> {{ 'listing.price.per_1m_drilling'|trans }}</p>
                             <hr class="my-4">
                             {{ render(controller('App\\Controller\\BookingController::bookingFormAction', {
                                 listing: listing

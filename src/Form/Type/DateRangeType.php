@@ -49,6 +49,7 @@ class DateRangeType extends AbstractType
 
                 //Days display mode: range or duration
                 $dateEndType = DateType::class;
+                $dateEndType = DateHiddenType::class;
                 if ($options['display_mode'] == "duration") {
                     $dateEndType = DateHiddenType::class;
 
@@ -100,7 +101,7 @@ class DateRangeType extends AbstractType
                             array(
                                 'property_path' => 'start',
                                 'widget' => 'single_text',
-                                'format' => 'dd/MM/yyyy',
+                                'format' => 'yyyy-MM-dd',
                                 'html5' => false
                             ),
                             $options['start_options']
@@ -112,7 +113,7 @@ class DateRangeType extends AbstractType
                             array(
                                 'property_path' => 'end',
                                 'widget' => 'single_text',
-                                'format' => 'dd/MM/yyyy',
+                                'format' => 'yyyy-MM-dd',
                                 'attr' => array(
                                     'class' => 'to'
                                 ),
