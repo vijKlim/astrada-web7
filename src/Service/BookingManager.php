@@ -424,7 +424,7 @@ class BookingManager
         );
 
         //Unavailable if listing is unavailable by default and does not have availabilities
-        if (!$availabilities->count() && $this->defaultListingStatus == ListingAvailability::STATUS_UNAVAILABLE) {
+        if (!count($availabilities) && $this->defaultListingStatus == ListingAvailability::STATUS_UNAVAILABLE) {
             $booking->setAmount(0);
             $result->booking = $booking;
             $result->errors[] = 'unavailable';
@@ -443,7 +443,7 @@ class BookingManager
 
     /**
      * @param Booking                               $booking
-     * @param ListingAvailability[]|ArrayCollection $availabilities
+     * @param ListingAvailability[] $availabilities
      * @return stdClass
      */
     private function checkBookingAvailabilityInDayMode(Booking $booking, $availabilities)

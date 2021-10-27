@@ -20,7 +20,7 @@ class ListingAvailabilityRepository extends EntityRepository
      * @param boolean   $endDayIncluded
      * @param boolean   $hydrate
      *
-     * @return ArrayCollection|ListingAvailability[]
+     * @return ListingAvailability[]
      */
     public function findAvailabilitiesByListing(
         $listingId,
