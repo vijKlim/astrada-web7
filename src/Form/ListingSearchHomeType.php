@@ -22,6 +22,7 @@ class ListingSearchHomeType extends ListingSearchResultType
 
         $builder
             ->remove('price_range')
+            ->remove('date_range')
             ->remove('sort_by');
 
         if ($this->timeUnitFlexibility) {
