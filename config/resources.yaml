@@ -11,6 +11,14 @@ sylius_resource:
           model: App\Entity\ListingTranslation
           form: App\Form\ListingTranslationType
 
+    app.listing_category:
+      classes:
+        model: App\Entity\ListingCategory
+        factory: App\Factory\ListingCategoryFactory
+      translation:
+        classes:
+          model: App\Entity\ListingCategoryTranslation
+
     app.topic:
       classes:
         model: App\Entity\Topic

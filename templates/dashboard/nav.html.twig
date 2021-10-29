@@ -46,7 +46,7 @@
                   {# Use "same as" to avoid "Nesting level too deep - recursive dependency?" #}
                   {# It can happen, because when not using strict comparison, #}
                   {# PHP would compare all the properties of the objects #}
-                  {# {{ dump(choice is instanceof('AppBundle\\Entity\\Store')) }} #}
+                  {# {{ dump(choice is instanceof('App\\Entity\\Store')) }} #}
                   {% if choice is not same as(selected_choice) %}
                   <li>
                     <a href="{{ path('dashboard', { (choice is instanceof('App\\Entity\\Store') ? 'store' : 'business'): choice.id }) }}">

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd" xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+    <entity name="App\Entity\ListingAttributeCategory" table="listing_attribute_category">
+        <unique-constraints>
+            <unique-constraint name="listing_attribute_category_unique" columns="attribute_id,category_id"/>
+        </unique-constraints>
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="position" type="integer">
+            <gedmo:sortable-position/>
+        </field>
+        <many-to-one field="attribute" target-entity="App\Entity\ListingAttribute">
+            <join-columns>
+                <join-column name="attribute_id" referenced-column-name="id" on-delete="CASCADE" nullable="false"/>
+            </join-columns>
+            <gedmo:sortable-group />
+        </many-to-one>
+        <many-to-one field="category" target-entity="App\Entity\ListingCategory" inversed-by="categoryAttributes">
+            <join-columns>
+                <join-column name="category_id" referenced-column-name="id" on-delete="CASCADE" nullable="false"/>
+            </join-columns>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

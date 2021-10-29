@@ -198,7 +198,7 @@ dashboard_business_stats:
 dashboard_business_promotions:
   path: /dashboard/businesses/{id}/promotions
   defaults:
-    _controller: AppBundle\Controller\DashboardController::businessPromotionsAction
+    _controller: App\Controller\DashboardController::businessPromotionsAction
     layout: 'dashboard.html.twig'
   methods: [ GET ]
 

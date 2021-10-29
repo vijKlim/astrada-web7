@@ -22,7 +22,7 @@ class ListingAttributeCategory
     /**
      * @var TaxonInterface
      */
-    protected $taxon;
+    protected $category;
 
     /**
      * @var int
@@ -41,12 +41,12 @@ class ListingAttributeCategory
 
     public function getCategory(): ?TaxonInterface
     {
-        return $this->taxon;
+        return $this->category;
     }
 
-    public function setCategory(?TaxonInterface $taxon): void
+    public function setCategory(?TaxonInterface $category): void
     {
-        $this->taxon = $taxon;
+        $this->category = $category;
     }
 
     public function getPosition(): ?int

@@ -2,11 +2,11 @@
 
 namespace App\Spreadsheet;
 
-use AppBundle\Entity\Address;
-use AppBundle\Entity\Base\GeoCoordinates;
-use AppBundle\Entity\Model\TaggableInterface;
-use AppBundle\Entity\Task;
-use AppBundle\Service\Geocoder;
+use App\Entity\Address;
+use App\Entity\Base\GeoCoordinates;
+use App\Entity\Model\TaggableInterface;
+use App\Entity\Task;
+use App\Service\Geocoder;
 use Box\Spout\Reader\ReaderFactory;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use Box\Spout\Common\Exception\IOException;

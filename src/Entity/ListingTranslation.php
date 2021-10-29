@@ -67,7 +67,7 @@ class ListingTranslation extends AbstractTranslation  implements ResourceInterfa
      */
     public function getDescription()
     {
-        return $this->title;
+        return $this->description;
     }
 
     /**

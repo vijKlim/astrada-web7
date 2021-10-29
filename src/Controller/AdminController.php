@@ -8,13 +8,16 @@ use App\Controller\Utils\AccessControlTrait;
 use App\Controller\Utils\BusinessListingTrait;
 use App\Controller\Utils\BusinessTrait;
 use App\Entity\Listing;
+use App\Entity\ListingCategory;
 use App\Entity\LocalBusiness;
 use App\Entity\Sylius\Customer;
 use App\Entity\User;
 use App\Form\BannerType;
+use App\Form\ListingCategoryType;
 use App\Form\MaintenanceType;
 use App\Form\SettingsType;
 use App\Form\UpdateProfileType;
+use App\Repository\ListingCategoryRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Service\SettingsManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,12 +27,16 @@ use Nucleos\UserBundle\Util\TokenGeneratorInterface;
 use Nucleos\UserBundle\Util\CanonicalizerInterface;
 use GuzzleHttp\Client as HttpClient;
 use phpcent\Client as CentrifugoClient;
+use Ramsey\Uuid\Uuid;
 use Redis;
+use Sylius\Component\Resource\Factory\FactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 
@@ -51,6 +58,8 @@ class AdminController extends AbstractController
             'product_new' => 'admin_business_product_new',
             'listings' => 'admin_business_listings',
             'listing_new' => 'admin_business_listing_new',
+            'listing_categories' => 'admin_listing_categories',
+            'listing_category' => 'admin_listing_category',
             'dashboard' => 'admin_business_dashboard',
             'planning' => 'admin_business_planning',
             'stripe_oauth_redirect' => 'admin_business_stripe_oauth_redirect',
@@ -414,6 +423,179 @@ class AdminController extends AbstractController
             'banner_form' => $bannerForm->createView(),
             'banner' => $redis->get('banner'),
         ]);
+    }
+
+    public function listingCategoriesAction(Request $request, FactoryInterface $listingCategoryFactory)
+    {
+
+
+        $routes = $request->attributes->get('routes');
+        $listing_categories = $this->getDoctrine()->getRepository(ListingCategory::class)->findAll();
+
+        $forms = [];
+        foreach ($listing_categories as $category) {
+            $forms[$category->getId()] = $this->createForm(ListingCategoryType::class, $category)->createView();
+        }
+
+        $form = $this->createFormBuilder()
+            ->add('name', TextType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $name = $form->get('name')->getData();
+
+            $listingCategory = $listingCategoryFactory->createNew();
+
+            $uuid = Uuid::uuid1()->toString();
+
+            $listingCategory->setCode($uuid);
+            $listingCategory->setSlug($uuid);
+            $listingCategory->setName($name);
+
+
+            $this->getDoctrine()->getManagerForClass(LocalBusiness::class)->flush();
+
+            return $this->redirectToRoute($routes['listing_categories']);
+        }
+
+        return $this->render($request->attributes->get('template'), $this->withRoutes([
+            'layout' => $request->attributes->get('layout'),
+            'listing_categories' => $listing_categories,
+            'forms' => $forms,
+            'form' => $form->createView(),
+        ], $routes));
+    }
+
+
+
+    /**
+     * @HideSoftDeleted
+     */
+    public function listingCategoryAction($categoryId, Request $request,
+                                          ListingCategoryRepository $listingCategoryRepository,
+                                              FactoryInterface $taxonFactory,
+                                              EntityManagerInterface $entityManager,
+                                              EventDispatcherInterface $dispatcher,
+                                              TranslatorInterface $translator)
+    {
+        $routes = $request->attributes->get('routes');
+
+
+        $listingCategory = $listingCategoryRepository->find($categoryId);
+
+        $form = $this->createFormBuilder()
+            ->add('name', TextType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $name = $form->get('name')->getData();
+
+            $uuid = Uuid::uuid1()->toString();
+
+            $child = $taxonFactory->createNew();
+            $child->setCode($uuid);
+            $child->setSlug($uuid);
+            $child->setName($name);
+
+            $listingCategory->addChild($child);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                $translator->trans('global.changesSaved')
+            );
+
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        $menuEditor = new MenuEditor($restaurant, $menuTaxon);
+        $menuEditorForm = $this->createForm(MenuEditorType::class, $menuEditor);
+
+        $originalTaxonProducts = new \SplObjectStorage();
+        foreach ($menuEditor->getChildren() as $child) {
+            $taxonProducts = new ArrayCollection();
+            foreach ($child->getTaxonProducts() as $taxonProduct) {
+                $taxonProducts->add($taxonProduct);
+            }
+
+            $originalTaxonProducts[$child] = $taxonProducts;
+        }
+
+        // This will be used to determine if sections have been reordered
+        $originalSectionPositions = [];
+        foreach ($menuEditor->getChildren() as $child) {
+            $originalSectionPositions[$child->getPosition()] = $child->getId();
+        }
+        ksort($originalSectionPositions);
+        $originalSectionPositions = array_values($originalSectionPositions);
+
+        $menuEditorForm->handleRequest($request);
+        if ($menuEditorForm->isSubmitted() && $menuEditorForm->isValid()) {
+
+            $menuEditor = $menuEditorForm->getData();
+
+            $newSectionPositions = [];
+
+            $em = $this->getDoctrine()->getManagerForClass(ProductTaxon::class);
+
+            foreach ($menuEditor->getChildren() as $child) {
+
+                // The section is empty
+                if (count($originalTaxonProducts[$child]) > 0 && count($child->getTaxonProducts()) === 0) {
+                    foreach ($originalTaxonProducts[$child] as $originalTaxonProduct) {
+                        $originalTaxonProducts[$child]->removeElement($originalTaxonProduct);
+                        $em->remove($originalTaxonProduct);
+                    }
+                    continue;
+                }
+
+                $newSectionPositions[$child->getPosition()] = $child->getId();
+
+                foreach ($child->getTaxonProducts() as $taxonProduct) {
+
+                    $taxonProduct->setTaxon($child);
+
+                    foreach ($originalTaxonProducts[$child] as $originalTaxonProduct) {
+                        if (!$child->getTaxonProducts()->contains($originalTaxonProduct)) {
+                            $child->getTaxonProducts()->removeElement($originalTaxonProduct);
+                            $em->remove($originalTaxonProduct);
+                        }
+                    }
+                }
+            }
+
+            ksort($newSectionPositions);
+            $newSectionPositions = array_values($newSectionPositions);
+
+            if ($originalSectionPositions !== $newSectionPositions) {
+                $taxonRepository->reorder($menuTaxon, 'position');
+            }
+
+            $entityManager->flush();
+
+            if ($restaurant->getMenuTaxon() === $menuTaxon) {
+                $dispatcher->dispatch(new GenericEvent($restaurant), 'catalog.updated');
+            }
+
+            $this->addFlash(
+                'notice',
+                $translator->trans('global.changesSaved')
+            );
+
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        return $this->render($request->attributes->get('template'), $this->withRoutes([
+            'layout' => $request->attributes->get('layout'),
+            'restaurant' => $restaurant,
+            'menu' => $menuTaxon,
+            'form' => $form->createView(),
+            'menu_editor_form' => $menuEditorForm->createView(),
+        ], $routes));
     }
 
     /**

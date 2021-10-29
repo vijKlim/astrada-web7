@@ -159,7 +159,7 @@ services:
     arguments:
       $assetsFilesystem: '@assets_filesystem'
 
-  AppBundle\Twig\CacheExtension\KeyGenerator: ~
+  App\Twig\CacheExtension\KeyGenerator: ~
 
   Twig\Extra\Cache\CacheRuntime:
     arguments:
@@ -367,6 +367,8 @@ services:
       $localeFactory: '@sylius.factory.locale'
       $currencyRepository: '@sylius.repository.currency'
       $currencyFactory: '@sylius.factory.currency'
+      $entityManager: '@doctrine.orm.entity_manager'
+      $listingCategoryFactory: '@app.factory.listing_category'
       $locale: '%env(ASTRADA_LOCALE)%'
       $country: "%country_iso%"
     tags:
@@ -383,6 +385,7 @@ services:
       $defaultLocale: "%env(ASTRADA_LOCALE)%"
     tags:
       - { name: 'console.command', command: 'astrada:demo:init' }
+
 
   # VALIDATORS
   App\Validator\Constraints\IsActivableBusinessValidator:
@@ -509,6 +512,7 @@ services:
 
   astrada.email_manager: '@App\Service\EmailManager'
 
+
   App\ExpressionLanguage\ExpressionLanguage:
     arguments:
       $cache: null
@@ -616,6 +620,11 @@ services:
     factory: ['@doctrine.orm.default_entity_manager', getRepository]
     arguments:
       - App\Entity\Listing
+
+  App\Repository\ListingCategoryRepository:
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - App\Entity\ListingCategory
 
   App\Repository\AddressRepository:
     factory: ['@doctrine.orm.default_entity_manager', getRepository]

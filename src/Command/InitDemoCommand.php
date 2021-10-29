@@ -290,63 +290,6 @@ class InitDemoCommand extends Command
         return $listings;
     }
 
-    private function createServiceTaxon($appetizers, $dishes, $desserts)
-    {
-        $menu = $this->taxonFactory->createNew();
-
-        $menu->setCode($this->faker->uuid);
-        $menu->setSlug($this->faker->uuid);
-        $menu->setName('Default');
-
-        $appetizersTaxon = $this->taxonFactory->createNew();
-        $appetizersTaxon->setCode($this->faker->uuid);
-        $appetizersTaxon->setSlug($this->faker->uuid);
-        $appetizersTaxon->setName('Entrées');
-        foreach ($appetizers as $product) {
-            $appetizersTaxon->addProduct($product);
-        }
-
-        $dishesTaxon = $this->taxonFactory->createNew();
-        $dishesTaxon->setCode($this->faker->uuid);
-        $dishesTaxon->setSlug($this->faker->uuid);
-        $dishesTaxon->setName('Plats');
-        foreach ($dishes as $product) {
-            $dishesTaxon->addProduct($product);
-        }
-
-        $dessertsTaxon = $this->taxonFactory->createNew();
-        $dessertsTaxon->setCode($this->faker->uuid);
-        $dessertsTaxon->setSlug($this->faker->uuid);
-        $dessertsTaxon->setName('Desserts');
-        foreach ($desserts as $product) {
-            $dessertsTaxon->addProduct($product);
-        }
-
-        $menu->addChild($appetizersTaxon);
-        $menu->addChild($dishesTaxon);
-        $menu->addChild($dessertsTaxon);
-
-        return $menu;
-    }
-
-    private function createWells(TaxCategoryInterface $taxCategory)
-    {
-        $products = [];
-
-        for ($i = 0; $i < 5; $i++) {
-            $appetizer = $this->loadFixtures(__DIR__ . '/Resources/appetizer.yml', [
-                'taxCategory' => $taxCategory,
-            ], [
-                'currentLocale' => $this->defaultLocale,
-            ]);
-
-            $appetizer['variant']->setName($appetizer['product']->getName());
-
-            $products[] = $appetizer['product'];
-        }
-
-        return $products;
-    }
 
     private function loadFixtures($filename, array $objects = [], $parameters = [])
     {

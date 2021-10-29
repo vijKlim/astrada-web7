@@ -64,7 +64,7 @@ oneup_uploader:
       storage:
         type: flysystem
         filesystem: oneup_flysystem.assets_filesystem
-      namer: AppBundle\Utils\BannerNamer
+      namer: App\Utils\BannerNamer
       allowed_mimetypes:
         text/html: ['svg']
         image/svg+xml: ['svg']

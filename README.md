@@ -100,6 +100,7 @@ https://github.com/geocoder-php/Geocoder
 # Commands
 * docker-compose exec php php bin/console astrada:setup
 * docker-compose exec php php bin/console astrada:demo:init
+* docker-compose exec php php bin/console astrada:root-categories:load
 
 #Messanger 
 docker-compose exec php php bin/console messenger:consume async -vv

@@ -17,6 +17,29 @@ admin_customize:
     layout: 'admin.html.twig'
   methods:  [ GET, POST ]
 
+admin_listing_categories:
+  path: admin/listing_categories
+  defaults:
+    _controller: App\Controller\AdminController::listingCategoriesAction
+    layout: 'admin.html.twig'
+    template: 'admin/listing_categories.html.twig'
+    routes:
+      listing_categories: admin_listing_categories
+  methods:  [ GET, POST ]
+
+admin_listing_category:
+  path: /admin/listing_categories/{categoryId}
+  defaults:
+    _controller: App\Controller\AdminController::listingCategoryAction
+    layout: 'admin.html.twig'
+    template: 'admin/listing_category.html.twig'
+    routes:
+      listing_categories: admin_listing_categories
+      success: admin_listing_categories
+  methods: [ GET, POST ]
+
+
+
 admin_businesses:
   path: /admin/businesses
   defaults:

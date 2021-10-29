@@ -649,7 +649,7 @@ form.menu_editor.help: "Використовуйте редактор нижче
 form.menu_editor.products.help: Щоб додати товари до списку праворуч, додайте їх
   спершу до <a href="%products_url%"> каталогу </a>
 form.menu_editor.taxon_modal.title: Змінення розділу
-form.menu_editor.name.help: Це лише для вас, щоб розрізняти меню. Це не
+form.menu_editor.name.help: Це лише для вас, щоб розрізняти категорії лістингів. Це не
   відображається замовнику.
 form.product.name.label: Назва
 form.product.description.label: Опис
