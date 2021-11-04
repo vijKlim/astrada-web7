@@ -203,42 +203,6 @@ dashboard_business_promotions:
   methods: [ GET ]
 
 
-dashboard_business_listings_pricing:
-  path: /dashboard/businesses/{id}/listings/pricing
-  defaults:
-    _controller: App\Controller\DashboardController::listingsPricingRuleSetsAction
-    layout: 'dashboard.html.twig'
-    template: 'business/listings_pricing.html.twig'
-    routes:
-      listings_pricing_ruleset_new: dashboard_business_listings_pricing_ruleset_new
-      listings_pricing_ruleset: dashboard_business_listings_pricing_ruleset
-      businesses: dashboard_businesses
-      business: dashboard_business
-      listing: dashboard_business_listing
-  methods: [ GET ]
-
-dashboard_business_listings_pricing_ruleset_new:
-  path: /dashboard/businesses/{id}/listings/pricing/new
-  defaults:
-    _controller: App\Controller\DashboardController::newListingsPricingRuleSetAction
-    layout: 'dashboard.html.twig'
-    template: 'business/listings_pricing_rule_set.html.twig'
-    routes:
-      businesses: dashboard_businesses
-      business: dashboard_business
-      listings: dashboard_business_listings
-
-dashboard_business_listings_pricing_ruleset:
-  path: /dashboard/businesses/{businessId}/listings/pricing/{pricingId}
-  defaults:
-    _controller: App\Controller\DashboardController::businessListingAction
-    layout: 'dashboard.html.twig'
-    template: 'business/listings_pricing_rule_set.html.twig'
-    routes:
-      businesses: dashboard_businesses
-      business: dashboard_business
-      listings: dashboard_business_listings
-
 dashboard_business_listings:
   path: /dashboard/businesses/{id}/listings
   defaults:

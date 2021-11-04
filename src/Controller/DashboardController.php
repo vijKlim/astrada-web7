@@ -14,10 +14,12 @@ use App\Entity\BusinessListingList;
 use App\Entity\Listing;
 use App\Entity\ListingRepository;
 use App\Entity\LocalBusiness;
+use App\Form\ListingPricingRuleSetType;
 use App\Serializer\BusinessListingListNormalizer;
 use App\Serializer\PrivateListingNormalizer;
 use App\Service\SettingsManager;
 use Cocur\Slugify\SlugifyInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\EntityManagerInterface;
 use Hashids\Hashids;
@@ -223,5 +225,113 @@ class DashboardController extends AbstractController
             'centrifugo_events_channel' => sprintf('%s_events#%s', $this->getParameter('centrifugo_namespace'), $this->getUser()->getUsername()),
             'pickup_cluster_addresses' => $addressIris,
         ]);
+    }
+
+
+    /**
+     * @Route("/dashboard/businesses/{id}/listings_pricing", name="dashboard_business_listings_pricing")
+     */
+    public function listingsPricingRuleSetsAction($id, Request $request)
+    {
+        $business = $this->getDoctrine()
+            ->getRepository(LocalBusiness::class)
+            ->find($id);
+
+        $this->accessControl($business);
+
+        $ruleSets = $this->getDoctrine()
+            ->getRepository(Listing\ListingPricingRuleSet::class)
+            ->findAll();
+
+
+        return $this->render('business/listings_pricing.html.twig', $this->withRoutes([
+            'layout' => 'dashboard.html.twig',
+            'ruleSets' => $ruleSets,
+            'business' => $business,
+        ],[]));
+
+    }
+
+    private function renderPricingRuleSetForm(LocalBusiness $business, Listing\ListingPricingRuleSet $ruleSet, Request $request)
+    {
+        $originalRules = new ArrayCollection();
+
+        foreach ($ruleSet->getRules() as $rule) {
+            $originalRules->add($rule);
+        }
+
+
+
+        $form = $this->createForm(ListingPricingRuleSetType::class, $ruleSet);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ruleSet = $form->getData();
+
+            $em = $this->getDoctrine()->getManagerForClass(Listing\ListingPricingRule::class);
+
+            foreach ($originalRules as $originalRule) {
+                if (!$ruleSet->getRules()->contains($originalRule)) {
+                    $em->remove($originalRule);
+                }
+            }
+
+            foreach ($ruleSet->getRules() as $rule) {
+                $rule->setRuleSet($ruleSet);
+            }
+
+            if (null === $ruleSet->getId()) {
+                $em->persist($ruleSet);
+            }
+
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                $this->translator->trans('global.changesSaved')
+            );
+
+            return $this->redirectToRoute('dashboard_deliveries_pricing_ruleset', ['businessId'=>$business->getId(), 'pricingId' => $ruleSet->getId()]);
+        }
+
+        return $this->render('business/listings_pricing_ruleset.html.twig', $this->withRoutes([
+            'layout' => 'dashboard.html.twig',
+            'form' => $form->createView(),
+            'business' => $business
+        ],[]));
+    }
+
+    /**
+     * @Route("/dashboard/businesses/{id}/listings_pricing/new", name="dashboard_business_listings_pricing_ruleset_new")
+     */
+    public function newListingsPricingRuleSetAction($id,Request $request)
+    {
+        $business = $this->getDoctrine()
+            ->getRepository(LocalBusiness::class)
+            ->find($id);
+
+        $this->accessControl($business);
+
+        $ruleSet = new Listing\ListingPricingRuleSet();
+
+        return $this->renderPricingRuleSetForm($business, $ruleSet, $request);
+    }
+
+    /**
+     * @Route("/dashboard/businesses/{businessId}/listings_pricing/{pricingId}", name="dashboard_business_listings_pricing_ruleset")
+     */
+    public function listingsPricingRuleSetAction($businessId, $pricingId, Request $request)
+    {
+        $business = $this->getDoctrine()
+            ->getRepository(LocalBusiness::class)
+            ->find($businessId);
+
+        $this->accessControl($business);
+
+        $ruleSet = $this->getDoctrine()
+            ->getRepository(Delivery\PricingRuleSet::class)
+            ->find($pricingId);
+
+        return $this->renderPricingRuleSetForm($business, $ruleSet, $request);
     }
 }

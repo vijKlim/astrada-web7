@@ -37,6 +37,7 @@ Encore
     .addEntry('business', './js/app/business/index.js')
     .addEntry('business-form', './js/app/business/form.js')
     .addEntry('business-fulfillment-methods', './js/app/business/fulfillment-methods.js')
+    .addEntry('listing-pricing-rules', './js/app/listing/pricing-rules.js')
     .addEntry('businesses-map', './js/app/businesses-map/index.js')
     .addEntry('business-service-editor', './js/app/business/service-editor.js')
     .addEntry('listing-form', './js/app/listing/form.js')

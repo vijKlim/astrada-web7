@@ -7,7 +7,7 @@
 
 {% block content %}
     <div class="text-right mb-4">
-        <a class="btn btn-success" href="{{ path('listings_pricing_ruleset_new_route') }}">
+        <a class="btn btn-success" href="{{ path('dashboard_business_listings_pricing_ruleset_new', { id: business.id }) }}">
             <i class="fa fa-plus"></i> {% trans %}adminDashboard.pricing.createNew{% endtrans %}</a>
     </div>
     <table class="table">
@@ -15,7 +15,7 @@
         {% if ruleSets|length > 0 %}
             {% for ruleSet in ruleSets %}
                 <tr>
-                    <td><a href="{{ path('listings_pricing_ruleset_route', { businessId: business.id, pricingId: ruleSet.id }) }}">#{{ ruleSet.id }}</a></td>
+                    <td><a href="{{ path('dashboard_business_listings_pricing_ruleset', { businessId: business.id, pricingId: ruleSet.id }) }}">#{{ ruleSet.id }}</a></td>
                     <td>{{ ruleSet.name }}</td>
                     <td class="text-right">
                         <div class="btn-group">
@@ -24,7 +24,7 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                    <a href="{{ path('listings_pricing_ruleset_route', { businessId: business.id, pricingId: ruleSet.id }) }}">
+                                    <a href="{{ path('dashboard_business_listings_pricing_ruleset', { businessId: business.id, pricingId: ruleSet.id }) }}">
                                         {% trans %}adminDashboard.pricing.settings{% endtrans %}
                                     </a>
                                 </li>
