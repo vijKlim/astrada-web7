@@ -189,4 +189,99 @@ trait BusinessListingTrait
         return $this->getDoctrine()->getRepository(ListingSubscription::class);
     }
 
+
+
+    public function listingsPricingRuleSetsAction($id, Request $request)
+    {
+        $business = $this->getDoctrine()
+            ->getRepository(LocalBusiness::class)
+            ->find($id);
+
+        $this->accessControl($business);
+
+        $routes = $request->attributes->get('routes');
+//var_dump($routes);die();
+        $ruleSets = $this->getDoctrine()
+            ->getRepository(Listing\ListingPricingRuleSet::class)
+            ->findAll();
+        return $this->render($request->attributes->get('template'), $this->withRoutes([
+            'layout' => $request->attributes->get('layout'),
+            'ruleSets' => $ruleSets,
+            'business' => $business,
+        ], $routes));
+
+    }
+
+    private function renderPricingRuleSetForm(Delivery\PricingRuleSet $ruleSet, Request $request)
+    {
+        $originalRules = new ArrayCollection();
+
+        foreach ($ruleSet->getRules() as $rule) {
+            $originalRules->add($rule);
+        }
+
+        $packageSets = $this->getDoctrine()->getRepository(PackageSet::class)->findAll();
+        $packageNames = [];
+        foreach ($packageSets as $packageSet) {
+            foreach ($packageSet->getPackages() as $package) {
+                $packageNames[] = $package->getName();
+            }
+        }
+
+        $form = $this->createForm(PricingRuleSetType::class, $ruleSet);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ruleSet = $form->getData();
+
+            $em = $this->getDoctrine()->getManagerForClass(Delivery\PricingRule::class);
+
+            foreach ($originalRules as $originalRule) {
+                if (!$ruleSet->getRules()->contains($originalRule)) {
+                    $em->remove($originalRule);
+                }
+            }
+
+            foreach ($ruleSet->getRules() as $rule) {
+                $rule->setRuleSet($ruleSet);
+            }
+
+            if (null === $ruleSet->getId()) {
+                $em->persist($ruleSet);
+            }
+
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                $this->translator->trans('global.changesSaved')
+            );
+
+            return $this->redirectToRoute('admin_deliveries_pricing_ruleset', ['id' => $ruleSet->getId()]);
+        }
+
+        return $this->render('admin/pricing_rule_set.html.twig', [
+            'form' => $form->createView(),
+            'packages' => $packageNames,
+        ]);
+    }
+
+
+    public function newListingsPricingRuleSetAction(Request $request)
+    {
+        $ruleSet = new Listing\ListingPricingRuleSet();
+
+        return $this->renderPricingRuleSetForm($ruleSet, $request);
+    }
+
+
+    public function listingsPricingRuleSetAction($businessId, $pricingId, Request $request)
+    {
+        $ruleSet = $this->getDoctrine()
+            ->getRepository(Delivery\PricingRuleSet::class)
+            ->find($pricingId);
+
+        return $this->renderPricingRuleSetForm($ruleSet, $request);
+    }
+
 }
