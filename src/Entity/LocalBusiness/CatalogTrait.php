@@ -5,6 +5,7 @@ namespace App\Entity\LocalBusiness;
 
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Entity\Base\BaseListing;
+use App\Entity\Listing\ListingPricingRuleSet;
 use Sylius\Component\Product\Model\ProductInterface;
 use Sylius\Component\Product\Model\ProductOptionInterface;
 use Sylius\Component\Taxonomy\Model\TaxonInterface;
@@ -21,6 +22,8 @@ trait CatalogTrait
     protected $taxons;
 
     protected $listings;
+
+    protected $listingPricingRuleSets;
 
     /**
      * @Groups({"business"})
@@ -52,6 +55,34 @@ trait CatalogTrait
         if ($this->hasListing($listing)) {
             $this->listings->removeElement($listing);
             $listing->setBusiness(null);
+        }
+    }
+
+    /* listingPricingRuleSets */
+
+    public function getListingPricingRuleSets()
+    {
+        return $this->listingPricingRuleSets;
+    }
+
+    public function hasListingPricingRuleSet(ListingPricingRuleSet $listingPricingRuleSet)
+    {
+        return $this->listingPricingRuleSets->contains($listingPricingRuleSet);
+    }
+
+    public function addListingPricingRuleSet(ListingPricingRuleSet $listingPricingRuleSet)
+    {
+        if (!$this->hasListingPricingRuleSet($listingPricingRuleSet)) {
+            $listingPricingRuleSet->setBusiness($this);
+            $this->listingPricingRuleSets->add($listingPricingRuleSet);
+        }
+    }
+
+    public function removeListingPricingRuleSet(ListingPricingRuleSet $listingPricingRuleSet)
+    {
+        if ($this->hasListingPricingRuleSet($listingPricingRuleSet)) {
+            $this->listingPricingRuleSets->removeElement($listingPricingRuleSet);
+            $listingPricingRuleSet->setBusiness(null);
         }
     }
 

@@ -158,12 +158,15 @@ class LocalBusiness extends BaseLocalBusiness implements
     protected $featured = false;
     protected $hub;
 
+
+
     public function __construct()
     {
         $this->closingRules = new ArrayCollection();
         $this->owners = new ArrayCollection();
         $this->products = new ArrayCollection();
         $this->listings = new ArrayCollection();
+        $this->listingPricingRuleSets = new ArrayCollection();
         $this->productOptions = new ArrayCollection();
         $this->taxons = new ArrayCollection();
         $this->fulfillmentMethods = new ArrayCollection();

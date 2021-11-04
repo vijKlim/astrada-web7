@@ -100,7 +100,11 @@
               <cascade-persist/>
           </cascade>
       </one-to-many>
-
+      <one-to-many field="listingPricingRuleSets" target-entity="App\Entity\Listing\ListingPricingRuleSet" mapped-by="business">
+          <cascade>
+              <cascade-persist/>
+          </cascade>
+      </one-to-many>
       <many-to-many field="taxons" target-entity="App\Entity\Sylius\Taxon">
           <cascade>
               <cascade-persist/>
