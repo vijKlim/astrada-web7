@@ -4,15 +4,17 @@
 namespace App\Command;
 
 
+use App\Entity\ListingAttribute;
+use App\Entity\ListingAttributeTranslation;
 use App\Entity\ListingCategory;
 use App\Entity\ListingCategoryTranslation;
 use App\Entity\Sylius\Taxon;
 use App\Entity\Sylius\TaxonRepository;
+use App\Enum\DrillingKit;
 use App\Enum\PipeDiameter;
 use App\Enum\Product;
 use App\Enum\Service;
 use App\Enum\VehicleType;
-use App\Factory\ListingCategoryFactory;
 use App\Service\SettingsManager;
 use App\Sylius\Product\ProductInterface;
 use Cocur\Slugify\SlugifyInterface;
@@ -22,6 +24,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LogLevel;
 use Ramsey\Uuid\Uuid;
 use Stripe;
+use Sylius\Component\Attribute\Model\AttributeValue;
 use Sylius\Component\Product\Factory\ProductFactoryInterface;
 use Sylius\Component\Product\Factory\ProductVariantFactoryInterface;
 use Sylius\Component\Product\Model\ProductAttribute;
@@ -71,7 +74,6 @@ class SetupCommand extends Command
     private $slugify;
 
     private $entityManager;
-    private $listingCategoryFactory;
 
     private $locale;
 
@@ -106,7 +108,6 @@ class SetupCommand extends Command
         SettingsManager $settingsManager,
         UrlGeneratorInterface $urlGenerator,
         EntityManagerInterface $entityManager,
-        ListingCategoryFactory $listingCategoryFactory,
 
         string $locale,
         string $country
@@ -123,7 +124,6 @@ class SetupCommand extends Command
         $this->productAttributeValueFactory = $productAttributeValueFactory;
 
         $this->entityManager = $entityManager;
-        $this->listingCategoryFactory = $listingCategoryFactory;
 
 
         $this->localeRepository = $localeRepository;
@@ -154,29 +154,28 @@ class SetupCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-//        $output->writeln('<info>Setting up Astrada</info>');
-//
-//        $output->writeln('<info>Checking Sylius locales are present…</info>');
-//        foreach ($this->locales as $locale){
-//            $this->createSyliusLocale($locale, $output);
-//        }
-//
-//        $output->writeln('<info>Checking Sylius currencies are present…</info>');
-//        foreach ($this->currencies as $currencyCode) {
-//            $this->createSyliusCurrency($currencyCode, $output);
-//        }
-//
-////        $output->writeln('<info>Checking Sylius welldesigns attributes are present…</info>');
-////        $this->createWelldesignsAttributes($output);
-//
-//        $output->writeln('<info>Checking Sylius listing services are present…</info>');
-//        $services = $this->createListingServices($output);
-//
-////        $output->writeln('<info>Checking Sylius welldesigns products are present…</info>');
-////        $this->createWelldesignsProducts($services, $output);
+        $output->writeln('<info>Setting up Astrada</info>');
 
-        $output->writeln('<info>Checking Sylius listing categories are present…</info>');
-        $listing_categories = $this->createListingCategories($output);
+        $output->writeln('<info>Checking Sylius locales are present…</info>');
+        foreach ($this->locales as $locale){
+            $this->createSyliusLocale($locale, $output);
+        }
+
+        $output->writeln('<info>Checking Sylius currencies are present…</info>');
+        foreach ($this->currencies as $currencyCode) {
+            $this->createSyliusCurrency($currencyCode, $output);
+        }
+
+//        $output->writeln('<info>Checking Sylius welldesigns attributes are present…</info>');
+//        $this->createWelldesignsAttributes($output);
+
+        $output->writeln('<info>Checking Sylius listing services are present…</info>');
+        $services = $this->createListingServices($output);
+
+//        $output->writeln('<info>Checking Sylius welldesigns products are present…</info>');
+//        $this->createWelldesignsProducts($services, $output);
+
+
         return 0;
     }
 
@@ -371,70 +370,6 @@ class SetupCommand extends Command
         }
 
         $this->productAttributeManager->flush();
-    }
-
-    private function createListingCategories(OutputInterface $output)
-    {
-        $output->writeln(sprintf('<comment>%s</comment>', $this->getDescription()));
-
-        foreach ($this->getRootCategories() as $data) {
-            $output->writeln(sprintf('Loading <comment>%s</comment> root category', $data['name']));
-
-            $rootTaxon = $this->createOrReplaceRootCategory($data);
-            $this->entityManager->persist($rootTaxon);
-        }
-
-        $this->entityManager->flush();
-        $output->writeln(sprintf('<info>%s root categories successfully loaded</info>', count($this->getRootCategories())));
-
-    }
-
-    /**
-     * @param array $data
-     *
-     * @return ListingCategory
-     */
-    protected function createOrReplaceRootCategory(array $data)
-    {
-        /** @var ListingCategory $rootCategory */
-        $rootCategory = $this->entityManager->getRepository(ListingCategory::class)->findOneBy(['code' => $data['code']]);
-
-        if (null === $rootCategory) {
-            $rootCategory = new ListingCategory();
-
-        }
-        $rootCategory->setCode($data['code']);
-        foreach ($this->locales as $locale) {
-
-            $tListingCat = new ListingCategoryTranslation();
-            $tListingCat->setLocale($locale);
-            $tListingCat->setName($data['t'][$locale]);
-            $tListingCat->setSlug($this->slugify->slugify($tListingCat->getName()));
-            $rootCategory->addTranslation($tListingCat);
-        }
-
-
-
-        return $rootCategory;
-    }
-
-
-    /**
-     * @return array
-     */
-    protected function getRootCategories()
-    {
-        return [
-            [
-                'code' => ListingCategory::CODE_DRILLING_WATER_WELLS,
-                'name' => 'Drilling water wells',
-                't' => [
-                    'en' => 'Drilling water wells',
-                    'ua' => 'Буріння свердловин на воду',
-                    'ru' => 'Бурение скважин на воду'
-                ]
-            ],
-        ];
     }
 
 }
