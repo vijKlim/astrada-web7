@@ -5,7 +5,6 @@ const vehicleRegexp = /(vehicle)\s+== "(cargo_bike|bike)"/
 const inRegexp = /([\w.]+) in ([\d]+)\.\.([\d]+)/
 const comparatorRegexp = /([\w.]+) (<|>) ([\d]+)/
 const doorstepDropoffRegexp = /(dropoff.doorstep)\s+== (true|false)/
-const packagesContainsAtLeastOneRegexp = /packages\.containsAtLeastOne\(['|"](.+)['|"]\)/
 
 const parseToken = token => {
 
@@ -15,15 +14,6 @@ const parseToken = token => {
       left: zoneTest[2],
       operator: zoneTest[1],
       right: zoneTest[3]
-    }
-  }
-
-  const packagesContainsAtLeastOneTest = packagesContainsAtLeastOneRegexp.exec(token)
-  if (packagesContainsAtLeastOneTest) {
-    return {
-      left: 'packages',
-      operator: 'containsAtLeastOne',
-      right: packagesContainsAtLeastOneTest[1],
     }
   }
 
@@ -185,15 +175,6 @@ export class PriceRange extends Price {
   }
 }
 
-export class PricePerPackage extends Price {
-  constructor(packageName, unitPrice, offset, discountPrice) {
-    super()
-    this.packageName = packageName
-    this.unitPrice = unitPrice
-    this.offset = offset
-    this.discountPrice = discountPrice
-  }
-}
 
 export class RawPriceExpression extends Price {
   constructor(expression) {
@@ -225,26 +206,6 @@ const parsePriceNode = (node, expression) => {
     return new PriceRange(attribute, price, step, threshold)
   }
 
-  if (node.attributes.operator && node.attributes.operator === '*'
-  &&  node.nodes.left?.nodes?.node?.attributes?.name === 'packages') {
-
-    const packageName = node.nodes.left.nodes.arguments.nodes[1].attributes.value
-    const unitPrice = node.nodes.right.attributes.value
-
-    return new PricePerPackage(packageName, unitPrice)
-  }
-
-  if (node.attributes.name === 'price_per_package') {
-
-    const args = node.nodes.arguments.nodes
-
-    const packageName   = args[1].attributes.value
-    const unitPrice     = args[2].attributes.value
-    const offset        = args[3].attributes.value
-    const discountPrice = args[4].attributes.value
-
-    return new PricePerPackage(packageName, unitPrice, offset, discountPrice)
-  }
 
   if (node.nodes.length === 0 && typeof node.attributes.value === 'number') {
     return new FixedPrice(node.attributes.value)

@@ -32,8 +32,8 @@
             id="rule-set"
             class="delivery-pricing-ruleset"
             data-prototype="{{ form_widget(form.rules.vars.prototype)|e }}"
-            data-zones=""
-            data-packages=""
+            data-zones="[]"
+            data-packages="[]"
     >
         {% for rule in form.rules %}
             <li class="delivery-pricing-ruleset__rule {% if not rule.vars.valid %}delivery-pricing-ruleset__rule--error{% endif %}">

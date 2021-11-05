@@ -329,7 +329,7 @@ class DashboardController extends AbstractController
         $this->accessControl($business);
 
         $ruleSet = $this->getDoctrine()
-            ->getRepository(Delivery\PricingRuleSet::class)
+            ->getRepository(Listing\ListingPricingRuleSet::class)
             ->find($pricingId);
 
         return $this->renderPricingRuleSetForm($business, $ruleSet, $request);

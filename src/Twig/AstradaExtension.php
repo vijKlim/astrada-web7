@@ -5,8 +5,10 @@ namespace App\Twig;
 
 
 use ApiPlatform\Core\Api\IriConverterInterface;
+use App\Entity\Address;
 use App\Entity\Booking;
 use App\Twig\CacheExtension\KeyGenerator;
+use Doctrine\Common\Collections\Collection;
 use ReflectionClass;
 use Symfony\Component\Serializer\SerializerInterface;
 use Twig\Extension\AbstractExtension;
@@ -92,6 +94,8 @@ class AstradaExtension extends AbstractExtension
             new TwigFilter('cache_key', array(KeyGenerator::class, 'generateKey')),
             new TwigFilter('get_iri_from_item', array($this, 'getIriFromItem')),
             new TwigFilter('astrada_star_rating', array($this, 'starRatingFilter')),
+            new TwigFilter('astrada_normalize', array($this, 'normalize')),
+            new TwigFilter('parse_expression', array(ExpressionLanguageRuntime::class, 'parseExpression')),
         );
     }
 
@@ -144,5 +148,39 @@ class AstradaExtension extends AbstractExtension
     public function isTimeUnitIsDay()
     {
         return $this->timeUnitIsDay;
+    }
+
+    public function normalize($object, $resourceClass = Address::class, $groups = [], $format = 'jsonld')
+    {
+        if ($resourceClass === Address::class && empty($groups)) {
+            $groups = ['address'];
+        }
+
+        $context = [];
+
+        if (!empty($groups)) {
+            $context['groups'] = $groups;
+        }
+
+        if ('jsonld' === $format) {
+            $context = array_merge($context, [
+                'resource_class' => $resourceClass,
+                'operation_type' => 'item',
+                'item_operation_name' => 'get',
+            ]);
+        }
+
+        if ($object instanceof Collection) {
+
+            $collection = [];
+            foreach ($object as $item) {
+                $collection[] =
+                    $this->serializer->normalize($item, $format, $context);
+            }
+
+            return $collection;
+        }
+
+        return $this->serializer->normalize($object, $format, $context);
     }
 }
