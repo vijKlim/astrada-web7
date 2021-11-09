@@ -44,13 +44,6 @@ class WellDesignProductType extends AbstractType
     {
         parent::buildForm($builder, $options);
 
-        $builder->add('title', TextType::class, [
-        'label' => 'form.product.name.label'
-        ]);
-        $builder->add('description', TextareaType::class, [
-            'required' => false,
-            'label' => 'form.product.description.label'
-        ]);
         $builder->add('pipeDiameter', ChoiceType::class, [
             'label' => 'form.welldesign.pipeDiameter.label',
             'choices' => $this->createEnumAttributeChoices(PipeDiameter::values(), 'pipeDiameter.%s'),

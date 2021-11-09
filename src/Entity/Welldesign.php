@@ -21,20 +21,6 @@ class Welldesign implements ResourceInterface
      *
      * @Assert\NotBlank()
      */
-    protected $title;
-
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank()
-     */
-    protected $description;
-
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank()
-     */
     protected $pipeDiameter;
 
     /**

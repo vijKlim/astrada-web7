@@ -80,7 +80,7 @@ class Listing extends BaseListing implements ResourceInterface, TranslatableInte
 
     protected $taxons;
 
-    protected $welldesigns;
+    protected $welldesign;
 
     /**
      * @var ArrayCollection
@@ -144,11 +144,11 @@ class Listing extends BaseListing implements ResourceInterface, TranslatableInte
     {
         $this->initializeTranslationsCollection();
         $this->taxons = new ArrayCollection();
-        $this->welldesigns = new ArrayCollection();
         $this->products = new ArrayCollection();
-        $this->welldesigns = new ArrayCollection();
         $this->reviews = new ArrayCollection();
         $this->bookings = new ArrayCollection();
+
+        $this->setWelldesign(new Welldesign());
         $this->setDefault(false);
         $this->setExpirationDate(null);
         $this->setAutoRenewal(false);
@@ -262,28 +262,19 @@ class Listing extends BaseListing implements ResourceInterface, TranslatableInte
     }
 
 
-    public function getWelldesigns()
+    public function getWelldesign()
     {
-        return $this->welldesigns;
+        return $this->welldesign;
     }
 
-    public function hasWelldesigns(ResourceInterface $welldesign)
-    {
-        return $this->welldesigns->contains($welldesign);
-    }
 
-    public function addWelldesign(ResourceInterface $welldesign)
+
+    public function setWelldesign(ResourceInterface $welldesign)
     {
         $welldesign->setListing($this);
-        $this->welldesigns->add($welldesign);
+        $this->welldesign = $welldesign;
     }
 
-    public function removeWelldesign(ResourceInterface $welldesign)
-    {
-        if ($this->getWelldesigns()->contains($welldesign)) {
-            $this->getWelldesigns()->removeElement($welldesign);
-        }
-    }
 
     /**
      * @return ListingReview[]|Collection

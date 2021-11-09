@@ -71,13 +71,8 @@ class ListingType extends AbstractType
                 'with_addresses' =>  [],
                 'with_remember_address' => $options['with_remember_address'],
             ])
-            ->add('welldesigns', CollectionType::class, [
-                'label' => false,
-                'entry_type' => WellDesignProductType::class,
-                'prototype' => true,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
+            ->add('welldesign', WellDesignProductType::class, [
+//                'label' => false
             ]);
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) use ($options) {

@@ -19,26 +19,24 @@
 
 
 
-{% block _listing_welldesigns_entry_widget %}
+{% block _listing_welldesign_widget %}
     <div class="row alert alert-warning">
         <div class="col-sm-12">
             <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        {{ form_label(form.title) }}
-                        {{ form_widget(form.title) }}
-                    </div>
-{#                    <div class="form-group">#}
-{#                        {{ form_label(form.description) }}#}
-{#                        {{ form_widget(form.description) }}#}
-{#                    </div>#}
 
-                </div>
                 <div class="col-sm-6">
                     <div class="form-group">
                         {{ form_label(form.vehicleType) }}
                         {{ form_widget(form.vehicleType) }}
                     </div>
+
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {{ form_label(form.title) }}
+                        {{ form_widget(form.title) }}
+                    </div>
+
 
                 </div>
             </div>

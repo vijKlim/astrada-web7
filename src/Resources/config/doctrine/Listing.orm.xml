@@ -38,11 +38,11 @@
         <many-to-one field="business" target-entity="App\Entity\LocalBusiness" inversed-by="listings">
             <join-column name="business_id" referenced-column-name="id" />
         </many-to-one>
-        <one-to-many field="welldesigns" target-entity="App\Entity\Welldesign" mapped-by="listing">
+        <one-to-one field="welldesign" target-entity="App\Entity\Welldesign" mapped-by="listing">
             <cascade>
                 <cascade-persist/>
             </cascade>
-        </one-to-many>
+        </one-to-one>
         <one-to-many field="bookings" target-entity="App\Entity\Booking" mapped-by="listing">
             <cascade>
                 <cascade-persist/>

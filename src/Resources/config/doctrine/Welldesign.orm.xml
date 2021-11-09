@@ -12,8 +12,11 @@
         <field name="vehicleType" type="string" column="vehicle_type" length="50" nullable="true"/>
         <field name="price" type="integer" column="price"/>
 
-        <many-to-one field="listing" target-entity="App\Entity\Listing" inversed-by="welldesigns">
-            <join-column name="listing_id" referenced-column-name="id" />
-        </many-to-one>
+        <one-to-one field="listing" target-entity="App\Entity\Listing" inversed-by="welldesign">
+            <join-columns>
+                <join-column name="listing_id" referenced-column-name="id"/>
+            </join-columns>
+        </one-to-one>
+
     </entity>
 </doctrine-mapping>
