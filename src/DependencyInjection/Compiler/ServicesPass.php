@@ -26,6 +26,5 @@ class ServicesPass implements CompilerPassInterface
         $postFactoryDefinition
             ->addArgument(new Reference('app.context.customer'));
 
-        $listingCategoryDefinition = $container->getDefinition('app.factory.listing_category');
     }
 }

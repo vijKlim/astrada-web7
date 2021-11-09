@@ -1,0 +1,76 @@
+{% extends "business/layout.html.twig" %}
+
+{% form_theme form 'form/listing_pricing_rule_set.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('admin_deliveries_pricing') }}">{% trans %}adminDashboard.pricing.title{% endtrans %}</a></li>
+{% endblock %}
+
+{% block content %}
+
+    {{ form_start(form) }}
+
+    {{ form_errors(form) }}
+
+    {{ form_row(form.name) }}
+    {{ form_row(form.strategy) }}
+
+    <hr>
+
+    <div class="alert alert-warning {% if form.rules|length > 0 %}hidden{% endif %}">
+        {% trans %}adminDashboard.pricing.noRuleFound{% endtrans %}
+    </div>
+
+    {% if form.rules|length == 0 %}
+        {% do form.rules.setRendered %}
+    {% endif %}
+
+    {{ form_label(form.rules) }}
+
+    <ul
+            id="rule-set"
+            class="delivery-pricing-ruleset"
+            data-prototype="{{ form_widget(form.rules.vars.prototype)|e }}"
+            data-zones="[]"
+            data-packages="[]"
+    >
+        {% for rule in form.rules %}
+            <li class="delivery-pricing-ruleset__rule {% if not rule.vars.valid %}delivery-pricing-ruleset__rule--error{% endif %}">
+                {# FIXME #}
+                {# Errors on "price" field do not bubble up to parent form #}
+                {% if not rule.vars.valid %}
+                    <div class="px-4">
+                        {% if rule.price.vars.errors|length > 0 %}
+                            {{ form_errors(rule.price) }}
+                        {% endif %}
+                        {{ form_errors(rule) }}
+                    </div>
+                {% endif %}
+
+                {{ form_widget(rule) }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="form-group text-right">
+        <button type="button" id="add-pricing-rule" class="btn btn-success">
+            <i class="fa fa-plus"></i> {% trans %}adminDashboard.pricing.addRule{% endtrans %}
+        </button>
+    </div>
+
+    <button type="submit" class="btn btn-block btn-lg btn-primary">
+        {% trans %}basics.save{% endtrans %}
+    </button>
+
+    {{ form_end(form) }}
+
+{% endblock %}
+
+{% block styles %}
+    {{ encore_entry_link_tags('listing-pricing-rules') }}
+{% endblock %}
+
+{% block scripts %}
+    {{ encore_entry_script_tags('listing-pricing-rules') }}
+{% endblock %}

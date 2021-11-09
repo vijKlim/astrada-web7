@@ -368,7 +368,6 @@ services:
       $currencyRepository: '@sylius.repository.currency'
       $currencyFactory: '@sylius.factory.currency'
       $entityManager: '@doctrine.orm.entity_manager'
-      $listingCategoryFactory: '@app.factory.listing_category'
       $locale: '%env(ASTRADA_LOCALE)%'
       $country: "%country_iso%"
     tags:
@@ -621,10 +620,6 @@ services:
     arguments:
       - App\Entity\Listing
 
-  App\Repository\ListingCategoryRepository:
-    factory: ['@doctrine.orm.default_entity_manager', getRepository]
-    arguments:
-      - App\Entity\ListingCategory
 
   App\Repository\AddressRepository:
     factory: ['@doctrine.orm.default_entity_manager', getRepository]

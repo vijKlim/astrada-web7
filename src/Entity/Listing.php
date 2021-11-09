@@ -473,4 +473,10 @@ class Listing extends BaseListing implements ResourceInterface, TranslatableInte
     {
         return (string)$this->getTitle();
     }
+
+    public static function toExpressionLanguageValues(Listing $listing)
+    {
+        return [
+        ];
+    }
 }

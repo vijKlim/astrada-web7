@@ -189,4 +189,5 @@ trait BusinessListingTrait
         return $this->getDoctrine()->getRepository(ListingSubscription::class);
     }
 
+
 }
