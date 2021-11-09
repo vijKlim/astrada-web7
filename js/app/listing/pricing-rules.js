@@ -56,7 +56,7 @@ const renderPriceChoice = (item) => {
 
   const priceAST = $(item).data('priceExpression')
   const expression = $input.val()
-
+    console.log(priceAST)
   const price = priceAST ? parsePriceAST(priceAST, expression) : new FixedPrice(0)
 
   let priceType = 'fixed'

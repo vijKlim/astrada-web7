@@ -511,10 +511,13 @@ services:
 
   astrada.email_manager: '@App\Service\EmailManager'
 
+  App\ExpressionLanguage\PriceRangeExpressionLanguageProvider: ~
 
   App\ExpressionLanguage\ExpressionLanguage:
     arguments:
       $cache: null
+      $providers:
+        - '@App\ExpressionLanguage\PriceRangeExpressionLanguageProvider'
 
   App\Service\RoutingInterface: '@routing_service'
   Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManagerInterface: '@lexik_jwt_authentication.jwt_manager'
