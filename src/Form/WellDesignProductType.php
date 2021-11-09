@@ -66,26 +66,30 @@ class WellDesignProductType extends AbstractType
             'label' => 'form.welldesign.vehicle_type.label',
             'choices' => $this->createEnumAttributeChoices(VehicleType::values(), 'vehicleType.%s'),
             'expanded' => true,
-            'multiple' => true,
+            'multiple' => false,
             'mapped' => true
         ]);
 
-        $builder->get('vehicleType')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($vehicleAsArray) {
-                    // transform the string back to an array
-                    return $vehicleAsArray ? explode(', ', $vehicleAsArray) : [];
+//        $builder->get('vehicleType')
+//            ->addModelTransformer(new CallbackTransformer(
+//                function ($vehicleAsArray) {
+//                    // transform the string back to an array
+//                    return $vehicleAsArray ? explode(', ', $vehicleAsArray) : [];
+//
+//                },
+//                function ($vehicleAsArray) {
+//                    // transform the array to a string
+//                    return $vehicleAsArray ? implode(', ', $vehicleAsArray) : '';
+//                }
+//            ));
 
-                },
-                function ($vehicleAsArray) {
-                    // transform the array to a string
-                    return $vehicleAsArray ? implode(', ', $vehicleAsArray) : '';
-                }
-            ));
 
-        $builder->add('price', MoneyType::class, [
-            'mapped' => true,
-            'label' => 'form.price.label'
+
+        $builder->add('price1km', TextType::class, [
+            'label' => 'form.price1km.label'
+        ]);
+        $builder->add('price1pm', TextType::class, [
+            'label' => 'form.price1pm.label'
         ]);
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($options) {

@@ -33,8 +33,8 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        {{ form_label(form.title) }}
-                        {{ form_widget(form.title) }}
+                        <label >{% trans %}form.welldesign.price1km{% endtrans %}</label>
+                        {{ form_row(form.price1km, {'label':false}) }}
                     </div>
 
 
@@ -64,8 +64,8 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label >{% trans %}form.welldesign.price{% endtrans %}</label>
-                        {{ form_row(form.price, {'label':false}) }}
+                        <label >{% trans %}form.welldesign.price1pm{% endtrans %}</label>
+                        {{ form_row(form.price1pm, {'label':false}) }}
                     </div>
 
                 </div>

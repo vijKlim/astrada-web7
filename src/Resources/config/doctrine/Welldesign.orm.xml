@@ -4,13 +4,14 @@
         <id name="id" type="integer" column="id">
             <generator strategy="IDENTITY"/>
         </id>
-        <field name="title" type="string" column="title" nullable="true"/>
-        <field name="description" type="text" column="description" nullable="true"/>
+
         <field name="pipeDiameter" type="string" column="pipe_diameter" length="50" nullable="true"/>
         <field name="depthFrom" type="smallint" column="depth_from"/>
         <field name="depthTo" type="smallint" column="depth_to"/>
         <field name="vehicleType" type="string" column="vehicle_type" length="50" nullable="true"/>
-        <field name="price" type="integer" column="price"/>
+
+        <field name="price1km" type="text" column="price1km"/>
+        <field name="price1pm" type="text" column="price1pm"/>
 
         <one-to-one field="listing" target-entity="App\Entity\Listing" inversed-by="welldesign">
             <join-columns>

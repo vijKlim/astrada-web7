@@ -42,9 +42,15 @@ class Welldesign implements ResourceInterface
     protected $vehicleType;
 
     /**
-     * @var int
+     * @Assert\Type(type="string")
      */
-    protected $price;
+    protected $price1km;
+
+    /**
+     * @Assert\Type(type="string")
+     */
+    protected $price1pm;
+
 
     /**
      * @var Listing
@@ -62,37 +68,6 @@ class Welldesign implements ResourceInterface
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param string $title
-     */
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
-    }
 
     /**
      * @return string
@@ -159,19 +134,35 @@ class Welldesign implements ResourceInterface
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getPrice(): int
+    public function getPrice1km()
     {
-        return $this->price;
+        return $this->price1km;
     }
 
     /**
-     * @param int $price
+     * @param mixed $price1km
      */
-    public function setPrice(int $price): void
+    public function setPrice1km($price1km): void
     {
-        $this->price = $price;
+        $this->price1km = $price1km;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrice1pm()
+    {
+        return $this->price1pm;
+    }
+
+    /**
+     * @param mixed $price1pm
+     */
+    public function setPrice1pm($price1pm): void
+    {
+        $this->price1pm = $price1pm;
     }
 
     /**
