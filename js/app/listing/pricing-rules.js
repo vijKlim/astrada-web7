@@ -4,8 +4,8 @@ import Sortable from 'sortablejs'
 import { I18nextProvider, useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
-import RulePicker from '../components/RulePicker'
-import PriceRangeEditor from '../components/PriceRangeEditor'
+import RulePicker from './RulePicker'
+import PriceRangeEditor from './PriceRangeEditor'
 import './pricing-rules.scss'
 import { parsePriceAST, PriceRange, FixedPrice } from './pricing-rule-parser'
 import i18n from '../i18n'
@@ -27,8 +27,8 @@ const ruleSet = $('#rule-set'),
 
 const wrapper = document.getElementById('rule-set')
 
-const zones = JSON.parse(wrapper.dataset.zones)
-const packages = JSON.parse(wrapper.dataset.packages)
+const drillingKids = JSON.parse(wrapper.dataset.drillingkids)
+const pipeDiameters = JSON.parse(wrapper.dataset.pipediameters)
 
 new Sortable(document.querySelector('.delivery-pricing-ruleset'), {
   group: 'rules',
@@ -137,8 +137,8 @@ $('#add-pricing-rule').on('click', function(e) {
 
   render(
     <RulePicker
-      zones={ zones }
-      packages={ packages }
+      drillingKids={ drillingKids }
+      pipeDiameters={ pipeDiameters }
       onExpressionChange={ onExpressionChange }
     />,
     newLi.find('.rule-expression-container')[0]
@@ -170,8 +170,8 @@ $('.delivery-pricing-ruleset__rule__expression').each(function(index, item) {
   }
   render(
     <RulePicker
-      zones={ zones }
-      packages={ packages }
+      drillingKids={ drillingKids }
+      pipeDiameters={ pipeDiameters }
       expression={ $input.val() }
       expressionAST={ $(item).data('expression') }
       onExpressionChange={ onExpressionChange }

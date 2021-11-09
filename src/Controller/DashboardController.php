@@ -14,6 +14,8 @@ use App\Entity\BusinessListingList;
 use App\Entity\Listing;
 use App\Entity\ListingRepository;
 use App\Entity\LocalBusiness;
+use App\Enum\DrillingKit;
+use App\Enum\PipeDiameter;
 use App\Form\ListingPricingRuleSetType;
 use App\Serializer\BusinessListingListNormalizer;
 use App\Serializer\PrivateListingNormalizer;
@@ -291,13 +293,18 @@ class DashboardController extends AbstractController
                 $this->translator->trans('global.changesSaved')
             );
 
-            return $this->redirectToRoute('dashboard_deliveries_pricing_ruleset', ['businessId'=>$business->getId(), 'pricingId' => $ruleSet->getId()]);
+            return $this->redirectToRoute('dashboard_business_listings_pricing_ruleset', ['businessId'=>$business->getId(), 'pricingId' => $ruleSet->getId()]);
         }
+
+        $drillingKids = DrillingKit::keys();
+        $pipeDiameters = PipeDiameter::keys();
 
         return $this->render('business/listings_pricing_ruleset.html.twig', $this->withRoutes([
             'layout' => 'dashboard.html.twig',
             'form' => $form->createView(),
-            'business' => $business
+            'business' => $business,
+            'drillingKids' => $drillingKids,
+            'pipeDiameters' => $pipeDiameters,
         ],[]));
     }
 

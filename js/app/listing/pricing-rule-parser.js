@@ -5,9 +5,29 @@ const vehicleRegexp = /(vehicle)\s+== "(cargo_bike|bike)"/
 const inRegexp = /([\w.]+) in ([\d]+)\.\.([\d]+)/
 const comparatorRegexp = /([\w.]+) (<|>) ([\d]+)/
 const doorstepDropoffRegexp = /(dropoff.doorstep)\s+== (true|false)/
+const drillingKidsContainsAtLeastOneRegexp = /drillingKids\.containsAtLeastOne\(['|"](.+)['|"]\)/
+const pipeDiametersContainsAtLeastOneRegexp = /pipeDiameters\.containsAtLeastOne\(['|"](.+)['|"]\)/
 
 const parseToken = token => {
 
+    const drillingKidsContainsAtLeastOneTest = drillingKidsContainsAtLeastOneRegexp.exec(token)
+    if (drillingKidsContainsAtLeastOneTest) {
+        return {
+            left: 'drillingKids',
+            operator: 'containsAtLeastOne',
+            right: drillingKidsContainsAtLeastOneTest[1],
+        }
+    }
+
+    const pipeDiametersContainsAtLeastOneTest = pipeDiametersContainsAtLeastOneRegexp.exec(token)
+    if (pipeDiametersContainsAtLeastOneTest) {
+        return {
+            left: 'pipeDiameters',
+            operator: 'containsAtLeastOne',
+            right: pipeDiametersContainsAtLeastOneTest[1],
+        }
+    }
+console.log(token);
   const zoneTest = zoneRegexp.exec(token)
   if (zoneTest) {
     return {

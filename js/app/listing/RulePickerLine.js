@@ -28,14 +28,8 @@ import './RulePicker.scss'
 const typeToOperators = {
   'distance': ['<', '>', 'in'],
   'weight': ['<', '>', 'in'],
-  'vehicle': ['=='],
-  'pickup.address': ['in_zone', 'out_zone'],
-  'dropoff.address': ['in_zone', 'out_zone'],
-  'diff_days(pickup)': ['==', '<', '>', 'in'],
-  'diff_hours(pickup)': ['==', '<', '>'],
-  'dropoff.doorstep': ['=='],
-  'packages': ['containsAtLeastOne'],
-  'order.itemsTotal': ['==', '<', '>', 'in'],
+  'drilling_kit': ['containsAtLeastOne'],
+  'pipe_diameter': ['containsAtLeastOne'],
 }
 
 const isK = type => type === 'distance' || type === 'weight'
@@ -219,14 +213,33 @@ class RulePickerLine extends React.Component {
     case '>':
       return this.renderNumberInput(isK(this.state.type))
     case 'containsAtLeastOne':
-      return (
-        <select onChange={this.handleValueChange} value={this.state.value} className="form-control input-sm">
-          <option value="">-</option>
-          { this.props.packages.map((item, index) => {
-            return (<option value={item} key={index}>{item}</option>)
-          })}
-        </select>
-      )
+        if (this.state.type === 'drilling_kit') {
+            return (
+                <select onChange={this.handleValueChange} value={this.state.value} className="form-control input-sm">
+                    <option value="">-</option>
+                    { this.props.drillingKids.map((item, index) => {
+                        return (<option value={item} key={index}>{ this.props.t('RULE_PICKER_LINE_VALUE_'+item) }</option>)
+                    })}
+                </select>
+            )
+        }
+        else if (this.state.type === 'pipe_diameter') {
+            return (
+                <select onChange={this.handleValueChange} value={this.state.value} className="form-control input-sm">
+                    <option value="">-</option>
+                    { this.props.pipeDiameters.map((item, index) => {
+                        return (<option value={item} key={index}>{ this.props.t('RULE_PICKER_LINE_VALUE_'+item) }</option>)
+                    })}
+                </select>
+            )
+        }else{
+            return (
+                <select onChange={this.handleValueChange} value={this.state.value} className="form-control input-sm">
+                    <option value="">-</option>
+
+                </select>
+            )
+        }
     }
   }
 
@@ -237,20 +250,10 @@ class RulePickerLine extends React.Component {
         <td>
           <select value={this.state.type} onChange={this.onTypeSelect} className="form-control input-sm">
             <option value="">-</option>
-            <optgroup label={ this.props.t('RULE_PICKER_LINE_OPTGROUP_DELIVERY') }>
               <option value="distance">{ this.props.t('RULE_PICKER_LINE_DISTANCE') }</option>
-              <option value="weight">{ this.props.t('RULE_PICKER_LINE_WEIGHT') }</option>
-              <option value="vehicle">{ this.props.t('RULE_PICKER_LINE_BIKE_TYPE') }</option>
-              <option value="pickup.address">{ this.props.t('RULE_PICKER_LINE_PICKUP_ADDRESS') }</option>
-              <option value="dropoff.address">{ this.props.t('RULE_PICKER_LINE_DROPOFF_ADDRESS') }</option>
-              <option value="diff_hours(pickup)">{ this.props.t('RULE_PICKER_LINE_PICKUP_DIFF_HOURS') }</option>
-              <option value="diff_days(pickup)">{ this.props.t('RULE_PICKER_LINE_PICKUP_DIFF_DAYS') }</option>
-              <option value="dropoff.doorstep">{ this.props.t('RULE_PICKER_LINE_DROPOFF_DOORSTEP') }</option>
-              <option value="packages">{ this.props.t('RULE_PICKER_LINE_PACKAGES') }</option>
-            </optgroup>
-            <optgroup label={ this.props.t('RULE_PICKER_LINE_OPTGROUP_ORDER') }>
-              <option value="order.itemsTotal">{ this.props.t('RULE_PICKER_LINE_ORDER_ITEMS_TOTAL') }</option>
-            </optgroup>
+              <option value="drilling_kit">{ this.props.t('RULE_PICKER_LINE_DRILLING_KIT') }</option>
+              <option value="pipe_diameter">{ this.props.t('RULE_PICKER_LINE_PIPE_DIAMETER') }</option>
+
           </select>
         </td>
         <td width="20%">

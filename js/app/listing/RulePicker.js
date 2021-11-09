@@ -9,9 +9,6 @@ import { parseAST } from '../delivery/pricing-rule-parser'
 export const numericTypes = [
   'distance',
   'weight',
-  'diff_days(pickup)',
-  'diff_hours(pickup)',
-  'order.itemsTotal',
 ]
 
 export const isNum = (type) => _.includes(numericTypes, type)
@@ -26,13 +23,14 @@ const lineToString = state => {
     return `${state.left} in ${state.right[0]}..${state.right[1]}`
   }
 
-  if (state.left === 'packages' && state.operator === 'containsAtLeastOne') {
-    return `packages.containsAtLeastOne("${state.right}")`
+  if (state.left === 'drillingKids' && state.operator === 'containsAtLeastOne') {
+    return `drillingKids.containsAtLeastOne("${state.right}")`
   }
+    if (state.left === 'pipeDiameters' && state.operator === 'containsAtLeastOne') {
+        return `pipeDiameters.containsAtLeastOne("${state.right}")`
+    }
 
-  if (state.left === 'diff_days(pickup)') {
-    return `diff_days(pickup) ${state.operator} ${state.right}`
-  }
+
 
   switch (state.operator) {
   case '<':
@@ -114,8 +112,8 @@ class RulePicker extends React.Component {
               type={ line.left }
               operator={ line.operator }
               value={ line.right }
-              zones={ this.props.zones }
-              packages={ this.props.packages }
+              drillingKids={ this.props.drillingKids }
+              pipeDiameters={ this.props.pipeDiameters }
               onUpdate={ this.updateLine }
               onDelete={ this.deleteLine } />
           )) }
@@ -139,15 +137,15 @@ class RulePicker extends React.Component {
 RulePicker.defaultProps = {
   expression: '',
   onExpressionChange: () => {},
-  zones: [],
-  packages: [],
+    drillingKids: [],
+    pipeDiameters: [],
 }
 
 RulePicker.propTypes = {
   expression: PropTypes.string.isRequired,
   onExpressionChange: PropTypes.func.isRequired,
-  zones: PropTypes.arrayOf(PropTypes.string),
-  packages: PropTypes.arrayOf(PropTypes.string),
+    drillingKids: PropTypes.arrayOf(PropTypes.string),
+    pipeDiameters: PropTypes.arrayOf(PropTypes.string),
 }
 
 export default withTranslation()(RulePicker)
