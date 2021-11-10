@@ -7,6 +7,8 @@ use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Base\BaseListing;
 use App\Entity\LocalBusiness\ImageTrait;
+use App\ExpressionLanguage\DrillingKitsResolver;
+use App\ExpressionLanguage\PipeDiametersResolver;
 use Astrada\SubscriptionBundle\Model\SubscriptionProductInterface;
 use App\Sylius\Product\ProductInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -80,6 +82,9 @@ class Listing extends BaseListing implements ResourceInterface, TranslatableInte
 
     protected $taxons;
 
+    /**
+     * @var Welldesign
+     */
     protected $welldesign;
 
     /**
@@ -261,7 +266,9 @@ class Listing extends BaseListing implements ResourceInterface, TranslatableInte
         }
     }
 
-
+    /**
+     * @return mixed
+     */
     public function getWelldesign()
     {
         return $this->welldesign;
@@ -477,6 +484,8 @@ class Listing extends BaseListing implements ResourceInterface, TranslatableInte
     public static function toExpressionLanguageValues(Listing $listing)
     {
         return [
+            'drillingKits' => new DrillingKitsResolver($listing),
+            'pipeDiameters' => new PipeDiametersResolver($listing),
         ];
     }
 }
