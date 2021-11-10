@@ -26,15 +26,15 @@
 
                 <div class="col-sm-6">
                     <div class="form-group">
-                        {{ form_label(form.vehicleType) }}
-                        {{ form_widget(form.vehicleType) }}
+                        {{ form_label(form.drillingKit) }}
+                        {{ form_widget(form.drillingKit) }}
                     </div>
 
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label >{% trans %}form.welldesign.price1km{% endtrans %}</label>
-                        {{ form_row(form.price1km, {'label':false}) }}
+                        <label >{% trans %}form.welldesign.transportationCost{% endtrans %}</label>
+                        {{ form_row(form.transportationCost, {'label':false}) }}
                     </div>
 
 
@@ -64,8 +64,8 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label >{% trans %}form.welldesign.price1pm{% endtrans %}</label>
-                        {{ form_row(form.price1pm, {'label':false}) }}
+                        <label >{% trans %}form.welldesign.wellCost{% endtrans %}</label>
+                        {{ form_row(form.wellCost, {'label':false}) }}
                     </div>
 
                 </div>

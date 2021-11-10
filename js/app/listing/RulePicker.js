@@ -23,14 +23,14 @@ const lineToString = state => {
     return `${state.left} in ${state.right[0]}..${state.right[1]}`
   }
 
-  if (state.left === 'drillingKids' && state.operator === 'containsAtLeastOne') {
-    return `drillingKids.containsAtLeastOne("${state.right}")`
+  if (state.left === 'drillingKits' && state.operator === 'containsAtLeastOne') {
+    return `drillingKits.containsAtLeastOne("${state.right}")`
   }
     if (state.left === 'pipeDiameters' && state.operator === 'containsAtLeastOne') {
         return `pipeDiameters.containsAtLeastOne("${state.right}")`
     }
 
-
+console.log('pass ex', state.left);
 
   switch (state.operator) {
   case '<':
@@ -112,7 +112,7 @@ class RulePicker extends React.Component {
               type={ line.left }
               operator={ line.operator }
               value={ line.right }
-              drillingKids={ this.props.drillingKids }
+              drillingKits={ this.props.drillingKits }
               pipeDiameters={ this.props.pipeDiameters }
               onUpdate={ this.updateLine }
               onDelete={ this.deleteLine } />
@@ -137,14 +137,14 @@ class RulePicker extends React.Component {
 RulePicker.defaultProps = {
   expression: '',
   onExpressionChange: () => {},
-    drillingKids: [],
+    drillingKits: [],
     pipeDiameters: [],
 }
 
 RulePicker.propTypes = {
   expression: PropTypes.string.isRequired,
   onExpressionChange: PropTypes.func.isRequired,
-    drillingKids: PropTypes.arrayOf(PropTypes.string),
+    drillingKits: PropTypes.arrayOf(PropTypes.string),
     pipeDiameters: PropTypes.arrayOf(PropTypes.string),
 }
 

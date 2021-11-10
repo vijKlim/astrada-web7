@@ -33,7 +33,7 @@
             class="delivery-pricing-ruleset"
             data-prototype="{{ form_widget(form.rules.vars.prototype)|e }}"
             data-pipediameters="{{ pipeDiameters|json_encode|e('html_attr') }}"
-            data-drillingkids="{{ drillingKids|json_encode|e('html_attr') }}"
+            data-drillingkits="{{ drillingKits|json_encode|e('html_attr') }}"
     >
         {% for rule in form.rules %}
             <li class="delivery-pricing-ruleset__rule {% if not rule.vars.valid %}delivery-pricing-ruleset__rule--error{% endif %}">

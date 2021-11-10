@@ -296,14 +296,14 @@ class DashboardController extends AbstractController
             return $this->redirectToRoute('dashboard_business_listings_pricing_ruleset', ['businessId'=>$business->getId(), 'pricingId' => $ruleSet->getId()]);
         }
 
-        $drillingKids = DrillingKit::keys();
+        $drillingKits = DrillingKit::keys();
         $pipeDiameters = PipeDiameter::keys();
 
         return $this->render('business/listings_pricing_ruleset.html.twig', $this->withRoutes([
             'layout' => 'dashboard.html.twig',
             'form' => $form->createView(),
             'business' => $business,
-            'drillingKids' => $drillingKids,
+            'drillingKits' => $drillingKits,
             'pipeDiameters' => $pipeDiameters,
         ],[]));
     }

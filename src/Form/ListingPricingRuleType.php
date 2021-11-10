@@ -25,7 +25,8 @@ class ListingPricingRuleType extends AbstractType
                     'form.pricing_rule.type.transportation_cost' => 'transportation_cost',
                     'form.pricing_rule.type.well_cost' => 'well_cost',
                 ],
-                'expanded' => true,
+
+                'expanded' => false,
                 'multiple' => false,
             ])
             ->add('price', TextType::class, [

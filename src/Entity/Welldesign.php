@@ -39,17 +39,17 @@ class Welldesign implements ResourceInterface
      * @var string
      * @Assert\NotBlank()
      */
-    protected $vehicleType;
+    protected $drillingKit;
 
     /**
      * @Assert\Type(type="string")
      */
-    protected $price1km;
+    protected $transportationCost;
 
     /**
      * @Assert\Type(type="string")
      */
-    protected $price1pm;
+    protected $wellCost;
 
 
     /**
@@ -120,50 +120,51 @@ class Welldesign implements ResourceInterface
     /**
      * @return string
      */
-    public function getVehicleType(): string
+    public function getDrillingKit(): string
     {
-        return $this->vehicleType;
+        return $this->drillingKit;
     }
 
     /**
-     * @param string $vehicleType
+     * @param string $drillingKit
      */
-    public function setVehicleType(string $vehicleType): void
+    public function setDrillingKit(string $drillingKit): void
     {
-        $this->vehicleType = $vehicleType;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPrice1km()
-    {
-        return $this->price1km;
-    }
-
-    /**
-     * @param mixed $price1km
-     */
-    public function setPrice1km($price1km): void
-    {
-        $this->price1km = $price1km;
+        $this->drillingKit = $drillingKit;
     }
 
     /**
      * @return mixed
      */
-    public function getPrice1pm()
+    public function getTransportationCost()
     {
-        return $this->price1pm;
+        return $this->transportationCost;
     }
 
     /**
-     * @param mixed $price1pm
+     * @param mixed $transportationCost
      */
-    public function setPrice1pm($price1pm): void
+    public function setTransportationCost($transportationCost): void
     {
-        $this->price1pm = $price1pm;
+        $this->transportationCost = $transportationCost;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getWellCost()
+    {
+        return $this->wellCost;
+    }
+
+    /**
+     * @param mixed $wellCost
+     */
+    public function setWellCost($wellCost): void
+    {
+        $this->wellCost = $wellCost;
+    }
+
 
     /**
      * @return Listing

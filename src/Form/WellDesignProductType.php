@@ -6,6 +6,7 @@ namespace App\Form;
 
 use App\Entity\LocalBusiness\CatalogInterface;
 use App\Entity\Welldesign;
+use App\Enum\DrillingKit;
 use App\Enum\PipeDiameter;
 use App\Enum\VehicleType;
 use App\Form\Type\MoneyType;
@@ -62,9 +63,9 @@ class WellDesignProductType extends AbstractType
             'mapped' => true
         ]);
 
-        $builder->add('vehicleType', ChoiceType::class, [
-            'label' => 'form.welldesign.vehicle_type.label',
-            'choices' => $this->createEnumAttributeChoices(VehicleType::values(), 'vehicleType.%s'),
+        $builder->add('drillingKit', ChoiceType::class, [
+            'label' => 'form.welldesign.drillingKit.label',
+            'choices' => $this->createEnumAttributeChoices(DrillingKit::values(), 'drillingKit.%s'),
             'expanded' => true,
             'multiple' => false,
             'mapped' => true
@@ -85,11 +86,11 @@ class WellDesignProductType extends AbstractType
 
 
 
-        $builder->add('price1km', TextType::class, [
-            'label' => 'form.price1km.label'
+        $builder->add('transportationCost', TextType::class, [
+            'label' => 'form.transportationCost.label'
         ]);
-        $builder->add('price1pm', TextType::class, [
-            'label' => 'form.price1pm.label'
+        $builder->add('wellCost', TextType::class, [
+            'label' => 'form.wellCost.label'
         ]);
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($options) {

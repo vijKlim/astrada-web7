@@ -27,7 +27,7 @@ const ruleSet = $('#rule-set'),
 
 const wrapper = document.getElementById('rule-set')
 
-const drillingKids = JSON.parse(wrapper.dataset.drillingkids)
+const drillingKits = JSON.parse(wrapper.dataset.drillingkits)
 const pipeDiameters = JSON.parse(wrapper.dataset.pipediameters)
 
 new Sortable(document.querySelector('.delivery-pricing-ruleset'), {
@@ -56,7 +56,7 @@ const renderPriceChoice = (item) => {
 
   const priceAST = $(item).data('priceExpression')
   const expression = $input.val()
-    console.log(priceAST)
+
   const price = priceAST ? parsePriceAST(priceAST, expression) : new FixedPrice(0)
 
   let priceType = 'fixed'
@@ -132,12 +132,13 @@ $('#add-pricing-rule').on('click', function(e) {
     $input = $ruleExpression.find('input[data-expression]')
 
   function onExpressionChange(newExpression) {
+      console.log('changeExpression222', newExpression);
     $input.val(newExpression)
   }
 
   render(
     <RulePicker
-      drillingKids={ drillingKids }
+      drillingKits={ drillingKits }
       pipeDiameters={ pipeDiameters }
       onExpressionChange={ onExpressionChange }
     />,
@@ -166,11 +167,12 @@ $('.delivery-pricing-ruleset__rule__price').each(function(index, item) {
 $('.delivery-pricing-ruleset__rule__expression').each(function(index, item) {
   let $input = $(item).find('input')
   function onExpressionChange(newExpression) {
+      console.log('changeExpression333', newExpression);
     $input.val(newExpression)
   }
   render(
     <RulePicker
-      drillingKids={ drillingKids }
+      drillingKits={ drillingKits }
       pipeDiameters={ pipeDiameters }
       expression={ $input.val() }
       expressionAST={ $(item).data('expression') }

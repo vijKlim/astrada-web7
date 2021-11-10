@@ -28,8 +28,8 @@ import './RulePicker.scss'
 const typeToOperators = {
   'distance': ['<', '>', 'in'],
   'weight': ['<', '>', 'in'],
-  'drilling_kit': ['containsAtLeastOne'],
-  'pipe_diameter': ['containsAtLeastOne'],
+  'drillingKits': ['containsAtLeastOne'],
+  'pipeDiameters': ['containsAtLeastOne'],
 }
 
 const isK = type => type === 'distance' || type === 'weight'
@@ -213,17 +213,17 @@ class RulePickerLine extends React.Component {
     case '>':
       return this.renderNumberInput(isK(this.state.type))
     case 'containsAtLeastOne':
-        if (this.state.type === 'drilling_kit') {
+        if (this.state.type === 'drillingKits') {
             return (
                 <select onChange={this.handleValueChange} value={this.state.value} className="form-control input-sm">
                     <option value="">-</option>
-                    { this.props.drillingKids.map((item, index) => {
+                    { this.props.drillingKits.map((item, index) => {
                         return (<option value={item} key={index}>{ this.props.t('RULE_PICKER_LINE_VALUE_'+item) }</option>)
                     })}
                 </select>
             )
         }
-        else if (this.state.type === 'pipe_diameter') {
+        else if (this.state.type === 'pipeDiameters') {
             return (
                 <select onChange={this.handleValueChange} value={this.state.value} className="form-control input-sm">
                     <option value="">-</option>
@@ -251,8 +251,8 @@ class RulePickerLine extends React.Component {
           <select value={this.state.type} onChange={this.onTypeSelect} className="form-control input-sm">
             <option value="">-</option>
               <option value="distance">{ this.props.t('RULE_PICKER_LINE_DISTANCE') }</option>
-              <option value="drilling_kit">{ this.props.t('RULE_PICKER_LINE_DRILLING_KIT') }</option>
-              <option value="pipe_diameter">{ this.props.t('RULE_PICKER_LINE_PIPE_DIAMETER') }</option>
+              <option value="drillingKits">{ this.props.t('RULE_PICKER_LINE_DRILLING_KIT') }</option>
+              <option value="pipeDiameters">{ this.props.t('RULE_PICKER_LINE_PIPE_DIAMETER') }</option>
 
           </select>
         </td>

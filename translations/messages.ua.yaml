@@ -683,11 +683,11 @@ form.product_option_value.price.label: Ціна
 service.WELLDRILLING_1С: Буріння свердловин в одну колону
 service.WELLDRILLING_2С: Буріння свердловин в 2 колони
 service.WELLDRILLING_3С: Буріння свердловин в 3 колони
-vehicleType.BA15: БА/15
-vehicleType.GAZ: ГАЗ
-vehicleType.MBY: Малогабаритна бурова установка
-vehicleType.URB25: УРБ 2,5 на базі ЗІЛ 131, Урал
-vehicleType.URB2A2: УРБ 2А2
+drillingKit.BA15: БА/15
+drillingKit.GAZ: ГАЗ
+drillingKit.MBY: Малогабаритна бурова установка
+drillingKit.URB25: УРБ 2,5 на базі ЗІЛ 131, Урал
+drillingKit.URB2A2: УРБ 2А2
 pipeDiameter.D050MM: 50мм
 pipeDiameter.D125MM: 125мм
 pipeDiameter.D160MM: 160мм
@@ -699,7 +699,7 @@ form.welldesign.depthWell: Глибина свердловини
 form.welldesign.depthFrom.label: від
 form.welldesign.depthTo.label: до
 form.welldesign.vihicleType.label: Вид транспортного засобу
-form.welldesign.vehicle_type.label: Вид транспортного засобу
+form.welldesign.drillingKit.label: Вид транспортного засобу
 form.welldesign.price: Базова ціна за 1 м.п.
 listing.price.per_1km_delivery: Ціна за 1 км доставки техніки
 listing.price.per_1m_drilling: Базова ціна за 1 м.п. буріння

@@ -22,7 +22,7 @@ class ExpressionLanguageRuntime implements RuntimeExtensionInterface
         return $this->expressionLanguage->parse($expression, [
             'distance',
             'weight',
-            'drillingKids',
+            'drillingKits',
             'pipeDiameters',
             'vehicle',
             'pickup',
