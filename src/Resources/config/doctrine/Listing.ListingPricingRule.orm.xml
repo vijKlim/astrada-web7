@@ -4,6 +4,7 @@
         <id name="id" type="integer" column="id">
             <generator strategy="IDENTITY"/>
         </id>
+        <field name="type" type="text" column="type"/>
         <field name="expression" type="text" column="expression"/>
         <field name="price" type="text" column="price"/>
         <field name="position" type="integer" column="position" nullable="true"/>

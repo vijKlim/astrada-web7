@@ -18,6 +18,12 @@ class ListingPricingRule
     /**
      * @Groups({"original_rules"})
      * @Assert\Type(type="string")
+     */
+    protected $type;
+
+    /**
+     * @Groups({"original_rules"})
+     * @Assert\Type(type="string")
      * @Assert\NotBlank()
      */
     protected $expression;
@@ -80,6 +86,23 @@ class ListingPricingRule
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type): void
+    {
+        $this->type = $type;
+    }
+
 
     public function getRuleSet()
     {

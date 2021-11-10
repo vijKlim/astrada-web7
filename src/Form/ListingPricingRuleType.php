@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Listing\ListingPricingRule;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,6 +18,16 @@ class ListingPricingRuleType extends AbstractType
     {
         $builder
             ->add('expression', HiddenType::class)
+            ->add('type', ChoiceType::class, [
+                'label' => 'form.pricing_rule.type.label',
+                'required' => true,
+                'choices'  => [
+                    'form.pricing_rule.type.transportation_cost' => 'transportation_cost',
+                    'form.pricing_rule.type.well_cost' => 'well_cost',
+                ],
+                'expanded' => true,
+                'multiple' => false,
+            ])
             ->add('price', TextType::class, [
                 'label' => 'form.pricing_rule.price.label'
             ])
