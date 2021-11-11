@@ -3,6 +3,7 @@
 namespace App;
 
 use App\DependencyInjection\Compiler\ServicesPass;
+use App\DependencyInjection\Security\Factory\TokenBearerFactory;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -21,6 +22,9 @@ class Kernel extends BaseKernel
         parent::build($container);
 
         $container->addCompilerPass(new ServicesPass());
+
+        $extension = $container->getExtension('security');
+        $extension->addSecurityListenerFactory(new TokenBearerFactory());
     }
 
     protected function configureContainer(ContainerConfigurator $container): void

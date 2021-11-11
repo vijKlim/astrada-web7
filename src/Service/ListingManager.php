@@ -27,12 +27,12 @@ class ListingManager
         $this->logger = $logger ?? new NullLogger();
     }
 
-    public function getPrice(Listing $listing, Listing\ListingPricingRuleSet $ruleSet)
+    public function getPrice(Listing $listing, $ruleType, Listing\ListingPricingRuleSet $ruleSet)
     {
         if ($ruleSet->getStrategy() === 'find') {
 
             foreach ($ruleSet->getRules() as $rule) {
-                if ($rule->matches($listing, $this->expressionLanguage)) {
+                if ($rule->getType() == $ruleType && $rule->matches($listing, $this->expressionLanguage)) {
                     $this->logger->info(sprintf('Matched rule "%s"', $rule->getExpression()));
 
                     return $rule->evaluatePrice($listing, $this->expressionLanguage);
@@ -48,7 +48,7 @@ class ListingManager
             $matchedAtLeastOne = false;
 
             foreach ($ruleSet->getRules() as $rule) {
-                if ($rule->matches($listing, $this->expressionLanguage)) {
+                if ($rule->getType() == $ruleType && $rule->matches($listing, $this->expressionLanguage)) {
                     $this->logger->info(sprintf('Matched rule "%s"', $rule->getExpression()));
 
                     $price = $rule->evaluatePrice($listing, $this->expressionLanguage);

@@ -22,8 +22,8 @@ class ListingPricingRuleType extends AbstractType
                 'label' => 'form.pricing_rule.type.label',
                 'required' => true,
                 'choices'  => [
-                    'form.pricing_rule.type.transportation_cost' => 'transportation_cost',
-                    'form.pricing_rule.type.well_cost' => 'well_cost',
+                    'form.pricing_rule.type.transportation_cost' => ListingPricingRule::TYPE_TRANSPORTATION_COST,
+                    'form.pricing_rule.type.well_cost' => ListingPricingRule::TYPE_WELL_COST,
                 ],
 
                 'expanded' => false,

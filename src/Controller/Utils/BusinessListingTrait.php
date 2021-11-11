@@ -137,6 +137,7 @@ trait BusinessListingTrait
         $listing = $listingFactory
             ->createNew();
 
+        $listing->setBusiness($business);
 
         $form =
             $this->createBusinessListingForm($business, $listing);

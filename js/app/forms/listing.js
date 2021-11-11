@@ -76,6 +76,16 @@ function createAddressWidget(name, cb) {
     })
 }
 
+function replaceWeldesign(state, index, key, value) {
+
+    const welldesignState = {
+        ...state.welldesign,
+        [key]: value
+    }
+
+    return welldesignState
+}
+
 function reducer(state = {}, action) {
     switch (action.type) {
         case 'SET_ADDRESS':
@@ -88,6 +98,11 @@ function reducer(state = {}, action) {
                 ...state,
                 address: null,
             }
+        case 'SET_WELLDESIGN':
+            return {
+                ...state,
+                welldesign: replaceWeldesign(state,  action.key, action.value)
+            }
         default:
             return state
     }
@@ -95,8 +110,16 @@ function reducer(state = {}, action) {
 
 
 class ListingForm {
-
+    disable() {
+        $('#listing-submit').attr('disabled', true)
+        $('#loader').removeClass('hidden')
+    }
+    enable() {
+        $('#listing-submit').attr('disabled', false)
+        $('#loader').addClass('hidden')
+    }
 }
+
 
 export default function(name, options) {
 
@@ -109,9 +132,29 @@ export default function(name, options) {
 
     if (el) {
         const addressEl = document.querySelector(`#${name}_weight`)
+
+
+        const welldesignPipeDiameterEl = document.querySelector(`#${name}_welldesign_pipeDiameter`)
+        const welldesignDrillingKitEl = document.querySelector(`#${name}_welldesign_drillingKit`)
+        const welldesignDepthFromEl = document.querySelector(`#${name}_welldesign_depthFrom`)
+        const welldesignDepthToEl = document.querySelector(`#${name}_welldesign_depthTo`)
+
         // Intialize Redux store
         let preloadedState = {
             address: addressEl ? addressEl.value : null,
+            welldesign: {
+                pipeDiameter: welldesignPipeDiameterEl ? welldesignPipeDiameterEl.value : null,
+                drillingKit: welldesignDrillingKitEl ? welldesignDrillingKitEl.value : null,
+                depthFrom: welldesignDepthFromEl ? welldesignDepthFromEl.value : null,
+                depthTo: welldesignDepthToEl ? welldesignDepthToEl.value : null,
+            }
+        }
+
+        if (el.dataset.business) {
+            preloadedState = {
+                ...preloadedState,
+                business: el.dataset.business
+            }
         }
 
         createAddressWidget(name,  address => {
@@ -122,6 +165,48 @@ export default function(name, options) {
 
         onReady(preloadedState)
         store.subscribe(() => onChange(store.getState()))
+
+
+
+        if (welldesignPipeDiameterEl) {
+            welldesignPipeDiameterEl.addEventListener('input', _.debounce(e => {
+                store.dispatch({
+                    type: 'SET_WELLDESIGN_PIPE_DIAMETER',
+                    key: 'pipeDiameter',
+                    value: e.target.value
+                })
+            }, 350))
+        }
+
+        if (welldesignDrillingKitEl) {
+            welldesignDrillingKitEl.addEventListener('input', _.debounce(e => {
+                store.dispatch({
+                    type: 'SET_WELLDESIGN_DRILLING_KIT',
+                    key: 'drillingKit',
+                    value: e.target.value
+                })
+            }, 350))
+        }
+
+        if (welldesignDepthFromEl) {
+            welldesignDepthFromEl.addEventListener('input', _.debounce(e => {
+                store.dispatch({
+                    type: 'SET_WELLDESIGN_DEPTH_FROM',
+                    key: 'depthFrom',
+                    value: e.target.value
+                })
+            }, 350))
+        }
+
+        if (welldesignDepthToEl) {
+            welldesignDepthToEl.addEventListener('input', _.debounce(e => {
+                store.dispatch({
+                    type: 'SET_WELLDESIGN_DEPTH_TO',
+                    key: 'depthTo',
+                    value: e.target.value
+                })
+            }, 350))
+        }
     }
 
 

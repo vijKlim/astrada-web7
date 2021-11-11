@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = location.protocol + '//' + location.hostname
+const baseURL = location.protocol + '//' + location.hostname
 
 // @see https://gist.github.com/anvk/5602ec398e4fdc521e2bf9940fd90f84
 
@@ -48,8 +48,7 @@ function workMyCollection(items, payload, token) {
 }
 
 class PricePreview {
-    constructor(uris, token) {
-        this.uris = uris
+    constructor(token) {
         this.token = token
     }
     update(listing){
@@ -57,8 +56,8 @@ class PricePreview {
         const pricingPromise = new Promise((resolve) => {
             axios({
                 method: 'post',
-                url: baseURL + '/api/retail_prices/calculate',
-                data: delivery,
+                url: baseURL + '/api/listing_prices/calculate',
+                data: listing,
                 headers: {
                     'Accept': 'application/ld+json',
                     'Content-Type': 'application/ld+json',
@@ -107,14 +106,6 @@ class PricePreview {
     }
 }
 
-export default function(el, options) {
-
-    const uris = $(el).find('ul li').map(function() {
-        return {
-            pricingRule: $(this).data('pricing-rule'),
-            element: $(this),
-        }
-    }).toArray()
-
-    return new PricePreview(uris, options.token)
+export default function(options) {
+    return new PricePreview( options.token)
 }

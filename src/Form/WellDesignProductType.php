@@ -48,7 +48,7 @@ class WellDesignProductType extends AbstractType
         $builder->add('pipeDiameter', ChoiceType::class, [
             'label' => 'form.welldesign.pipeDiameter.label',
             'choices' => $this->createEnumAttributeChoices(PipeDiameter::values(), 'pipeDiameter.%s'),
-            'expanded' => true,
+            'expanded' => false,
             'multiple' => false,
             'mapped' => true
         ]);
@@ -66,7 +66,7 @@ class WellDesignProductType extends AbstractType
         $builder->add('drillingKit', ChoiceType::class, [
             'label' => 'form.welldesign.drillingKit.label',
             'choices' => $this->createEnumAttributeChoices(DrillingKit::values(), 'drillingKit.%s'),
-            'expanded' => true,
+            'expanded' => false,
             'multiple' => false,
             'mapped' => true
         ]);

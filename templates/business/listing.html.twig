@@ -24,8 +24,8 @@
 {#        </div>#}
 {#    {% endif %}#}
 
-
-    {{ form_start(form) }}
+    {% set listing = form.vars.value %}
+    {{ form_start(form, { attr: { 'data-business': listing.business is not empty ? listing.business|get_iri_from_item : null } }) }}
 
     <div class="alert alert-warning">
         <nav class="d-flex align-items-center justify-content-between">
@@ -99,7 +99,10 @@
         to avoid deleting when hitting "enter"
         #}
         <div class="flex-fill">
-            <button type="submit" class="btn btn-block btn-lg btn-primary">{{ 'basics.save'|trans }}</button>
+            <button type="listing-submit" type="submit" class="btn btn-block btn-lg btn-primary">
+                <i class="fa fa-spinner fa-spin hidden" id="loader"></i>
+                {{ 'basics.save'|trans }}
+            </button>
         </div>
         {% if form.delete is defined %}
             <div class="flex-shrink-1 ml-2">

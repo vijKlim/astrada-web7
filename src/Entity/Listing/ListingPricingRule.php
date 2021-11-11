@@ -10,6 +10,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class ListingPricingRule
 {
+    const TYPE_TRANSPORTATION_COST = 'transportation_cost';
+    const TYPE_WELL_COST = 'well_cost';
+
     /**
      * @var int
      */

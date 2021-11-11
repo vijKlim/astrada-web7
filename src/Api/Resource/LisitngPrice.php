@@ -5,12 +5,15 @@ namespace App\Api\Resource;
 
 use App\Action\Listing\CalculatePrice as CalculateController;
 use App\Api\Dto\ListingInput;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
  *   attributes={
- *     "normalization_context"={"groups"={"pricing_deliveries"}}
+ *     "normalization_context"={"groups"={"pricing_listings"}}
  *   },
  *   collectionOperations={
  *     "calc_price"={
@@ -49,26 +52,31 @@ class LisitngPrice
     /**
      * @var int
      *
-     * @Groups({"pricing_deliveries"})
+     * @Groups({"pricing_listings"})
      */
-    public $amount;
+    public $amount_transportation_cost;
+
+    /**
+     * @var int
+     *
+     * @Groups({"pricing_listings"})
+     */
+    public $amount_well_cost;
 
     /**
      * @var string
      *
-     * @Groups({"pricing_deliveries"})
+     * @Groups({"pricing_listings"})
      */
     public $currency;
 
-    /**
-     * @var int
-     */
-    public $taxAmount;
 
-    public function __construct(int $amount, string $currency)
+
+    public function __construct(int $amount_transportation_cost, int $amount_well_cost, string $currency)
     {
         $this->id = Uuid::uuid4()->toString();
-        $this->amount = $amount;
+        $this->amount_transportation_cost = $amount_transportation_cost;
+        $this->amount_well_cost = $amount_well_cost;
         $this->currency = $currency;
     }
 

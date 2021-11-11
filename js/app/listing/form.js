@@ -1,10 +1,18 @@
 import MapHelper from '../MapHelper'
+import _ from 'lodash'
+
+require('gasparesganga-jquery-loading-overlay')
+
 import ListingForm from '../forms/listing'
-import DeliveryZonePicker from "../components/DeliveryZonePicker";
+
 import DropzoneWidget from "../widgets/Dropzone";
+import PricePreview from './PricePreview'
+
 
 let map
 let form
+let pricePreview
+
 let markers = {
     listing: null,
 }
@@ -74,49 +82,37 @@ form = new ListingForm('listing', {
             removeMarker('listing')
         }
 
-        // if (isValid(delivery)) {
-        //
-        //     this.disable()
-        //
-        //     const updateDistance = new Promise((resolve) => {
-        //         route(delivery).then((infos) => {
-        //             $('#delivery_distance').text(`${infos.kms} Km`)
-        //             resolve()
-        //         })
-        //     })
-        //
-        //     const updatePrice = new Promise((resolve) => {
-        //         if (delivery.store && pricePreview) {
-        //
-        //             const tasks = delivery.tasks.slice(0)
-        //
-        //             const deliveryAsPayload = {
-        //                 ...delivery,
-        //                 tasks: tasks.map(t => ({
-        //                     ...t,
-        //                     address: serializeAddress(t.address)
-        //                 }))
-        //             }
-        //
-        //             pricePreview.update(deliveryAsPayload).then(() => resolve())
-        //         } else {
-        //             resolve()
-        //         }
-        //     })
-        //
-        //     Promise.all([
-        //         updateDistance,
-        //         updatePrice,
-        //     ])
-        //         .then(() => {
-        //             form.enable()
-        //         })
-        //         // eslint-disable-next-line no-console
-        //         .catch(e => console.error(e))
-        // }
+        this.disable()
+
+        const updatePrice = new Promise((resolve) => {
+            if (listing && pricePreview) {
+
+                const listingAsPayload = {
+                    ...listing
+                }
+
+                pricePreview.update(listingAsPayload).then(() => resolve())
+            } else {
+                resolve()
+            }
+        })
+
+        Promise.all([
+            updatePrice,
+        ])
+            .then(() => {
+                form.enable()
+            })
+            // eslint-disable-next-line no-console
+            .catch(e => console.error(e))
     }
 })
 
+$.getJSON(window.Routing.generate('profile_jwt'))
+    .then(result => {
+        $('form[name="listing"]').LoadingOverlay('hide')
+        pricePreview = new PricePreview( { token: result.jwt })
+    })
 
 $(function() {
 

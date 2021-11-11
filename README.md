@@ -69,6 +69,7 @@
 * docker-compose exec php  composer require notfloran/mjml-bundle
 * docker-compose exec php  composer require karser/karser-recaptcha3-bundle
 * docker-compose exec php  composer require beberlei/doctrineextensions
+* docker-compose exec php  composer require nyholm/psr7
 
 
 # Geocoder and tricks maps
@@ -125,8 +126,10 @@ docker exec -it 98864dc72e67 redis-cli -h localhost -p 6379
 * docker-compose exec php php ./vendor/bin/phpunit tests/App/Entity/AddressTest.php
 * docker-compose exec php php ./vendor/bin/phpunit tests/App/Entity
 
-# Access files
+# CHOWN Access files
 * docker-compose exec php chown -R www-data public/media/cache
+# CHOWN JWT
+* docker-compose exec php chown -R www-data /var/www/html/var/jwt
 
 # Validators
 * docker-compose exec php php bin/console debug:validator 'App\Entity\Address'

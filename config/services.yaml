@@ -105,6 +105,21 @@ services:
     tags:
       - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
 
+  App\Security\Firewall\TokenBearerListener:
+    arguments:
+      - '@security.token_storage'
+      - '@security.authentication.manager'
+      - '@lexik_jwt_authentication.jwt_token_authenticator'
+
+  App\Security\Authentication\Provider\TokenBearerProvider:
+    arguments:
+      $userProvider: ~
+      $jwtTokenAuthenticator: '@lexik_jwt_authentication.jwt_token_authenticator'
+      $providerKey: ~
+    public: false
+
+  App\Security\ApiKeyManager: ~
+
   App\Api\DataProvider\BusinessCollectionDataProvider:
     parent: 'api_platform.doctrine.orm.collection_data_provider'
     arguments:
@@ -114,6 +129,8 @@ services:
     autoconfigure: false
     autowire: false
     public: false
+
+  App\Api\DataTransformer\ListingInputDataTransformer: ~
 
   # CONTROLLERS
 
@@ -494,6 +511,12 @@ services:
           astrada_include_vat: "%astrada.include_vat%"
           astrada_bundles: "%kernel.bundles%"
           astrada_booking_invoice_begin: "%astrada.booking.invoice_begin%"
+
+  App\Service\ListingManager:
+    arguments:
+      $expressionLanguage: "@astrada.expression_language"
+    tags:
+      - { name: monolog.logger }
 
   astrada.utils.business_filter: '@App\Utils\BusinessFilter'
   astrada.price_formatter: '@App\Utils\PriceFormatter'
