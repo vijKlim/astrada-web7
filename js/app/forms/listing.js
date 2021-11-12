@@ -76,13 +76,13 @@ function createAddressWidget(name, cb) {
     })
 }
 
-function replaceWeldesign(state, index, key, value) {
+function replaceWeldesign(state, key, value) {
 
     const welldesignState = {
         ...state.welldesign,
         [key]: value
     }
-
+console.log(welldesignState,  key, value)
     return welldesignState
 }
 
@@ -171,7 +171,7 @@ export default function(name, options) {
         if (welldesignPipeDiameterEl) {
             welldesignPipeDiameterEl.addEventListener('input', _.debounce(e => {
                 store.dispatch({
-                    type: 'SET_WELLDESIGN_PIPE_DIAMETER',
+                    type: 'SET_WELLDESIGN',
                     key: 'pipeDiameter',
                     value: e.target.value
                 })
@@ -181,7 +181,7 @@ export default function(name, options) {
         if (welldesignDrillingKitEl) {
             welldesignDrillingKitEl.addEventListener('input', _.debounce(e => {
                 store.dispatch({
-                    type: 'SET_WELLDESIGN_DRILLING_KIT',
+                    type: 'SET_WELLDESIGN',
                     key: 'drillingKit',
                     value: e.target.value
                 })
@@ -191,7 +191,7 @@ export default function(name, options) {
         if (welldesignDepthFromEl) {
             welldesignDepthFromEl.addEventListener('input', _.debounce(e => {
                 store.dispatch({
-                    type: 'SET_WELLDESIGN_DEPTH_FROM',
+                    type: 'SET_WELLDESIGN',
                     key: 'depthFrom',
                     value: e.target.value
                 })
@@ -201,7 +201,7 @@ export default function(name, options) {
         if (welldesignDepthToEl) {
             welldesignDepthToEl.addEventListener('input', _.debounce(e => {
                 store.dispatch({
-                    type: 'SET_WELLDESIGN_DEPTH_TO',
+                    type: 'SET_WELLDESIGN',
                     key: 'depthTo',
                     value: e.target.value
                 })

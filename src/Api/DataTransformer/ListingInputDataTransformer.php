@@ -32,8 +32,15 @@ class ListingInputDataTransformer implements DataTransformerInterface
             $listing->setBusiness($data->business);
         }
 
-        if($data->welldesign && $data->welldesign instanceof Welldesign){
-            $listing->setWelldesign($data->welldesign);
+        if($data->welldesign){
+
+            $welldesign = new Welldesign();
+            $welldesign->setPipeDiameter($data->welldesign['pipeDiameter']);
+            $welldesign->setDrillingKit($data->welldesign['drillingKit']);
+            $welldesign->setDepthFrom($data->welldesign['depthFrom']);
+            $welldesign->setDepthTo($data->welldesign['depthTo']);
+            $listing->setWelldesign($welldesign);
+
         }
         return $listing;
     }

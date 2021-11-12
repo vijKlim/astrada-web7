@@ -15,8 +15,9 @@ class ListingInput
      * @Groups({"pricing_listings"})
      */
     public $business;
+
     /**
-     * @var Welldesign
+     * @var array
      * @Groups({"pricing_listings"})
      */
     public $welldesign;

@@ -52,6 +52,10 @@ class PricePreview {
         this.token = token
     }
     update(listing){
+        const $container = $('#delivery_price').closest('.delivery-price')
+
+        $container.removeClass('delivery-price--error')
+        $container.addClass('delivery-price--loading')
 
         const pricingPromise = new Promise((resolve) => {
             axios({
@@ -88,14 +92,11 @@ class PricePreview {
                 if (priceResult.success) {
 
                     const { data } = priceResult
-                    const taxExcluded = data.amount - data.tax.amount
 
-                    $('#delivery_price')
-                        .find('[data-tax="included"]')
-                        .text((data.amount / 100).formatMoney())
-                    $('#delivery_price')
-                        .find('[data-tax="excluded"]')
-                        .text((taxExcluded / 100).formatMoney())
+
+                    document.querySelector('#listing_welldesign_transportationCost').value = (data.amount_transportation_cost / 100).formatMoney()
+                    document.querySelector('#listing_welldesign_wellCost').value = (data.amount_well_cost / 100).formatMoney()
+
 
                 } else {
                     $('#delivery_price_error').text(priceResult.message)

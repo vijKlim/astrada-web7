@@ -264,7 +264,10 @@ class DashboardController extends AbstractController
 
 
 
-        $form = $this->createForm(ListingPricingRuleSetType::class, $ruleSet);
+        $form = $this->createForm(ListingPricingRuleSetType::class, $ruleSet,
+        [
+            'owner' => $business,
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
