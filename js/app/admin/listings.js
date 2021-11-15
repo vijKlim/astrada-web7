@@ -12,8 +12,9 @@ if (search) {
             baseURL="/admin/listings/search?format=json"
             placeholder="Search listings…"
             onSuggestionSelected={ (selected) => {
-                window.location.href = window.Routing.generate('admin_listing', {
-                    id: selected.id
+                window.location.href = window.Routing.generate('admin_business_listing', {
+                    businessId: selected.businessId,
+                    listingId: selected.id,
                 })
             }}
             clearOnSelect={ true } />

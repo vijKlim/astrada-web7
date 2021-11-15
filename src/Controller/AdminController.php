@@ -472,6 +472,28 @@ class AdminController extends AbstractController
         }
     }
 
+    /**
+     * @Route("/admin/listings/search", name="admin_listings_search")
+     */
+    public function searchListingsAction(Request $request)
+    {
+        $repository = $this->getDoctrine()->getRepository(Listing::class);
+
+        $results = $repository->search($request->query->get('q'));
+
+        if ($request->query->has('format') && 'json' === $request->query->get('format')) {
+            $data = array_map(function (Listing $listing) {
+                return [
+                    'id' => $listing->getId(),
+                    'name' => $listing->getName(),
+                    'businessId'=>$listing->getBusiness()->getId()
+                ];
+            }, $results);
+
+            return new JsonResponse($data);
+        }
+    }
+
 
     public function customizeAction(Request $request)
     {

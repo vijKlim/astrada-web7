@@ -204,6 +204,7 @@ fos_js_routing:
     - admin_business_dashboard
     - admin_business_stats
     - admin_tags
+    - admin_business_listing
     - admin_listing_image_download
     - admin_listing_list_create
     - admin_listing_list_modify

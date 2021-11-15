@@ -26,4 +26,16 @@ class ListingRepository extends EntityRepository implements FindNearbyInterface,
 
         return $qb->getQuery()->getOneOrNullResult();
     }
+
+    public function search($q)
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->leftJoin('r.translations', 't');
+
+        $qb
+            ->where('LOWER(t.title) LIKE :q')
+            ->setParameter('q', '%' . strtolower($q) . '%');
+
+        return $qb->getQuery()->getResult();
+    }
 }
