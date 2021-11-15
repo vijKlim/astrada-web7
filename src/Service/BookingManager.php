@@ -279,7 +279,7 @@ class BookingManager
         }
 
         $booking = $result->booking;
-        $result = $this->setBookingAmounts($booking);
+        //$result = $this->setBookingAmounts($booking);
 
         return $result;
     }
@@ -453,25 +453,26 @@ class BookingManager
         $result->booking = $booking;
 
         $duration = $booking->getDuration($this->endDayIncluded, $this->timeUnit);
-        $price = $booking->getListing()->getPrice();
-        $amount = $duration * $price;
+        //TODO add calculate price depend distance client
+        //$price = $booking->getListing()->getPrice();
+        //$amount = $duration * $price;
 
         foreach ($availabilities as $availability) {
             if ($availability["s"] == ListingAvailability::STATUS_UNAVAILABLE ||
                 $availability["s"] == ListingAvailability::STATUS_BOOKED
             ) {
-                $booking->setAmount(0);
+                //$booking->setAmount(0);
                 $result->booking = $booking;
                 $result->errors[] = 'unavailable';
 
                 return $result;
             }
 
-            $amount -= $price;
-            $amount += $availability["p"];
+            //$amount -= $price;
+            //$amount += $availability["p"];
         }
 
-        $booking->setAmount($amount);
+        //$booking->setAmount($amount);
         $result->booking = $booking;
 
         return $result;

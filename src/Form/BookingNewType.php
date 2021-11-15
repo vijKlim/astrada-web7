@@ -7,6 +7,9 @@ namespace App\Form;
 use App\Entity\Booking;
 use App\Form\Type\DateRangeType;
 use App\Service\BookingManager;
+use DateInterval;
+use DateTime;
+use DateTimeZone;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -14,6 +17,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 
 class BookingNewType extends AbstractType
 {
@@ -134,5 +138,116 @@ class BookingNewType extends AbstractType
                 }
             }
         );
+    }
+
+    /**
+     * todo: decouple external bundles errors management
+     *
+     * Add errors to the form if any
+     *
+     * @param FormInterface $form
+     * @param array         $errors
+     * @param  string       $timezone
+     */
+    private function formErrors(FormInterface $form, $errors, $timezone)
+    {
+        $keys = array_keys($errors, 'date_range.invalid.min_start');
+        if (count($keys)) {
+            foreach ($keys as $key) {
+                unset($errors[$key]);
+            }
+            $minStart = new DateTime();
+            $minStart->setTimezone(new DateTimeZone($timezone));
+            if ($this->minStartTimeDelay > 0) {
+                $minStart->add(new DateInterval('PT'.$this->minStartTimeDelay.'M'));
+                $minStart->setTime(0, 0, 0);
+            }
+            $form['date_range']->addError(
+                new FormError(
+                    'date_range.invalid.min_start {{ min_start_day }}',
+                    'astrada',
+                    array(
+                        '{{ min_start_day }}' => $minStart->format('d/m/Y'),
+                    )
+                )
+            );
+        }
+
+        $keys = array_keys($errors, 'date_range.invalid.acceptation');
+        if (count($keys)) {
+            foreach ($keys as $key) {
+                unset($errors[$key]);
+            }
+            $maxAcceptableDate = new DateTime();
+            $maxAcceptableDate->setTimezone(new DateTimeZone($timezone));
+            $maxAcceptableDate->add(new DateInterval('PT'.$this->acceptationDelay.'M'));
+            $maxAcceptableDate->add(new DateInterval('P1D'));
+            $form['date_range']->addError(
+                new FormError(
+                    'date_range.invalid.min_start {{ min_start_day }}',
+                    'astrada',
+                    array(
+                        '{{ min_start_day }}' => $maxAcceptableDate->format('d/m/Y'),
+                    )
+                )
+            );
+        }
+
+        $keys = array_keys($errors, 'time_range.invalid.min_start');
+        if (count($keys)) {
+            foreach ($keys as $key) {
+                unset($errors[$key]);
+            }
+            $minStart = new DateTime();
+            $minStart->setTimezone(new DateTimeZone($timezone));
+            if ($this->minStartTimeDelay > 0) {
+                $minStart->add(new DateInterval('PT'.$this->minStartTimeDelay.'M'));
+            }
+            $form['date_range']->addError(
+                new FormError(
+                    'time_range.invalid.min_start {{ min_start_time }}',
+                    'astrada',
+                    array(
+                        '{{ min_start_time }}' => $minStart->format('d/m/Y H:i'),
+                    )
+                )
+            );
+        }
+
+        $keys = array_keys($errors, 'unavailable');
+        if (count($keys)) {
+            foreach ($keys as $key) {
+                unset($errors[$key]);
+            }
+            $form['date_range']->addError(
+                new FormError(self::$unavailableError)
+            );
+        }
+
+        $keys = array_keys($errors, 'amount_invalid');
+        if (count($keys)) {
+            foreach ($keys as $key) {
+                unset($errors[$key]);
+            }
+            $form['date_range']->addError(
+                new FormError(
+                    'booking.new.error.amount_invalid {{ min_price }}',
+                    'astrada',
+                    array(
+                        '{{ min_price }}' => $this->bookingManager->minPrice / 100 . " " . $this->currencySymbol,
+                    )
+                )
+            );
+        }
+
+
+
+        if (count($errors) > 0) {
+            foreach ($errors as $error) {
+                $form['date_range']->addError(
+                    new FormError($error)
+                );
+            }
+        }
     }
 }

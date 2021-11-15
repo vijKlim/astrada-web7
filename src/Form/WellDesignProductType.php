@@ -98,6 +98,19 @@ class WellDesignProductType extends AbstractType
             $form = $event->getForm();
             $welldesign = $event->getData();
 
+            $transportationCost = str_replace(',', '.', $welldesign->getTransportationCost());
+
+            if (is_numeric($transportationCost)) {
+                $transportationCost = (float)$transportationCost * 100;
+                $welldesign->setTransportationCost((string)$transportationCost);
+            }
+
+            $wellCost = str_replace(',', '.', $welldesign->getWellCost());
+
+            if (is_numeric($wellCost)) {
+                $wellCost = (float)$wellCost * 100;
+                $welldesign->setWellCost((string)$wellCost);
+            }
             // This is a delete button (used in list of products)
             if (count($form) === 1 && $form->has('delete')) {
 

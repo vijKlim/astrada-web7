@@ -13,6 +13,8 @@ use App\Form\BookingType;
 use App\Form\Handler\BookingFormHandler;
 use App\Service\BookingManager;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -76,6 +78,7 @@ class BookingController extends AbstractController
      *
      * @Route("/{listing_id}", name="listing_booking", requirements={"listing_id" = "\d+"})
      *
+     * @Security("is_granted('ROLE_USER')")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
      * @throws \Exception
@@ -200,13 +203,13 @@ class BookingController extends AbstractController
                 );
             }
         } else {
-            $this->addFormMessagesToFlashBag($success);
+            //$this->addFormMessagesToFlashBag($success);
         }
 
 
 
         return $this->render(
-            'CocoricoCoreBundle:Frontend/Booking:new.html.twig',
+            'booking/new.html.twig',
             array(
                 'booking' => $booking,
                 'form' => $form->createView(),
