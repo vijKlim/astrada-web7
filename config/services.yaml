@@ -147,6 +147,10 @@ services:
     arguments:
       $listingSearchRequest: '@astrada.listing_search_request'
 
+  App\Controller\ListingReviewController:
+    arguments:
+      $listingReviewFactory: '@sylius.factory.listing_review'
+
   App\Controller\SubscriptionController:
     arguments:
       $subscriptionManager: '@astrada.subscription.manager'

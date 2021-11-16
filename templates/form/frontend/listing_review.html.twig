@@ -1,0 +1,65 @@
+{{ form_start(form, { attr: { 'class': 'form', 'id': 'contact-form'} }) }}
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label class="form-label" for="rating">Your rating *</label>
+                {{ form_widget(form.rating, {
+                    'attr': {
+                        'class': "custom-select focus-shadow-0"
+                    }
+                }) }}
+{#                <select class="custom-select focus-shadow-0" name="rating" id="rating">#}
+{#                    <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733; (5/5)</option>#}
+{#                    <option value="4">&#9733;&#9733;&#9733;&#9733;&#9734; (4/5)</option>#}
+{#                    <option value="3">&#9733;&#9733;&#9733;&#9734;&#9734; (3/5)</option>#}
+{#                    <option value="2">&#9733;&#9733;&#9734;&#9734;&#9734; (2/5)</option>#}
+{#                    <option value="1">&#9733;&#9734;&#9734;&#9734;&#9734; (1/5)</option>#}
+{#                </select>#}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" for="review">Review text *</label>
+        {{ form_widget(form.comment, {
+            'attr': {
+                'class': "form-control"
+            }
+        }) }}
+{#        <textarea class="form-control" rows="4" name="review" id="review" placeholder="Enter your review" required="required"></textarea>#}
+    </div>
+    <button class="btn btn-primary" type="submit">Post review</button>
+{{ form_end(form) }}
+
+{#<form class="form" id="contact-form" method="get" action="#">#}
+{#    <div class="row">#}
+{#        <div class="col-sm-6">#}
+{#            <div class="form-group">#}
+{#                <label class="form-label" for="name">Your name *</label>#}
+{#                <input class="form-control" type="text" name="name" id="name" placeholder="Enter your name" required="required">#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="col-sm-6">#}
+{#            <div class="form-group">#}
+{#                <label class="form-label" for="rating">Your rating *</label>#}
+{#                <select class="custom-select focus-shadow-0" name="rating" id="rating">#}
+{#                    <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733; (5/5)</option>#}
+{#                    <option value="4">&#9733;&#9733;&#9733;&#9733;&#9734; (4/5)</option>#}
+{#                    <option value="3">&#9733;&#9733;&#9733;&#9734;&#9734; (3/5)</option>#}
+{#                    <option value="2">&#9733;&#9733;&#9734;&#9734;&#9734; (2/5)</option>#}
+{#                    <option value="1">&#9733;&#9734;&#9734;&#9734;&#9734; (1/5)</option>#}
+{#                </select>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="form-group">#}
+{#        <label class="form-label" for="email">Your email *</label>#}
+{#        <input class="form-control" type="email" name="email" id="email" placeholder="Enter your  email" required="required">#}
+{#    </div>#}
+{#    <div class="form-group">#}
+{#        <label class="form-label" for="review">Review text *</label>#}
+{#        <textarea class="form-control" rows="4" name="review" id="review" placeholder="Enter your review" required="required"></textarea>#}
+{#    </div>#}
+{#    <button class="btn btn-primary" type="submit">Post review</button>#}
+{#</form>#}

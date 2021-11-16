@@ -4,13 +4,16 @@
 namespace App\Form;
 
 
-use Doctrine\DBAL\Types\TextType;
-use Sylius\Bundle\ReviewBundle\Form\Type\ReviewType;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ListingReviewType extends ReviewType
+class ListingReviewType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -20,11 +23,17 @@ class ListingReviewType extends ReviewType
         parent::buildForm($builder, $options);
 
         $builder
+            ->add('rating', ChoiceType::class, [
+                'choices' => $this->createRatingList($options['rating_steps']),
+                'label' => 'sylius.form.review.rating',
+                'expanded' => false,
+                'multiple' => false,
+            ])
             ->add('title', HiddenType::class, [
                 'label' => 'sylius.form.review.title',
                 'data' => 'Awesome Title',
             ])
-            ->add('comment', TextType::class, [
+            ->add('comment', TextareaType::class, [
                 'label' => 'sylius.ui.comment',
             ])
         ;
@@ -38,8 +47,7 @@ class ListingReviewType extends ReviewType
         parent::configureOptions($resolver);
 
         $resolver->setDefaults([
-            'rating_steps' => 10,
-            'validation_groups' => $this->validationGroups,
+            'rating_steps' => 5,
         ]);
     }
 
@@ -52,7 +60,9 @@ class ListingReviewType extends ReviewType
     {
         $ratings = [];
         for ($i = 1; $i <= $maxRate; ++$i) {
-            $ratings[$i] = $i;
+            $noStar = str_repeat('☆',$maxRate - $i);
+            $yesStar = str_repeat('★', $i);
+            $ratings[$noStar.$yesStar.' ('.$i.'/'.$maxRate.')'] = $i;
         }
 
         return $ratings;

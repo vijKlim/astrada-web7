@@ -103,6 +103,9 @@ https://github.com/geocoder-php/Geocoder
 * docker-compose exec php php bin/console astrada:demo:init
 * docker-compose exec php php bin/console astrada:root-categories:load
 
+# Check container services
+* docker-compose exec php php bin/console debug:container sylius.factory.listing_review
+
 #Messanger 
 docker-compose exec php php bin/console messenger:consume async -vv
 
