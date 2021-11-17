@@ -11,6 +11,7 @@ import _ from 'lodash'
 import axios from 'axios'
 import classNames from 'classnames'
 
+
 import { ClearButton,AsyncTypeahead } from 'react-bootstrap-typeahead'; // ES2015
 
 import '../../i18n'
@@ -410,10 +411,10 @@ class AddressAutosuggest extends Component {
     //https://github.com/chadmuro/medium-geolocation/blob/main/src/App.js
     //https://www.youtube.com/watch?v=J4PDxTO3oj0
     //https://www.pluralsight.com/guides/how-to-use-geolocation-call-in-reactjs
-      navigator.geolocation.getCurrentPosition(function(position) {
-          console.log("Latitude is :", position.coords.latitude);
-          console.log("Longitude is :", position.coords.longitude);
-      });
+    //   navigator.geolocation.getCurrentPosition(function(position) {
+    //       console.log("Latitude is :", position.coords.latitude);
+    //       console.log("Longitude is :", position.coords.longitude);
+    //   });
       // if (navigator.geolocation) {
       //     navigator.permissions
       //         .query({ name: "geolocation" })
@@ -658,7 +659,7 @@ AddressAutosuggest.propTypes = {
   error: PropTypes.bool,
 }
 
-export default withTranslation()(AddressAutosuggest)
+ export default withTranslation()(AddressAutosuggest)
 
 export const geocode = (text) => {
 

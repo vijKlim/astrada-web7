@@ -24,6 +24,7 @@ import { Input, ClearButton,Typeahead } from 'react-bootstrap-typeahead'; // ES2
 
 import 'select2';
 
+
 function initTheme()
 {
 
@@ -60,6 +61,7 @@ function initTheme()
         $(this).find('.dropdown-menu').first().slideDropdownDown(movementAnimation);
     });
 }
+
 
 // const WrapUsePosition = (props) => {
 //     const watch = true;
@@ -108,9 +110,11 @@ function initTheme()
 //     )
 // }
 
+
 document.addEventListener('DOMContentLoaded', function() {
 
     initTheme();
+
 
     // Set global timezone used in Moment.js
     const timezone = document.querySelector('body').dataset.timezone
