@@ -61,52 +61,53 @@ function initTheme()
     });
 }
 
-const WrapUsePosition = (props) => {
-    const watch = true;
-    const {
-        latitude,
-        longitude,
-        speed,
-        timestamp,
-        accuracy,
-        error,
-    } = usePosition(watch);
+// const WrapUsePosition = (props) => {
+//     const watch = true;
+//     const {
+//         latitude,
+//         longitude,
+//         speed,
+//         timestamp,
+//         accuracy,
+//         error,
+//     } = usePosition(watch);
+//
+// console.log(latitude,
+//     longitude,
+//     speed,
+//     timestamp,
+//     accuracy,
+//     error)
+//
+//     const style = {
+//         color: '#868e96'
+//     };
+//
+//     return(
+//         <Typeahead
+//             id="toggle-example"
+//             placeholder="Location"
+//             onChange={(selected) => {
+//                 // Handle selections...
+//             }}
+//             searchText={'Пошук'}
+//             inputProps={{
+//                 className: 'border-0 shadow-0',
+//             }}
+//             options={[ 'test', 'test2', 'test3' ]}
+//
+//         >
+//             {({ onClear, selected }) => (
+//
+//                 <div className="rbt-aux">
+//                     {!!selected.length && <ClearButton onClick={onClear} />}
+//                     {!selected.length && <i className="fa fa-crosshairs" style={style}></i>}
+//                 </div>
+//             )}
+//         </Typeahead>
+//     )
+// }
 
-console.log(latitude,
-    longitude,
-    speed,
-    timestamp,
-    accuracy,
-    error)
-
-    const style = {
-        color: '#868e96'
-    };
-
-    return(
-        <Typeahead
-            id="toggle-example"
-            placeholder="Location"
-            onChange={(selected) => {
-                // Handle selections...
-            }}
-            searchText={'Пошук'}
-            inputProps={{
-                className: 'border-0 shadow-0',
-            }}
-            options={[ 'test', 'test2', 'test3' ]}
-
-        >
-            {({ onClear, selected }) => (
-
-                <div className="rbt-aux">
-                    {!!selected.length && <ClearButton onClick={onClear} />}
-                    {!selected.length && <i className="fa fa-crosshairs" style={style}></i>}
-                </div>
-            )}
-        </Typeahead>
-    )
-}
 document.addEventListener('DOMContentLoaded', function() {
 
     initTheme();
@@ -115,14 +116,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const timezone = document.querySelector('body').dataset.timezone
     setTimezone(timezone)
 
-    const el   = document.querySelector('[data-element2]')
-
-
-    render(
-
-        <WrapUsePosition/>
-        , el
-    )
+    // //test typeahead
+    // const el   = document.querySelector('[data-element2]')
+    //
+    // render(
+    //
+    //     <WrapUsePosition/>
+    //     , el
+    // )
 
     // const inputs = document.querySelectorAll('[data-widget="address-input"]')
     // if (inputs.length > 0) {

@@ -1,13 +1,10 @@
 {% include '_partials/flash_messages.html.twig' %}
 
-
-
-
     <div  data-search="address"
          data-addresses="{{ addresses_normalized|json_encode()|e('html') }}"
          data-tracking-category="Homepage"
          data-restaurants="{{ astrada_businesses_suggestions()|json_encode()|e('html') }}">
-            {{ form_start(form, {'attr': {'class': 'form-category','data-form':null}}) }}
+            {{ form_start(form, {'attr': {'data-form':null}}) }}
 
                 <div  class="row" >
                     {{ form_errors(form) }}
