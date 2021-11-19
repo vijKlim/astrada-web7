@@ -24,6 +24,14 @@ import { Input, ClearButton,Typeahead } from 'react-bootstrap-typeahead'; // ES2
 
 import 'select2';
 
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination"
+
+import NearbyListingSlides from "./components/NearbyListingSlides";
 
 function initTheme()
 {
@@ -144,6 +152,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set global timezone used in Moment.js
     const timezone = document.querySelector('body').dataset.timezone
     setTimezone(timezone)
+
+    //nearbyListingSliders
+    const nearbyListingSlidesElement   = document.querySelector('#nearby-listing-slides')
+
+    if(nearbyListingSlidesElement){
+        render(
+
+            <NearbyListingSlides/>
+            , nearbyListingSlidesElement
+        )
+    }
+
 
     // //test typeahead
     // const el   = document.querySelector('[data-element2]')
