@@ -18,6 +18,7 @@ use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManagerInterface;
 use Pitch\Liform\LiformInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,6 +52,49 @@ class ListingSearchController extends AbstractController
         $this->currencyContext = $currencyContext;
         $this->uploaderHelper = $uploaderHelper;
         $this->liform = $liform;
+    }
+
+    /**
+     * Listings search result.
+     *
+     * @Route("/listing/nearby", name="listing_nearby")
+     * @Method("GET")
+     *
+     * @param  Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function nearbyAction(Request $request, ListingRepository $repository)
+    {
+
+        $listings = new \ArrayIterator();
+        $nbListings = 0;
+
+        /** @var ListingSearchRequest $listingSearchRequest */
+        $listingSearchRequest = $this->listingSearchRequest;
+
+        $geotools = new Geotools();
+        $geohash = $listingSearchRequest->getGeohash();
+
+        $decoded = $geotools->geohash()->decode($geohash);
+
+        $latitude = $decoded->getCoordinate()->getLatitude();
+        $longitude = $decoded->getCoordinate()->getLongitude();
+        $offset = ($listingSearchRequest->getPage() - 1) * $listingSearchRequest->getMaxPerPage();
+        //30000 - 30 км
+        $results = $repository->findNearby($latitude, $longitude,30000,$listingSearchRequest->getMaxPerPage(), $offset);
+        $nbListings = $results->count();
+        $listings = $results->getIterator();
+
+        $allListingsNormalized = array_map(function (Listing $listing) {
+            return $this->get('serializer')->normalize($listing, 'jsonld', [
+                'resource_class' => Listing::class,
+                'operation_type' => 'item',
+                'item_operation_name' => 'get',
+                'groups' => ['listing_public']
+            ]);
+        }, $listings->getArrayCopy());
+
+        return new JsonResponse(['listings' => $allListingsNormalized]);
     }
 
 

@@ -24,6 +24,11 @@ security:
           methods: [ GET ]
           security: false
 
+        listing_nearby:
+          pattern: ^/listing/nearby
+          methods: [ GET ]
+          security: false
+
         api_listing_prices_calculate:
           pattern:   ^/api/listing_prices/calculate
           stateless: true

@@ -16,7 +16,7 @@ import 'bootstrap';
 import '../i18n'
 import { setTimezone, getCurrencySymbol } from '../i18n'
 
-import { usePosition } from '../usePosition';
+
 
 import AddressAutosuggest from './components/AddressAutosuggest'
 
@@ -24,14 +24,9 @@ import { Input, ClearButton,Typeahead } from 'react-bootstrap-typeahead'; // ES2
 
 import 'select2';
 
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination"
 
-import NearbyListingSlides from "./components/NearbyListingSlides";
+import { NearbyListingSlides } from './components/NearbyListingSlides';
 
 function initTheme()
 {
@@ -159,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if(nearbyListingSlidesElement){
         render(
 
-            <NearbyListingSlides/>
+            <NearbyListingSlides />
             , nearbyListingSlidesElement
         )
     }
