@@ -90,7 +90,7 @@ const initialCanvases = {
   '4:3':  null,
 }
 
-const Editor = ({ onClose, actionUrl, productId, existingImages }) => {
+const Editor = ({ onClose, actionUrl, productId, productType, existingImages }) => {
 
   const [ file, setFile ] = useState(null)
   const [ cropper, setCropper ] = useState(null)
@@ -149,7 +149,7 @@ const Editor = ({ onClose, actionUrl, productId, existingImages }) => {
 
           const formData = new FormData()
           formData.append('file', file, 'thumbnail.jpeg')
-          formData.append('type', 'product')
+          formData.append('type', productType)
           formData.append('id', productId)
           formData.append('ratio', ratio)
 
@@ -265,7 +265,7 @@ const Editor = ({ onClose, actionUrl, productId, existingImages }) => {
   )
 }
 
-export function openEditor({ actionUrl, productId, existingImages, onClose }) {
+export function openEditor({ actionUrl, productId, productType,existingImages, onClose }) {
 
   const editor = document.createElement('div')
   editor.style.position = 'fixed'
@@ -285,6 +285,7 @@ export function openEditor({ actionUrl, productId, existingImages, onClose }) {
     existingImages={ existingImages }
     actionUrl={ actionUrl }
     productId={ productId }
+    productType={ productType }
     onClose={ (images) => {
       unmountComponentAtNode(editor)
       document.body.removeChild(editor)

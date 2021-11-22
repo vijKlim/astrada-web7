@@ -43,8 +43,12 @@
 
     <div class="row">
         <div class="col-sm-3">
-            {% if form.imageFile is defined %}
-                {{ form_row(form.imageFile) }}
+            {% if listing.id is not null %}
+                <a href="#" id="image-editor"
+                   class="d-flex align-items-center justify-content-center border text-decoration-none"
+                   style="padding: 10rem;">
+                    <i class="fa fa-3x fa-camera"></i>
+                </a>
             {% endif %}
             <ul class="nav nav-pills nav-stacked">
 
@@ -113,10 +117,19 @@
 
     {{ form_end(form) }}
 
+    {% set listing_images = [] %}
+    {% for listing_image in listing.images %}
+        {% set imagine_filter = ('listing_thumbnail_' ~ (listing_image.ratio|replace({ ':': 'x' }))) %}
+        {% set listing_images = listing_images|merge([ {
+            ratio: listing_image.ratio,
+            thumbnail: astrada_asset(listing_image, 'imageFile', imagine_filter)
+        } ]) %}
+    {% endfor %}
+
     <div id="listing-form-data"
          data-action-url="{{ oneup_uploader_endpoint('listing') }}"
          data-listing-id="{{ listing.id }}"
-         data-listing-image="{{ astrada_asset(listing, 'imageFile', 'listing_thumbnail') }}"></div>
+         data-listing-images="{{ listing_images|json_encode|e('html_attr') }}"></div>
 
 {% endblock %}
 

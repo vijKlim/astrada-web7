@@ -4,6 +4,7 @@ namespace App\EventListener\Upload;
 
 use ApiPlatform\Core\Api\IriConverterInterface;
 use App\Entity\Listing;
+use App\Entity\ListingImage;
 use App\Entity\LocalBusiness;
 use App\Entity\Sylius\Product;
 use App\Entity\Sylius\ProductImage;
@@ -105,7 +106,6 @@ final class UploadListener
         }
 
 
-
         if ($type === 'business') {
             $object = $this->entityManager->getRepository(LocalBusiness::class)->find(
                 $request->get('id')
@@ -113,11 +113,15 @@ final class UploadListener
             // Remove previous file
             $this->uploadHandler->remove($object, 'imageFile');
         }elseif ($type === 'listing') {
-            $object = $this->entityManager->getRepository(Listing::class)->find(
+            $listing = $this->entityManager->getRepository(Listing::class)->find(
                 $request->get('id')
             );
-            // Remove previous file
-            $this->uploadHandler->remove($object, 'imageFile');
+
+            $object = new ListingImage();
+            $object->setRatio($request->get('ratio', '1:1'));
+
+            $listing->addImage($object);
+
         } elseif ($type === 'product') {
             $product = $this->entityManager->getRepository(Product::class)->find(
                 $request->get('id')

@@ -40,6 +40,62 @@ liip_imagine:
         optipng:
           strip_all: true
           level: 4
+
+    listing_thumbnail_1x1:
+      # cache: cached_s3_flysystem
+      data_loader: listing_images
+      filters:
+        upscale:
+          min: [ 256, 256 ]
+        thumbnail:
+          size: [ 256, 256 ]
+          mode: outbound
+          allow_upscale: true
+      post_processors:
+        jpegoptim:
+          strip_all: true
+          max: 80
+          progressive: true
+        optipng:
+          strip_all: true
+          level: 4
+    listing_thumbnail_16x9:
+      # cache: cached_s3_flysystem
+      data_loader: listing_images
+      filters:
+        upscale:
+          min: [ 640, 360 ]
+        thumbnail:
+          size: [ 640, 360 ]
+          mode: outbound
+          allow_upscale: true
+      post_processors:
+        jpegoptim:
+          strip_all: true
+          max: 80
+          progressive: true
+        optipng:
+          strip_all: true
+          level: 4
+    listing_thumbnail_4x3:
+      # cache: cached_s3_flysystem
+      data_loader: listing_images
+      filters:
+        upscale:
+          min: [ 512, 384 ]
+        thumbnail:
+          size: [ 512, 384 ]
+          mode: outbound
+          allow_upscale: true
+      post_processors:
+        jpegoptim:
+          strip_all: true
+          max: 80
+          progressive: true
+        optipng:
+          strip_all: true
+          level: 4
+
     listing_image_thumbnail:
       data_loader: listing_images
       filters:

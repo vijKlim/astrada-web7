@@ -1,3 +1,5 @@
+import { createStore } from 'redux'
+import { createAction } from 'redux-actions'
 import MapHelper from '../MapHelper'
 import _ from 'lodash'
 
@@ -7,6 +9,7 @@ import ListingForm from '../forms/listing'
 
 import DropzoneWidget from "../widgets/Dropzone";
 import PricePreview from './PricePreview'
+import {openEditor} from "../product/image-editor";
 
 
 let map
@@ -137,3 +140,42 @@ $(function() {
     })
 
 })
+
+
+const SET_IMAGES = '@listing/SET_IMAGES'
+const setImages = createAction(SET_IMAGES)
+
+const imageEditor = document.getElementById('image-editor')
+const formData = document.querySelector('#listing-form-data')
+
+if (imageEditor && formData) {
+
+    const store = createStore((state = {}, action) => {
+
+        switch (action.type) {
+            case SET_IMAGES:
+
+                return {
+                    ...state,
+                    images: action.payload,
+                }
+        }
+
+        return state
+    })
+
+    store.dispatch(
+        setImages(JSON.parse(formData.dataset.listingImages))
+    )
+
+    imageEditor.addEventListener('click', function(e) {
+        e.preventDefault()
+        openEditor({
+            existingImages: store.getState().images,
+            actionUrl: formData.dataset.actionUrl,
+            productId: formData.dataset.listingId,
+            productType: 'listing',
+            onClose: (images) => store.dispatch(setImages(images)),
+        })
+    })
+}

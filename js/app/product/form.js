@@ -167,6 +167,7 @@ if (imageEditor && formData) {
       existingImages: store.getState().images,
       actionUrl: formData.dataset.actionUrl,
       productId: formData.dataset.productId,
+      productType: 'product',
       onClose: (images) => store.dispatch(setImages(images)),
     })
   })

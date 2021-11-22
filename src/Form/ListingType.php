@@ -25,7 +25,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
-use Vich\UploaderBundle\Form\Type\VichImageType;
+
 
 class ListingType extends AbstractType
 {
@@ -91,14 +91,7 @@ class ListingType extends AbstractType
                         'choices' => array_flip($choices),
                     )
                 );
-            if (null !== $listing->getId()) {
-                $form->add('imageFile', VichImageType::class, [
-                    'required' => false,
-                    'download_uri' => false,
-                ]);
 
-
-            }
         });
 
 

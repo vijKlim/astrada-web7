@@ -48,13 +48,12 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *     },
  *   }
  * )
- * @Vich\Uploadable
  */
 class Listing extends BaseListing implements ResourceInterface, TranslatableInterface, ReviewableInterface, SubscriptionProductInterface
 {
     use Timestampable;
     use SoftDeleteableEntity;
-    use ImageTrait;
+
 
     use TranslatableTrait {
         __construct as private initializeTranslationsCollection;
@@ -79,6 +78,13 @@ class Listing extends BaseListing implements ResourceInterface, TranslatableInte
      * @Groups({"listing", "listing_seo","listing_public"})
      */
     protected $business;
+
+    /**
+     * @var ListingImage[]
+     *
+     * @Groups({"listing", "listing_seo","listing_public"})
+     */
+    protected $images;
 
     protected $taxons;
 
@@ -149,7 +155,7 @@ class Listing extends BaseListing implements ResourceInterface, TranslatableInte
     {
         $this->initializeTranslationsCollection();
         $this->taxons = new ArrayCollection();
-        $this->products = new ArrayCollection();
+        $this->images = new ArrayCollection();
         $this->reviews = new ArrayCollection();
         $this->bookings = new ArrayCollection();
 
@@ -264,6 +270,18 @@ class Listing extends BaseListing implements ResourceInterface, TranslatableInte
         if ($this->getTaxons()->contains($taxon)) {
             $this->getTaxons()->removeElement($taxon);
         }
+    }
+
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    public function addImage(ListingImage $image)
+    {
+        $image->setListing($this);
+
+        $this->images->add($image);
     }
 
     /**
