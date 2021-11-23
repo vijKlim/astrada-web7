@@ -24,12 +24,39 @@ import { Input, ClearButton,Typeahead } from 'react-bootstrap-typeahead'; // ES2
 
 import 'select2';
 
+import "magnific-popup/dist/magnific-popup.css";
 
+require('magnific-popup')
 
 import { NearbyListingSlides } from './components/NearbyListingSlides';
 
 function initTheme()
 {
+
+    // ------------------------------------------------------- //
+    //   Lightbox in galleries
+    // ------------------------------------------------------ //
+
+    $('.slider-gallery').each(function () { // the containers for all your galleries
+        $(this).magnificPopup({
+            delegate: 'a', // the selector for gallery item
+            type: 'image',
+            gallery: {
+                enabled: true,
+                tCounter: '' // markup of counter
+            }
+        });
+    });
+
+    $('.gallery').each(function () { // the containers for all your galleries
+        $(this).magnificPopup({
+            delegate: 'a', // the selector for gallery item
+            type: 'image',
+            gallery: {
+                enabled: true
+            }
+        });
+    });
 
     // ------------------------------------------------------- //
     // Adding fade effect to dropdowns

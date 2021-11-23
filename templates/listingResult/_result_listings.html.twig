@@ -8,11 +8,16 @@
             {% set business_image = '//via.placeholder.com/512.jpg' %}
         {% endif %}
         {#    {% set price = (listing.price / 100) |price_format %}#}
-            {% set listing_image = astrada_asset(listing, 'imageFile', 'listing_thumbnail') %}
-            {% if listing_image is empty %}
-                {% set listing_image = '//via.placeholder.com/512.jpg' %}
-            {% endif %}
-{#        {% set listing_image = '//via.placeholder.com/512.jpg' %}#}
+
+        {% if listing.images|length > 0 %}
+            {% set first_image = listing.images|first %}
+            {% set listing_image = astrada_asset(first_image, 'imageFile', 'listing_thumbnail') %}
+
+        {% else %}
+            {% set listing_image = '//via.placeholder.com/512.jpg' %}
+        {% endif %}
+
+
         {% set listing_path_params = {} %}
 
 

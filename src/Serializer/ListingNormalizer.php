@@ -5,6 +5,7 @@ namespace App\Serializer;
 
 use ApiPlatform\Core\JsonLd\Serializer\ItemNormalizer;
 use App\Entity\Listing;
+use App\Entity\ListingImage;
 use App\Utils\PriceFormatter;
 use Cocur\Slugify\SlugifyInterface;
 use Liip\ImagineBundle\Service\FilterService;
@@ -61,20 +62,39 @@ class ListingNormalizer implements NormalizerInterface, DenormalizerInterface
             'slug' => $this->slugify->slugify($object->getTitle())
         ];
         $data['href'] = $this->urlGenerator->generate('listing',$urlDefaultParameters,UrlGeneratorInterface::ABSOLUTE_PATH);
-        $imagePath = $this->uploaderHelper->asset($object, 'imageFile');
 
-        if (null !== $imagePath) {
-            try{
-                $data['image']  = $this->imagineFilter->getUrlOfFilteredImage($imagePath, 'listing_thumbnail');
-            }catch (\Exception $e){
-                $data['image'] = '/images/placeholder.png';
+        $main_image = null;
+        if(!empty($object->getImages())){
+            foreach ($object->getImages() as $k=>$imageObject){
+                $imageUrl = $this->imageNormalizer($imageObject);
+                if(!$main_image){
+                    $data['image'] = $imageUrl;
+                }
+                $data['gallery'][] = $imageUrl;
             }
-
         }else{
-            $data['image'] = '/images/placeholder.png';
+            $data['image'] = '//via.placeholder.com/512.jpg';
+            $data['gallery'] = [];
         }
 
         return $data;
+    }
+
+    private function imageNormalizer(ListingImage $imageObject)
+    {
+        $imagePath = $this->uploaderHelper->asset($imageObject, 'imageFile');
+
+        if (null !== $imagePath) {
+            try{
+                $imageUrl  = $this->imagineFilter->getUrlOfFilteredImage($imagePath, 'listing_thumbnail');
+            }catch (\Exception $e){
+                $imageUrl = '//via.placeholder.com/512.jpg';
+            }
+
+        }else{
+            $imageUrl = '//via.placeholder.com/512.jpg';
+        }
+        return $imageUrl;
     }
 
     public function supportsNormalization($data, string $format = null)
