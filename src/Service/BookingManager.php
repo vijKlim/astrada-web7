@@ -4,6 +4,7 @@
 namespace App\Service;
 
 
+use App\Entity\Address;
 use App\Entity\Booking;
 use App\Entity\Listing;
 use App\Entity\ListingAvailability;
@@ -112,11 +113,12 @@ class BookingManager
      * @param DateTimeRange $dateTimeRange
      * @return Booking
      */
-    public function initBooking(Listing $listing, $user, DateTimeRange $dateTimeRange)
+    public function initBooking(Listing $listing, $user, DateTimeRange $dateTimeRange, Address $userAddress)
     {
         $booking = new Booking();
         $booking->setListing($listing);
         $booking->setUser($user);
+        $booking->setUserAddress($userAddress);
         $booking->setStatus(Booking::STATUS_DRAFT);
 
         $dateRange = $dateTimeRange->getDateRange();

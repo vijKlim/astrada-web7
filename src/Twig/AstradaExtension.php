@@ -8,6 +8,7 @@ use ApiPlatform\Core\Api\IriConverterInterface;
 use App\Entity\Address;
 use App\Entity\Booking;
 use App\Twig\CacheExtension\KeyGenerator;
+use Carbon\Carbon;
 use Doctrine\Common\Collections\Collection;
 use ReflectionClass;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -96,6 +97,7 @@ class AstradaExtension extends AbstractExtension
             new TwigFilter('astrada_star_rating', array($this, 'starRatingFilter')),
             new TwigFilter('astrada_normalize', array($this, 'normalize')),
             new TwigFilter('parse_expression', array(ExpressionLanguageRuntime::class, 'parseExpression')),
+            new TwigFilter('date_calendar', array($this, 'dateCalendar'), ['needs_context' => true]),
         );
     }
 
@@ -129,6 +131,15 @@ class AstradaExtension extends AbstractExtension
     public function getIriFromItem($item)
     {
         return $this->iriConverter->getIriFromItem($item);
+    }
+
+    public function dateCalendar($context, $date)
+    {
+        $locale = $context['app']->getRequest()->getLocale();
+
+        $carbon = Carbon::parse($date);
+
+        return strtolower($carbon->locale($locale)->toDateString());
     }
 
     /**

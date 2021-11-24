@@ -1,0 +1,93 @@
+{#
+    Date range widget
+#}
+{%- block date_range_widget -%}
+
+    <div class="form-group">
+        {{ form_errors(form.start) }}
+        {% if form.start.vars.label %}
+            <label class="form-label" for="bookingDate">{{ form_label(form.start) }}</label>
+
+        {% endif %}
+        <div class="datepicker-container datepicker-container-right">
+            {{ form_widget(form.start,{
+                'type': 'text',
+                'attr': {
+
+                    'class': 'form-control ' ~ form.start.vars.attr.class|default(''),
+                    'placeholder': "/      /"
+                }
+            }) }}
+
+        </div>
+    </div>
+
+    {% if "date_hidden" not in form.end.vars.block_prefixes %}
+        <div class="form-group">
+            {{ form_errors(form.start) }}
+            {% if form.start.vars.label %}
+                <label class="form-label" for="bookingDate">{{ form_label(form.end) }}</label>
+
+            {% endif %}
+            <div class="datepicker-container datepicker-container-right">
+                {{ form_widget(form.end,{
+                    'type': 'text',
+                    'attr': {
+
+                        'class': 'form-control ' ~ form.end.vars.attr.class|default(''),
+                        'placeholder': "/      /"
+                    }
+                }) }}
+
+            </div>
+        </div>
+    {% else %}
+        {#hidden#}
+        {{ form_errors(form.end) }}
+        {{ form_widget(form.end) }}
+    {% endif %}
+
+
+    {% if form.nb_days is defined %}
+        {% if "hidden" not in form.nb_days.vars.block_prefixes %}
+
+            <div class="form-group mb-4">
+                <label class="form-label" for="guests">{{ form_label(form.nb_days) }}</label>
+                {{ form_errors(form.nb_days) }}
+                {{ form_widget(form.nb_days, {'attr': { 'class': 'form-control'}}) }}
+            </div>
+
+        {% else %}
+            {#hidden#}
+            {{ form_errors(form.nb_days) }}
+            {{ form_widget(form.nb_days) }}
+        {% endif %}
+    {% endif %}
+
+
+
+{%- endblock -%}
+
+{% block _booking_userAddress_widget %}
+    <div class="text-block">
+        <div class="media">
+            <div class="media-body">
+                <p class="text-sm text-muted">Где нужно бурить?</p>
+            </div>
+
+
+        </div>
+        <div class="form-group">
+            {{ form_widget(form.streetAddress,{
+                'attr': {
+                    'class': 'form-control'
+                }
+            }) }}
+        </div>
+
+        {{ form_row(form.postalCode) }}
+        {{ form_row(form.addressLocality) }}
+        {{ form_row(form.latitude) }}
+        {{ form_row(form.longitude) }}
+    </div>
+{% endblock %}

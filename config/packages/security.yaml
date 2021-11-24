@@ -24,6 +24,11 @@ security:
           methods: [ GET ]
           security: false
 
+        user_address:
+          pattern: ^/user-address
+          methods: [ GET ]
+          security: false
+
         listing_nearby:
           pattern: ^/listing/nearby
           methods: [ GET ]

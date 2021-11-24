@@ -4,6 +4,7 @@ import _ from 'lodash'
 
 import store from './address-storage'
 import AddressAutosuggest from '../frontend/components/AddressAutosuggest'
+import UserAddress from "../UserAddress";
 
 // We used to store a string in "search_address", but now, we want objects
 // This function will cleanup legacy behavior
@@ -73,7 +74,15 @@ document.querySelectorAll('[data-search="address"]').forEach((container) => {
 
                         geohashInput.value = address.geohash
 
-                        form.submit()
+                        let userAddress = new UserAddress();
+                        address.streetAddress = value
+
+
+                        userAddress.addNew(address).then(value1 => {
+                            form.submit()
+                        })
+
+
 
                     }
 

@@ -29,6 +29,8 @@ class Booking extends BaseBooking implements ResourceInterface
      */
     protected $user;
 
+    protected $userAddress;
+
 
     /**
      * @var Listing
@@ -80,6 +82,29 @@ class Booking extends BaseBooking implements ResourceInterface
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set user address
+     *
+     * @param Address $userAddress
+     * @return Booking
+     */
+    public function setUserAddress($userAddress)
+    {
+        $this->userAddress = $userAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get booking user address
+     *
+     * @return Address
+     */
+    public function getUserAddress()
+    {
+        return $this->userAddress;
     }
 
     /**

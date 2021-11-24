@@ -5,6 +5,7 @@ namespace App\Form;
 
 
 use App\Entity\Booking;
+
 use App\Form\Type\DateRangeType;
 use App\Service\BookingManager;
 use DateInterval;
@@ -18,6 +19,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BookingNewType extends AbstractType
 {
@@ -105,6 +107,18 @@ class BookingNewType extends AbstractType
                 )
             );
 
+        $builder
+            ->add(
+                'userAddress',
+                AddressType::class,
+                [
+
+                    'street_address_label' => ' ',
+                    'with_widget' => true,
+                    'with_description' => false,
+                    'label' => false,
+                ]
+            );
 
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
@@ -250,4 +264,15 @@ class BookingNewType extends AbstractType
             }
         }
     }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        parent::configureOptions($resolver);
+
+        $resolver->setDefaults(array(
+            'data_class' => Booking::class,
+        ));
+    }
+
+
 }

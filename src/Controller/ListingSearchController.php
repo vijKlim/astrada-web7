@@ -85,6 +85,8 @@ class ListingSearchController extends AbstractController
         $nbListings = $results->count();
         $listings = $results->getIterator();
 
+        $this->get('session')->set('listing_search_request', $listingSearchRequest);
+
         $allListingsNormalized = array_map(function (Listing $listing) {
             return $this->get('serializer')->normalize($listing, 'jsonld', [
                 'resource_class' => Listing::class,

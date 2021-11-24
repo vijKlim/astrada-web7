@@ -147,6 +147,10 @@ services:
     arguments:
       $listingSearchRequest: '@astrada.listing_search_request'
 
+  App\Controller\UserAddressController:
+    arguments:
+      $userAddressRequest: '@astrada.user_address_request'
+
   App\Controller\ListingReviewController:
     arguments:
       $listingReviewFactory: '@sylius.factory.listing_review'
@@ -159,6 +163,7 @@ services:
     arguments:
       $bookingManager: '@astrada.booking.manager'
       $listingSearchRequest: '@astrada.listing_search_request'
+      $userAddressRequest: '@astrada.user_address_request'
 
   # TWIG
   App\Twig\:
@@ -534,6 +539,12 @@ services:
     arguments:
       - "@request_stack"
       - "%astrada.listing_search_max_per_page%"
+    public: true
+
+  astrada.user_address_request:
+    class: App\Entity\Model\UserAddressRequest
+    arguments:
+      - "@request_stack"
     public: true
 
   astrada.email_manager: '@App\Service\EmailManager'

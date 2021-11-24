@@ -3,7 +3,7 @@
 {% block layout %}
     {% embed 'layout.html.twig'%}
 
-
+        {% form_theme form 'form/frontend/booking.html.twig' %}
 
 
         {% block main %}
@@ -23,6 +23,12 @@
             <div class="progress rounded-0 sticky-top" style="height: 8px; top: 71px;">
                 <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
+
+
+
+
+            {{ form_start(form) }}
+
             <section class="py-5">
                 <div class="container">
                     <div class="row">
@@ -30,6 +36,8 @@
                             <p class="subtitle text-primary">Заявка на бурение скважины</p>
                             <h1 class="h2 mb-5">Информация</h1>
 
+                            {{ form_errors(form.userAddress) }}
+                            {{ form_row(form.userAddress) }}
 
 
                             <div class="text-block">
@@ -38,7 +46,15 @@
                                         <p class="text-sm text-muted">Вы можете добавить дополнительную информацию к вашей заявке.</p>
                                     </div>
                                 </div>
-                                <textarea class="form-control" name="hello" rows="4"></textarea>
+
+                                {{ form_errors(form.message) }}
+                                {{ form_widget(form.message,{
+                                    'attr': {
+                                        'class': 'form-control',
+                                        'rows': '4'
+                                    }
+                                }) }}
+
                             </div>
                             <div class="row form-block flex-column flex-sm-row">
 
@@ -61,7 +77,8 @@
                                     <div class="text-block py-3">
                                         <ul class="list-unstyled mb-0">
                                             <li class="mb-3"><i class="fas fa-users fa-fw text-muted mr-2"></i>{{ listing.address.streetAddress }}</li>
-                                            <li class="mb-0"><i class="far fa-calendar fa-fw text-muted mr-2"></i>Apr 17, 2019 <i class="fas fa-arrow-right fa-fw text-muted mx-3"></i>Apr 18, 2019</li>
+                                            <li class="mb-0">{{ form_row(form.date_range) }}</li>
+{#                                            <li class="mb-0"><i class="far fa-calendar fa-fw text-muted mr-2"></i>{{ booking.start|date_calendar }} <i class="fas fa-arrow-right fa-fw text-muted mx-3"></i>{{ booking.end|date_calendar }}</li>#}
                                         </ul>
                                     </div>
                                     <div class="text-block pt-3 pb-0">
@@ -86,6 +103,8 @@
                     </div>
                 </div>
             </section>
+
+            {{ form_end(form) }}
         {% endblock %}
 
     {% endembed %}

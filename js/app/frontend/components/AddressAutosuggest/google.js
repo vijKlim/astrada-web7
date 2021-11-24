@@ -52,7 +52,7 @@ console.log(value)
     location: location,
     input: value,
   }, (predictions, status) => {
-console.log(predictions)
+
     if (status === window.google.maps.places.PlacesServiceStatus.OK && Array.isArray(predictions)) {
 
       const predictionsAsSuggestions = predictions.map((result, idx) => ({
@@ -98,6 +98,11 @@ export function onSuggestionSelected( suggestion ) {
     return
   }
 
+    //У меня value было то что напечатал юзер а не то что он выбрал в автодополнении поетому добавил  setState suggestion
+    this.setState({
+        ...suggestion
+    })
+
   geocoderService.geocode({ placeId: suggestion.google.place_id }, (results, status) => {
     if (status === window.google.maps.GeocoderStatus.OK && results.length === 1) {
 
@@ -111,7 +116,7 @@ export function onSuggestionSelected( suggestion ) {
         ...placeToAddress(place, this.state.value),
         geohash,
       }
-
+console.log('GOOGLE', this.state)
       this.props.onAddressSelected(this.state.value, address, suggestion.type)
     }
   })

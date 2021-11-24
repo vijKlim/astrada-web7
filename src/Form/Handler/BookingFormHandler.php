@@ -12,6 +12,7 @@
 namespace App\Form\Handler;
 
 
+use App\Entity\Address;
 use App\Entity\Booking;
 use App\Entity\Listing;
 use App\Entity\Model\DateTimeRange;
@@ -64,7 +65,8 @@ class BookingFormHandler
         $user,
         Listing $listing,
         \DateTime $start,
-        \DateTime $end
+        \DateTime $end,
+        Address $userAddress
     ) {
         //Id of an eventual booking draft
         $bookingId = $this->request->query->get('id');
@@ -76,7 +78,7 @@ class BookingFormHandler
             $endTime->modify('-' . $start->diff($end)->days . ' days');
 
             $dateTimeRange = DateTimeRange::createFromDateTimes($start, $end, $startTime, $endTime);
-            $booking = $this->bookingManager->initBooking($listing, $user, $dateTimeRange);
+            $booking = $this->bookingManager->initBooking($listing, $user, $dateTimeRange, $userAddress);
 
             $event = new BookingEvent($booking);
             $this->dispatcher->dispatch($event, BookingEvents::BOOKING_INIT );

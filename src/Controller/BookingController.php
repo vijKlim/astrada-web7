@@ -4,9 +4,12 @@
 namespace App\Controller;
 
 
+use App\Entity\Address;
+use App\Entity\Base\GeoCoordinates;
 use App\Entity\Booking;
 use App\Entity\Listing;
 use App\Entity\Model\ListingSearchRequest;
+use App\Entity\Model\UserAddressRequest;
 use App\Factory\TopicFactory;
 use App\Form\BookingNewType;
 use App\Form\BookingType;
@@ -36,6 +39,7 @@ class BookingController extends AbstractController
      */
     private $bookingManager;
     private $listingSearchRequest;
+    private $userAddressRequest;
 
     private $dispatcher;
 
@@ -43,10 +47,12 @@ class BookingController extends AbstractController
     public function __construct(
         BookingManager $bookingManager,
         ListingSearchRequest $listingSearchRequest,
+        UserAddressRequest $userAddressRequest,
         EventDispatcherInterface $dispatcher)
     {
         $this->bookingManager = $bookingManager;
         $this->listingSearchRequest = $listingSearchRequest;
+        $this->userAddressRequest = $userAddressRequest;
         $this->dispatcher = $dispatcher;
     }
 
@@ -65,7 +71,7 @@ class BookingController extends AbstractController
         $form = $this->createBookingForm($booking);
 
         return $this->render(
-            'form/booking.html.twig',
+            'booking/form.html.twig',
             array(
                 'form' => $form->createView(),
                 'booking' => $booking
@@ -164,8 +170,10 @@ class BookingController extends AbstractController
         if (!$listing) {
             throw new NotFoundHttpException();
         }
+        $userAddress = $this->getLastUserSearchAddress();
+        $booking = $bookingHandler->init($this->getUser(), $listing, new \DateTime($start), new \DateTime($end), $userAddress);
 
-        $booking = $bookingHandler->init($this->getUser(), $listing, new \DateTime($start), new \DateTime($end));
+
         //Availability is validated through BookingValidator and amounts are setted through Form Event PRE_SET_DATA
         $form = $this->createCreateForm($booking);
 
@@ -229,7 +237,7 @@ class BookingController extends AbstractController
     private function createCreateForm(Booking $booking)
     {
         $form = $this->get('form.factory')->createNamed(
-            '',
+            'booking',
             BookingNewType::class,
             $booking,
             array(
@@ -246,5 +254,34 @@ class BookingController extends AbstractController
         );
 
         return $form;
+    }
+
+    /**
+     * @return Address
+     */
+    protected function getLastUserSearchAddress()
+    {
+        $userAddressRequest = $this->getUserAddressRequest();
+        $address = new Address();
+        $address->setGeo(new GeoCoordinates($userAddressRequest->getLatitude(), $userAddressRequest->getLongitude()));
+        $address->setStreetAddress($userAddressRequest->getStreetAddress());
+        $address->setAddressLocality($userAddressRequest->getAddressLocality());
+        $address->setPostalCode($userAddressRequest->getPostalCode());
+
+        return $address;
+    }
+
+    /**
+     * @return UserAddressRequest
+     */
+    protected function getUserAddressRequest()
+    {
+        $session = $this->get('session');
+        /** @var UserAddressRequest $userAddressRequest */
+        $userAddressRequest = $session->has('user_address_request') ?
+            $session->get('user_address_request') :
+            $this->userAddressRequest;
+
+        return $userAddressRequest;
     }
 }
