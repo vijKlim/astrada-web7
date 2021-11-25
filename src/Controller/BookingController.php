@@ -26,6 +26,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Booking controller.
@@ -43,17 +44,21 @@ class BookingController extends AbstractController
 
     private $dispatcher;
 
+    private $translator;
+
 
     public function __construct(
         BookingManager $bookingManager,
         ListingSearchRequest $listingSearchRequest,
         UserAddressRequest $userAddressRequest,
-        EventDispatcherInterface $dispatcher)
+        EventDispatcherInterface $dispatcher,
+        TranslatorInterface $translator)
     {
         $this->bookingManager = $bookingManager;
         $this->listingSearchRequest = $listingSearchRequest;
         $this->userAddressRequest = $userAddressRequest;
         $this->dispatcher = $dispatcher;
+        $this->translator = $translator;
     }
 
     /**
@@ -66,7 +71,7 @@ class BookingController extends AbstractController
     {
         $booking = $this->bookingManager->initBooking($listing,
             $this->getUser(),
-            $this->listingSearchRequest->getDateTimeRange());
+            $this->listingSearchRequest->getDateTimeRange(),  $this->getLastUserSearchAddress());
 
         $form = $this->createBookingForm($booking);
 
@@ -100,7 +105,7 @@ class BookingController extends AbstractController
 
         $booking = $this->bookingManager->initBooking($listing,
             $this->getUser(),
-            $this->listingSearchRequest->getDateTimeRange());
+            $this->listingSearchRequest->getDateTimeRange(), $this->getLastUserSearchAddress());
 
         $form = $this->createBookingForm($booking);
         $form->handleRequest($request);
@@ -180,36 +185,29 @@ class BookingController extends AbstractController
         $success = $bookingHandler->process($form);
         if ($success === 1) {//Success
 
-            try {
-                $booking = $this->bookingManager->create($booking);
-                $topicFactory->createForBooking($booking);
+            $topic = $topicFactory->createForBooking($booking);
+            $booking->setTopic($topic);
+            $booking = $this->bookingManager->create($booking);
 
-                if ($booking) {
-                    //New Booking confirmation
-                    $this->get('session')->getFlashBag()->add(
-                        'success',
-                        $this->get('translator')->trans('booking.new.success', array(), 'cocorico_booking')
-                    );
+            if ($booking) {
 
-                    $response = new RedirectResponse(
-                        $this->generateUrl(
-                            'cocorico_dashboard_booking_show_asker',
-                            array('id' => $booking->getId())
-                        )
-                    );
-                } else {
-                    throw new \Exception('booking.new.form.error');
-                }
-
-                return $response;
-            } catch (\Exception $e) {
-                //Errors message are created in event subscribers
+                //New Booking confirmation
                 $this->get('session')->getFlashBag()->add(
-                    'error',
-                    /** @Ignore */
-                    $this->get('translator')->trans($e->getMessage(), array(), 'cocorico_booking')
+                    'success',
+                    $this->translator->trans('booking.new.success')
                 );
+
+                $response = new RedirectResponse(
+                    $this->generateUrl(
+                        'cocorico_dashboard_booking_show_asker',
+                        array('id' => $booking->getId())
+                    )
+                );
+            } else {
+                throw new \Exception('booking.new.form.error');
             }
+
+            return $response;
         } else {
             //$this->addFormMessagesToFlashBag($success);
         }

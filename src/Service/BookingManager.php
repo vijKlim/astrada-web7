@@ -1184,7 +1184,9 @@ class BookingManager
      */
     public function save(Booking $booking)
     {
-        $this->persistAndFlush($booking);
+
+        $this->em->persist($booking);
+        $this->em->flush();
 
         return $booking;
     }

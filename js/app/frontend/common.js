@@ -194,8 +194,8 @@ const UserLocation = (props) => {
 
         if (latitude && longitude && !error) {
 
-            if(latitude != props.location.latitude && longitude != props.location.longitude){
-                //console.log('Lets Geocoding', latitude, props.location.latitude, longitude, props.location.longitude)
+            if(!props.location){
+                console.log('Lets Geocoding', latitude, props.location.latitude, longitude, props.location.longitude)
                 geocodeByLocation(latitude, longitude).then(value => {
 
                     (new UserAddress()).addNew(value)

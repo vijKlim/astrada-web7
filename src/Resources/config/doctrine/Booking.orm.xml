@@ -46,10 +46,11 @@
             </join-columns>
             <cascade>
                 <cascade-remove/>
+                <cascade-persist />
             </cascade>
         </one-to-one>
-        <field name="start" type="datetime" column="start" />
-        <field name="end" type="datetime" column="end"/>
+        <field name="start" type="datetime" column="start_date" />
+        <field name="end" type="datetime" column="end_date"/>
         <field name="startTime" type="datetime" column="start_time" nullable="true"/>
         <field name="endTime" type="datetime" column="end_time" nullable="true"/>
         <field name="validated" type="boolean" column="validated">
