@@ -18,7 +18,7 @@ services:
     restart: always
     image: redis
     ports:
-      - '6379:6379'
+      - '63991:6379'
 
   nodejs:
     build:
