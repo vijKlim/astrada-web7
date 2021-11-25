@@ -5,6 +5,8 @@ namespace App\Entity\Model;
 
 
 
+use App\Entity\Address;
+use App\Entity\Base\GeoCoordinates;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class UserAddressRequest
@@ -137,6 +139,20 @@ class UserAddressRequest
     public function setPostalCode($postalCode): void
     {
         $this->postalCode = $postalCode;
+    }
+
+    /**
+     * @return Address
+     */
+    public function getAddress()
+    {
+        $address = new Address();
+
+        $address->setGeo(new GeoCoordinates($this->getLatitude(), $this->getLongitude()));
+        $address->setStreetAddress($this->getStreetAddress());
+        $address->setAddressLocality($this->getAddressLocality());
+        $address->setPostalCode($this->getPostalCode());
+        return $address;
     }
 
     /**

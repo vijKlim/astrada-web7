@@ -262,13 +262,7 @@ class BookingController extends AbstractController
     protected function getLastUserSearchAddress()
     {
         $userAddressRequest = $this->getUserAddressRequest();
-        $address = new Address();
-        $address->setGeo(new GeoCoordinates($userAddressRequest->getLatitude(), $userAddressRequest->getLongitude()));
-        $address->setStreetAddress($userAddressRequest->getStreetAddress());
-        $address->setAddressLocality($userAddressRequest->getAddressLocality());
-        $address->setPostalCode($userAddressRequest->getPostalCode());
-
-        return $address;
+        return $userAddressRequest->getAddress();
     }
 
     /**

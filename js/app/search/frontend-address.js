@@ -26,7 +26,7 @@ document.querySelectorAll('[data-search="address"]').forEach((container) => {
 
     const el   = container.querySelector('[data-element]')
     const form = container.querySelector('[data-form]')
-    console.log('search address:',el, form);
+
     if (el) {
 
         const addresses =
@@ -72,13 +72,10 @@ document.querySelectorAll('[data-search="address"]').forEach((container) => {
                             window._paq.push(['trackEvent', trackingCategory, 'searchAddress', value])
                         }
 
-                        geohashInput.value = address.geohash
-
-                        let userAddress = new UserAddress();
-                        address.streetAddress = value
+                        geohashInput.value = address.geohash;
 
 
-                        userAddress.addNew(address).then(value1 => {
+                        (new UserAddress()).addNew(address).then(value1 => {
                             form.submit()
                         })
 

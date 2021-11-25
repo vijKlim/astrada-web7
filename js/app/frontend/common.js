@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {  useState, useEffect } from "react";
 import { render } from 'react-dom'
+
 import numbro from 'numbro'
 
 // @see http://symfony.com/doc/3.4/frontend/encore/legacy-apps.html
@@ -29,6 +30,14 @@ import "magnific-popup/dist/magnific-popup.css";
 require('magnific-popup')
 
 import { NearbyListingSlides } from './components/NearbyListingSlides';
+
+import {usePosition} from "../usePosition";
+
+import {
+    geocodeByLocation
+} from './components/AddressAutosuggest/google'
+
+import UserAddress from "../UserAddress";
 
 function initTheme()
 {
@@ -166,7 +175,42 @@ injectSvgSprite('/img/orion-svg-sprite.svg');
 // }
 
 
+const UserLocation = (props) => {
+    const [listings, setListings] = useState([]);
+
+    const {
+        latitude,
+        longitude,
+        timestamp,
+        accuracy,
+        speed,
+        heading,
+        error,
+    } = usePosition(true);
+
+
+    useEffect(() => {
+
+
+        if (latitude && longitude && !error) {
+
+            if(latitude != props.location.latitude && longitude != props.location.longitude){
+                //console.log('Lets Geocoding', latitude, props.location.latitude, longitude, props.location.longitude)
+                geocodeByLocation(latitude, longitude).then(value => {
+
+                    (new UserAddress()).addNew(value)
+                })
+            }
+
+        }
+    }, [latitude,longitude,error]);
+
+    return <></>;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+
+
 
     initTheme();
 
@@ -174,6 +218,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set global timezone used in Moment.js
     const timezone = document.querySelector('body').dataset.timezone
     setTimezone(timezone)
+
+    //nearbyListingSliders
+    const userLocationElement   = document.querySelector('#user_location')
+    const location =
+        userLocationElement.dataset.latlng ? JSON.parse(userLocationElement.dataset.latlng) : null
+
+    if(userLocationElement){
+        render(
+
+            <UserLocation location={location} />
+            , userLocationElement
+        )
+    }
 
     //nearbyListingSliders
     const nearbyListingSlidesElement   = document.querySelector('#nearby-listing-slides')

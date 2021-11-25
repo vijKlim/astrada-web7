@@ -177,6 +177,7 @@ services:
 
   App\Twig\AstradaExtension:
     arguments:
+      $session: '@session'
       $secret: '%secret%'
       $parameters:
         astrada_time_unit: "%astrada.time_unit%"

@@ -39,7 +39,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
  *   subresourceOperations={
  *     "api_stores_addresses_get_subresource"={
  *       "method"="GET",
- *       "normalization_context"={"groups"={"address", "delivery"}}
+ *       "normalization_context"={"groups"={"address", "listing"}}
  *     }
  *   }
  * )
@@ -67,6 +67,7 @@ class Address extends BaseAddress
     {
         return $this->id;
     }
+
 
     public function getCompany()
     {

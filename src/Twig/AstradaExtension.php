@@ -7,10 +7,12 @@ namespace App\Twig;
 use ApiPlatform\Core\Api\IriConverterInterface;
 use App\Entity\Address;
 use App\Entity\Booking;
+use App\Entity\Model\UserAddressRequest;
 use App\Twig\CacheExtension\KeyGenerator;
 use Carbon\Carbon;
 use Doctrine\Common\Collections\Collection;
 use ReflectionClass;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Serializer\SerializerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -19,15 +21,17 @@ use Twig\TwigTest;
 
 class AstradaExtension extends AbstractExtension
 {
+    private $session;
     private $serializer;
     private $iriConverter;
     private $secret;
     protected $timeUnit;
     protected $timeUnitIsDay;
 
-    public function __construct(SerializerInterface $serializer, IriConverterInterface $iriConverter,
+    public function __construct(Session $session, SerializerInterface $serializer, IriConverterInterface $iriConverter,
                                 string $secret,array $parameters)
     {
+        $this->session = $session;
         $this->serializer = $serializer;
         $this->iriConverter = $iriConverter;
         $this->secret = $secret;
@@ -104,6 +108,7 @@ class AstradaExtension extends AbstractExtension
     public function getFunctions()
     {
         return array(
+            new TwigFunction('astrada_user_location', array($this, 'userLocationSession')),
             new TwigFunction('astrada_setting', array(SettingResolver::class, 'resolveSetting')),
             new TwigFunction('astrada_maintenance', array(MaintenanceResolver::class, 'isEnabled')),
             new TwigFunction('astrada_logo', array(AppearanceRuntime::class, 'logo')),
@@ -193,5 +198,16 @@ class AstradaExtension extends AbstractExtension
         }
 
         return $this->serializer->normalize($object, $format, $context);
+    }
+
+    public function userLocationSession()
+    {
+
+        /** @var UserAddressRequest $userAddressRequest */
+        $userAddressRequest = $this->session->has('user_address_request') ?
+            $this->session->get('user_address_request') :
+            null;
+        $geo = $userAddressRequest->getAddress()->getGeo();
+        return ['latitude'=>$geo->getLatitude(),'longitude'=>$geo->getLongitude()];
     }
 }

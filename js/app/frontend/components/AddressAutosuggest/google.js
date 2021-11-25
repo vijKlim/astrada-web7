@@ -45,7 +45,7 @@ const autocompleteOptions = {
 }
 
 export const onSuggestionsFetchRequested = function({ value }) {
-console.log(value)
+
   // https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service
   autocompleteService.getPlacePredictions({
     ...autocompleteOptions,
@@ -116,7 +116,7 @@ export function onSuggestionSelected( suggestion ) {
         ...placeToAddress(place, this.state.value),
         geohash,
       }
-console.log('GOOGLE', this.state)
+
       this.props.onAddressSelected(this.state.value, address, suggestion.type)
     }
   })
@@ -147,6 +147,22 @@ export const geocode = function (text) {
       }
     })
   })
+}
+
+export const geocodeByLocation = function (lat, lng) {
+
+    // https://developers.google.com/maps/documentation/javascript/geocoding
+    let geocoder     = new window.google.maps.Geocoder()
+    return new Promise((resolve) => {
+        geocoderService.geocode({ location: new window.google.maps.LatLng(lat, lng) }, (results, status) => {
+            if (status === window.google.maps.GeocoderStatus.OK && results.length > 0) {
+                const place = results[0]
+                resolve(placeToAddress(place))
+            } else {
+                resolve(null)
+            }
+        })
+    })
 }
 
 export const configure = function (options) {
