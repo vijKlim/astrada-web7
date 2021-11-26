@@ -1,0 +1,11 @@
+{% block _registration_form_plainPassword_widget %}
+    <div class="form-group">
+        {{ form_label(form.first, null, { label_attr: { class: 'form-label' } }) }}
+        {{ form_widget(form.first, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.second, null, { label_attr: { class: 'form-label' } }) }}
+        {{ form_widget(form.second, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+{% endblock %}

@@ -154,22 +154,22 @@ class UserController extends AbstractController
 
 
 
-//    /**
-//     * @Route("/register/resend-email", name="register_resend_email", methods={"POST"})
-//     */
-//    public function resendRegistrationEmailAction(Request $request, UserManagerInterface $userManager, ProfileMailerInterface $mailer, SessionInterface $session)
-//    {
-//        if ($request->request->has('email')) {
-//            $email = $request->request->get('email');
-//            $user = $userManager->findUserByEmail($email);
-//            if ($user !== null) {
-//                $mailer->sendConfirmationEmailMessage($user);
-//                $session->set('fos_user_send_confirmation_email/email', $email);
-//                return $this->redirectToRoute('nucleos_profile_registration_check_email');
-//            }
-//        }
-//        return $this->redirectToRoute('nucleos_user_security_login');
-//    }
+    /**
+     * @Route("/register/resend-email", name="register_resend_email", methods={"POST"})
+     */
+    public function resendRegistrationEmailAction(Request $request, UserManagerInterface $userManager, ProfileMailerInterface $mailer, SessionInterface $session)
+    {
+        if ($request->request->has('email')) {
+            $email = $request->request->get('email');
+            $user = $userManager->findUserByEmail($email);
+            if ($user !== null) {
+                $mailer->sendConfirmationEmailMessage($user);
+                $session->set('fos_user_send_confirmation_email/email', $email);
+                return $this->redirectToRoute('nucleos_profile_registration_check_email');
+            }
+        }
+        return $this->redirectToRoute('nucleos_user_security_login');
+    }
 //
 //    /**
 //     * @Route("/invitation/define-password/{code}", name="invitation_define_password")

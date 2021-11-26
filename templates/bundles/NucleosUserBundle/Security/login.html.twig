@@ -1,9 +1,17 @@
-{% extends "base2.html.twig" %}
+{% extends "base.html.twig" %}
 
-{% block body %}
-  {% block nucleos_user_content %}
-  <div class="login-container">
-  {{ include('@NucleosUser/Security/login_content.html.twig') }}
-  </div>
-  {% endblock nucleos_user_content %}
+{% block layout %}
+    {% embed 'layout.html.twig'%}
+
+        {% block main %}
+
+            {% block nucleos_user_content %}
+                <div class="login-container">
+                    {{ include('@NucleosUser/Security/login_content.html.twig') }}
+                </div>
+            {% endblock nucleos_user_content %}
+
+        {% endblock %}
+
+    {% endembed %}
 {% endblock %}

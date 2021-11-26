@@ -13,6 +13,9 @@ navbar.logout: Вийти з аккаунта
 navbar.myAccount: Мій профіль
 navbar.contact: Контакти
 basics.powered_by: Powered by <a href="https://aquastrada.com">Aquastrada</a>
+base.welcome_back: З поверненням
+base.signup_on: Реєстрація на
+base.signup_description: Після реєстрації ви зможете скористатися всіма функціями нашого порталу.
 base.footer.contactUs: Зв’яжіться з нами
 base.footer.companyRegister: Стати партнером
 base.footer.RegisterMyRestaurant: Зареєструйте мій ресторан
@@ -881,6 +884,10 @@ basics.send_invitation: Надіслати запрошення
 basics.send_invitation.confirm: Ваше запрошення надіслано! Тепер ви можете редагувати
   налаштування нового користувача.
 basics.configure: Налаштування
+security.login.username: Нікнейм або пошта
+security.login.password: Пароль
+security.login.remember_me: Запам'ятай мене на 7 днів
+security.login.submit: Увійти
 profile.password.change: Змініть пароль
 authentication.forgot_password: Забули пароль?
 authentication.not_registered_yet: Ще не зареєстровано?

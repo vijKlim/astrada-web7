@@ -350,7 +350,7 @@ class InitDemoCommand extends Command
         try {
             $this->craueConfig->get('brand_name');
         } catch (\RuntimeException $e) {
-            $brandName = $this->createCraueConfigSetting('brand_name', 'Astrada');
+            $brandName = $this->createCraueConfigSetting('brand_name', 'Aquastrada');
             $em->persist($brandName);
         }
 

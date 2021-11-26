@@ -1,13 +1,17 @@
-{% extends "base2.html.twig" %}
+{% extends "base.html.twig" %}
 
-{% block body %}
-  {% block nucleos_user_content %}
-  <div class="container">
-  {% include "@NucleosProfile/Registration/register_content.html.twig" %}
-  </div>
-  {% endblock nucleos_user_content %}
-{% endblock %}
+{% block layout %}
+    {% embed 'layout.html.twig'%}
 
-{% block scripts %}
-  {{ encore_entry_script_tags('register') }}
+        {% block main %}
+
+            {% block nucleos_user_content %}
+                <div class="container">
+                    {% include "@NucleosProfile/Registration/register_content.html.twig" %}
+                </div>
+            {% endblock nucleos_user_content %}
+
+        {% endblock %}
+
+    {% endembed %}
 {% endblock %}

@@ -1,17 +1,17 @@
 registration.email.subject: |
   Підтвердження електронною поштою
 registration.email.message: |
-  <h2> Ласкаво просимо до %brand_name %, %username %</h2>
-  Ви отримали це повідомлення, оскільки нещодавно зареєструвалися в обліковому записі % brand_name %.
+  <h2> Ласкаво просимо до %brand_name%, %username%</h2>
+  Ви отримали це повідомлення, оскільки нещодавно зареєструвалися в обліковому записі %brand_name%.
   <br>
   Підтвердьте свою електронну адресу, натиснувши кнопку нижче.
 registration.email.confirm: Підтвердьте електронну адресу
 registration.email.disclaimer: Це посилання можна використовувати лише один раз для перевірки вашого облікового запису
-registration.email.textПовідомлення: |
-  Ласкаво просимо до %brand_name %, %username %, \ n \ n
-  Ви отримали це повідомлення, оскільки нещодавно зареєструвалися в обліковому записі % brand_name %. \ N
+registration.email.textMessage: |
+  Ласкаво просимо до %brand_name%, %username%, \ n \ n
+  Ви отримали це повідомлення, оскільки нещодавно зареєструвалися в обліковому записі %brand_name%. \ N
   Щоб підтвердити свою електронну адресу, перейдіть за таким посиланням: <a href="%confirmationUrl%" rel="notrack">%confirmationUrl%</a>.
-resetting.email.message: <h2> Привіт %username %</h2> Щоб скинути пароль, будь ласка
+resetting.email.message: <h2> Привіт %username%</h2> Щоб скинути пароль, будь ласка
   натисніть кнопку нижче.
 resetting.email.reset: скидання пароля
 order.view: Перегляд замовлення
