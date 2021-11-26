@@ -8,7 +8,10 @@ global.services: Послуги
 home.header.title: Всі бурові компанії під рукою
 home.header.description: Знайдіть найкращі пропозиції з усієї України від наших партнерів.
 navbar.login: Вхід
-navbar.myAccount: Мій рахунок
+navbar.signup: Реєстрація
+navbar.logout: Вийти з аккаунта
+navbar.myAccount: Мій профіль
+navbar.contact: Контакти
 basics.powered_by: Powered by <a href="https://aquastrada.com">Aquastrada</a>
 base.footer.contactUs: Зв’яжіться з нами
 base.footer.companyRegister: Стати партнером
@@ -19,6 +22,7 @@ base.footer.suggest: Запропонуйте компанію
 base.footer.privacy: Конфіденційність
 base.footer.terms: Умови обслуговування
 adminDashboard.title: Інформаційна панель адміністратора
+adminDashboard.short_title: Адмін-панель
 adminDashboard.configuration: конфігурація
 adminDashboard.tooltip.orders: Керуйте замовленнями ресторанів
 adminDashboard.tooltip.deliveries: Керування доставками

@@ -1,18 +1,18 @@
-<div class="header-user-menu">
-    <div class="header-user-name">
-        <span><img src="{{ path('user_avatar', { username: app.user.username }) }}"  alt=""></span>
-        {{ app.user.username }}
-    </div>
-    <ul>
-        <li>
-            <a href="{{ path('nucleos_profile_profile_show') }}">
-                {% trans %}navbar.myAccount{% endtrans %}
-            </a>
-        </li>
-        {% if is_granted('DASHBOARD_VIEW') %}
-            <li><a href="{{ path('dashboard') }}">{{ 'adminDashboard.dashboard.title'|trans }}</a></li>
-        {% endif %}
+<li class="nav-item dropdown ml-lg-3">
+    <a id="userDropdownMenuLink" href="#" data-toggle="dropdown"
+       aria-haspopup="true" aria-expanded="false">
+        <img class="avatar avatar-sm avatar-border-white mr-2" src="{{ path('user_avatar', { username: app.user.username }) }}" alt="{{ app.user.username }}">
+    </a>
+    <div class="dropdown-menu dropdown-menu-right"
+         aria-labelledby="userDropdownMenuLink">
+        <a class="dropdown-item" href="{{ path('nucleos_profile_profile_show') }}">{% trans %}navbar.myAccount{% endtrans %} </a>
 
-        <li><a href="{{ path('nucleos_user_security_logout') }}">{% trans from 'NucleosUserBundle' %}layout.logout{% endtrans %}</a></li>
-    </ul>
-</div>
+        {% if is_granted('DASHBOARD_VIEW') %}
+            <a class="dropdown-item" href="{{ path('dashboard') }}">{{ 'adminDashboard.dashboard.title'|trans }} </a>
+        {% endif %}
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="{{ path('nucleos_user_security_logout') }}">
+            <i class="fas fa-sign-out-alt mr-2 text-muted"></i> {% trans %}navbar.logout{% endtrans %}
+        </a>
+    </div>
+</li>

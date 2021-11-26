@@ -24,7 +24,8 @@ form.banner.disable.label: __form.banner.disable.label
 form.banner.enable.alert: __form.banner.enable.alert
 form.banner.disable.alert: __form.banner.disable.alert
 admin.settings.missing_mandatory_settings: __admin.settings.missing_mandatory_settings
-adminDashboard.title: __adminDashboard.title
+adminDashboard.title: Панель администратора
+adminDashboard.short_title: Админ-панель
 navbar.myAccount: __navbar.myAccount
 adminDashboard.dashboard.title: __adminDashboard.dashboard.title
 maintenance.disclaimer: __maintenance.disclaimer

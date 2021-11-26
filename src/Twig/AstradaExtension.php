@@ -207,7 +207,12 @@ class AstradaExtension extends AbstractExtension
         $userAddressRequest = $this->session->has('user_address_request') ?
             $this->session->get('user_address_request') :
             null;
-        $geo = $userAddressRequest->getAddress()->getGeo();
-        return ['latitude'=>$geo->getLatitude(),'longitude'=>$geo->getLongitude()];
+        if($userAddressRequest){
+            $geo = $userAddressRequest->getAddress()->getGeo();
+            return ['latitude'=>$geo->getLatitude(),'longitude'=>$geo->getLongitude()];
+        }else{
+            return [];
+        }
+
     }
 }

@@ -131,6 +131,7 @@ docker exec -it 98864dc72e67 redis-cli -h localhost -p 6379
 
 # CHOWN Access files
 * docker-compose exec php chown -R www-data public/media/cache
+* docker-compose exec php chown -R www-data public/images
 # CHOWN JWT
 * docker-compose exec php chown -R www-data /var/www/html/var/jwt
 

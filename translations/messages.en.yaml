@@ -11,6 +11,7 @@ base.footer.suggest: Suggest a business
 base.footer.privacy: Privacy
 base.footer.terms: Terms of service
 adminDashboard.title: Admin dashboard
+adminDashboard.short_title: Admin dashboard
 adminDashboard.configuration: Configuration
 adminDashboard.tooltip.orders: Manage restaurants orders
 adminDashboard.tooltip.deliveries: Manage deliveries
