@@ -1,11 +1,61 @@
-{% extends "profile.html.twig" %}
+{% extends "base.html.twig" %}
 
-{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% block layout %}
+    {% embed 'layout.html.twig'%}
 
-{% block content %}
-  <h2 class="page-header">{% trans %}profile.addresses.newAddress{%  endtrans %}</h2>
-  {{ form_start(form) }}
-  {{ form_widget(form) }}
-  <button type="submit" class="btn btn-block btn-primary">{% trans %}basics.save{% endtrans %}</button>
-  {{ form_end(form) }}
+
+        {% block main %}
+
+            <section class="py-5">
+                <div class="container">
+                    <!-- Breadcrumbs -->
+                    <ol class="breadcrumb pl-0  justify-content-start">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="user-account.html">Account</a></li>
+                        <li class="breadcrumb-item active">{% trans %}profile.addresses.newAddress{%  endtrans %}   </li>
+                    </ol>
+                    <h1 class="hero-heading mb-0">{% trans %}profile.addresses.newAddress{%  endtrans %}</h1>
+                    <p class="text-muted mb-5">Manage your Addresses.</p>
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="text-block">
+                                {{ form_start(form) }}
+
+
+                                <div class="row pt-4">
+                                    <div class="form-group col-md-12">
+                                        {{ form_label(form.streetAddress, null, { label_attr: { class: 'form-label' } }) }}
+                                        {{ form_widget(form.streetAddress, { attr: { class: "form-control" } }) }}
+                                    </div>
+                                    <div class="form-group col-md-6">
+
+                                        {{ form_label(form.name, null, { label_attr: { class: 'form-label' } }) }}
+                                        {{ form_widget(form.name, { attr: { class: "form-control" } }) }}
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        {{ form_label(form.description, null, { label_attr: { class: 'form-label' } }) }}
+                                        {{ form_widget(form.description, { attr: { class: "form-control" } }) }}
+                                    </div>
+
+                                </div>
+                                <button type="submit" class="btn btn-outline-primary">{% trans %}basics.save{% endtrans %}</button>
+                                {{ form_end(form) }}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        {% endblock %}
+
+    {% endembed %}
 {% endblock %}
+
+
+{% block scripts %}
+
+{% endblock %}
+

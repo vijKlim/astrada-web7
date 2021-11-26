@@ -1,29 +1,63 @@
-{% extends "profile.html.twig" %}
+{% extends "base.html.twig" %}
 
-{% block content %}
-  {% if addresses is empty %}
-    <div class="alert alert-warning">
-      {% trans %}profile.addresses.empty{%  endtrans %}
-    </div>
-  {% else %}
-    <table class="table">
-      <thead>
-        <th colspan="2">{% trans %}profile.myAddresses{% endtrans %}</th>
-      </thead>
-      <tbody>
-        {% for address in addresses %}
-        <tr>
-          <td>{{ address.streetAddress }}</td>
-          <td class="text-right">{{ address.name }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% endif %}
-  <div class="text-right">
-    <a class="btn btn-success" href="{{ path('profile_address_new') }}"><i class="fa fa-plus mr-1"></i>{% trans %}profile.addresses.add{% endtrans %}</i></a>
-  </div>
+{% block layout %}
+    {% embed 'layout.html.twig'%}
+
+
+        {% block main %}
+
+            <section class="py-5">
+                <div class="container">
+                    <!-- Breadcrumbs -->
+                    <ol class="breadcrumb pl-0  justify-content-start">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="user-account.html">Account</a></li>
+                        <li class="breadcrumb-item active">Addresses   </li>
+                    </ol>
+                    <h1 class="hero-heading mb-0">Addresses</h1>
+                    <p class="text-muted mb-5">Manage your Addresses.</p>
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="text-block">
+                                {% if addresses is empty %}
+                                    <div class="alert alert-warning">
+                                        {% trans %}profile.addresses.empty{%  endtrans %}
+                                    </div>
+                                {% else %}
+                                    <table class="table text-sm mb-0">
+                                        <thead>
+                                        <th colspan="2">{% trans %}profile.myAddresses{% endtrans %}</th>
+                                        </thead>
+                                        <tbody>
+                                        {% for address in addresses %}
+                                            <tr>
+                                                <th class="pl-0 border-0">{{ address.streetAddress }}</th>
+                                                <td class="pr-0 text-right border-0">{{ address.name }}</td>
+                                            </tr>
+
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% endif %}
+                                <div class="text-right">
+                                    <a class="btn btn-primary h-100" href="{{ path('profile_address_new') }}"><i class="fa fa-plus mr-1"></i>{% trans %}profile.addresses.add{% endtrans %}</i></a>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        {% endblock %}
+
+    {% endembed %}
 {% endblock %}
+
 
 {% block scripts %}
+
 {% endblock %}
+
