@@ -3,13 +3,22 @@
         {% include '_partials/header.html.twig' with { pinned: false } %}
     {% endblock %}
 
-    <ol class="breadcrumb #{breadcrumbClass}">
-        <li class="breadcrumb-item"><a href="{{ path('homepage') }}">{% trans %}navbar.home{% endtrans %}</a></li>
-        <li class="breadcrumb-item"><a href="{{ path('nucleos_profile_profile_show') }}">{% trans %}navbar.myAccount{% endtrans %}</a></li>
-        {% block breadcrumb %}{% endblock %}
-    </ol>
+    <section class="py-5">
+        <div class="container">
+            <ol class="breadcrumb #{breadcrumbClass}">
+                <li class="breadcrumb-item"><a href="{{ path('homepage') }}">{% trans %}navbar.home{% endtrans %}</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('nucleos_profile_profile_show') }}">{% trans %}navbar.myAccount{% endtrans %}</a></li>
+                {% block breadcrumb %}{% endblock %}
+            </ol>
 
-    {% block main %}{% endblock %}
+            {% block main %}{% endblock %}
+
+        </div>
+
+
+    </section>
+
+
 
 
     {% block footer %}

@@ -280,6 +280,8 @@ business.stats.total_products_excluding_taxes: Загальна кількіст
 business.stats.delivery: Доставка
 profile.addresses.breadcrumb: Адреси
 profile.addresses.empty: Адресу ще не збережено!
+profile.bookings.your_nearest_bookings: Ваші найближчі бронювання
+profile.bookings.booking_total: 'У вас є  <strong>%count% бронювання</strong>'
 profile.orders.empty: Ще немає замовлення!
 profile.myDeliveries: Мої доставки
 profile.myStores: Мої магазини

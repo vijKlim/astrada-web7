@@ -54,6 +54,7 @@ class User extends BaseUser
     public function __construct()
     {
         $this->businesses = new ArrayCollection();
+        $this->bookings = new ArrayCollection();
 
         parent::__construct();
     }

@@ -5,10 +5,14 @@ namespace App\Controller;
 use ApiPlatform\Core\Api\IriConverterInterface;
 use App\Controller\Utils\UserTrait;
 use App\Entity\Address;
+use App\Entity\Booking;
+use App\Entity\Listing;
+use App\Entity\Topic;
 use App\Form\AddressType;
 use App\Form\UpdateProfileType;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query\Expr;
 use Nucleos\UserBundle\Model\UserManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTDecodeFailureException;
@@ -129,6 +133,64 @@ class ProfileController extends AbstractController
         return $this->render('profile/new_address.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+
+    /**
+     * @Route("/profile/bookings", name="profile_bookings")
+     */
+//    public function bookingsAction(Request $request)
+//    {
+//        return $this->render('profile/bookings.html.twig', array(
+//            'bookings' => $this->getUser()->getBookings(),
+//        ));
+//    }
+
+    /**
+     * @Route("/profile/bookings", name="profile_bookings")
+     */
+    public function bookingsAction( Request $request, PaginatorInterface $paginator)
+    {
+
+
+        $qb = $this->getDoctrine()
+            ->getRepository(Booking::class)
+            ->createQueryBuilder('b');
+
+        $qb->innerJoin(Address::class, 'a', Expr\Join::WITH, 'a.id = b.userAddress');
+        $qb->innerJoin(Listing::class, 's', Expr\Join::WITH, 's.id = b.listing');
+        $qb->innerJoin(Topic::class, 't', Expr\Join::WITH, 't.id = b.topic');
+        $qb->andWhere('b.user = :user');
+        $qb->setParameter('user', $this->getUser());
+
+        $bookings = $paginator->paginate(
+            $qb,
+            $request->query->getInt('page', 1),
+            5,
+            [
+                PaginatorInterface::DEFAULT_SORT_FIELD_NAME => 'b.start',
+                PaginatorInterface::DEFAULT_SORT_DIRECTION => 'asc',
+            ]
+        );
+
+        return $this->render('profile/bookings.html.twig', array(
+            'bookings' => $bookings,
+        ));
+
+    }
+
+    /**
+     * @Route("/profile/booking/{id}", name="profile_booking")
+     */
+    public function bookingAction($id, Request $request)
+    {
+        $repository = $this->getDoctrine()->getRepository(Booking::class);
+
+        $booking = $repository->findOneBy(['id'=>$id, 'user' => $this->getUser()]);
+
+        return $this->render('profile/booking.html.twig', array(
+            'booking' => $booking,
+        ));
+
     }
 
     /**
