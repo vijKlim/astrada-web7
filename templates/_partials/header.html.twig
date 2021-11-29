@@ -4,7 +4,8 @@
         <div class="container-fluid">
             <div class="d-flex align-items-center">
                 <a class="navbar-brand py-1" href="{{ path('homepage') }}">
-                    <img src="{{ astrada_company_logo() }}" alt="{{ astrada_setting('brand_name') }}">
+                    <img src="{{ asset('img/logo_astrada2.png') }}" alt="{{ astrada_setting('brand_name') }}">
+{#                    <img src="{{ astrada_company_logo() }}" alt="{{ astrada_setting('brand_name') }}">#}
                 </a>
                 {{ render(controller('App\\Controller\\ListingSearchController::searchHeaderFormAction')) }}
 

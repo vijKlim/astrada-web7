@@ -9,26 +9,40 @@
 
         {% block main %}
 
+            {% set listing = booking.listing %}
+            {% set business = booking.listing.business %}
+
+            {% set listing_location = listing.address %}
+            {% if listing.images|length > 0 %}
+                {% set first_image = listing.images|first %}
+                {% set listing_image = astrada_asset(first_image, 'imageFile', 'listing_thumbnail') %}
+
+            {% else %}
+                {% set listing_image = '//via.placeholder.com/512.jpg' %}
+            {% endif %}
+            {% set listing_path_params = {} %}
+
             <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center mb-4">
-                <h1 class="mb-3 mb-md-0 hero-heading mb-0">Your messages with Anna</h1>
-                <div><a class="btn btn-link pl-0" href="user-messages.html"><i class="fa fa-arrow-left mr-2"></i> Back to all messages</a></div>
+                <h1 class="mb-3 mb-md-0 hero-heading mb-0">{{ 'profile.booking.your_messages_with'|trans }} <span class="badge badge-secondary-light">{{ business.name }} </span></h1>
+                <div><a class="btn btn-link pl-0" href="user-messages.html"><i class="fa fa-arrow-left mr-2"></i> {{ 'profile.messages.back_to_all_messages'|trans }}</a></div>
             </div>
             <div class="card border-0 shadow mb-4">
                 <div class="card-body p-4">
                     <div class="text-block pb-3">
                         <div class="media align-items-center">
                             <div class="media-body">
-                                <h6> <a class="text-reset" href="detail-rooms.html">Modern Apt - Vibrant Neighborhood</a></h6>
-                                <p class="text-muted text-sm mb-0">Entire home in New York</p>
+                                <h6> <a class="text-reset" href="{{ listing_path(listing, listing_path_params) }}">{{ booking.listing.title }}</a></h6>
+                                <p class="text-muted text-sm mb-0">{{ listing.address.streetAddress }}</p>
                                 <div class="mt-n1"><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-gray-200"></i>
                                 </div>
-                            </div><a href="detail-rooms.html"><img class="ml-3 rounded" src="img/photo/photo-1512917774080-9991f1c4c750.jpg" alt="" width="100"></a>
+                            </div><a href="{{ listing_path(listing, listing_path_params) }}"><img class="ml-3 rounded" src="{{ listing_image }}" alt="" width="100"></a>
                         </div>
                     </div>
                     <div class="text-block pt-3 pb-0">
                         <ul class="list-unstyled text-sm mb-0">
-                            <li class="mb-3"><i class="fas fa-users fa-fw text-muted mr-2"></i>3 guests</li>
-                            <li class="mb-0"><i class="far fa-calendar fa-fw text-muted mr-2"></i>Apr 17, 2019 <i class="fas fa-arrow-right fa-fw text-muted mx-3"></i>Apr 18, 2019</li>
+                            <li class="mb-3">{{ 'listing.price.per_1km_delivery'|trans }} <span class="badge badge-secondary-light">{{ listing.welldesign.transportationCost|price_format }} </span></li>
+                            <li class="mb-3">{{ 'listing.price.per_1m_drilling'|trans }} <span class="badge badge-primary-light">{{ listing.welldesign.wellCost|price_format }}</span></li>
+                            <li class="mb-0"><i class="far fa-calendar fa-fw text-muted mr-2"></i>{{ booking.start|date_calendar }} <i class="fas fa-arrow-right fa-fw text-muted mx-3"></i>{{ booking.end|date_calendar }}</li>
                         </ul>
                     </div>
                 </div>

@@ -282,6 +282,8 @@ profile.addresses.breadcrumb: Адреси
 profile.addresses.empty: Адресу ще не збережено!
 profile.bookings.your_nearest_bookings: Ваші найближчі бронювання
 profile.bookings.booking_total: 'У вас є  <strong>%count% бронювання</strong>'
+profile.booking.your_messages_with: Ваше листування з
+profile.messages.back_to_all_messages: Назад до списку
 profile.orders.empty: Ще немає замовлення!
 profile.myDeliveries: Мої доставки
 profile.myStores: Мої магазини
