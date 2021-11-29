@@ -1,0 +1,44 @@
+{% macro render_comments(topic, posts) %}
+    {% import 'macro/image.html.twig' as images %}
+    {% import _self as self %}
+
+    <!-- Chat Box-->
+    <div class="px-4 py-5">
+        <div class="row">
+
+            {% for post in posts %}
+
+                {% if app.user and post.author.id == app.user.customer.id %}
+                    <!-- Sender Message-->
+                    <div class="media col-md-9 col-xl-7 mb-3"><img class="avatar avatar-border-white" src="{{ path('user_avatar', { username: app.user.username }) }}" alt="user">
+                        <div class="media-body ml-3">
+                            <div class="bg-gray-200 rounded p-4 mb-2">
+                                <p class="text-sm mb-0">{{ post.body|raw }}</p>
+                            </div>
+                            <p class="small text-muted ml-3">{{ post.createdAt|localizeddate('medium', 'short') }}</p>
+                        </div>
+                    </div>
+
+                {% else %}
+                    <!-- Reciever Message-->
+                    <div class="media col-md-9 col-xl-7 ml-auto mb-3">
+                        <div class="media-body mr-3">
+                            <div class="bg-primary rounded p-4 mb-2">
+                                <p class="text-sm mb-0 text-white">{{ post.body|raw }}</p>
+                            </div>
+                            <p class="small text-muted ml-3">{{ post.createdAt|localizeddate('medium', 'short') }}</p>
+                        </div><img class="avatar avatar-border-white" src="{{ path('user_avatar', { username: post.author.avatar }) }}" alt="user">
+                    </div>
+
+                {% endif %}
+            {% endfor %}
+
+
+        </div>
+    </div>
+
+
+
+{% endmacro %}
+
+

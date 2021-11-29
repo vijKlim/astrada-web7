@@ -69,7 +69,7 @@ class PostFactory implements FactoryInterface
      *
      * @return Post
      */
-    public function createForGamePlay(Booking $booking)
+    public function createForBooking(Booking $booking)
     {
         /** @var Post $post */
         $post = $this->createNew();

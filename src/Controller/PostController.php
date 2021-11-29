@@ -11,6 +11,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Booking;
 use App\Entity\Topic;
 
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
@@ -22,6 +23,30 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class PostController extends ResourceController
 {
+
+    /**
+     * @Route("/post/create_for_booking/{id}", name="post_create_for_booking")
+     */
+    public function createForBooking($id, Request $request)
+    {
+        $repository = $this->getDoctrine()->getRepository(Booking::class);
+
+        $booking = $repository->findOneBy(['id'=>$id, 'user' => $this->getUser()]);
+
+        if(!$booking){
+            /** @var Booking $booking */
+            $booking = $repository->find(['id'=>$id]);
+            $listingBusiness = $booking->getListing()->getBusiness();
+            $user = $this->getUser();
+            $allowed = false;
+            foreach ($user->getBusinesses() as $business){
+                if($listingBusiness->getId() == $business->getId()){
+                    $allowed = true;
+                }
+            }
+        }
+    }
+
     public function indexByTopicAction(Request $request)
     {
 //        $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
