@@ -286,3 +286,26 @@ admin_business_listing:
       businesses: admin_businesses
       business: admin_business
       listings: admin_business_listings
+
+admin_business_bookings:
+  path: /admin/businesses/{id}/bookings
+  defaults:
+    _controller: App\Controller\AdminController::businessBookingsAction
+    layout: 'admin.html.twig'
+    template: 'business/bookings.html.twig'
+    routes:
+      businesses: admin_businesses
+      business: admin_business
+      booking: admin_business_booking
+  methods: [ GET ]
+
+admin_business_booking:
+  path: /admin/businesses/{businessId}/bookings/{bookingId}
+  defaults:
+    _controller: App\Controller\AdminController::businessBookingAction
+    layout: 'admin.html.twig'
+    template: 'business/booking.html.twig'
+    routes:
+      businesses: admin_businesses
+      business: admin_business
+      bookings: admin_business_bookings

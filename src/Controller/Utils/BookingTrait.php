@@ -5,6 +5,8 @@ namespace App\Controller\Utils;
 
 
 use ApiPlatform\Core\Api\IriConverterInterface;
+use App\Entity\Booking;
+use App\Entity\LocalBusiness;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -22,12 +24,12 @@ trait BookingTrait
 
         $this->accessControl($business);
 
-        $listings = $this->getListings($business,  $request, $paginator);
+        $bookings = $this->getBookings($business,  $request, $paginator);
         $routes = $request->attributes->get('routes');
 
         return $this->render($request->attributes->get('template'), $this->withRoutes([
             'layout' => $request->attributes->get('layout'),
-            'listings' => $listings,
+            'bookings' => $bookings,
             'listingSubscriptions' => $this->getListingSubscriptions(),
             'business' => $business,
             'business_iri' => $iriConverter->getIriFromItem($business),
@@ -40,10 +42,9 @@ trait BookingTrait
     public function getBookings(LocalBusiness $business,  Request $request,  PaginatorInterface $paginator)
     {
         $qb = $this->getDoctrine()
-            ->getRepository(Listing::class)
+            ->getRepository(Booking::class)
             ->createQueryBuilder('p');
 
-        $qb->innerJoin(ListingTranslation::class, 't', Expr\Join::WITH, 't.translatable = p.id');
         $qb->andWhere('p.business = :business');
         $qb->setParameter('business', $business);
         $qb->orderBy('p.expirationDate', 'ASC');
@@ -53,9 +54,8 @@ trait BookingTrait
             $request->query->getInt('page', 1),
             10,
             [
-                PaginatorInterface::DEFAULT_SORT_FIELD_NAME => 't.title',
+                PaginatorInterface::DEFAULT_SORT_FIELD_NAME => 'b.start',
                 PaginatorInterface::DEFAULT_SORT_DIRECTION => 'asc',
-                PaginatorInterface::SORT_FIELD_ALLOW_LIST => ['t.title'],
             ]
         );
 

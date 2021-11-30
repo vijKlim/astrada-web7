@@ -1,0 +1,29 @@
+{% extends "business/layout.html.twig" %}
+
+{% block breadcrumb %}
+    <li>{% trans %}adminDashboard.bookings.title{% endtrans %}</li>
+{% endblock %}
+
+{% block content %}
+    {% include '_partials/flash_messages.html.twig' %}
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center flex-fill">
+            <div id="search-listings" class="w-25 mr-4">
+                <input type="text" class="form-control">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <nav class="text-center">
+        {{ knp_pagination_render(bookings) }}
+    </nav>
+    {% include "_partials/listing/list.html.twig" %}
+    <nav class="text-center">
+        {{ knp_pagination_render(bookings) }}
+    </nav>
+
+{% endblock %}
+
