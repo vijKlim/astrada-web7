@@ -37,6 +37,11 @@ class Booking extends BaseBooking implements ResourceInterface
      */
     protected $listing;
 
+    /**
+     * @var LocalBusiness
+     */
+    protected $business;
+
 
     /**
      * @var Topic
@@ -129,6 +134,26 @@ class Booking extends BaseBooking implements ResourceInterface
     {
         return $this->listing;
     }
+
+    /**
+     * @return LocalBusiness
+     */
+    public function getBusiness(): LocalBusiness
+    {
+        return $this->business;
+    }
+
+    /**
+     * @param LocalBusiness $business
+     * @return $this
+     */
+    public function setBusiness(LocalBusiness $business)
+    {
+        $this->business = $business;
+
+        return $this;
+    }
+
 
     /**
      * @return Topic

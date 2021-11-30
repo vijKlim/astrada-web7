@@ -32,6 +32,14 @@
                 <join-column name="address_id" referenced-column-name="id"/>
             </join-columns>
         </many-to-one>
+        <many-to-one field="business" target-entity="App\Entity\LocalBusiness" inversed-by="bookings">
+            <join-columns>
+                <join-column name="business_id" referenced-column-name="id"/>
+            </join-columns>
+            <cascade>
+                <cascade-persist />
+            </cascade>
+        </many-to-one>
         <many-to-one field="listing" target-entity="App\Entity\Listing" inversed-by="bookings">
             <join-columns>
                 <join-column name="listing_id" referenced-column-name="id"/>

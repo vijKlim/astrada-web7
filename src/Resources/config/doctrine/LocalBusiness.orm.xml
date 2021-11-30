@@ -118,5 +118,10 @@
               </inverse-join-columns>
           </join-table>
       </many-to-many>
+      <one-to-many field="bookings" target-entity="App\Entity\Booking" mapped-by="business">
+          <cascade>
+              <cascade-persist/>
+          </cascade>
+      </one-to-many>
   </entity>
 </doctrine-mapping>

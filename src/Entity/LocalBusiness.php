@@ -159,6 +159,10 @@ class LocalBusiness extends BaseLocalBusiness implements
     protected $hub;
 
 
+    /**
+     * @var ArrayCollection
+     */
+    protected $bookings;
 
     public function __construct()
     {
@@ -170,6 +174,7 @@ class LocalBusiness extends BaseLocalBusiness implements
         $this->productOptions = new ArrayCollection();
         $this->taxons = new ArrayCollection();
         $this->fulfillmentMethods = new ArrayCollection();
+        $this->bookings = new ArrayCollection();
     }
 
     /**
@@ -349,4 +354,14 @@ class LocalBusiness extends BaseLocalBusiness implements
 
         return HomeAndConstructionBusiness::class;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBookings(): ArrayCollection
+    {
+        return $this->bookings;
+    }
+
+
 }

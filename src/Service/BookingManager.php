@@ -117,6 +117,7 @@ class BookingManager
     {
         $booking = new Booking();
         $booking->setListing($listing);
+        $booking->setBusiness($listing->getBusiness());
         $booking->setUser($user);
         $booking->setUserAddress($userAddress);
         $booking->setStatus(Booking::STATUS_DRAFT);

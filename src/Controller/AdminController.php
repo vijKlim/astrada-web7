@@ -5,10 +5,11 @@ namespace App\Controller;
 
 use App\Annotation\HideSoftDeleted;
 use App\Controller\Utils\AccessControlTrait;
+use App\Controller\Utils\BookingTrait;
 use App\Controller\Utils\BusinessListingTrait;
 use App\Controller\Utils\BusinessTrait;
 use App\Entity\Listing;
-use App\Entity\ListingCategory;
+
 use App\Entity\LocalBusiness;
 use App\Entity\Sylius\Customer;
 use App\Entity\User;
@@ -45,6 +46,7 @@ class AdminController extends AbstractController
     use AccessControlTrait;
     use BusinessTrait;
     use BusinessListingTrait;
+    use BookingTrait;
 
     protected function getBusinessRoutes()
     {
