@@ -32,7 +32,6 @@ class PostType extends AbstractType
         $builder
             ->add('body', TextareaType::class, [
                 'label' => 'sylius.ui.body',
-                'config_name' => 'forum',
             ]);
     }
 

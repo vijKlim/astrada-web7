@@ -1,10 +1,21 @@
 {% macro render_comments(topic, posts) %}
-    {% import 'macro/image.html.twig' as images %}
-    {% import _self as self %}
+
 
     <!-- Chat Box-->
     <div class="px-4 py-5">
         <div class="row">
+
+            {% if topic.title is not empty %}
+                <!-- Sender Message-->
+                <div class="media col-md-9 col-xl-7 mb-3"><img class="avatar avatar-border-white" src="{{ path('user_avatar', { username: topic.author.username }) }}" alt="user">
+                    <div class="media-body ml-3">
+                        <div class="bg-gray-200 rounded p-4 mb-2">
+                            <p class="text-sm mb-0">{{ topic.title|raw }}</p>
+                        </div>
+                        <p class="small text-muted ml-3">{{ topic.createdAt|date("F jS \\a\\t g:ia") }}</p>
+                    </div>
+                </div>
+            {% endif %}
 
             {% for post in posts %}
 
@@ -15,7 +26,7 @@
                             <div class="bg-gray-200 rounded p-4 mb-2">
                                 <p class="text-sm mb-0">{{ post.body|raw }}</p>
                             </div>
-                            <p class="small text-muted ml-3">{{ post.createdAt|localizeddate('medium', 'short') }}</p>
+                            <p class="small text-muted ml-3">{{ post.createdAt|date("F jS \\a\\t g:ia") }}</p>
                         </div>
                     </div>
 
@@ -26,8 +37,8 @@
                             <div class="bg-primary rounded p-4 mb-2">
                                 <p class="text-sm mb-0 text-white">{{ post.body|raw }}</p>
                             </div>
-                            <p class="small text-muted ml-3">{{ post.createdAt|localizeddate('medium', 'short') }}</p>
-                        </div><img class="avatar avatar-border-white" src="{{ path('user_avatar', { username: post.author.avatar }) }}" alt="user">
+                            <p class="small text-muted ml-3">{{ post.createdAt|date("F jS \\a\\t g:ia") }}</p>
+                        </div><img class="avatar avatar-border-white" src="{{ path('user_avatar', { username: post.author.username }) }}" alt="user">
                     </div>
 
                 {% endif %}

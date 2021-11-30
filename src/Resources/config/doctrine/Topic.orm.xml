@@ -27,6 +27,9 @@
             </cascade>
         </one-to-one>
         <one-to-many field="posts" target-entity="App\Entity\Post" mapped-by="topic" orphan-removal="true">
+            <order-by>
+                <order-by-field name="createdAt" direction="ASC" />
+            </order-by>
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>

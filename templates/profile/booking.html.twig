@@ -56,14 +56,10 @@
             {% endif %}
 
             <!-- Typing area-->
-            <form class="bg-light rounded shadow-sm" action="#">
-                        <div class="input-group">
-                            <textarea class="form-control border-0 p-4 bg-light text-sm" placeholder="Type a message" aria-describedby="button-sendMessage"></textarea>
-                            <div class="input-group-append">
-                                <button class="btn btn-link" id="button-sendMessage" type="submit"><i class="fa fa-paper-plane"></i></button>
-                            </div>
-                        </div>
-                    </form>
+            {{ render(controller('App\\Controller\\PostController::getForTopicFormAction', {
+                topic: booking.topic
+            })) }}
+
 
         {% endblock %}
 

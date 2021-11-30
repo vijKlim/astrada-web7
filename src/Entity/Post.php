@@ -38,13 +38,6 @@ class Post implements ResourceInterface
      */
     protected $topic;
 
-
-
-    /**
-     * @var Booking
-     */
-    protected $booking;
-
     /**
      * @var CustomerInterface
      */
@@ -146,22 +139,6 @@ class Post implements ResourceInterface
         }
     }
 
-
-    /**
-     * @return Booking|null
-     */
-    public function getBooking(): ?Booking
-    {
-        return $this->booking;
-    }
-
-    /**
-     * @param Booking|null $booking
-     */
-    public function setBooking(?Booking $booking): void
-    {
-        $this->booking = $booking;
-    }
 
     /**
      * @return CustomerInterface|null

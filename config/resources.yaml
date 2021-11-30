@@ -25,5 +25,4 @@ sylius_resource:
         model: App\Entity\Post
         factory: App\Factory\PostFactory
         repository: App\Repository\PostRepository
-        controller: App\Controller\PostController
         form: App\Form\PostType

@@ -64,21 +64,5 @@ class PostFactory implements FactoryInterface
         return $post;
     }
 
-    /**
-     * @param Booking $booking
-     *
-     * @return Post
-     */
-    public function createForBooking(Booking $booking)
-    {
-        /** @var Post $post */
-        $post = $this->createNew();
-
-        $post
-            ->setBooking($booking);
-
-        return $post;
-    }
-
 
 }

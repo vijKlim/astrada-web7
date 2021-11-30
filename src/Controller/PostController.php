@@ -12,39 +12,95 @@
 namespace App\Controller;
 
 use App\Entity\Booking;
+use App\Entity\Post;
 use App\Entity\Topic;
 
-use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
-use Sylius\Component\Resource\ResourceActions;
-use Sylius\Component\Taxonomy\Model\TaxonTranslationInterface;
+use App\Form\PostType;
+use Doctrine\ORM\EntityManagerInterface;
+
+use Sylius\Component\Resource\Factory\FactoryInterface;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class PostController extends ResourceController
+class PostController extends AbstractController
 {
 
     /**
-     * @Route("/post/create_for_booking/{id}", name="post_create_for_booking")
+     * Creates a new Topic Post form.
+     *
+     * @param  Topic $topic
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function createForBooking($id, Request $request)
+    public function getForTopicFormAction(Topic $topic,FactoryInterface $postFactory)
     {
-        $repository = $this->getDoctrine()->getRepository(Booking::class);
+        $post = $postFactory->createNew();
+        $form = $this->createPostForm($post, $topic);
 
-        $booking = $repository->findOneBy(['id'=>$id, 'user' => $this->getUser()]);
+        return $this->render(
+            'post/form.html.twig',
+            array(
+                'form' => $form->createView(),
+            )
+        );
+    }
 
-        if(!$booking){
-            /** @var Booking $booking */
-            $booking = $repository->find(['id'=>$id]);
-            $listingBusiness = $booking->getListing()->getBusiness();
-            $user = $this->getUser();
-            $allowed = false;
-            foreach ($user->getBusinesses() as $business){
-                if($listingBusiness->getId() == $business->getId()){
-                    $allowed = true;
-                }
+    private function createPostForm(Post $post, Topic $topic)
+    {
+        $form = $this->createForm(
+            PostType::class,
+            $post,
+            array(
+                'method' => 'POST',
+                'action' => $this->generateUrl(
+                    'post_create_for_topic',
+                    array(
+                        'id' => $topic->getId()
+                    )
+                )
+            )
+        );
+
+        return $form;
+    }
+
+    /**
+     * @Route("/post/create_for_topic/{id}", name="post_create_for_topic")
+     */
+    public function createForTopicAction($id, Request $request,FactoryInterface $postFactory,
+                                     EntityManagerInterface $entityManager)
+    {
+        $repository = $this->getDoctrine()->getRepository(Topic::class);
+
+        $topic = $repository->findOneBy(['id'=>$id, 'author' => $this->getUser()->getCustomer()]);
+
+        $this->topicIsGrantedOr403($topic);
+
+        $post = $postFactory->createForTopic($topic);
+
+        $form = $this->createPostForm($post, $topic);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $post = $form->getData();
+
+            $entityManager->persist($post);
+            $entityManager->flush();
+        }else{
+            foreach ($form->getErrors() as $error) {
+                var_dump($error);
             }
+            var_dump($form->getData()->getBody());
+            die(count($form->getErrors()));
         }
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
     }
 
     public function indexByTopicAction(Request $request)
@@ -90,15 +146,25 @@ class PostController extends ResourceController
      */
     protected function topicIsGrantedOr403(Topic $topic)
     {
-//        if (null === $mainTaxon = $topic->getMainTaxon()) {
-//            return;
-//        }
-//
-//        $onlyPublic = $this->getAuthorizationChecker()->isGranted('ROLE_STAFF') ? false : true;
-//
-//        if (!$mainTaxon->isPublic() and $onlyPublic) {
-//            throw new AccessDeniedException();
-//        }
+        if (null === $booking = $topic->getBooking()) {
+            return;
+        }
+        $allowed = $booking->getUser()->getId() == $this->getUser()->getId();
+
+        if(!$allowed){
+            $listingBusiness = $booking->getListing()->getBusiness();
+            foreach ($this->getUser()->getBusinesses() as $business){
+                if($listingBusiness->getId() == $business->getId()){
+                    $allowed = true;
+                    break;
+                }
+            }
+        }
+
+        if(!$allowed){
+            throw new AccessDeniedException();
+        }
+
     }
 
     /**

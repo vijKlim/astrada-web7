@@ -1,0 +1,18 @@
+{% form_theme form 'form/frontend/booking.html.twig' %}
+
+{{ form_start(form, {'attr': {'class': 'bg-light rounded shadow-sm'}}) }}
+
+
+
+<div class="input-group">
+    {{ form_errors(form) }}
+
+    {{ form_widget(form.body, {'attr': {'class': 'form-control border-0 p-4 bg-light text-sm','placeholder': 'Type a message','aria-describedby':'button-sendMessage'}}) }}
+
+    <div class="input-group-append">
+        <button class="btn btn-link" id="button-sendMessage" type="submit"><i class="fa fa-paper-plane"></i></button>
+    </div>
+</div>
+
+{{ form_end(form) }}
+

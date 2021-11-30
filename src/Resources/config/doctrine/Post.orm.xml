@@ -5,7 +5,7 @@
             <generator strategy="IDENTITY"/>
         </id>
 
-        <field name="code" type="string" unique="true" column="code"/>
+        <field name="code" type="string" unique="true" nullable="true" column="code"/>
         <field name="body" type="text"  column="body"/>
 
         <one-to-one field="parent" target-entity="App\Entity\Topic" mapped-by="mainPost">
@@ -23,9 +23,6 @@
             </cascade>
         </many-to-one>
 
-        <many-to-one field="booking" target-entity="App\Entity\Booking">
-            <join-column name="booking_id" referenced-column-name="id" on-delete="CASCADE"/>
-        </many-to-one>
 
         <many-to-one field="author" target-entity="Sylius\Component\Customer\Model\CustomerInterface">
             <join-columns>
