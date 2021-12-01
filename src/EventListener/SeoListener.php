@@ -96,7 +96,7 @@ class SeoListener
             ->addMeta('property', 'og:site_name', 'AkvaStrada');
 
         switch ($request->attributes->get('_route')) {
-            case 'restaurant':
+            case 'business':
                 $this->seoPageForBusiness($request);
                 break;
         }

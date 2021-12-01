@@ -9,6 +9,8 @@ use App\Entity\ListingRepository;
 use App\Entity\Model\ListingSearchRequest;
 use App\Form\ListingSearchHomeType;
 use App\Form\ListingSearchResultType;
+use App\Service\Geocoder;
+use App\Service\UserSearchAddresses;
 use App\Utils\GeoUtils;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -22,6 +24,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Sylius\Component\Currency\Context\CurrencyContextInterface;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
@@ -110,7 +114,8 @@ class ListingSearchController extends AbstractController
      * @param  Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function searchAction(Request $request, ListingRepository $repository)
+    public function searchAction(Request $request, ListingRepository $repository,
+                                 Geocoder $geocoder, CacheInterface $projectCache)
     {
         //For drag map mode
         $isXmlHttpRequest = $request->isXmlHttpRequest() ? true : false;
@@ -142,6 +147,13 @@ class ListingSearchController extends AbstractController
             $nbListings = $results->count();
             $listings = $results->getIterator();
 
+            //TODO make Address database
+            $search_address = $projectCache->get($geohash, function (ItemInterface $item) use ($geocoder, $latitude, $longitude) {
+
+                $item->expiresAfter(60 * 5);
+
+                return $geocoder->reverse($latitude, $longitude);
+            });
 
 
 
@@ -185,11 +197,12 @@ class ListingSearchController extends AbstractController
             $isXmlHttpRequest ?
                 'listingResult/result_ajax.html.twig' :
 //                'listingResult/result.html.twig',
-                'listingResult/result_test2.html.twig',
+                'listingResult/result.html.twig',
 
             array(
                 'date' => (new \DateTime())->format('Y-m-d'),
                 'form' => $form->createView(),
+                'search_address' => $search_address,
                 'listings' => $listings,
                 'nb_listings' => $nbListings,
 

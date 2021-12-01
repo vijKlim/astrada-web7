@@ -16,6 +16,7 @@ use App\Form\BookingType;
 use App\Form\Handler\BookingFormHandler;
 use App\Service\BookingManager;
 
+use App\Service\UserSearchAddresses;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sylius\Component\Resource\Factory\FactoryInterface;
@@ -40,23 +41,25 @@ class BookingController extends AbstractController
      */
     private $bookingManager;
     private $listingSearchRequest;
-    private $userAddressRequest;
+
+    private $userSearchAddress;
 
     private $dispatcher;
 
     private $translator;
 
 
+
     public function __construct(
         BookingManager $bookingManager,
         ListingSearchRequest $listingSearchRequest,
-        UserAddressRequest $userAddressRequest,
+        UserSearchAddresses $userSearchAddress,
         EventDispatcherInterface $dispatcher,
         TranslatorInterface $translator)
     {
         $this->bookingManager = $bookingManager;
         $this->listingSearchRequest = $listingSearchRequest;
-        $this->userAddressRequest = $userAddressRequest;
+        $this->userSearchAddress = $userSearchAddress;
         $this->dispatcher = $dispatcher;
         $this->translator = $translator;
     }
@@ -71,7 +74,7 @@ class BookingController extends AbstractController
     {
         $booking = $this->bookingManager->initBooking($listing,
             $this->getUser(),
-            $this->listingSearchRequest->getDateTimeRange(),  $this->getLastUserSearchAddress());
+            $this->listingSearchRequest->getDateTimeRange(),  $this->userSearchAddress->getLastUserSearchAddress());
 
         $form = $this->createBookingForm($booking);
 
@@ -105,7 +108,7 @@ class BookingController extends AbstractController
 
         $booking = $this->bookingManager->initBooking($listing,
             $this->getUser(),
-            $this->listingSearchRequest->getDateTimeRange(), $this->getLastUserSearchAddress());
+            $this->listingSearchRequest->getDateTimeRange(), $this->userSearchAddress->getLastUserSearchAddress());
 
         $form = $this->createBookingForm($booking);
         $form->handleRequest($request);
@@ -175,7 +178,7 @@ class BookingController extends AbstractController
         if (!$listing) {
             throw new NotFoundHttpException();
         }
-        $userAddress = $this->getLastUserSearchAddress();
+        $userAddress = $this->userSearchAddress->getLastUserSearchAddress();
         $booking = $bookingHandler->init($this->getUser(), $listing, new \DateTime($start), new \DateTime($end), $userAddress);
 
 
@@ -254,26 +257,5 @@ class BookingController extends AbstractController
         return $form;
     }
 
-    /**
-     * @return Address
-     */
-    protected function getLastUserSearchAddress()
-    {
-        $userAddressRequest = $this->getUserAddressRequest();
-        return $userAddressRequest->getAddress();
-    }
 
-    /**
-     * @return UserAddressRequest
-     */
-    protected function getUserAddressRequest()
-    {
-        $session = $this->get('session');
-        /** @var UserAddressRequest $userAddressRequest */
-        $userAddressRequest = $session->has('user_address_request') ?
-            $session->get('user_address_request') :
-            $this->userAddressRequest;
-
-        return $userAddressRequest;
-    }
 }

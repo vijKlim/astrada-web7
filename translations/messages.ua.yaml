@@ -820,7 +820,7 @@ stores.deliveries: Поставки
 stores.deliveries.heading: 'Доставка #% delivery_id% -% delivery_distance%'
 stores.deliveries.task_unassigned: Без призначення
 магазини.адреси: Адреси
-meta.title: Платформа доставки для підприємств, що належать працівникам
+meta.title: Пошукова платформа у сфері водопостачання
 admin.settings.missing_mandatory_settings: "Обов’язкові налаштування відсутні. \nПерейти до \
   \ <a href=\"%settings_url%\"> сторінка налаштувань </a>, щоб їх налаштувати. \n "
 index.map.tip: використовуйте карту нижче, щоб знайти ресторани

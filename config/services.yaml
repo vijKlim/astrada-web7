@@ -163,7 +163,7 @@ services:
     arguments:
       $bookingManager: '@astrada.booking.manager'
       $listingSearchRequest: '@astrada.listing_search_request'
-      $userAddressRequest: '@astrada.user_address_request'
+      $userSearchAddress: '@astrada.user_search_addresses'
 
   # TWIG
   App\Twig\:
@@ -546,6 +546,13 @@ services:
     class: App\Entity\Model\UserAddressRequest
     arguments:
       - "@request_stack"
+    public: true
+
+  astrada.user_search_addresses:
+    class: App\Service\UserSearchAddresses
+    arguments:
+      - '@session'
+      - '@astrada.user_address_request'
     public: true
 
   astrada.email_manager: '@App\Service\EmailManager'
