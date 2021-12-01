@@ -6,9 +6,9 @@ import './map-category.scss'
 function createListingsMap(options) {
 
     var defaults = {
-        markerPath: 'img/marker.svg',
-        markerPathHighlight: 'img/marker-hover.svg',
-        imgBasePath: 'img/photo/',
+        markerPath: '/img/marker.svg',
+        markerPathHighlight: '/img/marker-hover.svg',
+        imgBasePath: '/img/photo/',
         mapPopupType: 'venue',
         useTextIcon: false,
         tileLayer: {tiles: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>', subdomains: 'abcd'}
@@ -47,36 +47,6 @@ function createListingsMap(options) {
         maxZoom: 19
     }).addTo(map);
 
-    /* 
-    ====================================================
-      Load GeoJSON file with the data 
-      about the listings
-    ====================================================
-    */
-
-    $.getJSON(settings.jsonFile).done(function (json) {
-            L.geoJSON(json, {
-                pointToLayer: pointToLayer,
-                onEachFeature: onEachFeature
-            }).addTo(map);
-
-            if (markersGroup) {
-                var featureGroup = new L.featureGroup(markersGroup);
-                map.fitBounds(featureGroup.getBounds());
-            }
-
-        })
-        .fail(function (jqxhr, textStatus, error) {
-            console.log(error);
-        });
-
-    /* 
-    ====================================================
-      Bind popup and highlighting features 
-      to each marker
-    ====================================================
-    */
-
     var markersGroup = []
 
     var defaultIcon = L.icon({
@@ -92,6 +62,49 @@ function createListingsMap(options) {
         popupAnchor: [0, -18],
         tooltipAnchor: [0, 19]
     });
+
+    /* 
+    ====================================================
+      Load GeoJSON file with the data 
+      about the listings
+    ====================================================
+    */
+
+    if(settings.json){
+        geoJSON(settings.json)
+    }else{
+        $.getJSON(settings.jsonFile).done(function (json) {
+
+            geoJSON(json)
+        })
+            .fail(function (jqxhr, textStatus, error) {
+                console.log(error);
+            });
+    }
+
+
+
+    /* 
+    ====================================================
+      Bind popup and highlighting features 
+      to each marker
+    ====================================================
+    */
+
+
+
+    function geoJSON(json)
+    {
+        L.geoJSON(json, {
+            pointToLayer: pointToLayer,
+            onEachFeature: onEachFeature
+        }).addTo(map);
+
+        if (markersGroup) {
+            var featureGroup = new L.featureGroup(markersGroup);
+            map.fitBounds(featureGroup.getBounds());
+        }
+    }
 
     function onEachFeature(feature, layer) {
 
@@ -118,6 +131,7 @@ function createListingsMap(options) {
             }
 
         }
+
         markersGroup.push(layer);
     }
 
@@ -299,10 +313,38 @@ function createListingsMap(options) {
     });
 }
 
+
+
 document.addEventListener('DOMContentLoaded', function() {
+
+    const categorySideMapEl   = document.querySelector('#categorySideMap')
+    const listings =
+        categorySideMapEl.dataset.listings ? JSON.parse(categorySideMapEl.dataset.listings) : []
+
+
+
+    var listingsMap = {"type": "FeatureCollection","features": []}
+
+    listings.forEach(listing => {
+        listingsMap.features.push({
+            'type':'Feature',
+            'geometry': {
+                "type": "Point",
+                "coordinates": [
+                    listing.address.geo.longitude,
+                    listing.address.geo.latitude
+
+                ]
+            },
+            'properties': listing
+        })
+    });
+    console.log('listings map',listingsMap)
+
     createListingsMap({
         mapId: 'categorySideMap',
-        jsonFile: '/img/restaurants-geojson.json',
+         json: listingsMap,
+        // jsonFile: '/img/restaurants-geojson.json',
          tileLayer: tileLayers[5]
         //tileLayer: tileLayers[5]  - uncomment for a different map styling
     });

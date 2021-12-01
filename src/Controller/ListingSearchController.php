@@ -147,6 +147,15 @@ class ListingSearchController extends AbstractController
             $nbListings = $results->count();
             $listings = $results->getIterator();
 
+            $listingsNormalized = array_map(function (Listing $listing) {
+                return $this->get('serializer')->normalize($listing, 'jsonld', [
+                    'resource_class' => Listing::class,
+                    'operation_type' => 'item',
+                    'item_operation_name' => 'get',
+                    'groups' => ['listing_public']
+                ]);
+            }, $listings->getArrayCopy());
+
             //TODO make Address database
             $search_address = $projectCache->get($geohash, function (ItemInterface $item) use ($geocoder, $latitude, $longitude) {
 
@@ -203,6 +212,7 @@ class ListingSearchController extends AbstractController
                 'date' => (new \DateTime())->format('Y-m-d'),
                 'form' => $form->createView(),
                 'search_address' => $search_address,
+                'listingsNormalized' => $listingsNormalized,
                 'listings' => $listings,
                 'nb_listings' => $nbListings,
 

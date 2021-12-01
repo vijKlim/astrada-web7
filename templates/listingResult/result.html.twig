@@ -49,7 +49,8 @@
 
                     </div>
                     <div class="col-lg-6 map-side-lg pr-lg-0">
-                        <div class="map-full shadow-left" id="categorySideMap"></div>
+                        <div class="map-full shadow-left" id="categorySideMap"
+                             data-listings="{{ listingsNormalized|json_encode|e('html_attr') }}"></div>
                     </div>
                 </div>
             </div>
