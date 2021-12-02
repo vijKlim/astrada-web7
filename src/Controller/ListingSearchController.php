@@ -236,9 +236,19 @@ class ListingSearchController extends AbstractController
      */
     protected function createSearchResultForm(ListingSearchRequest $listingSearchRequest)
     {
+//        $form = $this->get('form.factory')->createNamed(
+//            '',
+//            ListingSearchResultType::class,
+//            $listingSearchRequest,
+//            array(
+//                'method' => 'GET',
+//                'action' => $this->generateUrl('listing_search_result'),
+//            )
+//        );
+
         $form = $this->get('form.factory')->createNamed(
             '',
-            ListingSearchResultType::class,
+            ListingSearchHomeType::class,
             $listingSearchRequest,
             array(
                 'method' => 'GET',

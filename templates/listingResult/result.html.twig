@@ -12,7 +12,7 @@
                         <h1 class="text-serif mb-4">{{ search_address.streetAddress }}</h1>
                         <hr class="my-4">
 
-                        {% include 'common/form/form_search.html.twig' with {
+                        {% include 'form/map_search.html.twig' with {
                             'form': form,
                             'addresses_normalized': addresses_normalized
                         } only %}
@@ -22,16 +22,6 @@
                         <div class="d-flex justify-content-between align-items-center flex-column flex-md-row mb-4">
                             <div class="mr-3">
                                 <p class="mb-3 mb-md-0"><strong>{{ nb_listings }}</strong> results found</p>
-                            </div>
-                            <div>
-                                <label class="form-label mr-2" for="form_sort">Sort by</label>
-                                <select class="selectpicker" name="sort" id="form_sort" data-style="btn-selectpicker" title="">
-                                    <option value="sortBy_0">Most popular   </option>
-                                    <option value="sortBy_1">Recommended   </option>
-                                    <option value="sortBy_2">Newest   </option>
-                                    <option value="sortBy_3">Oldest   </option>
-                                    <option value="sortBy_4">Closest   </option>
-                                </select>
                             </div>
                         </div>
                         <!-- listing-items  -->

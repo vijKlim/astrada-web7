@@ -1,0 +1,17 @@
+<div data-search="address"
+     data-view="map_search"
+     data-addresses="{{ addresses_normalized|json_encode()|e('html') }}"
+     data-tracking-category="Homepage"
+     data-restaurants="{{ astrada_businesses_suggestions()|json_encode()|e('html') }}">
+
+    {{ form_start(form, {'attr': {'class': 'form-inline d-none d-sm-flex', 'id':'search','data-form':null}}) }}
+
+    {{ form_errors(form) }}
+    {{ form_widget(form.geohash) }}
+    <span data-element>
+        <!-- This will be replaced by React -->
+        <input class="autocomplete-input form-control form-control-sm border-0 shadow-0 bg-gray-200" id="search_search" placeholder="Search" aria-label="Search">
+    </span>
+    {{ form_end(form) }}
+</div>
+

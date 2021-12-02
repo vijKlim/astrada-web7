@@ -32,14 +32,28 @@ document.querySelectorAll('[data-search="address"]').forEach((container) => {
         const addresses =
             container.dataset.addresses ? JSON.parse(container.dataset.addresses) : []
 
-        const restaurants =
-            container.dataset.restaurants ? JSON.parse(container.dataset.restaurants) : []
+        const businesses =
+            container.dataset.businesses ? JSON.parse(container.dataset.businesses) : []
+
+        const view_type =
+            container.dataset.view ? container.dataset.view : 'header_search'
+
+        let inputProps = {className: 'form-control-sm border-0 shadow-0 bg-gray-200'}
+
+        if(view_type == 'home_search'){
+            inputProps = {className: 'form-control border-0 shadow-0'}
+        }
+
+        if(view_type == 'map_search'){
+            inputProps = {className: 'form-control'}
+        }
 
         render(
             <AddressAutosuggest
+                inputProps={inputProps}
                 address={ resolveAddress() }
                 addresses={ addresses }
-                restaurants={ restaurants }
+                businesses={ businesses }
                 geohash={ store.get('search_geohash', '') }
                 onAddressSelected={ (value, address, type) => {
 

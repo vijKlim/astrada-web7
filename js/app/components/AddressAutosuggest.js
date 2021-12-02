@@ -412,7 +412,7 @@ class AddressAutosuggest extends Component {
     }
 
     this.fuse = new Fuse(addresses, fuseOptions)
-    this.fuseForRestaurants = new Fuse(this.props.restaurants, {
+    this.fuseForBusinesses = new Fuse(this.props.businesses, {
       ...fuseOptions,
       threshold: 0.2,
       keys: ['name']
@@ -450,25 +450,25 @@ class AddressAutosuggest extends Component {
     let suggestions = []
     let multiSection = false
 
-    if (this.props.restaurants.length > 0) {
+    if (this.props.businesses.length > 0) {
 
-      const restoResults = this.fuseForRestaurants.search(value, {
+      const restoResults = this.fuseForBusinesses.search(value, {
         ...defaultFuseSearchOptions,
         ...this.props.fuseSearchOptions,
       })
 
       if (restoResults.length > 0) {
 
-        const restaurantsAsSuggestions = restoResults.map((fuseResult, idx) => ({
-          type: 'restaurant',
+        const businessesAsSuggestions = restoResults.map((fuseResult, idx) => ({
+          type: 'business',
           value: fuseResult.item.name,
-          restaurant: fuseResult.item,
+            business: fuseResult.item,
           index: idx,
         }))
 
         suggestions.push({
           title: this.props.t('RESTAURANTS_AND_STORES'),
-          suggestions: restaurantsAsSuggestions
+          suggestions: businessesAsSuggestions
         })
         multiSection = true
       }
@@ -665,7 +665,7 @@ class AddressAutosuggest extends Component {
 AddressAutosuggest.defaultProps = {
   address: '',
   addresses: [],
-  restaurants: [],
+  businesses: [],
   required: false,
   reportValidity: false,
   preciseOnly: false,
@@ -683,7 +683,7 @@ AddressAutosuggest.defaultProps = {
 AddressAutosuggest.propTypes = {
   address: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]).isRequired,
   addresses: PropTypes.array.isRequired,
-  restaurants: PropTypes.array,
+  businesses: PropTypes.array,
   geohash: PropTypes.string,
   onAddressSelected: PropTypes.func.isRequired,
   required: PropTypes.bool,

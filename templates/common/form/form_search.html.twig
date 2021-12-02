@@ -1,6 +1,7 @@
 {% include '_partials/flash_messages.html.twig' %}
 
     <div  data-search="address"
+          data-view="home_search"
          data-addresses="{{ addresses_normalized|json_encode()|e('html') }}"
          data-tracking-category="Homepage"
          data-restaurants="{{ astrada_businesses_suggestions()|json_encode()|e('html') }}">

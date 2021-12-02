@@ -31,14 +31,14 @@ console.log('search address:',el);
     const addresses =
       container.dataset.addresses ? JSON.parse(container.dataset.addresses) : []
 
-    const restaurants =
-      container.dataset.restaurants ? JSON.parse(container.dataset.restaurants) : []
+    const businesses =
+      container.dataset.businesses ? JSON.parse(container.dataset.businesses) : []
 
     render(
       <AddressAutosuggest
         address={ resolveAddress() }
         addresses={ addresses }
-        restaurants={ restaurants }
+        businesses={ businesses }
         geohash={ store.get('search_geohash', '') }
         onAddressSelected={ (value, address, type) => {
 

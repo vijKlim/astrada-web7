@@ -265,9 +265,13 @@ class ListingSearchResultType extends AbstractType
                 /** @var ListingSearchRequest $searchRequest */
                 $searchRequest = $event->getData();
                 $form = $event->getForm();
-                /** @var DateRange $dateRange */
-                $dateRange = $form->get('date_range')->getData();
-                $searchRequest->setDateRange($dateRange);
+
+                if($form->has('date_range')){
+                    /** @var DateRange $dateRange */
+                    $dateRange = $form->get('date_range')->getData();
+                    $searchRequest->setDateRange($dateRange);
+                }
+
 
                 if (!$this->timeUnitIsDay) {
                     /** @var TimeRange $timeRange */
