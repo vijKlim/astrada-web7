@@ -243,3 +243,26 @@ dashboard_business_listing:
       businesses: dashboard_businesses
       business: dashboard_business
       listings: dashboard_business_listings
+
+dashboard_business_bookings:
+  path: /dashboard/businesses/{id}/bookings
+  defaults:
+    _controller: App\Controller\DashboardController::businessBookingsAction
+    layout: 'dashboard.html.twig'
+    template: 'business/bookings.html.twig'
+    routes:
+      businesses: dashboard_businesses
+      business: dashboard_business
+      booking: dashboard_business_booking
+  methods: [ GET ]
+
+dashboard_business_booking:
+  path: /dashboard/businesses/{businessId}/bookings/{bookingId}
+  defaults:
+    _controller: App\Controller\DashboardController::businessBookingAction
+    layout: 'dashboard.html.twig'
+    template: 'business/booking.html.twig'
+    routes:
+      businesses: dashboard_businesses
+      business: dashboard_business
+      bookings: dashboard_business_bookings

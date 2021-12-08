@@ -614,6 +614,12 @@ services:
     arguments:
       $client: '@csa_guzzle.client.osrm'
 
+
+  App\Service\Routing\Google:
+    arguments:
+      $client: '@csa_guzzle.client.google_maps'
+      $key: '%env(GOOGLE_API_KEY)%'
+
   routing_service:
     public: true
     class: App\Service\Routing\OsrmWithFallback
@@ -663,6 +669,11 @@ services:
       - method: setBusinessFilter
         arguments:
           - '@astrada.utils.business_filter'
+
+  App\Repository\BookingRepository:
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - App\Entity\Booking
 
   App\Entity\ListingRepository:
     factory: ['@doctrine.orm.default_entity_manager', getRepository]

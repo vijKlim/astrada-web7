@@ -254,6 +254,13 @@ business.list.manage: Керувати
 business.list.orders: Замовлення
 business.list.refunds: Відшкодування
 business.list.products: Продукція
+business.list.listings: Точки
+business.listing: Точка
+business.list.listings.nolisting: Ще немає точок
+business.list.listings_pricing: Конфігурація цін
+business.list.bookings: Заявки на буріння
+business.list.booking: Заявка на буріння
+business.list.bookings.nobooking: Немає заявок на буріння
 business.list.welldesigns: Конструкції свердловин
 business.list.product_options: Параметри
 business.list.menus: Меню
@@ -278,6 +285,8 @@ business.stats.total_products_including_all_taxes: Загальна кількі
   податки
 business.stats.total_products_excluding_taxes: Загальна кількість товарів без податків
 business.stats.delivery: Доставка
+address.point: Адреса точки
+address.asker: Адреса клієнта
 profile.addresses.breadcrumb: Адреси
 profile.addresses.empty: Адресу ще не збережено!
 profile.bookings.your_nearest_bookings: Ваші найближчі бронювання
@@ -1237,6 +1246,8 @@ entity.booking.status.accepted: Прийнято
 entity.booking.status.expired: Прострочений
 entity.booking.status.canceled_asker: Скасовано клієнтом
 entity.booking.status.done: Виконано
+booking.dates: Дати
+booking.messages: Повідомлення
 booking.form.start: Дата початку
 booking.form.end: Дата кінця
 listing.show.book.now.submit: Створити заявку

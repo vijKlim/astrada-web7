@@ -94,7 +94,7 @@
   </table>
 {% else %}
   <div class="alert alert-info">
-  {% trans %}listing.list.nolisting{% endtrans %}
+  {% trans %}business.list.listings.nolisting{% endtrans %}
   <a href="{{ path(listing_new_route, { id: business.id }) }}">{% trans %}listing.list.createNewListing{% endtrans %}</a>
   </div>
 {% endif %}

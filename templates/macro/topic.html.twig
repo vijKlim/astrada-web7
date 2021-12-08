@@ -53,3 +53,63 @@
 {% endmacro %}
 
 
+{% macro render_comments_bootstrp3(booking) %}
+    {% set topic = booking.topic %}
+    {% set posts = booking.topic.posts %}
+
+    {% if topic.title is not empty %}
+        <!-- Sender Message-->
+        <div class="media">
+
+            <div class="media-body">
+                <div class="alert alert-warning" role="alert">
+                    <p>{{ topic.title|raw }}</p>
+                    <p class="small text-muted ml-3">{{ topic.createdAt|date("F jS \\a\\t g:ia") }}</p>
+                </div>
+
+            </div>
+            <div class="media-right">
+                <img class="media-object" width="50" src="{{ path('user_avatar', { username: topic.author.username }) }}" alt="user">
+            </div>
+        </div>
+    {% endif %}
+
+    {% for post in posts %}
+
+        {% if app.user and post.author.id == booking.user.customer.id %}
+            <!-- Sender Message-->
+            <div class="media">
+
+                <div class="media-body">
+                    <div class="alert alert-warning" role="alert">
+                        <p>{{ post.body|raw }}</p>
+                        <p class="small text-muted ml-3">{{ topic.createdAt|date("F jS \\a\\t g:ia") }}</p>
+                    </div>
+
+                </div>
+                <div class="media-right">
+                    <img class="media-object" width="50" src="{{ path('user_avatar', { username: post.author.username }) }}" alt="user">
+                </div>
+            </div>
+
+        {% else %}
+            <!-- Reciever Message-->
+            <div class="media">
+                <div class="media-left">
+                    <img class="media-object" width="50" src="{{ path('user_avatar', { username: post.author.username }) }}" alt="user">
+                </div>
+                <div class="media-body">
+                    <div class="alert alert-info" role="alert">
+                        <p>{{ post.body|raw }}</p>
+                        <p class="small text-muted ml-3">{{ topic.createdAt|date("F jS \\a\\t g:ia") }}</p>
+                    </div>
+
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+
+
+{% endmacro %}
+

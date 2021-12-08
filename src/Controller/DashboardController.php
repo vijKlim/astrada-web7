@@ -7,6 +7,7 @@ use App\Annotation\HideSoftDeleted;
 use ApiPlatform\Core\Api\IriConverterInterface;
 use ApiPlatform\Core\Exception\InvalidArgumentException;
 use App\Controller\Utils\AccessControlTrait;
+use App\Controller\Utils\BookingTrait;
 use App\Controller\Utils\BusinessListingTrait;
 use App\Controller\Utils\BusinessTrait;
 use App\Entity\Address;
@@ -43,6 +44,7 @@ class DashboardController extends AbstractController
     use AccessControlTrait;
     use BusinessTrait;
     use BusinessListingTrait;
+    use BookingTrait;
 
     private $settingsManager;
     private $businessListingPositionsNormalizer;
@@ -67,8 +69,10 @@ class DashboardController extends AbstractController
             'products' => 'dashboard_business_products',
             'product_options' => 'dashboard_business_product_options',
             'product_new' => 'dashboard_business_product_new',
+            'listings_pricing' => 'dashboard_business_listings_pricing',
             'listings' => 'dashboard_business_listings',
             'listing_new' => 'dashboard_business_listing_new',
+            'bookings' => 'admin_business_bookings',
             'dashboard' => 'dashboard_business_dashboard',
             'planning' => 'dashboard_business_planning',
             'stats' => 'dashboard_business_stats',

@@ -124,6 +124,16 @@ abstract class BaseBooking
      */
     protected $message;
 
+    /**
+     * @Assert\Type(type="string")
+     */
+    protected $priceTransportation;
+
+    /**
+     * @Assert\Type(type="string")
+     */
+    protected $priceWellDrilling;
+
 
     public function __construct()
     {
@@ -379,6 +389,40 @@ abstract class BaseBooking
     {
         $this->message = $message;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceTransportation()
+    {
+        return $this->priceTransportation;
+    }
+
+    /**
+     * @param mixed $priceTransportation
+     */
+    public function setPriceTransportation($priceTransportation): void
+    {
+        $this->priceTransportation = $priceTransportation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceWellDrilling()
+    {
+        return $this->priceWellDrilling;
+    }
+
+    /**
+     * @param mixed $priceWellDrilling
+     */
+    public function setPriceWellDrilling($priceWellDrilling): void
+    {
+        $this->priceWellDrilling = $priceWellDrilling;
+    }
+
+
 
     public function log($prefix = '')
     {

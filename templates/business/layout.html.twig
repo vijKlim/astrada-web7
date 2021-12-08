@@ -26,32 +26,36 @@
         {% if business.id is not empty %}
         <div class="nav navbar-nav navbar-right">
             <li>
+                <a href="{{ path(listings_pricing_route, { id: business.id }) }}">
+                    <i class="fa fa-database"></i>  {% trans %}business.list.listings_pricing{% endtrans %}
+                </a>
+            </li>
+            <li>
                 <a href="{{ path(listings_route, { id: business.id }) }}">
                     <i class="fa fa-database"></i>  {% trans %}business.list.listings{% endtrans %}
                 </a>
             </li>
-          <li>
-            <a href="{{ path(products_route, { id: business.id }) }}">
-              <i class="fa fa-database"></i>  {% trans %}business.list.products{% endtrans %}
-            </a>
-          </li>
-          <li>
-            <a href="{{ path(product_options_route, { id: business.id }) }}">
-              <i class="fa fa-sliders"></i>  {% trans %}business.list.product_options{% endtrans %}
-            </a>
-          </li>
-          <li>
-            <a href="{{ path(dashboard_route, { businessId: business.id }) }}">
-              <i class="fa fa-cube"></i>  {% trans %}business.list.orders{% endtrans %}
-            </a>
-          </li>
+            <li>
+                <a href="{{ path(bookings_route, { id: business.id }) }}">
+                    <i class="fa fa-database"></i>  {% trans %}business.list.bookings{% endtrans %}
+                </a>
+            </li>
+{#            <li>#}
+{#                <a href="{{ path(products_route, { id: business.id }) }}">#}
+{#                    <i class="fa fa-database"></i>  {% trans %}business.list.products{% endtrans %}#}
+{#                </a>#}
+{#            </li>#}
 
-          <li>
-
-            <a href="{{ path(service_taxons_route, { id: business.id }) }}">
-              <i class="fa fa-list"></i>  {% trans %}business.list.services{% endtrans %}
-            </a>
-          </li>
+{#          <li>#}
+{#            <a href="{{ path(product_options_route, { id: business.id }) }}">#}
+{#              <i class="fa fa-sliders"></i>  {% trans %}business.list.product_options{% endtrans %}#}
+{#            </a>#}
+{#          </li>#}
+{#          <li>#}
+{#            <a href="{{ path(dashboard_route, { businessId: business.id }) }}">#}
+{#              <i class="fa fa-cube"></i>  {% trans %}business.list.orders{% endtrans %}#}
+{#            </a>#}
+{#          </li>#}
 
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'task.form.modal.moreOptions'|trans }} <span class="caret"></span></a>

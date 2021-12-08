@@ -1,0 +1,33 @@
+{% if bookings|length > 0 %}
+    <table class="table">
+        <tbody>
+        {% for booking in bookings %}
+            <tr>
+
+                <td width="5%"><a href="{{ path(booking_route, { businessId: business.id, bookingId: booking.id }) }}">#{{ booking.id }}</a></td>
+                <td width="20%">
+                    <span>{{ booking.message }}</span>
+                </td>
+                <td width="25%">{{ booking.userAddress.streetAddress }}</td>
+                <td>
+                    {{ booking.start|date_calendar }}
+                </td>
+                <td>
+                    Messages: <span class="badge">{{ booking.topic.postCount }}</span>
+                </td>
+                <td class="text-right">
+                    <a href="{{ path(booking_route, { businessId: business.id, bookingId: booking.id }) }}"
+                       class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> {{ 'basics.edit'|trans }}</a>
+
+                </td>
+
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <div class="alert alert-info">
+        {% trans %}business.list.bookings.nobooking{% endtrans %}
+    </div>
+{% endif %}

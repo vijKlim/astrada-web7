@@ -1,0 +1,47 @@
+{% extends 'business/layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    <li><a href="{{ path(businesses_route) }}">{% trans %}adminDashboard.businesses.title{% endtrans %}</a></li>
+    <li><a href="{{ path(business_route, { id: business.id }) }}">{{ business.name }}</a></li>
+    <li><a href="{{ path(bookings_route, { id: business.id }) }}">{{ 'business.list.bookings'|trans }}</a></li>
+    <li>{{ booking.id }}</li>
+{% endblock %}
+
+{% block content %}
+    {% set listing_path_params = {} %}
+    <div class="row">
+
+        <div class="col-sm-4">
+            <h3>{{ 'business.list.booking'|trans }} №{{ booking.id }}</h3>
+            <p class="text-muted">{{ 'booking.dates'|trans }}: {{ booking.start|date_calendar }} - {{ booking.end|date_calendar }}</p>
+            <h4>{{ 'business.listing'|trans }}: <a  href="{{ listing_path(booking.listing, listing_path_params) }}">{{ booking.listing.title }}</a></h4>
+            <p >{{ 'address.point'|trans }}: <span class="text-muted">{{ booking.listing.address.streetAddress }}</span></p>
+            <p >{{ 'address.asker'|trans }}: <span class="text-muted">{{ booking.userAddress.streetAddress }}</span></p>
+            <p >{{ 'listing.price.per_1km_delivery'|trans }}: <span class="badge badge-primary-light">{{ booking.listing.welldesign.transportationCost|price_format }}</span></p>
+            <p >{{ 'listing.price.per_1m_drilling'|trans }}: <span class="badge badge-primary-light">{{ booking.listing.welldesign.wellCost|price_format }}</span></p>
+
+
+        </div>
+        <div class="col-sm-8">
+            <h3>{{ 'booking.messages'|trans }}  <span class="badge">{{ booking.topic.postCount }}</span> </h3>
+
+            {% from 'macro/topic.html.twig' import render_comments_bootstrp3 %}
+
+            {% if booking.topic is not null %}
+                {{ render_comments_bootstrp3(booking) }}
+            {% endif %}
+
+            <!-- Typing area-->
+            {{ render(controller('App\\Controller\\PostController::getForTopicFormAction', {
+                topic: booking.topic,
+                author_role: 'offerer'
+            })) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+

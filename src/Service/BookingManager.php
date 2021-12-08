@@ -5,6 +5,7 @@ namespace App\Service;
 
 
 use App\Entity\Address;
+use App\Entity\Base\GeoCoordinates;
 use App\Entity\Booking;
 use App\Entity\Listing;
 use App\Entity\ListingAvailability;
@@ -13,6 +14,7 @@ use App\Entity\Model\TimeRange;
 use App\Entity\User;
 use App\Repository\BookingRepository;
 use App\Repository\ListingAvailabilityRepository;
+use App\Service\Routing\Google;
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,6 +30,8 @@ class BookingManager
     protected $emailManager;
     protected $smser;
     protected $dispatcher;
+    protected $google;
+
     protected $feeAsAsker;
     protected $feeAsOfferer;
     protected $endDayIncluded;
@@ -75,6 +79,7 @@ class BookingManager
         EmailManager $emailManager,
         SmsManager $smser,
         EventDispatcherInterface $dispatcher,
+        Google $google,
         $parameters
     ) {
         $this->em = $em;
@@ -82,7 +87,7 @@ class BookingManager
         $this->emailManager = $emailManager;
         $this->smser = $smser;
         $this->dispatcher = $dispatcher;
-
+        $this->google = $google;
         //Parameters
 
         $this->timeUnit = $parameters["astrada_time_unit"];
@@ -121,6 +126,11 @@ class BookingManager
         $booking->setUser($user);
         $booking->setUserAddress($userAddress);
         $booking->setStatus(Booking::STATUS_DRAFT);
+
+        //        $distanse = $google->getDistance($booking->getUserAddress()->getGeo(), $booking->getListing()->getAddress()->getGeo());
+        $distanse = $this->google->getDistance($booking->getUserAddress()->getGeo(),$booking->getListing()->getAddress()->getGeo());
+        $duration = $this->google->getDuration(new GeoCoordinates(50.4365975, 30.659998 ), $booking->getListing()->getAddress()->getGeo());
+        $priceTransportation = $booking->getListing()->getWelldesign()->getTransportationCost() * ($distanse > 0 ? ($distanse/1000) : 0);
 
         $dateRange = $dateTimeRange->getDateRange();
         $timeRange = $dateTimeRange->getFirstTimeRange();

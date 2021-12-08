@@ -57,7 +57,8 @@
 
             <!-- Typing area-->
             {{ render(controller('App\\Controller\\PostController::getForTopicFormAction', {
-                topic: booking.topic
+                topic: booking.topic,
+                author_role: 'asker'
             })) }}
 
 

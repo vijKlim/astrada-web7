@@ -5,8 +5,12 @@ namespace App\Controller\Utils;
 
 
 use ApiPlatform\Core\Api\IriConverterInterface;
+use App\Entity\Base\GeoCoordinates;
 use App\Entity\Booking;
 use App\Entity\LocalBusiness;
+use App\Service\Routing\Google;
+use App\Service\Routing\Osrm;
+use Doctrine\Persistence\ObjectRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -47,14 +51,14 @@ trait BookingTrait
 
         $qb->andWhere('p.business = :business');
         $qb->setParameter('business', $business);
-        $qb->orderBy('p.expirationDate', 'ASC');
+        $qb->orderBy('p.newBookingAt', 'ASC');
 
         return $paginator->paginate(
             $qb,
             $request->query->getInt('page', 1),
             10,
             [
-                PaginatorInterface::DEFAULT_SORT_FIELD_NAME => 'b.start',
+                PaginatorInterface::DEFAULT_SORT_FIELD_NAME => 'p.start',
                 PaginatorInterface::DEFAULT_SORT_DIRECTION => 'asc',
             ]
         );
@@ -62,10 +66,7 @@ trait BookingTrait
 
     }
 
-    public function businessBookingAction($businessId, $listingId, Request $request,
-                                          ObjectRepository $listingRepository,
-                                          EntityManagerInterface $entityManager,
-                                          EventDispatcherInterface $dispatcher)
+    public function businessBookingAction($businessId, $bookingId, Request $request, Google $google)
     {
         $business = $this->getDoctrine()
             ->getRepository(LocalBusiness::class)
@@ -73,38 +74,19 @@ trait BookingTrait
 
         $this->accessControl($business);
 
-        $listing = $listingRepository
-            ->find($listingId);
+        /** @var Booking $booking */
+        $booking  = $this->getDoctrine()
+            ->getRepository(Booking::class)
+            ->find($bookingId);
 
-        $form =
-            $this->createBusinessListingForm($business, $listing);
 
         $routes = $request->attributes->get('routes');
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $listing = $form->getData();
-
-
-            if ($form->getClickedButton()) {
-                if ('delete' === $form->getClickedButton()->getName()) {
-                    $entityManager->remove($listing);
-                }
-            }
-
-            $entityManager->flush();
-
-            $dispatcher->dispatch(new GenericEvent($business), 'catalog.updated');
-
-            return $this->redirectToRoute($routes['listings'], ['id' => $businessId]);
-        }
 
         return $this->render($request->attributes->get('template'), $this->withRoutes([
             'layout' => $request->attributes->get('layout'),
             'business' => $business,
-            'listing' => $listing,
-            'form' => $form->createView()
+            'booking' => $booking,
         ], $routes));
     }
 
