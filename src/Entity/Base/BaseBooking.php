@@ -134,6 +134,11 @@ abstract class BaseBooking
      */
     protected $priceWellDrilling;
 
+    /**
+     * @var integer
+     */
+    protected $distance;
+
 
     public function __construct()
     {
@@ -420,6 +425,22 @@ abstract class BaseBooking
     public function setPriceWellDrilling($priceWellDrilling): void
     {
         $this->priceWellDrilling = $priceWellDrilling;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDistance(): int
+    {
+        return $this->distance;
+    }
+
+    /**
+     * @param int $distance
+     */
+    public function setDistance(int $distance): void
+    {
+        $this->distance = $distance;
     }
 
 

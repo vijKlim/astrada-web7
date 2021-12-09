@@ -127,10 +127,17 @@ class BookingManager
         $booking->setUserAddress($userAddress);
         $booking->setStatus(Booking::STATUS_DRAFT);
 
-        //        $distanse = $google->getDistance($booking->getUserAddress()->getGeo(), $booking->getListing()->getAddress()->getGeo());
-        $distanse = $this->google->getDistance($booking->getUserAddress()->getGeo(),$booking->getListing()->getAddress()->getGeo());
-        $duration = $this->google->getDuration(new GeoCoordinates(50.4365975, 30.659998 ), $booking->getListing()->getAddress()->getGeo());
-        $priceTransportation = $booking->getListing()->getWelldesign()->getTransportationCost() * ($distanse > 0 ? ($distanse/1000) : 0);
+        //$duration = $this->google->getDuration(new GeoCoordinates(50.4365975, 30.659998 ), $booking->getListing()->getAddress()->getGeo());
+        $distanse = $this->google->getDistance(
+            $booking->getUserAddress()->getGeo(),
+            $booking->getListing()->getAddress()->getGeo()
+        );
+
+        $booking->setDistance($distanse);
+        $distanse_km = $distanse > 0 ? ($distanse/1000) : 0; //переводим в километры
+        $welldesign = $booking->getListing()->getWelldesign();
+        $booking->setPriceTransportation($welldesign->getTransportationCost() * $distanse_km);
+        $booking->setPriceWellDrilling($welldesign->getDepthTo() * $welldesign->getWellCost());
 
         $dateRange = $dateTimeRange->getDateRange();
         $timeRange = $dateTimeRange->getFirstTimeRange();

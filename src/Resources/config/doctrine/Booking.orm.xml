@@ -74,6 +74,7 @@
             </options>
         </field>
         <field name="message" type="text" length="65535" column="message" nullable="false"/>
+        <field name="distance" type="integer" column="distance"/>
         <field name="priceTransportation" type="text" column="price_transportation"/>
         <field name="priceWellDrilling" type="text" column="price_well_drilling"/>
     </entity>

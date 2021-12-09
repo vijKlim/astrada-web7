@@ -6,9 +6,12 @@ namespace App\Service\Routing;
 
 use App\Entity\Base\GeoCoordinates;
 use GuzzleHttp\Client;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 class Google extends Base
 {
+    const EXPIRES_AFTER = 86400; //24ч
     /**
      * @var Client
      */
@@ -17,13 +20,14 @@ class Google extends Base
     //google api key
     private $key;
 
-    private $cache = [];
+    protected $cache;
 
     /**
      * @param Client $client
      */
-    public function __construct(Client $client, $key)
+    public function __construct(CacheInterface $cache,Client $client, $key)
     {
+        $this->cache = $cache;
         $this->client = $client;
         $this->key = $key;
     }
@@ -42,16 +46,24 @@ class Google extends Base
 
         $cacheKey = sprintf('%s://%s', $origin, $destinations);
 
+        return $this->cache->get($cacheKey, function (ItemInterface $item) use ($origin,$destinations) {
+            $item->expiresAfter(self::EXPIRES_AFTER);
 
-        if (!isset($this->cache[$cacheKey])) {
             $uri = "/maps/api/distancematrix/json?&key={$this->key}&origins={$origin}&destinations={$destinations}&mode=driving&language=uk-UA";
             $response = $this->client->request('GET', $uri);
-            $data = json_decode($response->getBody(), true);
 
-            $this->cache[$cacheKey] = $data;
-        }
+            return json_decode($response->getBody(), true);
+        });
 
-        return $this->cache[$cacheKey];
+//        if (!isset($this->cache[$cacheKey])) {
+//            $uri = "/maps/api/distancematrix/json?&key={$this->key}&origins={$origin}&destinations={$destinations}&mode=driving&language=uk-UA";
+//            $response = $this->client->request('GET', $uri);
+//            $data = json_decode($response->getBody(), true);
+//
+//            $this->cache[$cacheKey] = $data;
+//        }
+//
+//        return $this->cache[$cacheKey];
     }
 
     public function getPolyline(GeoCoordinates ...$coordinates)
