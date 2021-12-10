@@ -2,7 +2,7 @@
      data-view="header_search"
      data-addresses="{{ addresses_normalized|json_encode()|e('html') }}"
      data-tracking-category="Homepage"
-     data-restaurants="{{ astrada_businesses_suggestions()|json_encode()|e('html') }}">
+     data-businesses="{{ astrada_businesses_suggestions()|json_encode()|e('html') }}">
 
     {{ form_start(form, {'attr': {'class': 'form-inline d-none d-sm-flex', 'id':'search','data-form':null}}) }}
 

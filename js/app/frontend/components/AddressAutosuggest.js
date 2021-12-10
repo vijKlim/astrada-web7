@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Fragment, Component } from 'react'
 import { createPortal } from 'react-dom'
 import Autosuggest from 'react-autosuggest'
 import { defaultTheme } from 'react-autosuggest/dist/theme'
@@ -8,11 +8,12 @@ import Fuse from 'fuse.js'
 import { filter, debounce, throttle } from 'lodash'
 import { withTranslation } from 'react-i18next'
 import _ from 'lodash'
+import { groupBy } from 'lodash';
 import axios from 'axios'
 import classNames from 'classnames'
 
 
-import { ClearButton,AsyncTypeahead } from 'react-bootstrap-typeahead'; // ES2015
+import { ClearButton,AsyncTypeahead, Menu, MenuItem, Highlighter } from 'react-bootstrap-typeahead'; // ES2015
 
 import '../../i18n'
 import { getCountry, localeDetector } from '../../i18n'
@@ -469,17 +470,25 @@ class AddressAutosuggest extends Component {
 
       if (restoResults.length > 0) {
 
-        const businessesAsSuggestions = restoResults.map((fuseResult, idx) => ({
-          type: 'business',
-          value: fuseResult.item.name,
-            business: fuseResult.item,
-          index: idx,
-        }))
+          restoResults.forEach(fuseResult => {
+              suggestions.push({
+                  type: 'business',
+                  value: fuseResult.item.name,
+                  business: fuseResult.item,
 
-        suggestions.push({
-          title: this.props.t('RESTAURANTS_AND_STORES'),
-          suggestions: businessesAsSuggestions
-        })
+              })
+          })
+        // const businessesAsSuggestions = restoResults.map((fuseResult, idx) => ({
+        //   type: 'business',
+        //   value: fuseResult.item.name,
+        //     business: fuseResult.item,
+        //   index: idx,
+        // }))
+        //
+        // suggestions.push({
+        //   title: this.props.t('RESTAURANTS_AND_STORES'),
+        //   suggestions: businessesAsSuggestions
+        // })
         multiSection = true
       }
     }
@@ -493,17 +502,26 @@ class AddressAutosuggest extends Component {
 
       if (fuseResults.length > 0) {
 
-        const addressesAsSuggestions = fuseResults.map((fuseResult, idx) => ({
-          type: 'address',
-          value: fuseResult.item.streetAddress,
-          address: fuseResult.item,
-          index: idx,
-        }))
+          fuseResults.forEach(fuseResult => {
+              suggestions.push({
+                  type: 'address',
+                  value: fuseResult.item.streetAddress,
+                  address: fuseResult.item,
 
-        suggestions.push({
-          title: this.props.t('SAVED_ADDRESSES'),
-          suggestions: addressesAsSuggestions
-        })
+              })
+          })
+
+        // const addressesAsSuggestions = fuseResults.map((fuseResult, idx) => ({
+        //   type: 'address',
+        //   value: fuseResult.item.streetAddress,
+        //   address: fuseResult.item,
+        //   index: idx,
+        // }))
+        //
+        // suggestions.push({
+        //   title: this.props.t('SAVED_ADDRESSES'),
+        //   suggestions: addressesAsSuggestions
+        // })
         multiSection = true
       }
     }
@@ -530,15 +548,19 @@ class AddressAutosuggest extends Component {
 
     if (multiSection) {
       if (predictionsAsSuggestions.length > 0) {
-        suggestions.push({
-          title: this.props.t('ADDRESS_SUGGESTIONS'),
-          suggestions: predictionsAsSuggestions,
-        })
+
+          predictionsAsSuggestions.forEach(predictionAsSuggestion => {
+              suggestions.push(predictionAsSuggestion)
+          })
+        // suggestions.push({
+        //   title: this.props.t('ADDRESS_SUGGESTIONS'),
+        //   suggestions: predictionsAsSuggestions,
+        // })
       }
     } else {
       suggestions = predictionsAsSuggestions
     }
-console.log(suggestions)
+
     this.setState({
       suggestions,
       multiSection,
@@ -585,6 +607,12 @@ console.log(suggestions)
       }
     }
 
+    const typesLoc = {
+        'address' : this.props.t('SAVED_ADDRESSES'),
+        'prediction': this.props.t('ADDRESS_SUGGESTIONS'),
+        'business': this.props.t('BUSINESSES'),
+    }
+
     return (
         <AsyncTypeahead
             id="async-pagination-example"
@@ -607,6 +635,39 @@ console.log(suggestions)
                     <span>{option.value}</span>
                 </div>
             )}
+            renderMenu={ (
+                results,
+                {
+                    newSelectionPrefix,
+                    paginationText,
+                    renderMenuItemChildren,
+                    ...menuProps
+                },
+                state
+            ) => {
+                let index = 0;
+                const types = groupBy(results, 'type');
+                const items = Object.keys(types)
+                    .sort()
+                    .map((type) => (
+                        <Fragment key={type}>
+                            {index !== 0 && <Menu.Divider />}
+                            <Menu.Header>{typesLoc[type]}</Menu.Header>
+                            {types[type].map((i) => {
+                                const item = (
+                                    <MenuItem key={index} option={i} position={index}>
+                                        <Highlighter search={state.text}>{i.value}</Highlighter>
+                                    </MenuItem>
+                                );
+
+                                index += 1;
+                                return item;
+                            })}
+                        </Fragment>
+                    ));
+
+                return <Menu {...menuProps}>{items}</Menu>;
+            }}
             useCache={false}
         >
             {({ onClear, selected }) => (

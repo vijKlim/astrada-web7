@@ -4,7 +4,7 @@
           data-view="home_search"
          data-addresses="{{ addresses_normalized|json_encode()|e('html') }}"
          data-tracking-category="Homepage"
-         data-restaurants="{{ astrada_businesses_suggestions()|json_encode()|e('html') }}">
+         data-businesses="{{ astrada_businesses_suggestions()|json_encode()|e('html') }}">
             {{ form_start(form, {'attr': {'data-form':null}}) }}
 
                 <div  class="row" >
