@@ -44,7 +44,7 @@ class Google extends Base
         $destinations = implode('|', $coords);
 
 
-        $cacheKey = sprintf('%s://%s', $origin, $destinations);
+        $cacheKey = sprintf('%s,%s', $origin, $destinations);
 
         return $this->cache->get($cacheKey, function (ItemInterface $item) use ($origin,$destinations) {
             $item->expiresAfter(self::EXPIRES_AFTER);
