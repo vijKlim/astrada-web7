@@ -3,3 +3,4 @@ sensio_framework_extra:
         annotations: false
     request:
       converters: true
+      disable: ['doctrine.orm']

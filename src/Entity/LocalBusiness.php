@@ -150,6 +150,8 @@ class LocalBusiness extends BaseLocalBusiness implements
 
     protected $owners;
 
+    protected $ownerType;
+
     /**
      * @Groups({"business", "business_update"})
      */
@@ -345,6 +347,24 @@ class LocalBusiness extends BaseLocalBusiness implements
     {
         $this->type = $type;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getOwnerType()
+    {
+        return $this->ownerType;
+    }
+
+    /**
+     * @param mixed $ownerType
+     */
+    public function setOwnerType($ownerType): void
+    {
+        $this->ownerType = $ownerType;
+    }
+
+
 
     public function getContext()
     {

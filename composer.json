@@ -14,6 +14,7 @@
         "cocur/slugify": "^4.0",
         "composer/package-versions-deprecated": "1.11.99.1",
         "craue/config-bundle": "^2.5",
+        "craue/formflow-bundle": "^3.5",
         "csa/guzzle-bundle": "^3.2",
         "demollc/sputnik-provider": "^1.0",
         "doctrine/annotations": "^1.0",

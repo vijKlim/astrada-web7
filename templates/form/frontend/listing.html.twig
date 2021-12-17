@@ -1,0 +1,13 @@
+{% block _createListing_business_ownerType_widget %}
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        {% for child in form %}
+            {% set value = child.vars.value %}
+            {% set checked = child.vars.checked %}
+            {% set label = child.vars.label %}
+            <label class="btn btn-outline-primary btn-toggle {% if checked %}active{% endif %}">
+                <input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} /> {{ label }}
+            </label>
+        {% endfor %}
+
+    </div>
+{% endblock %}

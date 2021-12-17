@@ -137,7 +137,7 @@ localBusiness.form.orderingDelayMinutes.help: Використовуйте це 
 localBusiness.form.enabled: Увімкнено
 localBusiness.form.orderingDelayDays: День (и)
 localBusiness.form.orderingDelayHours: Hour (s)
-localBusiness.form.name: Ім'я
+localBusiness.form.name: Назва
 localBusiness.form.description: Опис
 localBusiness.form.legalName: Юридична назва
 localBusiness.form.website: Веб-сайт
@@ -151,6 +151,8 @@ localBusiness.form.openingHoursBehavior.time_slot: часовий інтерва
 localBusiness.form.use_different_business_address.label: Використовуйте інший бізнес
   адресу
 localBusiness.form.business_address.label: Адреса бізнесу
+localBusiness.form.ownerType.individual: Приватна особа
+localBusiness.form.ownerType.legal_entity: Компанія
 form.business.name.label: Назва бізнесу
 form.business.contact_referent.label: Контактна особа з питань бізнесу (email)
 business.disabledWarning: "Цей ресторан відключений, тому відвідувачі сайту не можуть \
@@ -316,7 +318,7 @@ profile.username: Ім'я користувача
 profile.email: Електронна пошта
 profile.telephone: телефон
 profile.familyName: Прізвище
-profile.givenName: Ім'я
+profile.givenName: Назва
 profile.fullName: Повне ім’я
 profile.managedStores: магазини, якими керує користувач
 profile.managedRestaurants: Ресторани, якими керує користувач
@@ -501,7 +503,7 @@ form.address.company.function.label: Посада контактної особ�
 form.address.company.collaborator_number.label: Кількість працівників
 form.address.company.meal_estimate.label: Приблизна кількість прийомів їжі (на день)
 form.company.make_the_request.label: Надіслати запит
-form.pricing_rule_set.name.label: Ім'я
+form.pricing_rule_set.name.label: Назва
 form.pricing_rule_set.rules.label: Правила
 form.pricing_rule_set.strategy.label: Метод розрахунку
 form.pricing_rule_set.strategy.help: Правила оцінюються зверху вниз. Залежно
@@ -1256,3 +1258,8 @@ nav.home.map: Мапа
 nav.home.news: Новини
 nav.add_point: Додати точку
 footer.all_right_reserved: all right reserved
+listing.flow.owner_type: Приватна особа / Компанія
+listing.flow.owner_type.description: Оберіть тип власника точки.
+listing.flow.basic_information: Основна інформація
+listing.flow.add_new_listing: Додаты нову точку
+form.flow.step: Крок

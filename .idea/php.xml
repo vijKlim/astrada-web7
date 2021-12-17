@@ -280,6 +280,7 @@
       <path value="$PROJECT_DIR$/vendor/pitch/liform" />
       <path value="$PROJECT_DIR$/vendor/notfloran/mjml-bundle" />
       <path value="$PROJECT_DIR$/vendor/karser/karser-recaptcha3-bundle" />
+      <path value="$PROJECT_DIR$/vendor/craue/formflow-bundle" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />

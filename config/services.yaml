@@ -259,6 +259,12 @@ services:
       $debug: '%kernel.debug%'
     tags: [ form.type ]
 
+  App\Form\BusinessSimplerType:
+    arguments:
+      $country: '%country_iso%'
+      $debug: '%kernel.debug%'
+    tags: [ form.type ]
+
   App\Form\ListingType:
     arguments:
       $productFactory: '@sylius.factory.product'
@@ -357,6 +363,14 @@ services:
     tags:
       - { name: form.type, alias: date_range }
 
+
+  App\Form\ListingFlow\CreateListingForm:
+    arguments:
+      $translator: '@translator'
+    tags: [ form.type ]
+
+  App\Form\ListingFlow\CreateListingFlow:
+    autoconfigure: true
 
   # HANDLERS
   App\Form\Handler\BookingFormHandler:

@@ -70,6 +70,7 @@
 * docker-compose exec php  composer require karser/karser-recaptcha3-bundle
 * docker-compose exec php  composer require beberlei/doctrineextensions
 * docker-compose exec php  composer require nyholm/psr7
+* docker-compose exec php  composer require craue/formflow-bundle
 
 
 # Geocoder and tricks maps
