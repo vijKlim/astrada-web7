@@ -9,6 +9,7 @@ use App\Entity\LocalBusiness;
 use App\Enum\OwnerType;
 use App\Form\AddressType;
 use App\Form\BusinessSimplerType;
+use App\Form\ListingSimplerType;
 use App\Form\ListingType;
 use App\Form\LocalBusinessType;
 use libphonenumber\PhoneNumberFormat;
@@ -59,7 +60,7 @@ class CreateListingForm extends AbstractType
                 $builder->add($businessForm);
                 break;
             case 3:
-                $listingForm = $builder->create('listing', ListingType::class, [
+                $listingForm = $builder->create('listing', ListingSimplerType::class, [
                     'data_class' => Listing::class,
                 ]);
 

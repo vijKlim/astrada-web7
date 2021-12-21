@@ -144,8 +144,8 @@ class AddressBookType extends AbstractType
         ));
     }
 
-    public function getBlockPrefix()
-    {
-        return 'astrada_address_book';
-    }
+//    public function getBlockPrefix()
+//    {
+//        return 'astrada_address_book';
+//    }
 }

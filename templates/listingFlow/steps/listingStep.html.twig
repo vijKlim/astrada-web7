@@ -1,0 +1,47 @@
+<div class="row form-block">
+    <div class="col-lg-4">
+        <h4>Основная информация</h4>
+        <p class="text-muted text-sm">Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out</p>
+    </div>
+    <div class="col-lg-7 ml-auto">
+
+
+        <div class="form-group mb-5">
+            <label class="form-label" >{{ form_label(form.listing.title) }}</label>
+            {{ form_errors(form.listing.title) }}
+            {{ form_widget(form.listing.title, {'attr': { 'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group mb-5">
+            <label class="form-label" >{{ form_label(form.listing.description) }}</label>
+            {{ form_errors(form.listing.description) }}
+            {{ form_widget(form.listing.description, {'attr': { 'class': 'form-control', 'rows': 5}}) }}
+        </div>
+
+    </div>
+</div>
+
+<div class="row form-block">
+    <div class="col-lg-4">
+        <h4>Местоположение</h4>
+        <p class="text-muted text-sm">Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out</p>
+    </div>
+    <div class="col-lg-7 ml-auto">
+
+
+        {{ form_row(form.listing.address) }}
+
+    </div>
+</div>
+
+{#<div id="listing-form-data"#}
+{#     data-action-url="{{ oneup_uploader_endpoint('listing') }}"#}
+{#     data-listing-id="{{ listing.id }}"></div>#}
+
+{% block styles %}
+    {{ encore_entry_link_tags('frontend-listing-form') }}
+{% endblock %}
+
+{% block scripts %}
+    {{ encore_entry_script_tags('frontend-listing-form') }}
+{% endblock %}

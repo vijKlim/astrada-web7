@@ -272,6 +272,10 @@ services:
       $debug: '%kernel.debug%'
     tags: [ form.type ]
 
+  App\Form\ListingSimplerType:
+    parent:  App\Form\ListingType
+    tags: [ form.type ]
+
   App\Form\ListingTranslationType:
     tags:
       - { name: form.type }
@@ -372,6 +376,10 @@ services:
   App\Form\ListingFlow\CreateListingFlow:
     autoconfigure: true
 
+  App\Form\ListingFlow\CreateListing:
+    arguments:
+      $listingFactory: '@app.factory.listing'
+
   # HANDLERS
   App\Form\Handler\BookingFormHandler:
     arguments:
@@ -425,7 +433,6 @@ services:
       $defaultLocale: "%env(ASTRADA_LOCALE)%"
     tags:
       - { name: 'console.command', command: 'astrada:demo:init' }
-
 
   # VALIDATORS
   App\Validator\Constraints\IsActivableBusinessValidator:

@@ -5,10 +5,12 @@ namespace App\Form\ListingFlow;
 
 use App\Entity\Listing;
 use App\Entity\LocalBusiness;
+use App\Factory\ListingFactory;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CreateListing
 {
+    protected $listingFactory;
     /**
      * @var LocalBusiness
      * @Assert\Valid
@@ -21,9 +23,11 @@ class CreateListing
      */
     public $listing;
 
-    public function __construct() {
+    public function __construct(ListingFactory $listingFactory) {
+        $this->listingFactory = $listingFactory;
         $this->business = new LocalBusiness();
-        $this->listing = new Listing();
+        $this->listing  = $this->listingFactory
+            ->createNew();
     }
 
     /**

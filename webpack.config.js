@@ -52,6 +52,7 @@ Encore
     .addEntry('frontend-search-address', './js/app/search/frontend-address.js')
     .addEntry('frontend-map-category', './js/app/frontend/map/map-category.js')
     .addEntry('frontend-listing-detail', './js/app/frontend/listing-detail.js')
+    .addEntry('frontend-listing-form', './js/app/frontend/listing-form/index.js')
     .addEntry('frontend-map-layers', './js/app/frontend/map/map-layers.js')
     .addEntry('frontend-datepicker-detail', './js/app/frontend/components/datepicker-detail.js')
     .addEntry('user-invite', './js/app/user/invite.js')

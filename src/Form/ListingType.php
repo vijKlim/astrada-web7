@@ -114,7 +114,7 @@ class ListingType extends AbstractType
                     }
                 }
 
-                if (null !== $options['owner']) {
+                if (null !== $options['owner'] && $options['owner'] instanceof CatalogInterface) {
                     $options['owner']->addListing($listing);
                 }
             }
@@ -129,6 +129,6 @@ class ListingType extends AbstractType
             'owner' => null,
             'with_remember_address' => false,
         ));
-        $resolver->setAllowedTypes('owner', CatalogInterface::class);
+//        $resolver->setAllowedTypes('owner', CatalogInterface::class);
     }
 }

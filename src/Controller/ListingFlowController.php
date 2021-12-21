@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Factory\ListingFactory;
 use App\Form\ListingFlow\CreateListing;
 use App\Form\ListingFlow\CreateListingFlow;
 use Craue\FormFlowBundle\Form\FormFlowInterface;
@@ -14,12 +15,14 @@ use Twig\Environment;
 
 class ListingFlowController extends AbstractController
 {
+    private $listingFactory;
     /**
      * @var Environment
      */
     private $twig;
 
-    public function __construct(Environment $twig) {
+    public function __construct(ListingFactory $listingFactory, Environment $twig) {
+        $this->listingFactory = $listingFactory;
         $this->twig = $twig;
     }
 
@@ -27,7 +30,7 @@ class ListingFlowController extends AbstractController
      * @Route("/create-listing/", name="_FormFlow_createListing")
      */
     public function createListingAction(CreateListingFlow $flow) {
-        return $this->processFlow(new CreateListing(), $flow,
+        return $this->processFlow(new CreateListing($this->listingFactory), $flow,
             'listingFlow/createListing.html.twig');
     }
 

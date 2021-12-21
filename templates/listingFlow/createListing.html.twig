@@ -24,74 +24,16 @@
 
                             {{ form_errors(form) }}
                             {% if flow.getCurrentStepNumber() == 1 %}
-                                <div class="row form-block">
-                                    <div class="col-lg-4">
-                                        <h4>{% trans %}listing.flow.owner_type{% endtrans %}</h4>
-                                        <p class="text-muted text-sm">{% trans %}listing.flow.owner_type.description{% endtrans %}</p>
-                                    </div>
-                                    <div class="col-lg-7 ml-auto">
-                                        <div class="form-group"></div>
-                                        <div class="form-group">
-                                            {{ form_row(form.business) }}
-                                        </div>
-
-                                    </div>
-                                </div>
+                                {% include "listingFlow/steps/ownerTypeStep.html.twig" %}
 
                             {% endif %}
                             {% if flow.getCurrentStepNumber() == 2 %}
-                                <div class="row form-block">
-                                    <div class="col-lg-4">
-                                        <h4>Basic</h4>
-                                        <p class="text-muted text-sm">His room, a proper human room although a little too small, lay peacefully between its four familiar walls. A collection of textile samples lay spread out on the table.</p>
-                                    </div>
-                                    <div class="col-lg-7 ml-auto">
-                                        <div class="form-group"></div>
-
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="guests">{{ form_label(form.business.name) }}</label>
-                                                    {{ form_errors(form.business.name) }}
-                                                    {{ form_widget(form.business.name, {'attr': { 'class': 'form-control'}}) }}
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="guests">{{ form_label(form.business.legalName) }}</label>
-                                                    {{ form_errors(form.business.legalName) }}
-                                                    {{ form_widget(form.business.legalName, {'attr': { 'class': 'form-control'}}) }}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="guests">{{ form_label(form.business.telephone) }}</label>
-                                                    {{ form_errors(form.business.telephone) }}
-                                                    {{ form_widget(form.business.telephone, {'attr': { 'class': 'form-control'}}) }}
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="guests">{{ form_label(form.business.website) }}</label>
-                                                    {{ form_errors(form.business.website) }}
-                                                    {{ form_widget(form.business.website, {'attr': { 'class': 'form-control'}}) }}
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        {{ form_row(form.business.address) }}
-
-                                    </div>
-                                </div>
+                                {% include "listingFlow/steps/businessStep.html.twig" %}
 
                             {% endif %}
 
                             {% if flow.getCurrentStepNumber() == 3 %}
-
+                                {% include "listingFlow/steps/listingStep.html.twig" %}
                             {% endif %}
 
 
@@ -111,11 +53,3 @@
 
     {% endembed %}
 {% endblock %}
-
-{#{% block styles %}#}
-{#    {{ encore_entry_link_tags('frontend-listing-detail') }}#}
-{#{% endblock %}#}
-
-{#{% block scripts %}#}
-{#    {{ encore_entry_script_tags('frontend-listing-detail') }}#}
-{#{% endblock %}#}
