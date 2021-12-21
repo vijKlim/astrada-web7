@@ -11,3 +11,15 @@
 
     </div>
 {% endblock %}
+
+{% block _createListing_business_address_widget %}
+    <div class="form-group">
+        <label class="form-label" for="guests">{{ form_label(form.streetAddress) }}</label>
+        {{ form_errors(form.streetAddress) }}
+        {{ form_widget(form.streetAddress, {'attr': { 'class': 'form-control'}}) }}
+    </div>
+    {{ form_row(form.postalCode) }}
+    {{ form_row(form.addressLocality) }}
+    {{ form_row(form.latitude) }}
+    {{ form_row(form.longitude) }}
+{% endblock %}

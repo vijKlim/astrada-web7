@@ -35,6 +35,7 @@ class ListingFlowController extends AbstractController
         $flow->bind($formData);
 
         $form = $submittedForm = $flow->createForm();
+
         if ($flow->isValid($submittedForm)) {
             $flow->saveCurrentStepData($submittedForm);
 

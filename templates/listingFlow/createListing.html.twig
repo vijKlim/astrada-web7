@@ -82,12 +82,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label class="form-label" for="guests">{{ form_label(form.business.address) }}</label>
-                                            {{ form_errors(form.business.address) }}
-                                            {{ form_widget(form.business.address, {'attr': { 'class': 'form-control'}}) }}
-                                        </div>
 
+                                        {{ form_row(form.business.address) }}
 
                                     </div>
                                 </div>

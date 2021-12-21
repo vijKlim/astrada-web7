@@ -22,10 +22,20 @@ class CreateListingFlow extends FormFlow implements EventSubscriberInterface
     }
 
     public function onPostBindSavedData(PostBindSavedDataEvent $event) {
+
         if ($event->getFlow() !== $this) {
             return;
         }
+//        echo '<pre>step '.$event->getStepNumber().'<br>';var_dump($_POST);
+        if ($event->getStepNumber() === 2) {
+            $formData = $event->getFormData();
 
+
+//            if ($formData->addDriver) {
+//                $formData->driver = new Driver();
+//                $formData->driver->vehicles->add($formData->vehicle);
+//            }
+        }
         if ($event->getStepNumber() === 3) {
             $formData = $event->getFormData();
 
