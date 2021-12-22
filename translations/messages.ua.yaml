@@ -7,6 +7,14 @@ global.all: Всі
 global.services: Послуги
 home.header.title: Всі бурові компанії під рукою
 home.header.description: Знайдіть найкращі пропозиції з усієї України від наших партнерів.
+home.featured_listings_around_you: Рекомендовані пропозиції навколо вас
+home.find_your_best_service_today: Знайдіть свій найкращий сервіс сьогодні
+home.see_all_featured_listings: Переглянути всі пропозиції
+home.why_us: Чому ми?
+home.count_companies_hundreds_customers_day: "%count% бурових компаній, сотні клієнтів у день"
+home.start_using_directory_today: Почніть користуватися каталогом вже сьогодні
+home.directory_short_description_promote: Каталог – найкращий спосіб заявити про свої послуги
+home.create_your_account: Створити бізнес акаунт
 navbar.login: Вхід
 navbar.signup: Реєстрація
 navbar.logout: Вийти з аккаунта
@@ -158,7 +166,7 @@ form.business.contact_referent.label: Контактна особа з пита�
 business.disabledWarning: "Цей ресторан відключений, тому відвідувачі сайту не можуть \
 \ див. цю сторінку. Якщо ви хочете, ви можете <target =\"_blank\" href =\"%restaurantEditUrl%\" \
                              > активуйте його в адміністраторі </a>.\n"
-business.closedWarningWithDelay: Замовляйте зараз на потім. Замовити принаймні% затримки% в
+business.closedWarningWithDelay: Замовляйте зараз на потім. Замовити принаймні %затримки% в
   авансом.
 business.temporaryClosedWarning: Цей ресторан буде зачинений до <strong>% date% </strong>.
   Ви все ще можете замовити пізніше!

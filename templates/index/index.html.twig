@@ -3,12 +3,13 @@
 {% block layout %}
     {% embed 'layout.html.twig'%}
         {% block sub_header %}
-            <section class="d-flex align-items-center dark-overlay bg-cover" style="background-image: url(/img/header/ti-fxx-header.png);">
+            <!--style="background-image: url(/img/header/ti-fxx-header.png);"-->
+            <section class="d-flex align-items-center blue-overlay bg-cover"  style="background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI1MCIgaGVpZ2h0PSIzMDkiIHZpZXdCb3g9IjAgMCAxMjUwIDMwOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgb3BhY2l0eT0iMC43Ij4KPHBhdGggZD0iTTg5OS4yNzMgMjg0LjUxN0M4OTYuNzgzIDI4NC41MTcgODk0LjQ3OCAyODUuOTM3IDg5Mi43MjYgMjg4LjYzNUM4OTAuNDIxIDI5Mi4xODYgODg2LjY0IDI5Mi4xODYgODg0LjMzNSAyODguNjM1Qzg4MC43MzkgMjgzLjA5NyA4NzQuODM4IDI4My4wOTcgODcxLjI0MiAyODguNjM1Qzg2OC45MzYgMjkyLjE4NiA4NjUuMTU2IDI5Mi4xODYgODYyLjg1MSAyODguNjM1Qzg1OS4yNTQgMjgzLjA5NyA4NTMuMzUzIDI4My4wOTcgODQ5Ljc1NyAyODguNjM1Qzg0Ny40NTIgMjkyLjE4NiA4NDMuNjcxIDI5Mi4xODYgODQxLjM2NiAyODguNjM1QzgzNy43NyAyODMuMDk3IDgzMS44NjkgMjgzLjA5NyA4MjguMjcyIDI4OC42MzVDODI1Ljk2NyAyOTIuMTg2IDgyMi4xODcgMjkyLjE4NiA4MTkuODgxIDI4OC42MzVDODE5LjIzNiAyODcuNjQxIDgxOC4xMyAyODcuNjQxIDgxNy40ODQgMjg4LjYzNUM4MTYuODM5IDI4OS42MjkgODE2LjgzOSAyOTEuMzM0IDgxNy40ODQgMjkyLjMyOEM4MjEuMDggMjk3Ljg2NiA4MjYuOTgyIDI5Ny44NjYgODMwLjU3OCAyOTIuMzI4QzgzMi44ODMgMjg4Ljc3NyA4MzYuNjYzIDI4OC43NzcgODM4Ljk2OSAyOTIuMzI4Qzg0Mi41NjUgMjk3Ljg2NiA4NDguNDY2IDI5Ny44NjYgODUyLjA2MiAyOTIuMzI4Qzg1NC4zNjcgMjg4Ljc3NyA4NTguMTQ4IDI4OC43NzcgODYwLjQ1MyAyOTIuMzI4Qzg2NC4wNDkgMjk3Ljg2NiA4NjkuOTUxIDI5Ny44NjYgODczLjU0NyAyOTIuMzI4Qzg3NS44NTIgMjg4Ljc3NyA4NzkuNjMyIDI4OC43NzcgODgxLjkzOCAyOTIuMzI4Qzg4NS41MzQgMjk3Ljg2NiA4OTEuNDM1IDI5Ny44NjYgODk1LjAzMSAyOTIuMzI4Qzg5Ny4zMzcgMjg4Ljc3NyA5MDEuMTE3IDI4OC43NzcgOTAzLjQyMiAyOTIuMzI4QzkwNy4wMTggMjk3Ljg2NiA5MTIuOTIgMjk3Ljg2NiA5MTYuNTE2IDI5Mi4zMjhDOTE3LjE2MSAyOTEuMzM0IDkxNy4xNjEgMjg5LjYyOSA5MTYuNTE2IDI4OC42MzVDOTE1Ljg3IDI4Ny42NDEgOTE0Ljc2NCAyODcuNjQxIDkxNC4xMTggMjg4LjYzNUM5MTEuODEzIDI5Mi4xODYgOTA4LjAzMyAyOTIuMTg2IDkwNS43MjcgMjg4LjYzNUM5MDQuMDY4IDI4Ni4wNzkgOTAxLjc2MiAyODQuNTE3IDg5OS4yNzMgMjg0LjUxN1oiIGZpbGw9IiMwMTFGNDMiLz4KPC9nPgo8ZyBvcGFjaXR5PSIwLjciPgo8cGF0aCBkPSJNMTA2Ny45NiAxMjIuNzU0QzEwNjcuOTYgMTIwLjI2NSAxMDY2LjU0IDExNy45NiAxMDYzLjg1IDExNi4yMDhDMTA2MC4zIDExMy45MDIgMTA2MC4zIDExMC4xMjIgMTA2My44NSAxMDcuODE3QzEwNjkuMzggMTA0LjIyIDEwNjkuMzggOTguMzE5MSAxMDYzLjg1IDk0LjcyM0MxMDYwLjMgOTIuNDE3OCAxMDYwLjMgODguNjM3MiAxMDYzLjg1IDg2LjMzMkMxMDY5LjM4IDgyLjczNTkgMTA2OS4zOCA3Ni44MzQ2IDEwNjMuODUgNzMuMjM4NUMxMDYwLjMgNzAuOTMzMyAxMDYwLjMgNjcuMTUyNyAxMDYzLjg1IDY0Ljg0NzVDMTA2OS4zOCA2MS4yNTEzIDEwNjkuMzggNTUuMzUgMTA2My44NSA1MS43NTM5QzEwNjAuMyA0OS40NDg3IDEwNjAuMyA0NS42NjgxIDEwNjMuODUgNDMuMzYyOUMxMDY0Ljg0IDQyLjcxNzUgMTA2NC44NCA0MS42MTEgMTA2My44NSA0MC45NjU1QzEwNjIuODUgNDAuMzIwMSAxMDYxLjE1IDQwLjMyMDEgMTA2MC4xNSA0MC45NjU1QzEwNTQuNjIgNDQuNTYxNyAxMDU0LjYyIDUwLjQ2MyAxMDYwLjE1IDU0LjA1OTFDMTA2My43IDU2LjM2NDMgMTA2My43IDYwLjE0NDkgMTA2MC4xNSA2Mi40NTAxQzEwNTQuNjIgNjYuMDQ2MiAxMDU0LjYyIDcxLjk0NzYgMTA2MC4xNSA3NS41NDM3QzEwNjMuNyA3Ny44NDg5IDEwNjMuNyA4MS42Mjk0IDEwNjAuMTUgODMuOTM0NkMxMDU0LjYyIDg3LjUzMDcgMTA1NC42MiA5My40MzIxIDEwNjAuMTUgOTcuMDI4MkMxMDYzLjcgOTkuMzMzNCAxMDYzLjcgMTAzLjExNCAxMDYwLjE1IDEwNS40MTlDMTA1NC42MiAxMDkuMDE1IDEwNTQuNjIgMTE0LjkxNyAxMDYwLjE1IDExOC41MTNDMTA2My43IDEyMC44MTggMTA2My43IDEyNC41OTggMTA2MC4xNSAxMjYuOTA0QzEwNTQuNjIgMTMwLjUgMTA1NC42MiAxMzYuNDAxIDEwNjAuMTUgMTM5Ljk5N0MxMDYxLjE1IDE0MC42NDMgMTA2Mi44NSAxNDAuNjQzIDEwNjMuODUgMTM5Ljk5N0MxMDY0Ljg0IDEzOS4zNTIgMTA2NC44NCAxMzguMjQ1IDEwNjMuODUgMTM3LjZDMTA2MC4zIDEzNS4yOTUgMTA2MC4zIDEzMS41MTQgMTA2My44NSAxMjkuMjA5QzEwNjYuNCAxMjcuNTQ5IDEwNjcuOTYgMTI1LjI0NCAxMDY3Ljk2IDEyMi43NTRaIiBmaWxsPSIjMDExRjQzIi8+CjwvZz4KPGNpcmNsZSBvcGFjaXR5PSIwLjciIHI9IjEyIiB0cmFuc2Zvcm09Im1hdHJpeCgxIDAgMCAtMSA0MDcgMjk2LjQ4MSkiIGZpbGw9IiMwMTFGNDMiLz4KPGNpcmNsZSBvcGFjaXR5PSIwLjciIHI9IjEyIiB0cmFuc2Zvcm09Im1hdHJpeCgxIDAgMCAtMSAyNSAyNTQuNDgxKSIgZmlsbD0iIzAxMUY0MyIvPgo8Y2lyY2xlIG9wYWNpdHk9IjAuNyIgcj0iMTIiIHRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIC0xIDEyMzggMjY2LjQ4MSkiIGZpbGw9IiMwMTFGNDMiLz4KPGcgb3BhY2l0eT0iMC43Ij4KPHJlY3QgeD0iMjE4LjA3IiB5PSIxNDAuNDgxIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEyIiB0cmFuc2Zvcm09InJvdGF0ZSgyNSAyMTguMDcgMTQwLjQ4MSkiIGZpbGw9IiMwMTFGNDMiLz4KPHJlY3QgeD0iMjEzLjc5NiIgeT0iMTEzLjQ3NSIgd2lkdGg9Ijk3IiBoZWlnaHQ9IjkiIHRyYW5zZm9ybT0icm90YXRlKDI1IDIxMy43OTYgMTEzLjQ3NSkiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMyIvPgo8L2c+CjxnIG9wYWNpdHk9IjAuNyI+CjxwYXRoIGQ9Ik0zMzMuMjc5IDE5LjQ4ODNDMzM1Ljk1NCA0My4yMDU2IDM1NC4yNjcgNjEuODg1NiAzNzcuNTIgNjQuNjE0MkMzODAuODEyIDY1LjAzMzkgMzgzLjI4MSA2Ny43NjI1IDM4My4yODEgNzEuMTIwN1YxMDQuNDkzQzM4My4yODEgMTA4LjI3MSAzODAuMTk1IDExMS4yMDkgMzc2LjQ5MSAxMTAuOTk5QzM1Mi44MjcgMTA5LjMyIDMzMS42MzIgOTguODI1OSAzMTUuNzg4IDgyLjY2NDVDMjk5Ljk0MyA2Ni41MDMyIDI4OS42NTUgNDQuODg0NyAyODguMDA5IDIwLjc0NzZDMjg3LjgwMyAxNi45Njk2IDI5MC42ODQgMTMuODIxMyAyOTQuMzg4IDEzLjgyMTNIMzI2LjlDMzMwLjE5MiAxMy44MjEzIDMzMi44NjcgMTYuMzQgMzMzLjI3OSAxOS40ODgzWiIgZmlsbD0iI0ZGRTNCRSIvPgo8cGF0aCBkPSJNMzk1LjEyMSA1Ny43ODA4QzM5NS4xMjEgNTUuMTk1OSAzOTMuMjMyIDUzLjA5MjQgMzkwLjY3NyA1Mi43NjMyQzM2Ni43MjEgNDkuOTQ4MyAzNDcuODg2IDMwLjcxMTggMzQ1LjEyOSA2LjMzMDU4QzM0NC44MDUgMy44OTYgMzQyLjczNiAxLjk4MTQ1IDM0MC4yMzkgMS45ODE0NUgzMDcuNzI3QzMwNC45MyAxLjk4MTQ1IDMwMi42OSA0LjM1ODcxIDMwMi44NDYgNy4zMTY2OUMzMDQuNDY5IDMxLjA4MDUgMzE0LjU5OCA1Mi4zNjIgMzMwLjE5OSA2OC4yNzQ2QzM0NS43OTkgODQuMTg2OCAzNjYuNjUyIDk0LjUwODMgMzg5LjkyNiA5Ni4xNjI1QzM5Mi43NDcgOTYuMzE2OCAzOTUuMTIxIDk0LjA4MzEgMzk1LjEyMSA5MS4xNTNWNTcuNzgwOFoiIHN0cm9rZT0iIzAxMUY0MyIgc3Ryb2tlLXdpZHRoPSIzIi8+CjwvZz4KPGcgb3BhY2l0eT0iMC43Ij4KPHBhdGggZD0iTTkxMS41MTQgMTkuNDg4M0M5MDguODM5IDQzLjIwNTYgODkwLjUyNiA2MS44ODU2IDg2Ny4yNzMgNjQuNjE0MkM4NjMuOTgxIDY1LjAzMzkgODYxLjUxMiA2Ny43NjI1IDg2MS41MTIgNzEuMTIwN1YxMDQuNDkzQzg2MS41MTIgMTA4LjI3MSA4NjQuNTk4IDExMS4yMDkgODY4LjMwMiAxMTAuOTk5Qzg5MS45NjYgMTA5LjMyIDkxMy4xNjEgOTguODI1OSA5MjkuMDA1IDgyLjY2NDVDOTQ0Ljg1IDY2LjUwMzIgOTU1LjEzOCA0NC44ODQ3IDk1Ni43ODQgMjAuNzQ3NkM5NTYuOTkgMTYuOTY5NiA5NTQuMTA5IDEzLjgyMTMgOTUwLjQwNSAxMy44MjEzSDkxNy44OTNDOTE0LjYwMSAxMy44MjEzIDkxMS45MjYgMTYuMzQgOTExLjUxNCAxOS40ODgzWiIgZmlsbD0iI0ZGRTNCRSIvPgo8cGF0aCBkPSJNODQ5LjY3MiA1Ny43ODA4Qzg0OS42NzIgNTUuMTk1OSA4NTEuNTYxIDUzLjA5MjQgODU0LjExNiA1Mi43NjMyQzg3OC4wNzIgNDkuOTQ4MyA4OTYuOTA3IDMwLjcxMTggODk5LjY2NCA2LjMzMDU4Qzg5OS45ODggMy44OTYgOTAyLjA1NyAxLjk4MTQ1IDkwNC41NTQgMS45ODE0NUg5MzcuMDY2QzkzOS44NjMgMS45ODE0NSA5NDIuMTAzIDQuMzU4NzEgOTQxLjk0NyA3LjMxNjY5Qzk0MC4zMjQgMzEuMDgwNSA5MzAuMTk1IDUyLjM2MiA5MTQuNTk0IDY4LjI3NDZDODk4Ljk5NCA4NC4xODY4IDg3OC4xNDEgOTQuNTA4MyA4NTQuODY3IDk2LjE2MjVDODUyLjA0NiA5Ni4zMTY4IDg0OS42NzIgOTQuMDgzMSA4NDkuNjcyIDkxLjE1M1Y1Ny43ODA4WiIgc3Ryb2tlPSIjMDExRjQzIiBzdHJva2Utd2lkdGg9IjMiLz4KPC9nPgo8ZyBvcGFjaXR5PSIwLjciPgo8cGF0aCBkPSJNNTkwIDc4LjkxODJWMTE1LjQ3M0M1OTAgMTIyLjEwMSA1OTguOTA5IDEyNC41MTIgNjAyLjE0OSAxMTguODg4QzYxMC42NTIgMTA0LjQyNiA2MjMuMDAzIDkyLjc3NyA2MzcuOTg2IDg0Ljc0MjlDNjQ0LjA2IDgxLjUyOTMgNjQxLjYzMSA3Mi40OTA5IDYzNC43NDcgNzIuNDkwOUg1OTYuNDc5QzU5Mi44MzUgNzIuMjkwMSA1OTAgNzUuMzAyOSA1OTAgNzguOTE4MloiIGZpbGw9IiNFRUFGMDIiLz4KPHBhdGggZD0iTTYxNC4xODkgMTMxLjQ3OUw2MTQuMTg5IDEzMS40NzlMNjE0LjE5NSAxMzEuNDY3QzYyMi44NDUgMTE2Ljc1OCA2MzUuNDAyIDEwNC45MTkgNjUwLjYxNyA5Ni43NjA4TDY1MC42MTcgOTYuNzYwOEw2NTAuNjI0IDk2Ljc1NjlDNjU1LjE5MiA5NC4zNDA0IDY1My41NDcgODcuMzMwOCA2NDguMDg2IDg3LjMzMDhINjA5LjgxOUg2MDkuNzc4TDYwOS43MzcgODcuMzI4NUM2MDcuMDUgODcuMTgwNCA2MDQuODQgODkuNDAyMyA2MDQuODQgOTIuMjU4MVYxMjguODEzQzYwNC44NCAxMzMuOTcyIDYxMS43NDkgMTM1LjcxNSA2MTQuMTg5IDEzMS40NzlaIiBzdHJva2U9IiMwMTFGNDMiIHN0cm9rZS13aWR0aD0iMyIvPgo8L2c+CjxnIG9wYWNpdHk9IjAuNyI+CjxwYXRoIGQ9Ik02LjYwODA0IDE0NS43NDZINDYuODI2NEM1MC41MDEyIDE0NS43NDYgNTMuMzU5NCAxNDIuNzQgNTMuMzU5NCAxMzguODc1Vjk3LjQzNDZDNTMuMzU5NCA5My4xNDAyIDUwLjA5MjkgODkuOTE5NSA0Ni4wMDk4IDkwLjU2MzdDMjEuNzE1NSA5My43ODQ0IDMuMzQxNTggMTEzLjMyNCAwLjA3NTEwMzggMTM4LjAxNkMtMC41MzczNTcgMTQyLjA5NSAyLjcyOTExIDE0NS43NDYgNi42MDgwNCAxNDUuNzQ2WiIgZmlsbD0iIzJBNTE3RSIvPgo8cGF0aCBkPSJNNTkuNTgzNCAxMDUuMzg1TDU5LjU2NTEgMTA1LjM4OEw1OS41NDY4IDEwNS4zOUMzNS45NzQ2IDEwOC41MTUgMTguMDg2MyAxMjcuNDgxIDE0LjkwMiAxNTEuNTUyTDE0LjkwMDMgMTUxLjU2NUwxNC44OTgzIDE1MS41NzhDMTQuNDIyIDE1NC43NTEgMTYuOTg2IDE1Ny41ODUgMTkuOTQ3OSAxNTcuNTg1SDYwLjE2NjNDNjIuOTQyMiAxNTcuNTg1IDY1LjE5OTIgMTU1LjMyMyA2NS4xOTkyIDE1Mi4yMTVWMTEwLjc3NEM2NS4xOTkyIDEwNy4yMzUgNjIuNTk4OSAxMDQuOTA5IDU5LjU4MzQgMTA1LjM4NVoiIHN0cm9rZT0iIzAxMUY0MyIgc3Ryb2tlLXdpZHRoPSIzIi8+CjwvZz4KPGcgb3BhY2l0eT0iMC43Ij4KPHBhdGggZD0iTTEyMzguMTggMTQ1Ljc0NkgxMTk3Ljk3QzExOTQuMjkgMTQ1Ljc0NiAxMTkxLjQzIDE0Mi43NCAxMTkxLjQzIDEzOC44NzVWOTcuNDM0NkMxMTkxLjQzIDkzLjE0MDIgMTE5NC43IDg5LjkxOTUgMTE5OC43OCA5MC41NjM3QzEyMjMuMDggOTMuNzg0NCAxMjQxLjQ1IDExMy4zMjQgMTI0NC43MiAxMzguMDE2QzEyNDUuMzMgMTQyLjA5NSAxMjQyLjA2IDE0NS43NDYgMTIzOC4xOCAxNDUuNzQ2WiIgZmlsbD0iIzJBNTE3RSIvPgo8cGF0aCBkPSJNMTE4NS4yMSAxMDUuMzg1TDExODUuMjMgMTA1LjM4OEwxMTg1LjI1IDEwNS4zOUMxMjA4LjgyIDEwOC41MTUgMTIyNi43MSAxMjcuNDgxIDEyMjkuODkgMTUxLjU1MkwxMjI5Ljg5IDE1MS41NjVMMTIyOS44OSAxNTEuNTc4QzEyMzAuMzcgMTU0Ljc1MSAxMjI3LjgxIDE1Ny41ODUgMTIyNC44NSAxNTcuNTg1SDExODQuNjNDMTE4MS44NSAxNTcuNTg1IDExNzkuNTkgMTU1LjMyMyAxMTc5LjU5IDE1Mi4yMTVWMTEwLjc3NEMxMTc5LjU5IDEwNy4yMzUgMTE4Mi4xOSAxMDQuOTA5IDExODUuMjEgMTA1LjM4NVoiIHN0cm9rZT0iIzAxMUY0MyIgc3Ryb2tlLXdpZHRoPSIzIi8+CjwvZz4KPGcgb3BhY2l0eT0iMC43Ij4KPHBhdGggZD0iTTIyNS44MTkgMjg5LjgwMkgyNTAuOTU1QzI1My45NzcgMjg5LjgwMiAyNTYuODQxIDI4Ny40MjUgMjU2LjUyMyAyODQuNDE0QzI1My4zNDEgMjQ2LjA2NSAyMjAuNTY5IDIxNS40ODEgMTgxLjExNiAyMTUuNDgxQzE0MS42NjMgMjE1LjQ4MSAxMDkuMjEgMjQ1Ljc0OSAxMDYuMDI4IDI4NC4yNTZDMTA1LjcxIDI4Ny4yNjcgMTA4LjA5NiAyODkuODAyIDExMS4xMTkgMjg5LjgwMkgxMzYuMDk1QzEzOC42NDEgMjg5LjgwMiAxNDEuMTg2IDI4OC4yMTggMTQxLjUwNCAyODUuNTI0QzE0NC42ODYgMjY3LjYxNyAxNjEuODY3IDI1MS43NyAxODIuMjMgMjUxLjc3QzE5OS41NyAyNTEuNzcgMjE4LjE4MyAyNjUuNzE1IDIyMC43MjkgMjg1LjM2NUMyMjEuMDQ3IDI4Ny45MDEgMjIzLjI3NCAyODkuODAyIDIyNS44MTkgMjg5LjgwMloiIGZpbGw9IiNFQzQyMzYiLz4KPHBhdGggZD0iTTIyNy43MjUgMjg5LjgwMkgyNTIuODYxQzI1NS44ODQgMjg5LjgwMiAyNTguNzQ3IDI4Ny40MjUgMjU4LjQyOSAyODQuNDE0QzI1NS4yNDcgMjQ2LjA2NSAyMjIuNDc2IDIxNS40ODEgMTgzLjAyMyAyMTUuNDgxQzE0My41NyAyMTUuNDgxIDExMS4xMTYgMjQ1Ljc0OSAxMDcuOTM0IDI4NC4yNTZDMTA3LjYxNiAyODcuMjY3IDExMC4wMDMgMjg5LjgwMiAxMTMuMDI1IDI4OS44MDJIMTM4LjAwMkMxNDAuNTQ3IDI4OS44MDIgMTQzLjA5MiAyODguMjE4IDE0My40MSAyODUuNTI0QzE0Ni41OTIgMjY3LjYxNyAxNjMuNzczIDI1MS43NyAxODQuMTM2IDI1MS43N0MyMDEuNDc2IDI1MS43NyAyMjAuMDg5IDI2NS43MTUgMjIyLjYzNSAyODUuMzY1QzIyMi45NTMgMjg3LjkwMSAyMjUuMTggMjg5LjgwMiAyMjcuNzI1IDI4OS44MDJaIiBmaWxsPSIjRUM0MjM2Ii8+CjxwYXRoIGQ9Ik0yNTYuOTM0IDMwMy41OTVMMjU2LjkzNyAzMDMuNjI5QzI1Ny4wMzggMzA0LjU4NCAyNTYuNjQ4IDMwNS40ODQgMjU1Ljg4MiAzMDYuMTkxQzI1NS4xMDIgMzA2LjkwOCAyNTMuOTkzIDMwNy4zNTkgMjUyLjg2MSAzMDcuMzU5SDIyNy43MjVDMjI1LjkxMiAzMDcuMzU5IDIyNC4zNDQgMzA1Ljk5NiAyMjQuMTIzIDMwNC4yMzVMMjI0LjEyMiAzMDQuMjI5QzIyMS40NzEgMjgzLjc2MiAyMDIuMTU4IDI2OS4zMjcgMTg0LjEzNiAyNjkuMzI3QzE2My4wMTggMjY5LjMyNyAxNDUuMjM4IDI4NS43MjMgMTQxLjkzNCAzMDQuMzE4TDE0MS45MjEgMzA0LjQwNEMxNDEuNzE5IDMwNi4xMTMgMTQwLjA0MyAzMDcuMzU5IDEzOC4wMDIgMzA3LjM1OUgxMTMuMDI1QzExMC44NTIgMzA3LjM1OSAxMDkuMjA2IDMwNS41NTQgMTA5LjQyNiAzMDMuNDdMMTA5LjQyOSAzMDMuNDM2QzExMi41NDcgMjY1LjcwNiAxNDQuMzUgMjM2LjAzOCAxODMuMDIzIDIzNi4wMzhDMjIxLjY5NiAyMzYuMDM4IDI1My44MTcgMjY2LjAyNSAyNTYuOTM0IDMwMy41OTVaIiBzdHJva2U9IiMwMTFGNDMiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49ImJldmVsIi8+CjwvZz4KPGcgb3BhY2l0eT0iMC43Ij4KPHBhdGggZD0iTTEwMTguOTcgMjg5LjgwMkg5OTMuODM4Qzk5MC44MTYgMjg5LjgwMiA5ODcuOTUyIDI4Ny40MjUgOTg4LjI3IDI4NC40MTRDOTkxLjQ1MiAyNDYuMDY1IDEwMjQuMjIgMjE1LjQ4MSAxMDYzLjY4IDIxNS40ODFDMTEwMy4xMyAyMTUuNDgxIDExMzUuNTggMjQ1Ljc0OSAxMTM4Ljc2IDI4NC4yNTZDMTEzOS4wOCAyODcuMjY3IDExMzYuNyAyODkuODAyIDExMzMuNjcgMjg5LjgwMkgxMTA4LjdDMTEwNi4xNSAyODkuODAyIDExMDMuNjEgMjg4LjIxOCAxMTAzLjI5IDI4NS41MjRDMTEwMC4xMSAyNjcuNjE3IDEwODIuOTMgMjUxLjc3IDEwNjIuNTYgMjUxLjc3QzEwNDUuMjIgMjUxLjc3IDEwMjYuNjEgMjY1LjcxNSAxMDI0LjA2IDI4NS4zNjVDMTAyMy43NSAyODcuOTAxIDEwMjEuNTIgMjg5LjgwMiAxMDE4Ljk3IDI4OS44MDJaIiBmaWxsPSIjRUM0MjM2Ii8+CjxwYXRoIGQ9Ik0xMDE3LjA3IDI4OS44MDJIOTkxLjkzMkM5ODguOTA5IDI4OS44MDIgOTg2LjA0NiAyODcuNDI1IDk4Ni4zNjQgMjg0LjQxNEM5ODkuNTQ2IDI0Ni4wNjUgMTAyMi4zMiAyMTUuNDgxIDEwNjEuNzcgMjE1LjQ4MUMxMTAxLjIyIDIxNS40ODEgMTEzMy42OCAyNDUuNzQ5IDExMzYuODYgMjg0LjI1NkMxMTM3LjE4IDI4Ny4yNjcgMTEzNC43OSAyODkuODAyIDExMzEuNzcgMjg5LjgwMkgxMTA2Ljc5QzExMDQuMjUgMjg5LjgwMiAxMTAxLjcgMjg4LjIxOCAxMTAxLjM4IDI4NS41MjRDMTA5OC4yIDI2Ny42MTcgMTA4MS4wMiAyNTEuNzcgMTA2MC42NiAyNTEuNzdDMTA0My4zMiAyNTEuNzcgMTAyNC43IDI2NS43MTUgMTAyMi4xNiAyODUuMzY1QzEwMjEuODQgMjg3LjkwMSAxMDE5LjYxIDI4OS44MDIgMTAxNy4wNyAyODkuODAyWiIgZmlsbD0iI0VDNDIzNiIvPgo8cGF0aCBkPSJNOTg3Ljg1OSAzMDMuNTk1TDk4Ny44NTYgMzAzLjYyOUM5ODcuNzU1IDMwNC41ODQgOTg4LjE0NSAzMDUuNDg0IDk4OC45MTEgMzA2LjE5MUM5ODkuNjkxIDMwNi45MDggOTkwLjggMzA3LjM1OSA5OTEuOTMyIDMwNy4zNTlIMTAxNy4wN0MxMDE4Ljg4IDMwNy4zNTkgMTAyMC40NSAzMDUuOTk2IDEwMjAuNjcgMzA0LjIzNUwxMDIwLjY3IDMwNC4yMjlDMTAyMy4zMiAyODMuNzYyIDEwNDIuNjQgMjY5LjMyNyAxMDYwLjY2IDI2OS4zMjdDMTA4MS43NyAyNjkuMzI3IDEwOTkuNTYgMjg1LjcyMyAxMTAyLjg2IDMwNC4zMThMMTEwMi44NyAzMDQuNDA0QzExMDMuMDcgMzA2LjExMyAxMTA0Ljc1IDMwNy4zNTkgMTEwNi43OSAzMDcuMzU5SDExMzEuNzdDMTEzMy45NCAzMDcuMzU5IDExMzUuNTkgMzA1LjU1NCAxMTM1LjM3IDMwMy40N0wxMTM1LjM2IDMwMy40MzZDMTEzMi4yNSAyNjUuNzA2IDExMDAuNDQgMjM2LjAzOCAxMDYxLjc3IDIzNi4wMzhDMTAyMy4xIDIzNi4wMzggOTkwLjk3NiAyNjYuMDI1IDk4Ny44NTkgMzAzLjU5NVoiIHN0cm9rZT0iIzAxMUY0MyIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiLz4KPC9nPgo8L3N2Zz4K);">
                 <div class="container py-6 py-lg-7 text-white overlay-content text-center">
                     <div class="row">
                         <div class="col-xl-10 mx-auto">
-                            <h1 class="display-3 font-weight-bold text-shadow">Discover Directory</h1>
-                            <p class="text-lg text-shadow">Uncover the best places to eat, drink, and shop nearest to you.</p>
+                            <h1 class="display-4 font-weight-bold text-shadow">{{ 'home.header.title'|trans|raw }}</h1>
+                            <p class="text-lg text-shadow">{{ 'home.header.description'|trans|raw }}</p>
                         </div>
                     </div>
                 </div>
@@ -26,11 +27,11 @@
                 <div class="container">
                     <div class="row mb-lg-6">
                         <div class="col-md-8">
-                            <p class="subtitle text-secondary">Find your home today</p>
-                            <h2 class="mb-md-0">Featured listings around you</h2>
+                            <p class="subtitle text-secondary">{{ 'home.find_your_best_service_today'|trans|raw }}</p>
+                            <h2 class="mb-md-0">{{ 'home.featured_listings_around_you'|trans|raw }}</h2>
                         </div>
                         <div class="col-md-4 d-md-flex align-items-center justify-content-end"><a class="text-muted text-sm" href="category-rooms.html">
-                                See all featured listings<i class="fas fa-angle-double-right ml-2"></i></a></div>
+                                {{ 'home.see_all_featured_listings'|trans|raw }}<i class="fas fa-angle-double-right ml-2"></i></a></div>
                     </div>
                 </div>
                 <div class="container-fluid">
@@ -44,19 +45,19 @@
             <section class="py-6 bg-gray-100">
                 <div class="container">
                     <div class="pb-lg-4">
-                        <p class="subtitle text-secondary">Почему мы?</p>
-                        <h2 class="mb-5">Откройте для себя лучшие условия бурового сервиса вокруг вас</h2>
+                        <p class="subtitle text-secondary">{{ 'home.why_us'|trans|raw }}</p>
+                        <h2 class="mb-5">{{ 'home.count_companies_hundreds_customers_day'|trans({ '%count%': 1505 }) | raw }}</h2>
                     </div>
                     <div class="row">
                         <div class="col-sm-6 col-lg-4 mb-3 mb-lg-0">
                             <div class="px-0 pr-lg-4">
                                 <div class="icon-rounded mb-3 bg-primary-light">
                                     <svg class="svg-icon w-2rem h-2rem text-primary">
-                                        <use xlink:href="#destination-map-1"> </use>
+                                        <use xlink:href="#pay-1"> </use>
                                     </svg>
                                 </div>
-                                <h3 class="h6 text-uppercase">Find the best investment area</h3>
-                                <p class="text-muted text-sm">One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed in</p>
+                                <h3 class="h6 text-uppercase">Порівнюєте ціни</h3>
+                                {#                                <p class="text-muted text-sm">His room, a proper human room although a little too small, lay peacefully between its four familiar </p>#}
                             </div>
                         </div>
                         <div class="col-sm-6 col-lg-4 mb-3 mb-lg-0">
@@ -66,19 +67,19 @@
                                         <use xlink:href="#real-estate-1"> </use>
                                     </svg>
                                 </div>
-                                <h3 class="h6 text-uppercase">Purchase a property</h3>
-                                <p class="text-muted text-sm">The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pit</p>
+                                <h3 class="h6 text-uppercase">Вибираєте компанії</h3>
+{#                                <p class="text-muted text-sm">The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pit</p>#}
                             </div>
                         </div>
                         <div class="col-sm-6 col-lg-4 mb-3 mb-lg-0">
                             <div class="px-0 pr-lg-4">
                                 <div class="icon-rounded mb-3 bg-primary-light">
                                     <svg class="svg-icon w-2rem h-2rem text-primary">
-                                        <use xlink:href="#pay-1"> </use>
+                                        <use xlink:href="#destination-map-1"> </use>
                                     </svg>
                                 </div>
-                                <h3 class="h6 text-uppercase">Profit</h3>
-                                <p class="text-muted text-sm">His room, a proper human room although a little too small, lay peacefully between its four familiar </p>
+                                <h3 class="h6 text-uppercase">Створюєте заявку</h3>
+                                {#                                <p class="text-muted text-sm">One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed in</p>#}
                             </div>
                         </div>
                     </div>
@@ -89,14 +90,14 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6 mb-5 mb-lg-0 text-center text-lg-left">
-                            <p class="subtitle text-secondary">Start using Directory today</p>
-                            <p class="text-lg">Directory is the best way to find &amp; discover great local businesses</p>
-                            <p class="text-muted mb-0">One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed in</p>
+                            <p class="subtitle text-secondary">{{ 'home.start_using_directory_today'|trans|raw }}</p>
+                            <p class="text-lg">{{ 'home.directory_short_description_promote'|trans|raw }}</p>
+{#                            <p class="text-muted mb-0">One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed in</p>#}
                         </div>
                         <div class="col-lg-6 d-flex align-items-center justify-content-center">
                             <div class="text-center">
-                                <p class="mb-2"><a class="btn btn-lg btn-primary" href="#">Create Your Account</a></p>
-                                <p class="text-muted text-small">It's free!</p>
+                                <p class="mb-2"><a class="btn btn-lg btn-primary" href="#">{{ 'home.create_your_account'|trans|raw }}</a></p>
+{#                                <p class="text-muted text-small">It's free!</p>#}
                             </div>
                         </div>
                     </div>

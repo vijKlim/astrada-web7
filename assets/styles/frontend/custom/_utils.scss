@@ -278,6 +278,7 @@ $value in $theme-colors {
 
 .light-overlay,
 .dark-overlay,
+.blue-overlay,
 .gradient-overlay {
     position: relative;
     overflow: hidden;
@@ -297,6 +298,12 @@ $value in $theme-colors {
         opacity: .3;
         background: #000;
     }
+}
+.blue-overlay {
+  &::after {
+    opacity: .3;
+    background: #4E66F8;
+  }
 }
 
 .light-overlay {
