@@ -18,6 +18,12 @@
             {{ form_widget(form.listing.description, {'attr': { 'class': 'form-control', 'rows': 5}}) }}
         </div>
 
+        <div class="form-group  mb-5">
+            <label class="form-label" >{{ form_label(form.listing.telephone) }}</label>
+            {{ form_errors(form.listing.telephone) }}
+            {{ form_widget(form.listing.telephone, {'attr': { 'class': 'form-control', 'type':'tel'}}) }}
+        </div>
+
     </div>
 </div>
 
@@ -27,21 +33,112 @@
         <p class="text-muted text-sm">Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out</p>
     </div>
     <div class="col-lg-7 ml-auto">
-
-
         {{ form_row(form.listing.address) }}
+
+        <div class="map-wrapper-300 mb-3">
+            <div class="h-100" id="map"></div>
+        </div>
 
     </div>
 </div>
 
-{#<div id="listing-form-data"#}
-{#     data-action-url="{{ oneup_uploader_endpoint('listing') }}"#}
-{#     data-listing-id="{{ listing.id }}"></div>#}
+<div class="row form-block">
+    <div class="col-lg-4">
+        <h4>Характеристики</h4>
+        <p class="text-muted text-sm">Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out</p>
+    </div>
+    <div class="col-lg-7 ml-auto">
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group mb-5">
+                    <label class="form-label" >{{ form_label(form.listing.welldesign.drillingKit) }}</label>
+                    {{ form_errors(form.listing.welldesign.drillingKit) }}
+                    {{ form_widget(form.listing.welldesign.drillingKit, {'attr': { 'class': 'form-control', 'rows': 5}}) }}
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group mb-5">
+                    <label class="form-label" >{{ form_label(form.listing.welldesign.pipeDiameter) }}</label>
+                    {{ form_errors(form.listing.welldesign.pipeDiameter) }}
+                    {{ form_widget(form.listing.welldesign.pipeDiameter, {'attr': { 'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <label class="form-label" >Глубина скважины</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group mb-5">
+                    <label class="form-label" >{{ form_label(form.listing.welldesign.depthFrom) }}</label>
+                    {{ form_errors(form.listing.welldesign.depthFrom) }}
+                    {{ form_widget(form.listing.welldesign.depthFrom, {'attr': { 'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group mb-5">
+                    <label class="form-label" >{{ form_label(form.listing.welldesign.depthTo) }}</label>
+                    {{ form_errors(form.listing.welldesign.depthTo) }}
+                    {{ form_widget(form.listing.welldesign.depthTo, {'attr': { 'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="row form-block">
+    <div class="col-lg-4">
+        <h4>Цены</h4>
+        <p class="text-muted text-sm">Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out</p>
+    </div>
+    <div class="col-lg-7 ml-auto">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group mb-5">
+                    <label class="form-label" >{{ form_label(form.listing.welldesign.wellCost) }}</label>
+                    {{ form_errors(form.listing.welldesign.wellCost) }}
+                    {{ form_widget(form.listing.welldesign.wellCost, {'attr': { 'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group mb-5">
+                    <label class="form-label" >{{ form_label(form.listing.welldesign.transportationCost) }}</label>
+                    {{ form_errors(form.listing.welldesign.transportationCost) }}
+                    {{ form_widget(form.listing.welldesign.transportationCost, {'attr': { 'class': 'form-control'}}) }}
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+{% set listing_images = [] %}
+
+
+<div id="listing-form-data"
+     data-action-url="{{ oneup_uploader_endpoint('listing') }}"
+     data-listing-id="0"
+     data-listing-images="{{ listing_images|json_encode|e('html_attr') }}"></div>
+
+
 
 {% block styles %}
+    {{ encore_entry_link_tags('frontend-map-category') }}
     {{ encore_entry_link_tags('frontend-listing-form') }}
 {% endblock %}
 
 {% block scripts %}
+
     {{ encore_entry_script_tags('frontend-listing-form') }}
 {% endblock %}

@@ -24,6 +24,18 @@
     {{ form_row(form.longitude) }}
 {% endblock %}
 
+{#{% block _createListing_listing_address_widget %}#}
+{#    <div class="form-group" id="{{ form.vars.id }}">#}
+{#        <label class="form-label" for="guests">{{ form_label(form.streetAddress) }}</label>#}
+{#        {{ form_errors(form.streetAddress) }}#}
+{#        {{ form_widget(form.streetAddress, {'attr': { 'class': 'form-control'}}) }}#}
+{#    </div>#}
+{#    {{ form_row(form.postalCode) }}#}
+{#    {{ form_row(form.addressLocality) }}#}
+{#    {{ form_row(form.latitude) }}#}
+{#    {{ form_row(form.longitude) }}#}
+{#{% endblock %}#}
+
 {% block _createListing_listing_address_widget %}
 
     <div id="{{ form.vars.id }}">
@@ -34,7 +46,10 @@
         {{ form_widget(form.newAddress.streetAddress, { attr: { 'class': (isNewAddress ? '' : 'd-none') } }) }}
 
         {% if form.rememberAddress is defined %}
-            {{ form_widget(form.rememberAddress) }}
+            <div class="checkbox">
+                {{ form_widget(form.rememberAddress) }}
+            </div>
+
         {% endif %}
 
         {{ form_widget(form.newAddress.postalCode, { attr: { 'data-address-prop': 'postalCode' } }) }}
@@ -42,8 +57,13 @@
         {{ form_widget(form.newAddress.latitude, { attr: { 'data-address-prop': 'latitude' } }) }}
         {{ form_widget(form.newAddress.longitude, { attr: { 'data-address-prop': 'longitude' } }) }}
 
-        {{ form_widget(form.isNewAddress, { attr: { 'class': 'd-none' } }) }}
+        <div class="checkbox">
+            {{ form_widget(form.isNewAddress, { attr: { 'class': 'd-none' } }) }}
+        </div>
+
 
     </div>
 {% endblock %}
+
+
 

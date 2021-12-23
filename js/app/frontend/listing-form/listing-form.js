@@ -1,5 +1,5 @@
 import { createStore } from 'redux'
-import AddressBook from '../../listing/AddressBook'
+import AddressBook from '../components/AddressBook'
 
 let store
 
@@ -124,7 +124,6 @@ class ListingForm {
 export default function(name,subname, options) {
 
     const el = document.querySelector(`form[name="${name}"]`)
-    console.log(el, `form[name="${name}"]`)
 
     const form = new ListingForm()
 
@@ -209,6 +208,9 @@ export default function(name,subname, options) {
             }, 350))
         }
     }
+
+
+
 
     return form
 }

@@ -28,6 +28,16 @@ class ListingSimplerType extends ListingType
 //                'label' => false,
 //            ]);
 
+
+
+        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) use ($options) {
+            $form = $event->getForm();
+
+            $form
+                ->remove('status');
+
+        });
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

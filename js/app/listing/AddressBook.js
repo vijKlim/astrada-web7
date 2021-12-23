@@ -117,15 +117,15 @@ export default function(el, options) {
           existingAddressControlHidden.value = address['@id']
           isNewAddressControlHidden.remove()
         } else {
-          newAddressControlHidden.value = address.streetAddress
-          el.querySelector('[data-address-prop="postalCode"]').value = address.postalCode
-          el.querySelector('[data-address-prop="addressLocality"]').value = address.addressLocality
-          el.querySelector('[data-address-prop="latitude"]').value = address.latitude
-          el.querySelector('[data-address-prop="longitude"]').value = address.longitude
-
-          if (!document.documentElement.contains(isNewAddressControlHidden)) {
-            el.appendChild(isNewAddressControlHidden)
-          }
+          // newAddressControlHidden.value = address.streetAddress
+          // el.querySelector('[data-address-prop="postalCode"]').value = address.postalCode
+          // el.querySelector('[data-address-prop="addressLocality"]').value = address.addressLocality
+          // el.querySelector('[data-address-prop="latitude"]').value = address.latitude
+          // el.querySelector('[data-address-prop="longitude"]').value = address.longitude
+          //
+          // if (!document.documentElement.contains(isNewAddressControlHidden)) {
+          //   el.appendChild(isNewAddressControlHidden)
+          // }
         }
 
         if (options.onChange && typeof options.onChange === 'function') {

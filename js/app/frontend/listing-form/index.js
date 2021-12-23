@@ -14,7 +14,7 @@ import {openEditor} from "../../product/image-editor";
 
 let map
 let form
-
+let pricePreview
 
 let markers = {
     listing: null,
@@ -25,7 +25,7 @@ const markerIcons = {
 }
 
 function createMarker(location, addressType) {
-
+    console.log('CREATE MARKER')
     if (!map) {
         return
     }
@@ -60,59 +60,84 @@ function removeMarker(addressType) {
     MapHelper.fitToLayers(map, _.filter(markers))
 }
 
-if (document.getElementById('map')) {
-    map = MapHelper.init('map')
-}
 
-form = new ListingForm('createListing','_listing', {
-    onReady: function(listing) {
 
-        if (listing.address) {
-            createMarker({
-                latitude: listing.address.geo.latitude,
-                longitude: listing.address.geo.longitude
-            }, 'listing')
-        }
-    },
-    onChange: function(listing) {
 
-        if (listing.address) {
-            createMarker({
-                latitude: listing.address.geo.latitude,
-                longitude: listing.address.geo.longitude
-            }, 'listing')
-        }else{
-            removeMarker('listing')
-        }
 
+$(function() {
+
+    if (document.getElementById('map')) {
+        map = MapHelper.init('map')
     }
+
+    form = new ListingForm('createListing','_listing', {
+        onReady: function(listing) {
+
+            if (listing.address) {
+                createMarker({
+                    latitude: listing.address.geo.latitude,
+                    longitude: listing.address.geo.longitude
+                }, 'listing')
+            }
+        },
+        onChange: function(listing) {
+
+            if (listing.address) {
+                createMarker({
+                    latitude: listing.address.geo.latitude,
+                    longitude: listing.address.geo.longitude
+                }, 'listing')
+            }else{
+                removeMarker('listing')
+            }
+
+            this.disable()
+
+            const updatePrice = new Promise((resolve) => {
+                if (listing && pricePreview) {
+
+                    const listingAsPayload = {
+                        ...listing
+                    }
+
+                    pricePreview.update(listingAsPayload).then(() => resolve())
+                } else {
+                    resolve()
+                }
+            })
+
+            Promise.all([
+                updatePrice,
+            ])
+                .then(() => {
+                    form.enable()
+                })
+                // eslint-disable-next-line no-console
+                .catch(e => console.error(e))
+        }
+    })
+
+    const formData = document.querySelector('#listing-form-data')
+
+    $('#listing_imageFile_delete').closest('.form-group').remove()
+
+    const $formGroup = $('#listing_imageFile_file').closest('.form-group')
+
+    $formGroup.empty()
+
+    new DropzoneWidget($formGroup, {
+        dropzone: {
+            url: formData.dataset.actionUrl,
+            params: {
+                type: 'listing',
+                id: formData.dataset.listingId
+            }
+        },
+        image: formData.dataset.listingImage,
+        size: [ 512, 512 ]
+    })
+
 })
-
-
-
-// $(function() {
-//
-//     const formData = document.querySelector('#listing-form-data')
-//
-//     $('#listing_imageFile_delete').closest('.form-group').remove()
-//
-//     const $formGroup = $('#listing_imageFile_file').closest('.form-group')
-//
-//     $formGroup.empty()
-//
-//     new DropzoneWidget($formGroup, {
-//         dropzone: {
-//             url: formData.dataset.actionUrl,
-//             params: {
-//                 type: 'listing',
-//                 id: formData.dataset.listingId
-//             }
-//         },
-//         image: formData.dataset.listingImage,
-//         size: [ 512, 512 ]
-//     })
-//
-// })
 
 
 const SET_IMAGES = '@listing/SET_IMAGES'

@@ -62,6 +62,7 @@ class CreateListingForm extends AbstractType
             case 3:
                 $listingForm = $builder->create('listing', ListingSimplerType::class, [
                     'data_class' => Listing::class,
+                    'with_remember_address' => true,
                 ]);
 
                 $builder->add($listingForm);

@@ -441,7 +441,7 @@ class AddressAutosuggest extends Component {
     this.setState({ value: '' })
 
     if (this.props.reportValidity) {
-      this.autosuggest.input.setCustomValidity('')
+      //this.autosuggest.input.setCustomValidity('')
     }
   }
 
@@ -452,7 +452,7 @@ class AddressAutosuggest extends Component {
     })
 
     if (this.props.reportValidity) {
-      this.autosuggest.input.setCustomValidity('')
+      //this.autosuggest.input.setCustomValidity('')
     }
   }
 
