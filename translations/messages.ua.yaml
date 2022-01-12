@@ -8,7 +8,7 @@ global.services: Послуги
 home.header.title: Всі бурові компанії під рукою
 home.header.description: Знайдіть найкращі пропозиції з усієї України від наших партнерів.
 home.featured_listings_around_you: Рекомендовані пропозиції навколо вас
-home.find_your_best_service_today: Знайдіть свій найкращий сервіс сьогодні
+home.find_your_best_service_today: Пошуковий сервіс
 home.see_all_featured_listings: Переглянути всі пропозиції
 home.why_us: Чому ми?
 home.count_companies_hundreds_customers_day: "%count% бурових компаній, сотні клієнтів у день"

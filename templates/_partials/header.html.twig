@@ -39,7 +39,7 @@
                     {% else %}
                         <li class="nav-item"><a class="nav-link" href="{{ path('nucleos_user_security_login') }}">{% trans %}navbar.login{% endtrans %}</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ path('nucleos_profile_registration_register') }}">{% trans %}navbar.signup{% endtrans %}</a></li>
-                        <li class="nav-item mt-3 mt-lg-0 ml-lg-3 d-lg-none d-xl-inline-block"><a class="btn btn-primary" href="user-add-0.html">{{ 'nav.add_point'|trans }}</a></li>
+                        <li class="nav-item mt-3 mt-lg-0 ml-lg-3 d-lg-none d-xl-inline-block"><a class="btn btn-primary" href="{{ path('_FormFlow_createListing') }}">{{ 'nav.add_point'|trans }}</a></li>
                     {% endif %}
                 </ul>
             </div>
