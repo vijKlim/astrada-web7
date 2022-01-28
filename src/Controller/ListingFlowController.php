@@ -4,6 +4,8 @@
 namespace App\Controller;
 
 
+use App\Entity\Listing;
+use App\Entity\LocalBusiness;
 use App\Factory\ListingFactory;
 use App\Form\ListingFlow\CreateListing;
 use App\Form\ListingFlow\CreateListingFlow;
@@ -34,7 +36,7 @@ class ListingFlowController extends AbstractController
             'listingFlow/createListing.html.twig');
     }
 
-    protected function processFlow($formData, FormFlowInterface $flow, $template) {
+    protected function processFlow(CreateListing $formData, FormFlowInterface $flow, $template) {
         $flow->bind($formData);
 
         $form = $submittedForm = $flow->createForm();
@@ -48,6 +50,22 @@ class ListingFlowController extends AbstractController
             } else {
                 // flow finished
                 // ...
+//                echo "<pre>";
+//                var_dump($formData);die();
+                /** @var  $business */
+                $business = $formData->getBusiness();
+                $listing = $formData->getListing();
+                $images = $listing->getImages();
+                $listing->unsetImages();
+                $business->addListing($listing);
+                $this->getDoctrine()->getManagerForClass(LocalBusiness::class)->persist($business);
+                $this->getDoctrine()->getManagerForClass(LocalBusiness::class)->flush();
+
+                foreach ($images as $image){
+                    $listing->addImage($image);
+                }
+                $this->getDoctrine()->getManagerForClass(Listing::class)->persist($business);
+                $this->getDoctrine()->getManagerForClass(Listing::class)->flush();
 
                 $flow->reset();
 

@@ -7,6 +7,7 @@ namespace App\Form;
 use App\Entity\Listing;
 use App\Entity\LocalBusiness\CatalogInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,7 +29,12 @@ class ListingSimplerType extends ListingType
 //                'label' => false,
 //            ]);
 
-
+        $builder->add('images', CollectionType::class,[
+            'entry_type'=> ListingImageType::class,
+            'allow_add' => true,
+            'allow_delete' => true,
+            'prototype' => true
+        ]);
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) use ($options) {
             $form = $event->getForm();

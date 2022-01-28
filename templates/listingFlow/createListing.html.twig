@@ -13,7 +13,8 @@
 
         {% block main %}
 
-            {% form_theme form 'form/frontend/listing.html.twig' %}
+            {% form_theme form with ['form/collection_widget.html.twig','form/frontend/listing.html.twig'] %}
+
 
             <section class="py-5">
                 <div class="container">
@@ -36,7 +37,10 @@
                                 {% include "listingFlow/steps/listingStep.html.twig" %}
                             {% endif %}
 
+                            {% if flow.getCurrentStepNumber() == 4 %}
 
+                                {% include "listingFlow/steps/confirmationStep.html.twig" %}
+                            {% endif %}
                             {{ form_rest(form) }}
                         </fieldset>
 

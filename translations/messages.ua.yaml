@@ -972,8 +972,8 @@ resend_confirmation_email.disclaimer: Якщо ви не отримали пов
   натисніть на кнопку.
 sylius.ui.code: код
 sylius.form.promotion_coupon.per_customer_usage_limit: За обмеження використання клієнта
-sylius.form.collection.add: Додати сервіс
-sylius.form.collection.delete: Видалити сервіс
+sylius.form.collection.add: Додати
+sylius.form.collection.delete: Видалити
 deliveries.sort.newest: Спочатку новіші
 isporuke.sort.oldest: спочатку найстарший
 deliveries.filter.clear: Показати все

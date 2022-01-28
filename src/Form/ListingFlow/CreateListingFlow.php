@@ -67,7 +67,7 @@ class CreateListingFlow extends FormFlow implements EventSubscriberInterface
 
             ],
             [
-                'label' => 'confirmation',
+                'label' => 'listing.flow.confirmation',
             ],
         ];
     }

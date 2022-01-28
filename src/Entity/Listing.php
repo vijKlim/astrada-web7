@@ -284,6 +284,11 @@ class Listing extends BaseListing implements ResourceInterface, TranslatableInte
         $this->images->add($image);
     }
 
+    public function unsetImages()
+    {
+        $this->images = new ArrayCollection();
+    }
+
     /**
      * @return mixed
      */

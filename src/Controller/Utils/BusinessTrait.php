@@ -140,14 +140,14 @@ trait BusinessTrait
                     $this->getDoctrine()->getManagerForClass(LocalBusiness::class)->remove($business);
                     $this->getDoctrine()->getManagerForClass(LocalBusiness::class)->flush();
 
-                    return $this->redirectToRoute($routes['restaurants']);
+                    return $this->redirectToRoute($routes['businesses']);
                 }
 
                 if ($business->getId() === null && !$this->getUser()->hasRole('ROLE_ADMIN')) {
-                    $this->getUser()->addRestaurant($business);
+                    $this->getUser()->addBusiness($business);
                 }
 
-                // Make sure the restaurant can be enabled, or disable it
+                // Make sure the business can be enabled, or disable it
                 $violations = $validator->validate($business, null, ['activable']);
                 if (count($violations) > 0) {
                     $business->setEnabled(false);
