@@ -30,6 +30,11 @@
 * docker-compose exec php composer require sylius/taxonomy-bundle
 * docker-compose exec php composer require sylius/attribute-bundle
 * docker-compose exec php composer require sylius/review-bundle
+* docker-compose exec php   composer require sylius/locale-bundle
+* docker-compose exec php   composer require sylius/product-bundle
+* docker-compose exec php   composer require sylius/order-bundle
+* docker-compose exec php   composer require sylius/payment-bundle
+* docker-compose exec php   composer require sylius/channel-bundle
 * docker-compose exec php composer require craue/config-bundle AND!!! create table: docker-compose exec php php bin/console doctrine:migrations:diff
 * docker-compose exec php composer require league/flysystem-aws-s3-v3
 * docker-compose exec php composer require liip/imagine-bundle
@@ -40,8 +45,6 @@
 * docker-compose exec php  composer require knplabs/knp-paginator-bundle
 * docker-compose exec php   composer require laravolt/avatar
 * docker-compose exec php   composer require cocur/slugify
-* docker-compose exec php   composer require sylius/locale-bundle
-* docker-compose exec php   composer require sylius/product-bundle
 * docker-compose exec php   composer require hashids/hashids
 * docker-compose exec php   composer require friendsofsymfony/jsrouting-bundle
 * docker-compose exec php   composer require jaybizzle/crawler-detect

@@ -9,16 +9,26 @@ use App\Entity\Address;
 use App\Entity\LocalBusiness;
 use App\Entity\LocalBusinessRepository;
 use App\Enum\Store;
+use App\Form\Order\CartType;
+use App\Sylius\Cart\BusinessResolver;
+use App\Sylius\Order\OrderInterface;
+use App\Utils\OptionsPayloadConverter;
+use App\Utils\ValidationUtils;
 use Cocur\Slugify\SlugifyInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use League\Geotools\Geotools;
+use Sylius\Component\Order\Context\CartContextInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/{_locale}", requirements={ "_locale": "%locale_regex%" })
@@ -30,11 +40,23 @@ class BusinessController extends AbstractController
 
     const ITEMS_PER_PAGE = 21;
 
+    private $orderManager;
+
+
+
     private $serializer;
 
+    /**
+     * @var ValidatorInterface
+     */
+    private ValidatorInterface $validator;
+
     public function __construct(
+        EntityManagerInterface $orderManager,
+        ValidatorInterface $validator,
         SerializerInterface $serializer)
     {
+        $this->orderManager = $orderManager;
         $this->serializer = $serializer;
     }
 
@@ -194,8 +216,146 @@ class BusinessController extends AbstractController
         ));
     }
 
+    /**
+     * @Route("/business/{id}/cart", name="business_cart", methods={"POST"})
+     */
+    public function cartAction($id, Request $request,
+                               CartContextInterface $cartContext,
+                               BusinessResolver $businessResolver)
+    {
+        $restaurant = $this->getDoctrine()
+            ->getRepository(LocalBusiness::class)->find($id);
+
+        if (!$restaurant) {
+            throw new NotFoundHttpException();
+        }
+
+        $this->denyAccessUnlessGranted('view', $restaurant);
+
+        $cart = $cartContext->getCart();
+
+        // This is useful to "cleanup" a cart that was stored
+        // with a time range that is now expired
+        // FIXME Maybe this should be moved to a Doctrine postLoad listener?
+        $violations = $this->validator->validate($cart, null, ['ShippingTime']);
+        if (count($violations) > 0) {
+
+            $cart->setShippingTimeRange(null);
+
+            if ($businessResolver->accept($cart)) {
+                $this->orderManager->persist($cart);
+                $this->orderManager->flush();
+            }
+        }
+
+        $cartForm = $this->createForm(CartType::class, $cart);
+
+        $cartForm->handleRequest($request);
+
+        $cart = $cartForm->getData();
+
+        $errors = [];
+
+        if (!$cartForm->isValid()) {
+            foreach ($cartForm->getErrors() as $formError) {
+                $propertyPath = (string) $formError->getOrigin()->getPropertyPath();
+                $errors[$propertyPath] = [ ValidationUtils::serializeFormError($formError) ];
+            }
+        }
+
+        // Customer may be browsing the available businesses
+        // Make sure the request targets the same business
+        // If not, we don't persist the cart
+        if ($businessResolver->accept($cart)) {
+            $this->orderManager->persist($cart);
+            $this->orderManager->flush();
+        }
+
+        return $this->jsonResponse($cart, $errors);
+    }
+
+    /**
+     * @Route("/business/{id}/cart/product/{code}", name="business_add_product_to_cart", methods={"POST"})
+     */
+    public function addProductToCartAction($id, $code, Request $request,
+                                           CartContextInterface $cartContext,
+                                           TranslatorInterface $translator,
+                                           BusinessResolver $businessResolver,
+                                           OptionsPayloadConverter $optionsPayloadConverter)
+    {
+        $restaurant = $this->getDoctrine()
+            ->getRepository(LocalBusiness::class)->find($id);
+
+        $product = $this->productRepository->findOneByCode($code);
+
+        $cart = $cartContext->getCart();
+
+        $action = new CheckoutAddProductToCart();
+        $action->product = $product;
+        $action->cart = $cart;
+        $action->clear = $request->request->getBoolean('_clear', false);
+
+        $violations = $this->validator->validate($action, new AssertAddProductToCart());
+
+        if (count($violations) > 0) {
+
+            $errors = [];
+            foreach ($violations as $violation) {
+                $key = $violation->getPropertyPath();
+                $errors[$key][] = [
+                    'message' => $violation->getMessage()
+                ];
+            }
+
+            return $this->jsonResponse($cart, $errors);
+        }
+
+        $cartItem = $this->orderItemFactory->createNew();
+
+        if (!$product->hasOptions()) {
+            $productVariant = $this->productVariantResolver->getVariant($product);
+        } else {
+            if (!$request->request->has('options') && !$product->hasNonAdditionalOptions()) {
+                $productVariant = $this->productVariantResolver->getVariant($product);
+            } else {
+                $optionValues = $optionsPayloadConverter->convert($product, $request->request->get('options'));
+                $productVariant = $this->productVariantResolver->getVariantForOptionValues($product, $optionValues);
+            }
+        }
+
+        $cartItem->setVariant($productVariant);
+        $cartItem->setUnitPrice($productVariant->getPrice());
+
+        $this->orderItemQuantityModifier->modify($cartItem, $request->request->getInt('quantity', 1));
+        $this->orderModifier->addToOrder($cart, $cartItem);
+
+        $this->orderManager->persist($cart);
+        $this->orderManager->flush();
+
+        $errors = $this->validator->validate($cart);
+        $errors = ValidationUtils::serializeViolationList($errors);
+
+        return $this->jsonResponse($cart, $errors);
+    }
+
+
     private function getContextSlug(LocalBusiness $business)
     {
         return $business->getContext() === Store::class ? 'store' : 'business';
+    }
+
+    private function jsonResponse(OrderInterface $cart, array $errors)
+    {
+        $country = $this->getParameter('country_iso');
+
+        $serializerContext = [
+            'is_web' => true,
+            'groups' => ['order', 'address', sprintf('address_%s', $country)]
+        ];
+
+        return new JsonResponse([
+            'cart'   => $this->serializer->normalize($cart, 'jsonld', $serializerContext),
+            'errors' => $errors,
+        ]);
     }
 }

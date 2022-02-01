@@ -12,9 +12,7 @@ class ListingManager
 {
     private $expressionLanguage;
     private $routing;
-    private $orderTimeHelper;
-    private $storeExtractor;
-    private $orderTimelineCalculator;
+
     private $logger;
 
     public function __construct(

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee28264806cb56ce38b488d0621da3aa",
+    "content-hash": "2c9cc9ced3e3cd11dbe6169cd541acc9",
     "packages": [
         {
             "name": "api-platform/core",
@@ -10762,6 +10762,147 @@
             "time": "2021-07-20T14:22:22+00:00"
         },
         {
+            "name": "sylius/channel",
+            "version": "v1.10.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sylius/Channel.git",
+                "reference": "fea9c179a641f7edac1b7b078460c8b51b51b358"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sylius/Channel/zipball/fea9c179a641f7edac1b7b078460c8b51b51b358",
+                "reference": "fea9c179a641f7edac1b7b078460c8b51b51b358",
+                "shasum": ""
+            },
+            "require": {
+                "laminas/laminas-stdlib": "^3.2",
+                "php": "^7.4 || ^8.0",
+                "sylius/resource": "^1.7",
+                "symfony/form": "^4.4 || ^5.2",
+                "symfony/http-foundation": "^4.4 || ^5.2"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.9-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sylius\\Component\\Channel\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paweł Jędrzejewski",
+                    "homepage": "https://pjedrzejewski.com"
+                },
+                {
+                    "name": "Sylius project",
+                    "homepage": "https://sylius.com"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/Sylius/Sylius/contributors"
+                }
+            ],
+            "description": "E-Commerce PHP component for managing different sales channels.",
+            "homepage": "https://sylius.com",
+            "keywords": [
+                "channel",
+                "ecommerce",
+                "multichannel",
+                "multistore",
+                "stores",
+                "sylius"
+            ],
+            "support": {
+                "source": "https://github.com/Sylius/Channel/tree/v1.10.6"
+            },
+            "time": "2021-09-30T14:30:24+00:00"
+        },
+        {
+            "name": "sylius/channel-bundle",
+            "version": "v1.10.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sylius/SyliusChannelBundle.git",
+                "reference": "22ba2b151baa5d1453d3e485fb13fede6e2f1555"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sylius/SyliusChannelBundle/zipball/22ba2b151baa5d1453d3e485fb13fede6e2f1555",
+                "reference": "22ba2b151baa5d1453d3e485fb13fede6e2f1555",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0",
+                "sylius/channel": "^1.6",
+                "sylius/resource-bundle": "^1.7",
+                "symfony/framework-bundle": "^4.4 || ^5.2"
+            },
+            "require-dev": {
+                "doctrine/orm": "^2.7",
+                "matthiasnoback/symfony-dependency-injection-test": "^4.1",
+                "phpspec/phpspec": "^7.0",
+                "phpunit/phpunit": "^8.5",
+                "polishsymfonycommunity/symfony-mocker-container": "^1.0",
+                "symfony/browser-kit": "^4.4 || ^5.2",
+                "symfony/dependency-injection": "^4.4 || ^5.2",
+                "symfony/form": "^4.4 || ^5.2",
+                "twig/twig": "^2.12"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.9-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sylius\\Bundle\\ChannelBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paweł Jędrzejewski",
+                    "homepage": "https://pjedrzejewski.com"
+                },
+                {
+                    "name": "Sylius project",
+                    "homepage": "https://sylius.com"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/Sylius/Sylius/contributors"
+                }
+            ],
+            "description": "Currencies and channel formatting engine bundle for Symfony.",
+            "homepage": "https://sylius.com",
+            "keywords": [
+                "cash",
+                "channel",
+                "currencies",
+                "currency"
+            ],
+            "support": {
+                "source": "https://github.com/Sylius/SyliusChannelBundle/tree/v1.10.6"
+            },
+            "time": "2021-09-03T13:36:45+00:00"
+        },
+        {
             "name": "sylius/currency",
             "version": "v1.10.1",
             "source": {
@@ -11286,6 +11427,371 @@
                 "source": "https://github.com/Sylius/SyliusMailerBundle/tree/v1.6.0"
             },
             "time": "2020-11-10T09:53:22+00:00"
+        },
+        {
+            "name": "sylius/money-bundle",
+            "version": "v1.10.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sylius/SyliusMoneyBundle.git",
+                "reference": "e99e7e788f73f8a7fca9baa7170c0da25b7a7e12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sylius/SyliusMoneyBundle/zipball/e99e7e788f73f8a7fca9baa7170c0da25b7a7e12",
+                "reference": "e99e7e788f73f8a7fca9baa7170c0da25b7a7e12",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0",
+                "sylius/resource-bundle": "^1.7",
+                "symfony/framework-bundle": "^4.4 || ^5.2",
+                "symfony/intl": "^4.4 || ^5.2",
+                "symfony/templating": "^4.4 || ^5.2",
+                "webmozart/assert": "^1.8"
+            },
+            "conflict": {
+                "twig/twig": "^1.0"
+            },
+            "require-dev": {
+                "doctrine/orm": "^2.7",
+                "phpspec/phpspec": "^7.0",
+                "phpunit/phpunit": "^8.5",
+                "polishsymfonycommunity/symfony-mocker-container": "^1.0",
+                "sylius/currency-bundle": "^1.6",
+                "symfony/browser-kit": "^4.4 || ^5.2",
+                "symfony/dependency-injection": "^4.4 || ^5.2",
+                "symfony/form": "^4.4 || ^5.2",
+                "twig/twig": "^2.12"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.9-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sylius\\Bundle\\MoneyBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paweł Jędrzejewski",
+                    "homepage": "https://pjedrzejewski.com"
+                },
+                {
+                    "name": "Sylius project",
+                    "homepage": "https://sylius.com"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/Sylius/Sylius/contributors"
+                }
+            ],
+            "description": "Currencies and money formatting engine bundle for Symfony.",
+            "homepage": "https://sylius.com",
+            "keywords": [
+                "cash",
+                "currencies",
+                "currency",
+                "money"
+            ],
+            "support": {
+                "source": "https://github.com/Sylius/SyliusMoneyBundle/tree/v1.10.6"
+            },
+            "time": "2021-09-03T13:36:45+00:00"
+        },
+        {
+            "name": "sylius/order",
+            "version": "v1.10.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sylius/Order.git",
+                "reference": "af75693c762dbe5861a9b0fd84d3b2be91dbc56a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sylius/Order/zipball/af75693c762dbe5861a9b0fd84d3b2be91dbc56a",
+                "reference": "af75693c762dbe5861a9b0fd84d3b2be91dbc56a",
+                "shasum": ""
+            },
+            "require": {
+                "laminas/laminas-stdlib": "^3.2",
+                "php": "^7.4 || ^8.0",
+                "sylius/resource": "^1.7",
+                "webmozart/assert": "^1.8"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.9-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sylius\\Component\\Order\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paweł Jędrzejewski",
+                    "homepage": "https://pjedrzejewski.com"
+                },
+                {
+                    "name": "Sylius project",
+                    "homepage": "https://sylius.com"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/Sylius/Sylius/contributors"
+                }
+            ],
+            "description": "Orders management library for PHP.",
+            "homepage": "https://sylius.com",
+            "keywords": [
+                "ecommerce",
+                "order",
+                "sales",
+                "shop",
+                "webshop"
+            ],
+            "support": {
+                "source": "https://github.com/Sylius/Order/tree/v1.10.6"
+            },
+            "time": "2021-09-30T14:30:24+00:00"
+        },
+        {
+            "name": "sylius/order-bundle",
+            "version": "v1.10.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sylius/SyliusOrderBundle.git",
+                "reference": "5dbb031909a29731e447ff4df8c02ecfdaa29c4f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sylius/SyliusOrderBundle/zipball/5dbb031909a29731e447ff4df8c02ecfdaa29c4f",
+                "reference": "5dbb031909a29731e447ff4df8c02ecfdaa29c4f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0",
+                "stof/doctrine-extensions-bundle": "^1.4",
+                "sylius-labs/polyfill-symfony-framework-bundle": "^1.0",
+                "sylius/money-bundle": "^1.6",
+                "sylius/order": "^1.6",
+                "sylius/resource-bundle": "^1.7",
+                "symfony/framework-bundle": "^4.4 || ^5.2",
+                "symfony/templating": "^4.4 || ^5.2"
+            },
+            "conflict": {
+                "twig/twig": "^1.0 || ^3.0"
+            },
+            "require-dev": {
+                "doctrine/orm": "^2.7",
+                "matthiasnoback/symfony-dependency-injection-test": "^4.1",
+                "phpspec/phpspec": "^7.0",
+                "phpunit/phpunit": "^8.5",
+                "symfony/browser-kit": "^4.4 || ^5.2",
+                "symfony/form": "^4.4 || ^5.2",
+                "symfony/validator": "^4.4 || ^5.2"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.9-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sylius\\Bundle\\OrderBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paweł Jędrzejewski",
+                    "homepage": "https://pjedrzejewski.com"
+                },
+                {
+                    "name": "Sylius project",
+                    "homepage": "https://sylius.com"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/Sylius/Sylius/contributors"
+                }
+            ],
+            "description": "Sales order management for Symfony applications.",
+            "homepage": "https://sylius.com",
+            "keywords": [
+                "ecommerce",
+                "order",
+                "orders",
+                "sales",
+                "shop",
+                "sylius"
+            ],
+            "support": {
+                "source": "https://github.com/Sylius/SyliusOrderBundle/tree/v1.10.6"
+            },
+            "time": "2021-12-06T10:29:53+00:00"
+        },
+        {
+            "name": "sylius/payment",
+            "version": "v1.10.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sylius/Payment.git",
+                "reference": "7c1878e2e3e1dfa55dd0ba24bb22088004444c31"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sylius/Payment/zipball/7c1878e2e3e1dfa55dd0ba24bb22088004444c31",
+                "reference": "7c1878e2e3e1dfa55dd0ba24bb22088004444c31",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0",
+                "sylius/registry": "^1.5",
+                "sylius/resource": "^1.7"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.9-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sylius\\Component\\Payment\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paweł Jędrzejewski",
+                    "homepage": "https://pjedrzejewski.com"
+                },
+                {
+                    "name": "Sylius project",
+                    "homepage": "https://sylius.com"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/Sylius/Sylius/contributors"
+                }
+            ],
+            "description": "Flexible payments system for PHP e-commerce applications.",
+            "homepage": "https://sylius.com",
+            "keywords": [
+                "ecommerce",
+                "payment",
+                "payments",
+                "shop",
+                "webshop"
+            ],
+            "support": {
+                "source": "https://github.com/Sylius/Payment/tree/v1.10.6"
+            },
+            "time": "2021-09-30T14:50:07+00:00"
+        },
+        {
+            "name": "sylius/payment-bundle",
+            "version": "v1.10.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sylius/SyliusPaymentBundle.git",
+                "reference": "27f0fea35793baa1503d83a4a14b0186225b24eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sylius/SyliusPaymentBundle/zipball/27f0fea35793baa1503d83a4a14b0186225b24eb",
+                "reference": "27f0fea35793baa1503d83a4a14b0186225b24eb",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0",
+                "sylius/payment": "^1.6",
+                "sylius/resource-bundle": "^1.7",
+                "symfony/framework-bundle": "^4.4 || ^5.2"
+            },
+            "conflict": {
+                "twig/twig": "^3.0"
+            },
+            "require-dev": {
+                "doctrine/orm": "^2.7",
+                "matthiasnoback/symfony-dependency-injection-test": "^4.1",
+                "phpspec/phpspec": "^7.0",
+                "phpunit/phpunit": "^8.5",
+                "polishsymfonycommunity/symfony-mocker-container": "^1.0",
+                "sylius/locale-bundle": "^1.6",
+                "symfony/browser-kit": "^4.4 || ^5.2",
+                "symfony/dependency-injection": "^4.4 || ^5.2"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.9-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sylius\\Bundle\\PaymentBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paweł Jędrzejewski",
+                    "homepage": "https://pjedrzejewski.com"
+                },
+                {
+                    "name": "Sylius project",
+                    "homepage": "https://sylius.com"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/Sylius/Sylius/contributors"
+                }
+            ],
+            "description": "Flexible payments system for Symfony e-commerce applications.",
+            "homepage": "https://sylius.com",
+            "keywords": [
+                "ecommerce",
+                "payment",
+                "payments",
+                "shop",
+                "webshop"
+            ],
+            "support": {
+                "source": "https://github.com/Sylius/SyliusPaymentBundle/tree/v1.10.6"
+            },
+            "time": "2021-09-03T13:36:45+00:00"
         },
         {
             "name": "sylius/product",
