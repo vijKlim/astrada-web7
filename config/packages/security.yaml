@@ -78,6 +78,7 @@ security:
         - { path: ^/profile/jwt, roles: IS_AUTHENTICATED_REMEMBERED }
         - { path: ^/profile/notifications, roles: IS_AUTHENTICATED_REMEMBERED }
         - { path: ^/profile, roles: IS_AUTHENTICATED_REMEMBERED }
+        - { path: ^/create-listing, roles: IS_AUTHENTICATED_REMEMBERED }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/post, roles: IS_AUTHENTICATED_REMEMBERED }
         - { path: ^/_uploader/business, roles: [ ROLE_ADMIN, ROLE_BUSINESS ] }

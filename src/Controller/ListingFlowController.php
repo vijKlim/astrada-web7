@@ -69,7 +69,8 @@ class ListingFlowController extends AbstractController
 
                 $flow->reset();
 
-                return $this->redirect($this->generateUrl('_FormFlow_start'));
+//                return $this->redirect($this->generateUrl('_FormFlow_start'));
+                return $this->redirectToRoute('nucleos_profile_profile_show');
             }
         }
 
