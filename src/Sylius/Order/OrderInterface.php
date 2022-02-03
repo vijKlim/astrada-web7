@@ -52,39 +52,9 @@ interface OrderInterface
     public const CANCEL_REASON_NO_SHOW = 'NO_SHOW';
 
     /**
-     * @return int
-     */
-    public function getTaxTotal(): int;
-
-    /**
-     * @return int
-     */
-    public function getItemsTaxTotal(): int;
-
-    /**
-     * @return int
-     */
-    public function getTaxTotalByRate($taxRate): int;
-
-    /**
-     * @return int
-     */
-    public function getItemsTaxTotalByRate($taxRate): int;
-
-    /**
-     * @return int
-     */
-    public function getFeeTotal(): int;
-
-    /**
-     * @return int
-     */
-    public function getRevenue(): int;
-
-    /**
      * @return LocalBusiness|null
      */
-    public function getRestaurant(): ?LocalBusiness;
+    public function getBusiness(): ?LocalBusiness;
 
     /**
      * @return Address|null
@@ -143,10 +113,6 @@ interface OrderInterface
      */
     public function getFulfillmentMethod(): string;
 
-    /**
-     * @return int
-     */
-    public function getItemsTotalExcludingTax(): int;
 
     /*
      * @return UserInterface|null
@@ -164,22 +130,18 @@ interface OrderInterface
      */
     public function getItemsGroupedByVendor(): \SplObjectStorage;
 
-    /**
-     * @return int
-     */
-    public function getReusablePackagingPledgeReturn();
 
     /**
      * @param LocalBusiness $business
      * @return float
      */
-    public function getPercentageForBusiness(LocalBusiness $restaurant): float;
+    public function getPercentageForBusiness(LocalBusiness $business): float;
 
     public function addBusiness(LocalBusiness $business, int $itemsTotal, int $transferAmount);
 
-    public function getBusinesses(): Collection;
 
-    public function isMultiVendor(): bool;
+
+
 
     /**
      * @return Address|null
@@ -189,8 +151,4 @@ interface OrderInterface
     public function getFulfillmentMethodObject(): ?FulfillmentMethod;
 
 
-
-    public function getTipAmount();
-
-    public function isFree(): bool;
 }

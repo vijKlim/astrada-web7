@@ -3,11 +3,18 @@
 
 namespace App\Entity\Sylius;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\DataType\TsRange;
 use App\Entity\Address;
+use App\Entity\Delivery;
 use App\Entity\LocalBusiness;
+use App\Entity\LocalBusiness\FulfillmentMethod;
 use App\Entity\Vendor;
+use App\Filter\OrderDateFilter;
 use App\Sylius\Order\OrderInterface;
+use App\Sylius\Order\OrderItemInterface;
 use Carbon\Carbon;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,6 +22,7 @@ use Sylius\Component\Channel\Model\ChannelInterface;
 use Sylius\Component\Customer\Model\CustomerInterface;
 use Sylius\Component\Order\Model\Order as BaseOrder;
 use Sylius\Component\Payment\Model\PaymentInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @see http://schema.org/Order Documentation on Schema.org
@@ -379,6 +387,63 @@ class Order extends BaseOrder implements OrderInterface
         }
     }
 
+    public function addBusiness(LocalBusiness $business, int $itemsTotal = 0, int $transferAmount = 0)
+    {
+        $vendor = $this->getVendorByBusiness($business);
+
+        if (null === $vendor) {
+            $vendor = new OrderVendor($this, $business);
+            $this->vendors->add($vendor);
+        }
+
+        $vendor->setItemsTotal($itemsTotal);
+        $vendor->setTransferAmount($transferAmount);
+    }
+
+
+
+    public function getVendorByBusiness(LocalBusiness $business): ?OrderVendor
+    {
+        foreach ($this->vendors as $vendor) {
+            if ($vendor->getBusiness() === $business) {
+                return $vendor;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPercentageForBusiness(LocalBusiness $restaurant): float
+    {
+        $total = $this->getItemsTotal();
+
+        if (0 === $total) {
+            return 0.0;
+        }
+
+        $itemsTotal = $this->getItemsTotalForBusiness($restaurant);
+
+        return round($itemsTotal / $total, 4);
+    }
+
+    /**
+     * @return int
+     */
+    public function getItemsTotalForBusiness(LocalBusiness $restaurant): int
+    {
+        $total = 0;
+        foreach ($this->getItems() as $item) {
+            if ($restaurant->hasProduct($item->getVariant()->getProduct())) {
+                $total += $item->getTotal();
+            }
+        }
+
+        return $total;
+    }
+
     public function hasVendor(): bool
     {
         return null !== $this->getVendor();
@@ -582,29 +647,34 @@ class Order extends BaseOrder implements OrderInterface
 
     public function getFulfillmentMethodObject(): ?FulfillmentMethod
     {
-        $restaurants = $this->getRestaurants();
+        $business = $this->getBusiness();
 
-        if (count($restaurants) === 0) {
+        if (null !== $business) {
 
-            // Vendors may not have been processed yet
-            $restaurant = $this->getRestaurant();
-
-            if (null !== $restaurant) {
-
-                return $restaurant->getFulfillmentMethod(
-                    $this->getFulfillmentMethod()
-                );
-            }
-
-            return null;
+            return $business->getFulfillmentMethod(
+                $this->getFulfillmentMethod()
+            );
         }
 
-        $first = $restaurants->first();
-        $target = count($restaurants) === 1 ? $first : $first->getHub();
+        return null;
+    }
 
-        return $target->getFulfillmentMethod(
-            $this->getFulfillmentMethod()
-        );
+    /**
+     * {@inheritdoc}
+     */
+    public function getDelivery(): ?Delivery
+    {
+        return $this->delivery;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setDelivery(Delivery $delivery): void
+    {
+        $delivery->setOrder($this);
+
+        $this->delivery = $delivery;
     }
 
     /**
@@ -665,4 +735,41 @@ class Order extends BaseOrder implements OrderInterface
 
         return $hash;
     }
+
+    public function getTransferAmount(LocalBusiness $business): int
+    {
+        $vendor = $this->getVendorByBusiness($business);
+
+        if ($vendor) {
+
+            return $vendor->getTransferAmount();
+        }
+
+        return 0;
+    }
+
+    public function getPickupAddress(): ?Address
+    {
+        if ($this->hasVendor()) {
+            return $this->getVendor()->getAddress();
+        }
+
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function containsDisabledProduct(): bool
+    {
+        foreach ($this->getItems() as $item) {
+            if ($item instanceof OrderItemInterface && !$item->getVariant()->getProduct()->isEnabled()) {
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

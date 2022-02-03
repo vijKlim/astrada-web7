@@ -127,6 +127,8 @@ parameters:
   #VAT in percent
   astrada.vat: 0.2
 
+  sylius_cart_restaurant_session_key_name: _astrada.sylius.cart.business
+
 services:
 
   craue_config_cache_provider:
