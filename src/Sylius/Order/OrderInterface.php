@@ -57,6 +57,11 @@ interface OrderInterface
     public function getBusiness(): ?LocalBusiness;
 
     /**
+     * @return boolean
+     */
+    public function hasBusiness(): bool;
+
+    /**
      * @return Address|null
      */
     public function getShippingAddress(): ?Address;
@@ -136,12 +141,6 @@ interface OrderInterface
      * @return float
      */
     public function getPercentageForBusiness(LocalBusiness $business): float;
-
-    public function addBusiness(LocalBusiness $business, int $itemsTotal, int $transferAmount);
-
-
-
-
 
     /**
      * @return Address|null

@@ -134,6 +134,18 @@ services:
 
   # CONTROLLERS
 
+  App\Controller\BusinessController:
+    arguments:
+      $orderManager: '@sylius.manager.order'
+      $validator: '@validator'
+      $productRepository: '@sylius.repository.product'
+      $orderItemRepository: '@sylius.repository.order_item'
+      $orderItemFactory: '@sylius.factory.order_item'
+      $productVariantResolver: '@astrada.sylius.product_variant_resolver.lazy'
+      $orderItemQuantityModifier: '@sylius.order_item_quantity_modifier'
+      $orderModifier: '@sylius.order_modifier'
+      $serializer: '@serializer'
+
   App\Controller\AdminController:
     arguments:
       $browserlessClient: '@csa_guzzle.client.browserless'
@@ -461,6 +473,15 @@ services:
       - "@astrada.settings_manager"
       - "@translator"
     public: false
+
+  astrada.sylius.product_variant_resolver.lazy:
+    class: AppBundle\Sylius\Product\LazyProductVariantResolver
+    arguments:
+      - "@sylius.product_variant_resolver.default"
+      - "@sylius.factory.product_variant"
+    public: true
+
+  App\Sylius\Cart\BusinessResolver: ~
 
   astrada.user_manager:
     decorates: nucleos_user.user_manager.default

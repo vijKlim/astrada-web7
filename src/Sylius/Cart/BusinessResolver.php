@@ -6,7 +6,6 @@ namespace App\Sylius\Cart;
 
 use App\Entity\LocalBusiness;
 use App\Entity\LocalBusinessRepository;
-use App\Entity\Vendor;
 use App\Sylius\Order\OrderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -97,11 +96,11 @@ class BusinessResolver
             return true;
         }
 
-        Assert::isInstanceOf($data['vendor'], Vendor::class);
+        Assert::isInstanceOf($data['business'], LocalBusiness::class);
 
-        $vendor = $data['vendor'];
+        $vendor = $data['business'];
 
 
-        return $vendor->getBusiness() === $business;
+        return $vendor === $business;
     }
 }

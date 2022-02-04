@@ -15,6 +15,8 @@ use App\Entity\Vendor;
 use App\Filter\OrderDateFilter;
 use App\Sylius\Order\OrderInterface;
 use App\Sylius\Order\OrderItemInterface;
+use App\Validator\Constraints\ShippingAddress as AssertShippingAddress;
+use App\Validator\Constraints\ShippingTimeRange as AssertShippingTimeRange;
 use Carbon\Carbon;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -23,242 +25,16 @@ use Sylius\Component\Customer\Model\CustomerInterface;
 use Sylius\Component\Order\Model\Order as BaseOrder;
 use Sylius\Component\Payment\Model\PaymentInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @see http://schema.org/Order Documentation on Schema.org
- *
- * @ApiResource(iri="http://schema.org/Order",
- *   collectionOperations={
- *     "get"={
- *       "method"="GET",
- *       "security"="is_granted('ROLE_ADMIN')"
- *     },
- *     "post"={
- *       "method"="POST",
- *       "denormalization_context"={"groups"={"order_create", "address_create"}}
- *     },
- *     "timing"={
- *       "method"="POST",
- *       "path"="/orders/timing",
- *       "write"=false,
- *       "status"=200,
- *       "denormalization_context"={"groups"={"order_create", "address_create"}},
- *       "normalization_context"={"groups"={"cart_timing"}},
- *       "openapi_context"={
- *         "summary"="Retrieves timing information about a Order resource.",
- *         "responses"={
- *           "200"={
- *             "description"="Order timing information",
- *             "content"={
- *               "application/json": {
- *                 "schema"=Order::SWAGGER_CONTEXT_TIMING_RESPONSE_SCHEMA
- *               }
- *             }
- *           }
- *         }
- *       }
- *     },
- *     "my_orders"={
- *       "method"="GET",
- *       "path"="/me/orders",
- *       "controller"=MyOrders::class
- *     }
- *   },
- *   itemOperations={
- *     "get"={
- *       "method"="GET",
- *       "security"="is_granted('view', object)"
- *     },
- *     "payment_details"={
- *       "method"="GET",
- *       "path"="/orders/{id}/payment",
- *       "controller"=PaymentDetailsController::class,
- *       "security"="is_granted('session', object)",
- *       "openapi_context"={
- *         "summary"="Get payment details for a Order resource."
- *       }
- *     },
- *     "payment_methods"={
- *       "method"="GET",
- *       "path"="/orders/{id}/payment_methods",
- *       "controller"=PaymentMethodsController::class,
- *       "output"=PaymentMethodsOutput::class,
- *       "normalization_context"={"api_sub_level"=true},
- *       "security"="is_granted('session', object)",
- *       "openapi_context"={
- *         "summary"="Get available payment methods for a Order resource."
- *       }
- *     },
- *     "pay"={
- *       "method"="PUT",
- *       "path"="/orders/{id}/pay",
- *       "controller"=OrderPay::class,
- *       "security"="is_granted('session', object)",
- *       "openapi_context"={
- *         "summary"="Pays a Order resource."
- *       }
- *     },
- *     "accept"={
- *       "method"="PUT",
- *       "path"="/orders/{id}/accept",
- *       "controller"=OrderAccept::class,
- *       "security"="is_granted('accept', object)",
- *       "deserialize"=false,
- *       "openapi_context"={
- *         "summary"="Accepts a Order resource."
- *       }
- *     },
- *     "refuse"={
- *       "method"="PUT",
- *       "path"="/orders/{id}/refuse",
- *       "controller"=OrderRefuse::class,
- *       "security"="is_granted('refuse', object)",
- *       "openapi_context"={
- *         "summary"="Refuses a Order resource."
- *       }
- *     },
- *     "delay"={
- *       "method"="PUT",
- *       "path"="/orders/{id}/delay",
- *       "controller"=OrderDelay::class,
- *       "security"="is_granted('delay', object)",
- *       "openapi_context"={
- *         "summary"="Delays a Order resource."
- *       }
- *     },
- *     "fulfill"={
- *       "method"="PUT",
- *       "path"="/orders/{id}/fulfill",
- *       "controller"=OrderFulfill::class,
- *       "security"="is_granted('fulfill', object)",
- *       "openapi_context"={
- *         "summary"="Fulfills a Order resource."
- *       }
- *     },
- *     "cancel"={
- *       "method"="PUT",
- *       "path"="/orders/{id}/cancel",
- *       "controller"=OrderCancel::class,
- *       "security"="is_granted('cancel', object)",
- *       "openapi_context"={
- *         "summary"="Cancels a Order resource."
- *       }
- *     },
- *     "assign"={
- *       "method"="PUT",
- *       "path"="/orders/{id}/assign",
- *       "controller"=OrderAssign::class,
- *       "validation_groups"={"cart"},
- *       "normalization_context"={"groups"={"cart"}},
- *       "openapi_context"={
- *         "summary"="Assigns a Order resource to a User."
- *       }
- *     },
- *     "get_cart_timing"={
- *       "method"="GET",
- *       "path"="/orders/{id}/timing",
- *       "security"="is_granted('session', object)",
- *       "openapi_context"={
- *         "summary"="Retrieves timing information about a Order resource.",
- *         "responses"={
- *           "200"={
- *             "description"="Order timing information",
- *             "content"={
- *               "application/json": {
- *                 "schema"=Order::SWAGGER_CONTEXT_TIMING_RESPONSE_SCHEMA
- *               }
- *             }
- *           }
- *         }
- *       }
- *     },
- *     "validate"={
- *       "method"="GET",
- *       "path"="/orders/{id}/validate",
- *       "normalization_context"={"groups"={"cart"}},
- *       "security"="is_granted('session', object)"
- *     },
- *     "put_cart"={
- *       "method"="PUT",
- *       "path"="/orders/{id}",
- *       "validation_groups"={"cart"},
- *       "normalization_context"={"groups"={"cart"}},
- *       "denormalization_context"={"groups"={"order_update"}},
- *       "security"="is_granted('session', object)"
- *     },
- *     "post_cart_items"={
- *       "method"="POST",
- *       "path"="/orders/{id}/items",
- *       "input"=CartItemInput::class,
- *       "controller"=AddCartItem::class,
- *       "validation_groups"={"cart"},
- *       "denormalization_context"={"groups"={"cart"}},
- *       "normalization_context"={"groups"={"cart"}},
- *       "security"="is_granted('session', object)",
- *       "openapi_context"={
- *         "summary"="Adds items to a Order resource."
- *       }
- *     },
- *     "put_item"={
- *       "method"="PUT",
- *       "path"="/orders/{id}/items/{itemId}",
- *       "controller"=UpdateCartItem::class,
- *       "validation_groups"={"cart"},
- *       "denormalization_context"={"groups"={"cart"}},
- *       "normalization_context"={"groups"={"cart"}},
- *       "security"="is_granted('session', object)"
- *     },
- *     "delete_item"={
- *       "method"="DELETE",
- *       "path"="/orders/{id}/items/{itemId}",
- *       "controller"=DeleteCartItem::class,
- *       "validation_groups"={"cart"},
- *       "normalization_context"={"groups"={"cart"}},
- *       "validate"=false,
- *       "write"=false,
- *       "status"=200,
- *       "security"="is_granted('session', object)",
- *       "openapi_context"={
- *         "summary"="Deletes items from a Order resource."
- *       }
- *     },
- *     "centrifugo"={
- *       "method"="GET",
- *       "path"="/orders/{id}/centrifugo",
- *       "controller"=CentrifugoController::class,
- *       "normalization_context"={"groups"={"centrifugo", "centrifugo_for_order"}},
- *       "security"="is_granted('view', object)",
- *       "openapi_context"={
- *         "summary"="Get Centrifugo connection details for a Order resource."
- *       }
- *     },
- *     "mercadopago_preference"={
- *       "method"="GET",
- *       "path"="/orders/{id}/mercadopago-preference",
- *       "controller"=MercadopagoPreference::class,
- *       "output"=MercadopagoPreferenceResponse::class,
- *       "security"="is_granted('session', object)",
- *       "openapi_context"={
- *         "summary"="Creates a MercadoPago preference and returns its ID."
- *       }
- *     }
- *   },
- *   attributes={
- *     "denormalization_context"={"groups"={"order_create"}},
- *     "normalization_context"={"groups"={"order", "address"}}
- *   }
- * )
- * @ApiFilter(OrderDateFilter::class, properties={"date": "exact"})
- *
- * @AssertOrder(groups={"Default"})
- * @AssertOrderIsModifiable(groups={"cart"})
- * @AssertLoopEatOrder(groups={"loopeat"})
- */
+
 class Order extends BaseOrder implements OrderInterface
 {
     protected $customer;
 
-    protected $vendor;
+    protected $business;
 
     /**
      * @Assert\Valid
@@ -311,7 +87,6 @@ class Order extends BaseOrder implements OrderInterface
      */
     protected $takeaway = false;
 
-    protected $vendors;
 
     const SWAGGER_CONTEXT_TIMING_RESPONSE_SCHEMA = [
         "type" => "object",
@@ -331,8 +106,6 @@ class Order extends BaseOrder implements OrderInterface
 
         $this->payments = new ArrayCollection();
         $this->events = new ArrayCollection();
-        $this->promotions = new ArrayCollection();
-        $this->vendors = new ArrayCollection();
     }
 
     /**
@@ -356,12 +129,7 @@ class Order extends BaseOrder implements OrderInterface
      */
     public function getBusiness(): ?LocalBusiness
     {
-        if (null === $this->vendor) {
-
-            return null;
-        }
-
-        return $this->vendor->getBusiness();
+        return  $this->business;
     }
 
     /**
@@ -369,48 +137,13 @@ class Order extends BaseOrder implements OrderInterface
      */
     public function setBusiness(?LocalBusiness $business): void
     {
-        $currentBusiness = $this->getBusiness();
-
-        $vendor = new Vendor();
-        $vendor->setBusiness($business);
-
-        $this->vendor = $vendor;
-
-        if (null !== $business && $business !== $currentBusiness) {
-
-            $this->vendors->clear();
-
-            $this->clearItems();
-            $this->setShippingTimeRange(null);
-
-            $this->addBusiness($business);
-        }
-    }
-
-    public function addBusiness(LocalBusiness $business, int $itemsTotal = 0, int $transferAmount = 0)
-    {
-        $vendor = $this->getVendorByBusiness($business);
-
-        if (null === $vendor) {
-            $vendor = new OrderVendor($this, $business);
-            $this->vendors->add($vendor);
-        }
-
-        $vendor->setItemsTotal($itemsTotal);
-        $vendor->setTransferAmount($transferAmount);
+        $this->business = $business;
     }
 
 
-
-    public function getVendorByBusiness(LocalBusiness $business): ?OrderVendor
+    public function hasBusiness(): bool
     {
-        foreach ($this->vendors as $vendor) {
-            if ($vendor->getBusiness() === $business) {
-                return $vendor;
-            }
-        }
-
-        return null;
+        return null !== $this->getBusiness();
     }
 
     /**
@@ -444,10 +177,6 @@ class Order extends BaseOrder implements OrderInterface
         return $total;
     }
 
-    public function hasVendor(): bool
-    {
-        return null !== $this->getVendor();
-    }
 
     /**
      * {@inheritdoc}

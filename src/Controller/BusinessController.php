@@ -9,6 +9,8 @@ use App\Entity\Address;
 use App\Entity\LocalBusiness;
 use App\Entity\LocalBusinessRepository;
 use App\Enum\Store;
+use App\Form\Checkout\Action\AddProductToCartAction as CheckoutAddProductToCart;
+use App\Form\Checkout\Action\Validator\AddProductToCart as AssertAddProductToCart;
 use App\Form\Order\CartType;
 use App\Sylius\Cart\BusinessResolver;
 use App\Sylius\Order\OrderInterface;
@@ -18,6 +20,7 @@ use Cocur\Slugify\SlugifyInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Geotools\Geotools;
 use Sylius\Component\Order\Context\CartContextInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -51,12 +54,34 @@ class BusinessController extends AbstractController
      */
     private ValidatorInterface $validator;
 
+    /**
+     * @var RepositoryInterface
+     */
+    private RepositoryInterface $productRepository;
+    private $productVariantResolver;
+    private $orderItemFactory;
+    private $orderItemQuantityModifier;
+    private $orderModifier;
+
     public function __construct(
         EntityManagerInterface $orderManager,
         ValidatorInterface $validator,
+        RepositoryInterface $productRepository,
+        RepositoryInterface $orderItemRepository,
+        $orderItemFactory,
+        $orderItemQuantityModifier,
+        $orderModifier,
+        $productVariantResolver,
         SerializerInterface $serializer)
     {
         $this->orderManager = $orderManager;
+        $this->validator = $validator;
+        $this->productRepository = $productRepository;
+        $this->orderItemRepository = $orderItemRepository;
+        $this->orderItemFactory = $orderItemFactory;
+        $this->orderItemQuantityModifier = $orderItemQuantityModifier;
+        $this->orderModifier = $orderModifier;
+        $this->productVariantResolver = $productVariantResolver;
         $this->serializer = $serializer;
     }
 
@@ -283,7 +308,7 @@ class BusinessController extends AbstractController
                                            BusinessResolver $businessResolver,
                                            OptionsPayloadConverter $optionsPayloadConverter)
     {
-        $restaurant = $this->getDoctrine()
+        $business = $this->getDoctrine()
             ->getRepository(LocalBusiness::class)->find($id);
 
         $product = $this->productRepository->findOneByCode($code);

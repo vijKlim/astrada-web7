@@ -160,6 +160,17 @@ sylius_taxonomy:
         model: App\Entity\Sylius\Taxon
         repository: App\Entity\Sylius\TaxonRepository
 
+sylius_order:
+  resources:
+    order:
+      classes:
+        model: App\Entity\Sylius\Order
+        repository: App\Entity\Sylius\OrderRepository
+    order_item:
+      classes:
+        model: App\Entity\Sylius\OrderItem
+        repository: App\Entity\Sylius\OrderItemRepository
+
 sylius_product:
   resources:
     product:
