@@ -50,32 +50,10 @@ class Order extends BaseOrder implements OrderInterface
 
     protected $events;
 
-    protected $timeline;
 
     protected $channel;
 
-    protected $promotionCoupon;
 
-    protected $promotions;
-
-    protected $reusablePackagingEnabled = false;
-
-    protected $reusablePackagingPledgeReturn = 0;
-
-    protected $receipt;
-
-    /**
-     * @var int|null
-     */
-    protected $tipAmount = null;
-
-    /**
-     * @AssertShippingTimeRange(groups={"Default", "ShippingTime"})
-     */
-    protected $shippingTimeRange;
-
-
-    protected $nonprofit;
 
 
     /**
@@ -435,16 +413,6 @@ class Order extends BaseOrder implements OrderInterface
         }
 
         return $this->customer->getUser();
-    }
-
-    public function getVendor(): ?Vendor
-    {
-        return $this->vendor;
-    }
-
-    public function setVendor(?Vendor $vendor): void
-    {
-        $this->vendor = $vendor;
     }
 
     public function getItemsGroupedByVendor(): \SplObjectStorage

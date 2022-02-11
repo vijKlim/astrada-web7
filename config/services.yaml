@@ -460,6 +460,13 @@ services:
     arguments:
       - '@sylius.context.currency'
 
+
+  App\Sylius\Channel\DefaultChannelContext:
+    arguments:
+      - '@sylius.repository.channel'
+    tags:
+      - { name: 'sylius.context.channel', priority: -64 }
+
   App\Utils\LogoNamer:
     public: true
 
@@ -474,14 +481,32 @@ services:
       - "@translator"
     public: false
 
+  App\Sylius\Order\OrderFactory:
+    decorates: sylius.factory.order
+    arguments:
+      $factory: '@App\Sylius\Order\OrderFactory.inner'
+      $channelContext: "@sylius.context.channel"
+      $orderItemFactory: "@sylius.factory.order_item"
+      $productVariantFactory: "@sylius.factory.product_variant"
+      $orderItemQuantityModifier: "@sylius.order_item_quantity_modifier"
+      $orderModifier: "@sylius.order_modifier"
+    public: false
+
   astrada.sylius.product_variant_resolver.lazy:
-    class: AppBundle\Sylius\Product\LazyProductVariantResolver
+    class: App\Sylius\Product\LazyProductVariantResolver
     arguments:
       - "@sylius.product_variant_resolver.default"
       - "@sylius.factory.product_variant"
     public: true
 
   App\Sylius\Cart\BusinessResolver: ~
+
+  App\Sylius\Cart\BusinessCartContext:
+    arguments:
+      $orderFactory: "@sylius.factory.order"
+      $sessionKeyName: "%sylius_cart_business_session_key_name%"
+    tags:
+      - { name: sylius.context.cart, priority: 32 }
 
   astrada.user_manager:
     decorates: nucleos_user.user_manager.default
@@ -624,6 +649,9 @@ services:
   App\Entity\Sylius\TaxonRepository $taxonRepository: '@sylius.repository.taxon'
   Sylius\Component\Product\Resolver\ProductVariantResolverInterface: '@sylius.product_variant_resolver.default'
   Sylius\Component\Currency\Context\CurrencyContextInterface: '@sylius.context.currency'
+  Sylius\Component\Order\Context\CartContextInterface: '@sylius.context.cart.composite'
+  Sylius\Component\Channel\Repository\ChannelRepositoryInterface: '@sylius.repository.channel'
+  Sylius\Component\Channel\Context\ChannelContextInterface: '@sylius.context.channel.composite'
   Sylius\Component\Product\Repository\ProductOptionRepositoryInterface $productOptionRepository: '@sylius.repository.product_option'
   Sylius\Component\Resource\Factory\FactoryInterface $taxonFactory: '@sylius.factory.taxon'
   Sylius\Component\Resource\Factory\FactoryInterface $productFactory: '@sylius.factory.product'

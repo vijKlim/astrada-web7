@@ -69,9 +69,9 @@ class BusinessController extends AbstractController
         RepositoryInterface $productRepository,
         RepositoryInterface $orderItemRepository,
         $orderItemFactory,
+        $productVariantResolver,
         $orderItemQuantityModifier,
         $orderModifier,
-        $productVariantResolver,
         SerializerInterface $serializer)
     {
         $this->orderManager = $orderManager;

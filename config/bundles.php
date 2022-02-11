@@ -25,6 +25,7 @@ return [
     Sylius\Bundle\TaxonomyBundle\SyliusTaxonomyBundle::class => ['all' => true],
     Sylius\Bundle\AttributeBundle\SyliusAttributeBundle::class => ['all' => true],
     Sylius\Bundle\OrderBundle\SyliusOrderBundle::class => ['all' => true],
+    Sylius\Bundle\ChannelBundle\SyliusChannelBundle::class => ['all' => true],
     Sylius\Bundle\ProductBundle\SyliusProductBundle::class => ['all' => true],
     Sylius\Bundle\CurrencyBundle\SyliusCurrencyBundle::class => ['all' => true],
     Sylius\Bundle\LocaleBundle\SyliusLocaleBundle::class => ['all' => true],

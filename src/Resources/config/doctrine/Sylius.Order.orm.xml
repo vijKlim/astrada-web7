@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="App\Entity\Sylius\OrderRepository" name="App\Entity\Sylius\Order" table="sylius_order">
+
+    <field name="takeaway" type="boolean" column="takeaway">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <one-to-one field="delivery" target-entity="App\Entity\Delivery" mapped-by="order">
+      <cascade>
+        <cascade-persist/>
+      </cascade>
+    </one-to-one>
+
+    <one-to-many field="payments" target-entity="App\Entity\Sylius\Payment" mapped-by="order" orphan-removal="true">
+      <cascade>
+        <cascade-all/>
+      </cascade>
+    </one-to-many>
+    <one-to-many field="events" target-entity="App\Entity\Sylius\OrderEvent" mapped-by="order">
+      <cascade>
+        <cascade-all/>
+      </cascade>
+    </one-to-many>
+    <one-to-many field="items" target-entity="App\Entity\Sylius\OrderItem" mapped-by="order" orphan-removal="true">
+      <cascade>
+        <cascade-all/>
+      </cascade>
+    </one-to-many>
+    <one-to-many field="adjustments" target-entity="Sylius\Component\Order\Model\Adjustment" mapped-by="order" orphan-removal="true">
+      <cascade>
+        <cascade-all/>
+      </cascade>
+    </one-to-many>
+    <many-to-one field="customer" target-entity="Sylius\Component\Customer\Model\CustomerInterface" inversed-by="orders">
+      <join-column name="customer_id" referenced-column-name="id" nullable="true" />
+      <cascade>
+        <cascade-persist />
+      </cascade>
+    </many-to-one>
+    <many-to-one field="business" target-entity="App\Entity\LocalBusiness" />
+    <many-to-one field="shippingAddress" target-entity="App\Entity\Address">
+      <cascade>
+        <cascade-all/>
+      </cascade>
+      <join-columns>
+        <join-column name="shipping_address_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="billingAddress" target-entity="App\Entity\Address">
+      <cascade>
+        <cascade-all/>
+      </cascade>
+      <join-columns>
+        <join-column name="billing_address_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="channel" target-entity="Sylius\Component\Channel\Model\Channel">
+      <join-columns>
+        <join-column name="channel_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+
+  </entity>
+</doctrine-mapping>
