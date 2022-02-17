@@ -38,6 +38,7 @@
         "jaybizzle/crawler-detect": "^1.2",
         "jsor/doctrine-postgis": "^1.7",
         "karser/karser-recaptcha3-bundle": "^0.1.20",
+        "knplabs/knp-markdown-bundle": "^1.10",
         "knplabs/knp-paginator-bundle": "^5.5",
         "knplabs/knp-time-bundle": "^1.16",
         "laravolt/avatar": "^4.1",

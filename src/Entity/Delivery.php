@@ -3,10 +3,11 @@
 
 namespace App\Entity;
 
+use App\Entity\Task\CollectionInterface as TaskCollectionInterface;
 use Sylius\Component\Order\Model\OrderInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-class Delivery
+class Delivery extends TaskCollection implements TaskCollectionInterface
 {
 
     /**

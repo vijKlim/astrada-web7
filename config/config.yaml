@@ -153,6 +153,15 @@ sylius_locale:
 sylius_currency:
   driver: doctrine/orm
 
+sylius_payment:
+  resources:
+    payment:
+      classes:
+        model: App\Entity\Sylius\Payment
+    payment_method:
+      classes:
+        repository: Sylius\Bundle\PaymentBundle\Doctrine\ORM\PaymentMethodRepository
+
 sylius_taxonomy:
   resources:
     taxon:

@@ -4,7 +4,7 @@
   <nav class="navbar {% if layout == 'dashboard.html.twig' %}mb-0{% else %}navbar-default{% endif %}">
     <div class="container-fluid">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#restaurant-navbar" aria-expanded="false">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#business-navbar" aria-expanded="false">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -22,9 +22,19 @@
           {% endif %}
         </span>
       </div>
-      <div class="collapse navbar-collapse" id="restaurant-navbar">
+      <div class="collapse navbar-collapse" id="business-navbar">
         {% if business.id is not empty %}
         <div class="nav navbar-nav navbar-right">
+            <li>
+                <a href="{{ path(products_route, { id: business.id }) }}">
+                    <i class="fa fa-database"></i>  {% trans %}business.list.products{% endtrans %}
+                </a>
+            </li>
+            <li>
+                <a href="{{ path(product_options_route, { id: business.id }) }}">
+                    <i class="fa fa-sliders"></i>  {% trans %}business.list.product_options{% endtrans %}
+                </a>
+            </li>
             <li>
                 <a href="{{ path(listings_pricing_route, { id: business.id }) }}">
                     <i class="fa fa-database"></i>  {% trans %}business.list.listings_pricing{% endtrans %}

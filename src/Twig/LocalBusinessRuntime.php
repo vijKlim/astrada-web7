@@ -61,7 +61,7 @@ class LocalBusinessRuntime implements RuntimeExtensionInterface
             'resource_class' => LocalBusiness::class,
             'operation_type' => 'item',
             'item_operation_name' => 'get',
-            'groups' => ['restaurant_seo', 'address']
+            'groups' => ['business_seo', 'address']
         ]);
     }
 

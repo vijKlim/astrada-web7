@@ -8,10 +8,13 @@ use ApiPlatform\Core\Api\IriConverterInterface;
 use App\Entity\Address;
 use App\Entity\Booking;
 use App\Entity\Model\UserAddressRequest;
+use App\OpeningHours\SpatieOpeningHoursRegistry;
 use App\Twig\CacheExtension\KeyGenerator;
 use Carbon\Carbon;
 use Doctrine\Common\Collections\Collection;
 use ReflectionClass;
+use Spatie\OpeningHours\OpeningHoursForDay;
+use Spatie\OpeningHours\Time;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Serializer\SerializerInterface;
 use Twig\Extension\AbstractExtension;
@@ -102,6 +105,10 @@ class AstradaExtension extends AbstractExtension
             new TwigFilter('astrada_normalize', array($this, 'normalize')),
             new TwigFilter('parse_expression', array(ExpressionLanguageRuntime::class, 'parseExpression')),
             new TwigFilter('date_calendar', array($this, 'dateCalendar'), ['needs_context' => true]),
+            new TwigFilter('business_microdata', array(LocalBusinessRuntime::class, 'seo')),
+            new TwigFilter('opening_hours', array($this, 'openingHours')),
+            new TwigFilter('opening_hours_for_day_matches', array($this, 'openingHoursForDayMatches')),
+            new TwigFilter('day_localized', array($this, 'dayLocalized')),
         );
     }
 
@@ -136,6 +143,26 @@ class AstradaExtension extends AbstractExtension
     public function getIriFromItem($item)
     {
         return $this->iriConverter->getIriFromItem($item);
+    }
+
+
+    public function openingHours(array $openingHours)
+    {
+        return SpatieOpeningHoursRegistry::get($openingHours);
+    }
+
+    public function openingHoursForDayMatches(OpeningHoursForDay $openingHoursForDay, string $day)
+    {
+        $now = Carbon::now();
+
+        return $day === strtolower($now->englishDayOfWeek) && $openingHoursForDay->isOpenAt(Time::fromDateTime($now));
+    }
+
+    public function dayLocalized(string $day, string $locale)
+    {
+        return Carbon::instance(
+            new \DateTime(ucfirst($day))
+        )->locale($locale)->dayName;
     }
 
     public function dateCalendar($context, $date)

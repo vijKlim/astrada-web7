@@ -197,9 +197,9 @@ business.form.loopeat_disconnect.label: Від'єднати LoopEat
 business.form.featured.label: Цей бізнес розміщений на домашній сторінці
 business.form.giropay_enabled.label: Увімкнути Giropay
 business.form.fulfillment_methods.label: Методи виконання
-ресторан.форма.секція.загальне: Загальне
+business.form.section.general: Загальне
 business.form.section.options: Параметри
-business.form.section.fulfillment: Виконання
+business.form.section.fulfillment: Графік роботи
 business.form.section.payment: Оплата
 ресторан.форма.секція.селення: поселення
 business.form.section.taxonomy: Таксономія
