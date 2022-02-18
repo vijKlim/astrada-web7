@@ -4,6 +4,9 @@
 namespace App\Command;
 
 use App\Entity;
+use App\Enum\DrillingKit;
+use App\Enum\OwnerType;
+use App\Enum\PipeDiameter;
 use App\Faker\AddressProvider;
 use App\Faker\BusinessProvider;
 use App\Faker\ListingProvider;
@@ -195,6 +198,8 @@ class InitDemoCommand extends Command
 
         $phoneNumber = $this->phoneNumberUtil->getExampleNumber(strtoupper($this->country));
 
+
+        $business->setOwnerType(OwnerType::LEGAL_ENTITY);
         $business->setEnabled(true);
         $business->setTelephone($phoneNumber);
         $business->setAddress($address);
@@ -204,11 +209,16 @@ class InitDemoCommand extends Command
         $business->addOpeningHour('Sa-Su ' . $this->createRandomTimeRange('08:30', '15:30'));
         $business->addOpeningHour('Sa-Su ' . $this->createRandomTimeRange('19:00', '01:30'));
 
-        foreach ($business->getFulfillmentMethods() as $fulfillmentMethod) {
-            $fulfillmentMethod->setMinimumAmount(1500);
+//        foreach ($business->getFulfillmentMethods() as $fulfillmentMethod) {
+//            $fulfillmentMethod->setMinimumAmount(1500);
+//        }
+
+        if ($stream = fopen('https://img.promportal.su/foto/good_fotos/131/1315545/burovaya-ustanovka-dlya-bureniya-skvazhin-na-vodu-teplo-zemli_foto_largest.jpg', 'r')) {
+            $filename = substr(md5(openssl_random_pseudo_bytes(20)),-10).'_burovaya-ustanovka.jpg';
+            $this->businessFilesystem->writeStream($filename, $stream);
+            $business->setImageName($filename);
         }
 
-//        $this->businessFilesystem->writeStream();
 
         $listings = $this->createListings(rand(1, 3));
 
@@ -266,6 +276,15 @@ class InitDemoCommand extends Command
         $listing->setCertified(1);
         $listing->setAddress($address);
 
+        $welldesign = new Entity\Welldesign();
+        $welldesign->setDepthTo(0);
+        $welldesign->setDepthFrom(0);
+        $welldesign->setDrillingKit(DrillingKit::BA15);
+        $welldesign->setPipeDiameter(PipeDiameter::D050MM);
+        $welldesign->setWellCost(0);
+        $welldesign->setTransportationCost(0);
+
+        $listing->setWelldesign($welldesign);
 
         return $listing;
     }
