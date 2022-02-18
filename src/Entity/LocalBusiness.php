@@ -176,6 +176,7 @@ class LocalBusiness extends BaseLocalBusiness implements
         $this->productOptions = new ArrayCollection();
         $this->taxons = new ArrayCollection();
         $this->fulfillmentMethods = new ArrayCollection();
+        $this->addFulfillmentMethod('delivery', true);
         $this->bookings = new ArrayCollection();
     }
 

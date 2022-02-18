@@ -3,11 +3,11 @@
 
 
 {% if form.transportationPerimeterExpression is defined %}
-  <h4>{% trans %}restaurant.deliveryPerimeterExpression.title{% endtrans %}</h4>
+  <h4>{% trans %}localBusiness.form.transportationPerimeterExpression.title{% endtrans %}</h4>
   {{ form_widget(form.transportationPerimeterExpression) }}
   <div id="business_transportationPerimeterExpression__picker">
   </div>
   <span class="help-block">
-    <i class="fa fa-info-circle"></i> {{ 'restaurant.deliveryPerimeterExpression.help'|trans|raw }}
+    <i class="fa fa-info-circle"></i> {{ 'localBusiness.form.transportationPerimeterExpression.help'|trans|raw }}
   </span>
 {% endif %}

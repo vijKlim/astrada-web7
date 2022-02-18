@@ -22,6 +22,7 @@ use Geocoder\StatefulGeocoder;
 use GuzzleHttp\Client as GuzzleClient;
 use Http\Adapter\Guzzle6\Client;
 use League\Geotools\Coordinate\Coordinate;
+use League\Flysystem\Filesystem;
 use libphonenumber\PhoneNumberUtil;
 use Nucleos\UserBundle\Util\UserManipulator;
 use Redis;
@@ -44,6 +45,7 @@ class InitDemoCommand extends Command
     private $userManipulator;
     private $taxonFactory;
     private $phoneNumberUtil;
+    private $businessFilesystem;
     private $batchSize = 10;
     private $excludedTables = [
         'craue_config_setting',
@@ -85,7 +87,8 @@ class InitDemoCommand extends Command
         PhoneNumberUtil $phoneNumberUtil,
         Geocoder $geocoder,
         string $country,
-        string $defaultLocale)
+        string $defaultLocale,
+        Filesystem $businessFilesystem)
     {
         $this->doctrine = $doctrine;
         $this->fixturesLoader = $fixturesLoader;
@@ -99,6 +102,7 @@ class InitDemoCommand extends Command
         $this->geocoder = $geocoder;
         $this->country = $country;
         $this->defaultLocale = $defaultLocale;
+        $this->businessFilesystem = $businessFilesystem;
 
         parent::__construct();
     }
@@ -149,7 +153,7 @@ class InitDemoCommand extends Command
             }
 
             $output->writeln('Creating users…');
-            for ($i = 1; $i <= 50; $i++) {
+            for ($i = 1; $i <= 5; $i++) {
                 $username = "user_{$i}";
                 $user = $this->createUser($username, ['password' => $username]);
                 $user->addAddress($this->faker->randomAddress);
@@ -204,8 +208,9 @@ class InitDemoCommand extends Command
             $fulfillmentMethod->setMinimumAmount(1500);
         }
 
+//        $this->businessFilesystem->writeStream();
 
-        $listings = $this->createListings(rand(12, 50));
+        $listings = $this->createListings(rand(1, 3));
 
         foreach ($listings as $listing){
             $business->addListing($listing);
@@ -220,7 +225,7 @@ class InitDemoCommand extends Command
 
         $em = $this->doctrine->getManagerForClass(Entity\LocalBusiness::class);
 
-        for ($i = 1; $i <= 50; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
 
             $business = $this->createBusiness($this->faker->randomAddress);
 

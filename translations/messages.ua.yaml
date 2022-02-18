@@ -151,7 +151,9 @@ localBusiness.form.legalName: Юридична назва
 localBusiness.form.website: Веб-сайт
 localBusiness.form.telephone: телефон
 localBusiness.form.openingHours: Години роботи
-localBusiness.form.transportationPerimeterExpression: зона або максимальна відстань виконання робіт
+localBusiness.form.transportationPerimeterExpression.title: Периметр доставки або виконання робіт
+localBusiness.form.transportationPerimeterExpression.help: Визначте прийнятий периметр для поставок або виконання робіт.
+  Ви можете вибрати радіус (у км) або зону
 localBusiness.form.shippingOptionsDays: Кількість варіантів доставки (у днях)
 localBusiness.form.openingHoursBehaviour: Поведінка години роботи
 localBusiness.form.openingHoursBehavior.asap: якомога швидше

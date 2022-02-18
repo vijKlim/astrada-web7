@@ -71,11 +71,11 @@ trait BusinessTrait
     {
         $repository = $this->getDoctrine()->getRepository(LocalBusiness::class);
 
-        $restaurant = $repository->find($id);
+        $business = $repository->find($id);
 
-        $this->accessControl($restaurant);
+        $this->accessControl($business);
 
-        return $this->renderBusinessForm($restaurant, $request, $validator, $jwtEncoder, $iriConverter, $translator);
+        return $this->renderBusinessForm($business, $request, $validator, $jwtEncoder, $iriConverter, $translator);
     }
 
     public function newBusinessAction(Request $request,
