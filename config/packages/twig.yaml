@@ -16,6 +16,7 @@ twig:
         is_demo: "%is_demo%"
         country_iso: "%country_iso%"
         region_iso: "%region_iso%"
+        cart_provider: '@App\Service\CartProviderService'
         settings_manager: "@astrada.settings_manager"
         analytics_disabled: "%kernel.debug%"
         matomo_hostname: "%env(ASTRADA_MATOMO_HOSTNAME)%"

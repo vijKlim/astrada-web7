@@ -15,21 +15,12 @@
 <div class="container">
 
   {% block business_nav %}
-    {% if not embed_context.enabled %}
-    <div class="homepage-businesses__show-more text-left mb-4">
-      {% if business.context == 'App\\Enum\\Store' %}
-        <a class="restaurant-show-more" href="{{ path('stores') }}">
-          <i class="fa fa-arrow-left mr-2"></i>
-          <span>{% trans %}index.view_all_shops{% endtrans %}</span>
-        </a>
-      {% else %}
-        <a class="business-show-more" href="{{ path('businesses') }}">
-          <i class="fa fa-arrow-left mr-2"></i>
-          <span>{% trans %}index.view_all_businesses{% endtrans %}</span>
-        </a>
-      {% endif %}
-    </div>
-    {% endif %}
+      <div class="homepage-businesses__show-more text-left mb-4">
+          <a class="business-show-more" href="{{ path('businesses') }}">
+              <i class="fa fa-arrow-left mr-2"></i>
+              <span>{% trans %}index.view_all_businesses{% endtrans %}</span>
+          </a>
+      </div>
   {% endblock %}
 
 
@@ -97,16 +88,127 @@
   </section>
   {% endif %}
 
+    {% if business.serviceTaxon is not null %}
+        <div class="row">
+
+            {#
+            WARNING
+            We cache the following block for performance
+            Iterating through all products, options… is a lot of database requests
+            #}
+            {% set cache_key = business|cache_key(business_service_cache_annotation) %}
+            {% cache cache_key ttl(300) %}
+                <div class="col-xs-12 col-sm-8" id="menu">
+                    <div class="restaurant-menu-wrapper">
+                        {% for child in business.serviceTaxon.children %}
+                            {% if child.products|length > 0 %}
+                                <h2>{{ child.name }}</h2>
+                                {% if child.description is not empty %}
+                                    <p class="text-muted">{{ child.description }}</p>
+                                {% endif %}
+                                <div class="restaurant-menu-section">
+                                    {% for product in child.products %}
+                                        {# TODO Skip if no variant is defined #}
+                                        {% if not product.enabled %}
+                                            <div class="restaurant-menu-section-item">
+                                                <a class="menu-item menu-item--unavailable">
+                                                    {% include '_partials/restaurant/menu_item_inner.html.twig' %}
+                                                </a>
+                                            </div>
+                                        {% else %}
+                                            {% set product_images = [] %}
+                                            {% set images_16x9 = product.images|filter(image => image.ratio == '16:9') %}
+                                            {% if images_16x9|length > 0 %}
+                                                {% set product_images_filtered = images_16x9 %}
+                                            {% else %}
+                                                {% set product_images_filtered = product.images|filter(image => image.ratio == '1:1') %}
+                                            {% endif %}
+                                            {% for product_image in product_images_filtered %}
+                                                {% set imagine_filter = ('product_thumbnail_' ~ (product_image.ratio|replace({ ':': 'x' }))) %}
+                                                {% set product_images = product_images|merge([ astrada_asset(product_image, 'imageFile', imagine_filter, true, true) ]) %}
+                                            {% endfor %}
+                                            {% if not product.hasOptions() %}
+                                                <div class="restaurant-menu-section-item">
+                                                    {% if product_images|length > 1 %}
+                                                        <button class="menu-item" type="button"
+                                                                data-modal="details"
+                                                                data-product-name="{{ product.name|e('html_attr') }}"
+                                                                data-product-images="{{ product_images|json_encode|e('html_attr') }}"
+                                                                data-product-price="{{ (product|sylius_resolve_variant).price|e('html_attr') }}"
+                                                                data-form-action="{{ path('business_add_product_to_cart', { id: business.id, code: product.code }) }}">
+                                                            {% include '_partials/business/taxon_item_inner.html.twig' %}
+                                                        </button>
+                                                    {% else %}
+                                                        <form method="post"
+                                                              action="{{ path('business_add_product_to_cart', { id: business.id, code: product.code }) }}"
+                                                              data-product-simple>
+                                                            <button class="menu-item" type="submit">
+                                                                {% include '_partials/business/taxon_item_inner.html.twig' %}
+                                                            </button>
+                                                        </form>
+                                                    {% endif %}
+                                                </div>
+                                            {% else %}
+                                                <div class="restaurant-menu-section-item">
+                                                    <button
+                                                            class="menu-item"
+                                                            data-modal="options"
+                                                            data-form-action="{{ path('business_add_product_to_cart', { id: restaurant.id, code: product.code })|e('html_attr') }}"
+                                                            data-product-code="{{ product.code|e('html_attr') }}"
+                                                            data-product-name="{{ product.name|e('html_attr') }}"
+                                                            data-product-images="{{ product_images|json_encode|e('html_attr') }}"
+                                                            data-product-price="{{ (product|sylius_resolve_variant).price|e('html_attr') }}"
+                                                            data-product-options="{{ product.options|astrada_normalize('App\\Entity\\Sylius\\ProductOption', ['product_option'], 'json')|json_encode|e('html_attr') }}">
+                                                        {% include '_partials/business/taxon_item_inner.html.twig' %}
+                                                    </button>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endcache %}
+
+            {% if restaurant.isFulfillmentMethodEnabled('delivery') or restaurant.isFulfillmentMethodEnabled('collection') %}
+                <div class="col-xs-12 col-sm-4">
+                    {{ form_start(cart_form, { attr: { 'data-cart-url': path('restaurant_cart', { id: restaurant.id }) } }) }}
+                    <div id="cart"></div>
+                    {{ form_end(cart_form) }}
+                </div>
+            {% else %}
+                <div class="col-xs-12 col-sm-4">
+                    <div class="alert alert-warning">
+                        {% trans from 'validators' %}order.fulfillment_methods.empty{% endtrans %}
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+
+    {% else %}
+        <div class="alert alert-warning">
+            {% trans %}restaurant.noMenuWarning{% endtrans %}
+        </div>
+    {% endif %}
 </div>
 
-{% set business_json = { id: business.id } %}
 
+
+{% set business_json = { id: business.id, isOpen: business.isOpen } %}
+{% set cart_json = cart_provider.normalize(cart) %}
 
 <div id="js-business-data"
-  data-restaurant="{{ business_json|json_encode|e('html_attr') }}"></div>
+  data-business="{{ business_json|json_encode|e('html_attr') }}"
+     data-cart="{{ cart_json|json_encode|e('html_attr') }}"
+     data-times="{{ times|json_encode|e('html_attr') }}"></div>
 
 <div id="js-addresses-data"
   data-addresses="{{ addresses_normalized|json_encode|e('html_attr') }}"></div>
+
+
 
 {% endblock %}
 

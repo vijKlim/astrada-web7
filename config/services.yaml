@@ -624,6 +624,10 @@ services:
 
   astrada.email_manager: '@App\Service\EmailManager'
 
+  App\Service\CartProviderService:
+    arguments:
+      $country: "%country_iso%"
+
   App\ExpressionLanguage\PriceRangeExpressionLanguageProvider: ~
 
   App\ExpressionLanguage\ExpressionLanguage:

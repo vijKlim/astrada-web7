@@ -157,7 +157,7 @@ admin_business_product_option_preview:
   methods: [ POST ]
 
 admin_business_service_taxons:
-  path: /admin/business/{id}/services
+  path: /admin/businesses/{id}/services
   defaults:
     _controller: App\Controller\AdminController::businessServiceTaxonsAction
     layout: 'admin.html.twig'
