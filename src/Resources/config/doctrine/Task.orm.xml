@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd" xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+  <entity repository-class="App\Entity\TaskRepository" name="App\Entity\Task" table="task">
+
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="type" type="string" column="type" nullable="false"/>
+    <field name="status" type="string" column="status" nullable="false"/>
+    <field name="doneAfter" type="datetime" column="done_after" nullable="false"/>
+    <field name="doneBefore" type="datetime" column="done_before" nullable="false"/>
+    <field name="comments" type="text" column="comments" nullable="true"/>
+
+    <field name="metadata" type="json_array" column="metadata" nullable="true"/>
+
+    <field name="createdAt" type="datetime" column="created_at">
+      <gedmo:timestampable on="create"/>
+    </field>
+    <field name="updatedAt" type="datetime" column="updated_at">
+      <gedmo:timestampable on="update"/>
+    </field>
+    <many-to-one field="previous" target-entity="App\Entity\Task">
+      <join-columns>
+        <join-column name="previous_task_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <one-to-one field="next" target-entity="App\Entity\Task">
+      <join-columns>
+        <join-column name="next_task_id" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+
+    <many-to-one field="delivery" target-entity="App\Entity\Delivery">
+      <join-columns>
+        <join-column name="delivery_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="address" target-entity="App\Entity\Address" fetch="EAGER">
+      <cascade>
+        <cascade-persist/>
+      </cascade>
+      <join-columns>
+        <join-column name="address_id" referenced-column-name="id" nullable="false"/>
+      </join-columns>
+    </many-to-one>
+    <entity-listeners>
+      <entity-listener class="App\Entity\Listener\TaskListener">
+        <lifecycle-callback type="prePersist" method="prePersist"/>
+      </entity-listener>
+    </entity-listeners>
+  </entity>
+</doctrine-mapping>

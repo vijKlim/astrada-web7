@@ -4,6 +4,9 @@
 namespace App\Command;
 
 use App\Entity;
+use App\Enum\DrillingKit;
+use App\Enum\OwnerType;
+use App\Enum\PipeDiameter;
 use App\Faker\AddressProvider;
 use App\Faker\BusinessProvider;
 use App\Faker\ListingProvider;
@@ -22,6 +25,7 @@ use Geocoder\StatefulGeocoder;
 use GuzzleHttp\Client as GuzzleClient;
 use Http\Adapter\Guzzle6\Client;
 use League\Geotools\Coordinate\Coordinate;
+use League\Flysystem\Filesystem;
 use libphonenumber\PhoneNumberUtil;
 use Nucleos\UserBundle\Util\UserManipulator;
 use Redis;
@@ -33,6 +37,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Lock\Store\FlockStore;
+use Vich\UploaderBundle\Mapping\PropertyMappingFactory;
 
 class InitDemoCommand extends Command
 {
@@ -44,6 +49,9 @@ class InitDemoCommand extends Command
     private $userManipulator;
     private $taxonFactory;
     private $phoneNumberUtil;
+    private $businessFilesystem;
+    private $mappingFactory;
+
     private $batchSize = 10;
     private $excludedTables = [
         'craue_config_setting',
@@ -85,7 +93,9 @@ class InitDemoCommand extends Command
         PhoneNumberUtil $phoneNumberUtil,
         Geocoder $geocoder,
         string $country,
-        string $defaultLocale)
+        string $defaultLocale,
+        Filesystem $businessFilesystem,
+        PropertyMappingFactory $mappingFactory)
     {
         $this->doctrine = $doctrine;
         $this->fixturesLoader = $fixturesLoader;
@@ -99,6 +109,8 @@ class InitDemoCommand extends Command
         $this->geocoder = $geocoder;
         $this->country = $country;
         $this->defaultLocale = $defaultLocale;
+        $this->businessFilesystem = $businessFilesystem;
+        $this->mappingFactory = $mappingFactory;
 
         parent::__construct();
     }
@@ -149,7 +161,7 @@ class InitDemoCommand extends Command
             }
 
             $output->writeln('Creating users…');
-            for ($i = 1; $i <= 50; $i++) {
+            for ($i = 1; $i <= 5; $i++) {
                 $username = "user_{$i}";
                 $user = $this->createUser($username, ['password' => $username]);
                 $user->addAddress($this->faker->randomAddress);
@@ -168,6 +180,8 @@ class InitDemoCommand extends Command
             $lock->release();
         }
 
+
+        $this->createBusinessImages();
 
         return 0;
     }
@@ -191,6 +205,8 @@ class InitDemoCommand extends Command
 
         $phoneNumber = $this->phoneNumberUtil->getExampleNumber(strtoupper($this->country));
 
+
+        $business->setOwnerType(OwnerType::LEGAL_ENTITY);
         $business->setEnabled(true);
         $business->setTelephone($phoneNumber);
         $business->setAddress($address);
@@ -200,12 +216,26 @@ class InitDemoCommand extends Command
         $business->addOpeningHour('Sa-Su ' . $this->createRandomTimeRange('08:30', '15:30'));
         $business->addOpeningHour('Sa-Su ' . $this->createRandomTimeRange('19:00', '01:30'));
 
-        foreach ($business->getFulfillmentMethods() as $fulfillmentMethod) {
-            $fulfillmentMethod->setMinimumAmount(1500);
-        }
+//        foreach ($business->getFulfillmentMethods() as $fulfillmentMethod) {
+//            $fulfillmentMethod->setMinimumAmount(1500);
+//        }
 
 
-        $listings = $this->createListings(rand(12, 50));
+
+
+//        if ($stream = fopen('https://img.promportal.su/foto/good_fotos/131/1315545/burovaya-ustanovka-dlya-bureniya-skvazhin-na-vodu-teplo-zemli_foto_largest.jpg', 'r')) {
+//            $filename = substr(md5(openssl_random_pseudo_bytes(20)),-10).'_burovaya-ustanovka.jpg';
+//
+//            // Invoke VichUploaderBundle's directory namer
+//            $propertyMapping = $this->mappingFactory->fromField($business, 'imageFile');
+//            $directoryNamer = $propertyMapping->getDirectoryNamer();
+//            $directoryName = $directoryNamer->directoryName($business, $propertyMapping);
+//            $this->businessFilesystem->writeStream(sprintf('%s/%s', $directoryName, $filename), $stream);
+//            $business->setImageName($filename);
+//        }
+
+
+        $listings = $this->createListings(rand(1, 3));
 
         foreach ($listings as $listing){
             $business->addListing($listing);
@@ -220,7 +250,7 @@ class InitDemoCommand extends Command
 
         $em = $this->doctrine->getManagerForClass(Entity\LocalBusiness::class);
 
-        for ($i = 1; $i <= 50; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
 
             $business = $this->createBusiness($this->faker->randomAddress);
 
@@ -246,6 +276,33 @@ class InitDemoCommand extends Command
         $em->flush();
     }
 
+    private function createBusinessImages()
+    {
+        $em = $this->doctrine->getManagerForClass(Entity\LocalBusiness::class);
+        $businessRepository = $em->getRepository(Entity\LocalBusiness::class);
+        foreach ($businessRepository->findAll() as $i=>$business){
+            if ($stream = fopen('https://img.promportal.su/foto/good_fotos/131/1315545/burovaya-ustanovka-dlya-bureniya-skvazhin-na-vodu-teplo-zemli_foto_largest.jpg', 'r')) {
+
+                // е работает когда хеш:               $filename = substr(md5(openssl_random_pseudo_bytes(20)),-10).'_burovaya-ustanovka.jpg';
+                $filename = $i.'_burov-ustanovka.jpg';
+
+                // Invoke VichUploaderBundle's directory namer
+                $propertyMapping = $this->mappingFactory->fromField($business, 'imageFile');
+                $directoryNamer = $propertyMapping->getDirectoryNamer();
+                $directoryName = $directoryNamer->directoryName($business, $propertyMapping);
+
+                $answer = $this->businessFilesystem->writeStream(sprintf('%s/%s', $directoryName, $filename), $stream);
+                var_dump($business->getId(),sprintf('%s/%s', $directoryName, $filename), $answer);
+                $business->setImageName($filename);
+
+                $em->persist($business);
+            }
+        }
+
+        $em->flush();
+    }
+
+
     private function createListing(Entity\Address $address)
     {
         $uaListing = new Entity\ListingTranslation();
@@ -261,6 +318,15 @@ class InitDemoCommand extends Command
         $listing->setCertified(1);
         $listing->setAddress($address);
 
+        $welldesign = new Entity\Welldesign();
+        $welldesign->setDepthTo(0);
+        $welldesign->setDepthFrom(0);
+        $welldesign->setDrillingKit(DrillingKit::BA15);
+        $welldesign->setPipeDiameter(PipeDiameter::D050MM);
+        $welldesign->setWellCost(0);
+        $welldesign->setTransportationCost(0);
+
+        $listing->setWelldesign($welldesign);
 
         return $listing;
     }

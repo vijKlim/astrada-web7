@@ -9,6 +9,7 @@ oneup_uploader:
         image/jpg: []
         image/jpeg: []
         image/png: []
+        image/jfif: []
     listing:
       frontend: dropzone
       storage:
@@ -18,6 +19,7 @@ oneup_uploader:
         image/jpg: []
         image/jpeg: []
         image/png: []
+        image/jfif: []
     product:
       frontend: dropzone
       storage:
@@ -27,6 +29,7 @@ oneup_uploader:
         image/jpg: []
         image/jpeg: []
         image/png: []
+        image/jfif: []
     logo:
       frontend: dropzone
       storage:

@@ -75,6 +75,7 @@
 * docker-compose exec php  composer require nyholm/psr7
 * docker-compose exec php  composer require craue/formflow-bundle
 * docker-compose exec php  composer require --dev phpspec/prophecy-phpunit
+* docker-compose exec php  composer require knplabs/knp-markdown-bundle
 
 
 # Geocoder and tricks maps

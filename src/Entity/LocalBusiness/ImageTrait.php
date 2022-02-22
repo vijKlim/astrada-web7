@@ -14,7 +14,7 @@ trait ImageTrait
      * @Vich\UploadableField(mapping="business_image", fileNameProperty="imageName")
      * @Assert\File(
      *   maxSize = "1024k",
-     *   mimeTypes = {"image/jpg", "image/jpeg", "image/png"}
+     *   mimeTypes = {"image/jpg", "image/jpeg", "image/png", "image/jfif"}
      * )
      * @var File
      */

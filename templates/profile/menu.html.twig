@@ -34,18 +34,11 @@
         {% endif %}
       </ul>
 
-      {% set default_locale = 'en' %}
+      {% set default_locale = 'ua' %}
       {% set locales = {
-        'an': 'Aragonés',
-        'ca': 'Català',
-        'de': 'Deutsch',
+        'ua': 'Ukraine',
+        'ru': 'Russian',
         'en': 'English',
-        'es': 'Español',
-        'eu': 'Euskara',
-        'fr': 'Français',
-        'it': 'Italiano',
-        'pl': 'Polski',
-        'pt-BR': 'Português (Brasil)',
       } %}
       {% set current_locale = default_locale %}
       {% if locales[app.request.locale] is defined %}

@@ -15,12 +15,10 @@
 <div class="container">
 
   {% block business_nav %}
-      <div class="homepage-businesses__show-more text-left mb-4">
-          <a class="business-show-more" href="{{ path('businesses') }}">
-              <i class="fa fa-arrow-left mr-2"></i>
-              <span>{% trans %}index.view_all_businesses{% endtrans %}</span>
-          </a>
-      </div>
+      <a class="business-show-more" href="{{ path('businesses') }}">
+          <i class="fa fa-arrow-left mr-2"></i>
+          <span>{% trans %}index.view_all_businesses{% endtrans %}</span>
+      </a>
   {% endblock %}
 
 

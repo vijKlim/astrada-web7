@@ -12,7 +12,7 @@ services:
     ports:
       - '54321:5432'
     volumes:
-      - 'pg_data:/var/lib/postgresql/data'
+      - 'pg4_data:/var/lib/postgresql/data'
 
   redis:
     restart: always
@@ -252,7 +252,7 @@ services:
 volumes:
   node_modules_node:
   node_modules_webpack:
-  pg_data:
+  pg4_data:
   php_cache:
   minio_data:
   typesense_data:
