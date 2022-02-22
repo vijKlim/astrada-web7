@@ -61,30 +61,31 @@
         <hr />
 
         <div class="form-horizontal">
-            <div class="form-group">
-                {{ form_label(form.minimumAmount, null, { label_attr: { class: 'col-sm-7' } }) }}
-                <div class="col-sm-5">
-                    {{ form_widget(form.minimumAmount) }}
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-7 control-label">{{ 'localBusiness.form.orderingDelayMinutes'|trans }}</label>
-                <div class="col-sm-5">
-                    <div class="d-flex">
-                        <div class="input-group mr-4">
-                            {{ form_widget(form.orderingDelayDays, { attr: { size: 2 } }) }}
-                            <span class="input-group-addon"><small>{{ form.orderingDelayDays.vars.label|trans }}</small></span>
-                        </div>
-                        <div class="input-group">
-                            {{ form_widget(form.orderingDelayHours, { attr: { size: 2 } }) }}
-                            <span class="input-group-addon"><small>{{ form.orderingDelayHours.vars.label|trans }}</small></span>
-                        </div>
-                    </div>
-                    <span class="help-block mb-0">
-          {{ 'localBusiness.form.orderingDelayMinutes.help'| trans }}
-        </span>
-                </div>
-            </div>
+{#            <div class="form-group">#}
+{#                {{ form_label(form.minimumAmount, null, { label_attr: { class: 'col-sm-7' } }) }}#}
+{#                <div class="col-sm-5">#}
+{#                    {{ form_widget(form.minimumAmount) }}#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="form-group">#}
+{#                <label class="col-sm-7 control-label">{{ 'localBusiness.form.orderingDelayMinutes'|trans }}</label>#}
+{#                <div class="col-sm-5">#}
+{#                    <div class="d-flex">#}
+{#                        <div class="input-group mr-4">#}
+{#                            {{ form_widget(form.orderingDelayDays, { attr: { size: 2 } }) }}#}
+{#                            <span class="input-group-addon"><small>{{ form.orderingDelayDays.vars.label|trans }}</small></span>#}
+{#                        </div>#}
+{#                        <div class="input-group">#}
+{#                            {{ form_widget(form.orderingDelayHours, { attr: { size: 2 } }) }}#}
+{#                            <span class="input-group-addon"><small>{{ form.orderingDelayHours.vars.label|trans }}</small></span>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <span class="help-block mb-0">#}
+{#          {{ 'localBusiness.form.orderingDelayMinutes.help'| trans }}#}
+{#        </span>#}
+{#                </div>#}
+{#            </div>#}
+
             {% if method == 'delivery' and form.rangeDuration is defined %}
                 <div class="form-group">
                     {{ form_label(form.rangeDuration, null, { label_attr: { class: 'col-sm-7' } }) }}
@@ -93,12 +94,12 @@
                     </div>
                 </div>
             {% endif %}
-            <div class="form-group">
-                <div class="col-sm-offset-7 col-sm-5">
-                    {{ form_widget(form.preOrderingAllowed) }}
-                    {{ form_help(form.preOrderingAllowed) }}
-                </div>
-            </div>
+{#            <div class="form-group">#}
+{#                <div class="col-sm-offset-7 col-sm-5">#}
+{#                    {{ form_widget(form.preOrderingAllowed) }}#}
+{#                    {{ form_help(form.preOrderingAllowed) }}#}
+{#                </div>#}
+{#            </div>#}
             {% if method == 'delivery' and form.allowEdit is defined %}
                 <div class="form-group">
                     <div class="col-sm-offset-7 col-sm-5">

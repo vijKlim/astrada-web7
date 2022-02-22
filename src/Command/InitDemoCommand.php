@@ -37,6 +37,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Lock\Store\FlockStore;
+use Vich\UploaderBundle\Mapping\PropertyMappingFactory;
 
 class InitDemoCommand extends Command
 {
@@ -49,6 +50,8 @@ class InitDemoCommand extends Command
     private $taxonFactory;
     private $phoneNumberUtil;
     private $businessFilesystem;
+    private $mappingFactory;
+
     private $batchSize = 10;
     private $excludedTables = [
         'craue_config_setting',
@@ -91,7 +94,8 @@ class InitDemoCommand extends Command
         Geocoder $geocoder,
         string $country,
         string $defaultLocale,
-        Filesystem $businessFilesystem)
+        Filesystem $businessFilesystem,
+        PropertyMappingFactory $mappingFactory)
     {
         $this->doctrine = $doctrine;
         $this->fixturesLoader = $fixturesLoader;
@@ -106,6 +110,7 @@ class InitDemoCommand extends Command
         $this->country = $country;
         $this->defaultLocale = $defaultLocale;
         $this->businessFilesystem = $businessFilesystem;
+        $this->mappingFactory = $mappingFactory;
 
         parent::__construct();
     }
@@ -176,6 +181,8 @@ class InitDemoCommand extends Command
         }
 
 
+        $this->createBusinessImages();
+
         return 0;
     }
 
@@ -213,11 +220,19 @@ class InitDemoCommand extends Command
 //            $fulfillmentMethod->setMinimumAmount(1500);
 //        }
 
-        if ($stream = fopen('https://img.promportal.su/foto/good_fotos/131/1315545/burovaya-ustanovka-dlya-bureniya-skvazhin-na-vodu-teplo-zemli_foto_largest.jpg', 'r')) {
-            $filename = substr(md5(openssl_random_pseudo_bytes(20)),-10).'_burovaya-ustanovka.jpg';
-            $this->businessFilesystem->writeStream($filename, $stream);
-            $business->setImageName($filename);
-        }
+
+
+
+//        if ($stream = fopen('https://img.promportal.su/foto/good_fotos/131/1315545/burovaya-ustanovka-dlya-bureniya-skvazhin-na-vodu-teplo-zemli_foto_largest.jpg', 'r')) {
+//            $filename = substr(md5(openssl_random_pseudo_bytes(20)),-10).'_burovaya-ustanovka.jpg';
+//
+//            // Invoke VichUploaderBundle's directory namer
+//            $propertyMapping = $this->mappingFactory->fromField($business, 'imageFile');
+//            $directoryNamer = $propertyMapping->getDirectoryNamer();
+//            $directoryName = $directoryNamer->directoryName($business, $propertyMapping);
+//            $this->businessFilesystem->writeStream(sprintf('%s/%s', $directoryName, $filename), $stream);
+//            $business->setImageName($filename);
+//        }
 
 
         $listings = $this->createListings(rand(1, 3));
@@ -260,6 +275,33 @@ class InitDemoCommand extends Command
 
         $em->flush();
     }
+
+    private function createBusinessImages()
+    {
+        $em = $this->doctrine->getManagerForClass(Entity\LocalBusiness::class);
+        $businessRepository = $em->getRepository(Entity\LocalBusiness::class);
+        foreach ($businessRepository->findAll() as $i=>$business){
+            if ($stream = fopen('https://img.promportal.su/foto/good_fotos/131/1315545/burovaya-ustanovka-dlya-bureniya-skvazhin-na-vodu-teplo-zemli_foto_largest.jpg', 'r')) {
+
+                // е работает когда хеш:               $filename = substr(md5(openssl_random_pseudo_bytes(20)),-10).'_burovaya-ustanovka.jpg';
+                $filename = $i.'_burov-ustanovka.jpg';
+
+                // Invoke VichUploaderBundle's directory namer
+                $propertyMapping = $this->mappingFactory->fromField($business, 'imageFile');
+                $directoryNamer = $propertyMapping->getDirectoryNamer();
+                $directoryName = $directoryNamer->directoryName($business, $propertyMapping);
+
+                $answer = $this->businessFilesystem->writeStream(sprintf('%s/%s', $directoryName, $filename), $stream);
+                var_dump($business->getId(),sprintf('%s/%s', $directoryName, $filename), $answer);
+                $business->setImageName($filename);
+
+                $em->persist($business);
+            }
+        }
+
+        $em->flush();
+    }
+
 
     private function createListing(Entity\Address $address)
     {

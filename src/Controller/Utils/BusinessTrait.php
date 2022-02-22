@@ -10,6 +10,7 @@ use App\Entity\LocalBusiness;
 use App\Entity\Sylius\Product;
 use App\Entity\Sylius\ProductTaxon;
 use App\Entity\Sylius\TaxonRepository;
+use App\Enum\OwnerType;
 use App\Form\BusinessType;
 use App\Form\ProductOptionType;
 use App\Form\ProductType;
@@ -86,7 +87,7 @@ trait BusinessTrait
     {
         // TODO Check roles
         $business = new LocalBusiness();
-
+        $business->setOwnerType(OwnerType::LEGAL_ENTITY);
         return $this->renderBusinessForm($business, $request, $validator, $jwtEncoder, $iriConverter, $translator);
     }
 

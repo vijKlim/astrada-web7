@@ -3,6 +3,13 @@
 
 namespace App\Validator\Constraints;
 
+use App\OpeningHours\SchemaDotOrgParser;
+use Spatie\OpeningHours\Exceptions\OverlappingTimeRanges;
+use Spatie\OpeningHours\OpeningHours;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Validation;
 
 class NotOverlappingOpeningHoursValidator extends ConstraintValidator
 {

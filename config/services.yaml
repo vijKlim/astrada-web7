@@ -444,6 +444,7 @@ services:
       $country: "%country_iso%"
       $defaultLocale: "%env(ASTRADA_LOCALE)%"
       $businessFilesystem: '@business_images_filesystem'
+      $mappingFactory: '@vich_uploader.property_mapping_factory'
     tags:
       - { name: 'console.command', command: 'astrada:demo:init' }
 
