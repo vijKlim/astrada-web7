@@ -847,7 +847,7 @@ admin.settings.missing_mandatory_settings: "Обов’язкові налашт
 index.map.tip: використовуйте карту нижче, щоб знайти ресторани
 index.banner: Смачна їжа, доставлена ​​додому.
 index.our_restaurants: Наші ресторани
-index.view_all_restaurants: переглянути всі ресторани
+index.view_all_businesses: переглянути всі компанії
 index.our_shops: Наші магазини
 index.view_all_shops: Переглянути всі магазини
 notifications.empty: жодних повідомлень
