@@ -21,7 +21,7 @@
       </a>
   {% endblock %}
 
-
+  {% set cart = cart_provider.getCart() %}
 
   {% if not business.isOpen %}
     {% set closingRule = business.matchClosingRuleFor %}

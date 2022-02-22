@@ -83,6 +83,12 @@ class SetupCommand extends Command
         'ru'
     ];
 
+    private $channels = [
+        'web' => 'Web',
+        'app' => 'App',
+        'pro' => 'Pro'
+    ];
+
     private $currencies = [
         'EUR',
         'USD',
@@ -101,6 +107,8 @@ class SetupCommand extends Command
         FactoryInterface $productAttributeValueFactory,
         RepositoryInterface $localeRepository,
         FactoryInterface $localeFactory,
+        ChannelRepositoryInterface $channelRepository,
+        ChannelFactoryInterface $channelFactory,
         RepositoryInterface $currencyRepository,
         FactoryInterface $currencyFactory,
         SlugifyInterface $slugify,
@@ -128,6 +136,9 @@ class SetupCommand extends Command
 
         $this->localeRepository = $localeRepository;
         $this->localeFactory = $localeFactory;
+
+        $this->channelRepository = $channelRepository;
+        $this->channelFactory = $channelFactory;
 
         $this->currencyRepository = $currencyRepository;
         $this->currencyFactory = $currencyFactory;
@@ -159,6 +170,11 @@ class SetupCommand extends Command
         $output->writeln('<info>Checking Sylius locales are present…</info>');
         foreach ($this->locales as $locale){
             $this->createSyliusLocale($locale, $output);
+        }
+
+        $output->writeln('<info>Checking Sylius channels are present…</info>');
+        foreach ($this->channels as $channelCode => $channelName) {
+            $this->createSyliusChannel($channelCode, $channelName, $output);
         }
 
         $output->writeln('<info>Checking Sylius currencies are present…</info>');
@@ -194,6 +210,23 @@ class SetupCommand extends Command
         $this->localeRepository->add($locale);
 
         $output->writeln(sprintf('Sylius locale "%s" created', $code));
+    }
+
+    private function createSyliusChannel($code, $name, OutputInterface $output)
+    {
+        $channel = $this->channelRepository->findOneByCode($code);
+
+        if (null !== $channel) {
+            $output->writeln(sprintf('Sylius channel "%s" already exists', $code));
+            return;
+        }
+
+        $channel = $this->channelFactory->createNamed($name);
+        $channel->setCode($code);
+
+        $this->channelRepository->add($channel);
+
+        $output->writeln(sprintf('Sylius channel "%s" created', $code));
     }
 
     private function createSyliusCurrency($code, OutputInterface $output)

@@ -209,8 +209,9 @@ class BusinessController extends AbstractController
      * )
      */
     public function indexAction($type, $id, $slug, Request $request,
-                                SlugifyInterface $slugify,
-                                Address $address = null)
+        CartContextInterface $cartContext,
+        SlugifyInterface $slugify,
+        Address $address = null)
     {
         $business = $this->getDoctrine()
             ->getRepository(LocalBusiness::class)->find($id);
@@ -235,8 +236,33 @@ class BusinessController extends AbstractController
             ], Response::HTTP_MOVED_PERMANENTLY);
         }
 
+        $cart = $cartContext->getCart();
+
+        if (null !== $address) {
+            $cart->setShippingAddress($address);
+
+            $this->orderManager->persist($cart);
+            $this->orderManager->flush();
+        }
+
+        $cartForm = $this->createForm(CartType::class, $cart);
+
+        if ($request->isMethod('POST')) {
+
+            $cartForm->handleRequest($request);
+
+            // The cart is valid, and the user clicked on the submit button
+            if ($cartForm->isValid()) {
+
+                $this->orderManager->flush();
+
+                return $this->redirectToRoute('order');
+            }
+        }
+
         return $this->render('business/index.html.twig', array(
             'business' => $business,
+            'cart_form' => $cartForm->createView(),
             'addresses_normalized' => $this->getUserAddresses(),
         ));
     }
