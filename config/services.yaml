@@ -265,6 +265,9 @@ services:
   App\Form\Type\PriceType:
     tags: [ form.type ]
 
+  App\Form\Order\CartType:
+    tags: [ form.type ]
+
   App\Form\BusinessType:
     arguments:
       $country: '%country_iso%'
@@ -873,6 +876,12 @@ services:
     class: App\Sylius\OrderProcessing\OrderOptionsProcessor
     arguments:
       $adjustmentFactory: "@sylius.factory.adjustment"
+
+  sylius.order_processing.order_payment_processor:
+    class: App\Sylius\OrderProcessing\OrderPaymentProcessor
+    tags:
+      - { name: sylius.order_processor, priority: 16 }
+
 
   phpcent\Client:
     arguments:

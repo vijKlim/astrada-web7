@@ -2,10 +2,10 @@
 
 namespace App\Sylius\Order;
 
-use AppBundle\DataType\TsRange;
-use AppBundle\Entity\Delivery;
-use AppBundle\Entity\LocalBusiness;
-use AppBundle\Sylius\Customer\CustomerInterface;
+use App\DataType\TsRange;
+use App\Entity\Delivery;
+use App\Entity\LocalBusiness;
+use App\Sylius\Customer\CustomerInterface;
 use AppBundle\Sylius\Product\ProductVariantFactory;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;

@@ -2,6 +2,7 @@
 
 namespace App\Sylius\Cart;
 use App\Sylius\Order\OrderInterface;
+use Doctrine\ORM\EntityNotFoundException;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Order\Context\CartContextInterface;
 use Sylius\Component\Order\Context\CartNotFoundException;

@@ -23,13 +23,13 @@ class BusinessResolver
     private $entityManager;
 
     private static $routes = [
-        'restaurant',
-        'restaurant_cart_address',
-        'restaurant_add_product_to_cart',
-        'restaurant_cart_clear_time',
-        'restaurant_modify_cart_item_quantity',
-        'restaurant_remove_from_cart',
-        'restaurant_cart',
+        'business',
+        'business_cart_address',
+        'business_add_product_to_cart',
+        'business_cart_clear_time',
+        'business_modify_cart_item_quantity',
+        'business_remove_from_cart',
+        'business_cart',
     ];
 
     /**
